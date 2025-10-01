@@ -358,7 +358,7 @@ const ScanResult = ({ result, onBook }) => (
                             </div>
                             {index < result.roadmap.length - 1 && <div className="w-px h-12 bg-border" />}
                         </div>
-                        <Card className="flex-1 glassmorphism p-3">
+                        <Card className="flex-1 glassmorphism p-3 timeline-card-glow" style={{ animationDelay: `${index * 100}ms` }}>
                            <p className="font-semibold text-white">{item.title}</p>
                            <p className="text-sm text-muted-foreground">{item.details}</p>
                            {item.doctorId && <Button size="sm" className="mt-2" onClick={() => onBook(dummyDoctors.find(d => d.doctorId === item.doctorId))}>Book with Specialist</Button>}
@@ -412,3 +412,4 @@ const SuggestedDoctor = ({ doctor, onBook }) => {
     
 
     
+

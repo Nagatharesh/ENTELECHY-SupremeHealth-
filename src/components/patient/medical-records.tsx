@@ -80,16 +80,16 @@ const EncounterCard = ({ record, patient, index }: { record: MedicalEncounter, p
             <div className="timeline-point-glow">
                 <RecordIcon type={record.department} />
             </div>
-            <Card className="glassmorphism timeline-card-glow" style={{ animationDelay: `${index * 100}ms`, transform: `perspective(1000px) rotateY(-5deg) translateZ(${index * -10}px)` }}>
+            <Card className="glassmorphism timeline-card-glow" style={{ animationDelay: `${index * 100}ms` }}>
                 <CardHeader>
                     <div className="flex justify-between items-start">
                         <div>
                             <CardTitle className="text-lg text-gradient-glow">{record.department}</CardTitle>
-                            <CardDescription>
+                            <p className="text-sm text-muted-foreground">
                                 {new Date(record.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                                 {' \u2022 '}
                                 {getDoctorName(record.doctor)}
-                            </CardDescription>
+                            </p>
                         </div>
                          {record.department.toLowerCase() === 'emergency' && <Badge variant="destructive">Urgent</Badge>}
                     </div>
