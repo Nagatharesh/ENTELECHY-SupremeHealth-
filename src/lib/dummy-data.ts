@@ -1,5 +1,4 @@
 
-
 export const dummyDoctors = [
     {
       "doctorId": "DOC-001",
@@ -120,43 +119,47 @@ export const dummyAmbulances = [
 export const dummyPatients = [
   {
     "patientId": "PAT-20251001-0001",
-    "name": "Rohit Sharma",
-    "phone": "+919999900001",
-    "email": "rohit.sharma@example.com",
-    "dob": "1988-03-15",
+    "name": "Rahul Sharma",
+    "phone": "+919876543210",
+    "email": "rahul.sharma@example.com",
+    "dob": "1992-07-22",
     "gender": "Male",
     "aadhaar": "XXXX-XXXX-1234",
-    "address": { "street": "123, Marine Drive", "city": "Mumbai", "state": "MH", "zip": "400020" },
+    "address": { "street": "45, Green Park", "city": "New Delhi", "state": "DL", "zip": "110016" },
     "bloodGroup": "O+",
-    "medicalSummary": "Hypertension, Allergic to Penicillin",
+    "medicalSummary": "Mild asthma, no known drug allergies. Recommended for regular cardiovascular exercises.",
     "emergencyContact": { "name": "Priya Sharma", "phone": "+919888800001" },
     "insurance": { "policyId": "INS-A01", "provider": "Star Health", "startDate": "2024-01-01", "endDate": "2025-01-01", "termsUrl": "#" },
     "vitals": {
-      "heartRate": [72, 75, 78, 74, 73, 76, 77],
-      "bloodPressure": ["120/80","122/82","121/81","119/79","118/78","120/80","121/81"],
+      "heartRate": [78, 80, 81, 79, 85, 82, 82],
+      "bloodPressure": ["125/80","126/82","128/81","127/83","130/85","128/84","128/84"],
       "bloodSugar": [95, 98, 100, 97, 96, 99, 101],
-      "oxygenSaturation": [98, 97, 97, 98, 98, 97, 98]
+      "oxygenSaturation": [97, 97, 98, 97, 96, 98, 97],
+      "temperature": 36.7,
+      "bmi": 24.3
     },
     "appointments": [
-      {"appointmentId": "APP-001", "date": "2025-10-05", "doctorId": "DOC-001", "hospitalId": "HOS-001", "status": "booked"},
-      {"appointmentId": "APP-002", "date": "2025-10-15", "doctorId": "DOC-002", "hospitalId": "HOS-002", "status": "booked", "urgent": true}
+      {"appointmentId": "APP-001", "date": "2025-10-05", "doctorId": "DOC-001", "hospitalId": "HOS-002", "status": "booked"},
+      {"appointmentId": "APP-002", "date": "2025-10-15", "doctorId": "DOC-004", "hospitalId": "HOS-004", "status": "booked", "urgent": true}
     ],
     "predictions": {
-      "vitalsNext7Days": {"heartRate": [73,74,75,76,75,74,73], "bloodPressure": ["121/80","122/81","120/79","121/80","122/81","120/79","121/80"]},
-      "appointmentProbability": [0.8,0.7,0.9,0.6,0.75,0.85,0.9],
-      "medicationAdherence": [0.95,0.97,0.93,0.96,0.94,0.95,0.96]
+      "vitalsNext7Days": {"heartRate": [80, 81, 79, 82, 83, 81, 80], "bloodPressure": ["128/82","127/81","129/83","130/84","128/82","129/83","128/82"]},
+      "appointmentProbability": [0.3,0.4,0.3,0.5,0.4,0.3,0.4],
+      "medicationAdherence": [0.95,0.97,0.93,0.96,0.94,0.95,0.96],
+      "risk": {
+        "hypertension": "Medium",
+        "diabetes": "Low",
+        "heartDisease": "Medium"
+      }
     },
     "medicalRecords": [
-        {"recordId": "REC-001", "date": "2025-09-20", "type": "Consultation", "details": "Routine checkup. BP slightly elevated.", "doctorId": "DOC-001"},
-        {"recordId": "REC-002", "date": "2025-07-11", "type": "Lab Test", "details": "Lipid profile. Results normal.", "doctorId": "DOC-001"},
-        {"recordId": "REC-003", "date": "2025-05-02", "type": "Procedure", "details": "Prescribed Amlodipine for hypertension.", "doctorId": "DOC-001"}
+        {"recordId": "REC-001", "date": "2024-09-20", "type": "Consultation", "details": "Diagnosed with mild asthma at age 12. Seasonal allergies.", "doctorId": "DOC-001"},
+        {"recordId": "REC-002", "date": "2024-07-11", "type": "Vaccination", "details": "COVID-19 (2 doses + booster), Tetanus (up to date), Annual flu vaccine", "doctorId": "DOC-001"}
     ],
     "prescriptions": [
-        {"prescriptionId": "PRE-001", "date": "2025-05-02", "doctorId": "DOC-001", "medicines": [{"medicineId": "MED-001", "dosage": "5mg OD"}]}
+        {"prescriptionId": "PRE-001", "date": "2024-09-20", "doctorId": "DOC-001", "medicines": [{"medicineId": "MED-009", "dosage": "As needed for shortness of breath"}]}
     ],
-    "radiologyReports": [
-        {"reportId": "RAD-001", "date": "2024-11-10", "type": "Chest X-Ray", "summary": "Lungs are clear. No abnormalities detected.", "imageUrl": "https://picsum.photos/seed/rad1/600/400"}
-    ]
+    "radiologyReports": []
   },
   {
     "patientId": "PAT-20251001-0002",
@@ -480,3 +483,5 @@ export type Doctor = typeof dummyDoctors[0];
 export type Hospital = typeof dummyHospitals[0];
 export type Medicine = typeof dummyMedicines[0];
 export type Ambulance = typeof dummyAmbulances[0];
+
+    
