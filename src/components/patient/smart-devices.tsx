@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { Smartphone, Watch, Battery, Zap, AlertTriangle, ShieldAlert, Wifi, WifiOff, RefreshCw } from 'lucide-react';
 import { Smartwatch } from '@/components/icons/smartwatch';
 import { BarChart, Bar, AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Line, LineChart } from 'recharts';
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
 const dummyDevices = [
     { name: 'Fitbit Charge 6', type: 'Watch', manufacturer: 'Fitbit', battery: 80, lastSync: '09:20 AM', connected: false, id: 'fitbit' },
@@ -161,7 +161,7 @@ const DeviceCard = ({ device, onConnect }) => (
         <div className="flex items-center gap-4">
             <Smartwatch className="w-8 h-8 text-primary" />
             <div>
-                <p className="font-bold text-white">{device.name}</p>
+                <div className="font-bold text-white">{device.name}</div>
                 <div className="text-sm text-muted-foreground">{device.manufacturer} - <Badge variant="outline">{device.type}</Badge></div>
             </div>
         </div>
@@ -222,23 +222,27 @@ const MetricCard = ({ metric, value, unit }) => {
 const MetricChart = ({ title, data, dataKey, color, type = 'line' }) => {
     const ChartComponent = type === 'line' ? LineChart : BarChart;
     const PathComponent = type === 'line' ? Line : Bar;
+    const chartConfig = {
+      [dataKey]: {
+        label: title,
+        color: color,
+      },
+    } satisfies ChartConfig;
+
     return (
         <Card className="glassmorphism p-4 h-64 glowing-shadow">
             <h3 className="text-white font-semibold mb-4">{title}</h3>
-            <ResponsiveContainer width="100%" height="100%">
-                <ChartComponent data={data} margin={{ top: 5, right: 20, left: -10, bottom: -10 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
-                    <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                    <Tooltip content={<ChartTooltipContent indicator="dot" />} cursor={false} wrapperStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)'}}/>
-                    <PathComponent type="monotone" dataKey={dataKey} stroke={color} fill={color} strokeWidth={2} dot={false} barSize={20} radius={type === 'bar' ? [4, 4, 0, 0] : 0} />
-                </ChartComponent>
-            </ResponsiveContainer>
+            <ChartContainer config={chartConfig} className="w-full h-full">
+                <ResponsiveContainer width="100%" height="100%">
+                    <ChartComponent data={data} margin={{ top: 5, right: 20, left: -10, bottom: -10 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <Tooltip content={<ChartTooltipContent indicator="dot" />} cursor={false} wrapperStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)'}}/>
+                        <PathComponent type="monotone" dataKey={dataKey} stroke={color} fill={color} strokeWidth={2} dot={false} barSize={20} radius={type === 'bar' ? [4, 4, 0, 0] : 0} />
+                    </ChartComponent>
+                </ResponsiveContainer>
+            </ChartContainer>
         </Card>
     );
 };
-
-
-
-
-    
