@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Patient } from "@/lib/dummy-data";
@@ -18,6 +19,13 @@ export function PatientProfile({ patient }: { patient: Patient }) {
     }
     return age;
   }
+  
+  const handleAmbulanceClick = () => {
+    // This is a placeholder. The parent dashboard component will handle switching the view.
+    const event = new CustomEvent('changeView', { detail: 'ambulance' });
+    window.dispatchEvent(event);
+  };
+
 
   return (
     <div className="space-y-6">
@@ -47,7 +55,7 @@ export function PatientProfile({ patient }: { patient: Patient }) {
                 </CardContent>
             </Card>
         </div>
-        <QuickActions patient={patient} />
+        <QuickActions patient={patient} onAmbulanceClick={handleAmbulanceClick}/>
       </div>
 
       <HealthSnapshot vitals={patient.vitals} />

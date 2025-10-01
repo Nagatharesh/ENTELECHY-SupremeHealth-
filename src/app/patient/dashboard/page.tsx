@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Suspense, useState } from 'react';
@@ -5,8 +6,8 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { Home, User, Bell, PanelLeft } from 'lucide-react';
-import { dummyPatients, Patient, Doctor, Hospital } from '@/lib/dummy-data';
+import { Home, User, Bell, PanelLeft, AmbulanceIcon, HeartPulse, FileText } from 'lucide-react';
+import { dummyPatients, Patient, Doctor, Hospital, Ambulance } from '@/lib/dummy-data';
 import { PatientProfile } from '@/components/patient/patient-profile';
 import { MedicalRecords } from '@/components/patient/medical-records';
 import { Appointments } from '@/components/patient/appointments';
@@ -28,6 +29,7 @@ import {
   SidebarFooter,
   SidebarInset,
 } from "@/components/ui/sidebar"
+import { AmbulanceBooking } from '@/components/patient/ambulance-booking';
 
 
 function DashboardContent() {
@@ -59,6 +61,8 @@ function DashboardContent() {
         return <Appointments patient={patient} />;
       case 'vitals':
         return <VitalsAndPredictions patient={patient} />;
+      case 'ambulance':
+        return <AmbulanceBooking patient={patient} />;
       default:
         return <PatientProfile patient={patient} />;
     }
@@ -80,20 +84,26 @@ function DashboardContent() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={() => setActiveView('records')} isActive={activeView === 'records'}>
-              <Home />
+              <FileText />
               Medical Records
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={() => setActiveView('appointments')} isActive={activeView === 'appointments'}>
-              <Home />
+              <Calendar />
               Appointments
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={() => setActiveView('vitals')} isActive={activeView === 'vitals'}>
-              <Home />
+              <HeartPulse />
               Vitals & Predictions
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={() => setActiveView('ambulance')} isActive={activeView === 'ambulance'}>
+              <AmbulanceIcon />
+              Ambulance
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

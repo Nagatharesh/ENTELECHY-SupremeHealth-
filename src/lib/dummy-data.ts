@@ -103,6 +103,18 @@ export const dummyMedicines = [
     {"medicineId": "MED-015", "name": "Iron Folic Acid", "composition": "Ferrous Ascorbate 100mg, Folic Acid 1.5mg", "costGovt": 7, "costPrivate": 40},
 ];
 
+export const dummyAmbulances = [
+  {"id": "AMB-001", "vehicle_no": "MH-12-AB-1234", "driver_name": "Ravi Kumar", "driver_phone": "+919876500001", "status": "available", "current_coords": {"lat": 19.0860, "lng": 72.8877}, "speed_kmph": 60, "hospital_id": "HOS-001"},
+  {"id": "AMB-002", "vehicle_no": "DL-3C-CD-5678", "driver_name": "Suresh Patel", "driver_phone": "+919876500002", "status": "available", "current_coords": {"lat": 28.7141, "lng": 77.1125}, "speed_kmph": 50, "hospital_id": "HOS-002"},
+  {"id": "AMB-003", "vehicle_no": "TS-09-EF-9012", "driver_name": "Anil Yadav", "driver_phone": "+919876500003", "status": "on-trip", "current_coords": {"lat": 17.4050, "lng": 78.4967}, "speed_kmph": 70, "hospital_id": "HOS-003"},
+  {"id": "AMB-004", "vehicle_no": "KA-01-GH-3456", "driver_name": "Sunil Reddy", "driver_phone": "+919876500004", "status": "available", "current_coords": {"lat": 12.9816, "lng": 77.6046}, "speed_kmph": 55, "hospital_id": "HOS-004"},
+  {"id": "AMB-005", "vehicle_no": "MH-14-IJ-7890", "driver_name": "Vijay Singh", "driver_phone": "+919876500005", "status": "offline", "current_coords": {"lat": 18.5304, "lng": 73.8667}, "speed_kmph": 0, "hospital_id": "HOS-005"},
+  {"id": "AMB-006", "vehicle_no": "MH-12-KL-2468", "driver_name": "Deepak Sharma", "driver_phone": "+919876500006", "status": "available", "current_coords": {"lat": 19.0660, "lng": 72.8677}, "speed_kmph": 45, "hospital_id": "HOS-001"},
+  {"id": "AMB-007", "vehicle_no": "DL-3C-MN-1357", "driver_name": "Manoj Tiwari", "driver_phone": "+919876500007", "status": "on-trip", "current_coords": {"lat": 28.6941, "lng": 77.0925}, "speed_kmph": 65, "hospital_id": "HOS-002"},
+  {"id": "AMB-008", "vehicle_no": "TS-09-OP-8642", "driver_name": "Rajesh Gupta", "driver_phone": "+919876500008", "status": "available", "current_coords": {"lat": 17.3750, "lng": 78.4767}, "speed_kmph": 58, "hospital_id": "HOS-003"},
+  {"id": "AMB-009", "vehicle_no": "KA-01-QR-9753", "driver_name": "Naveen Gowda", "driver_phone": "+919876500009", "status": "offline", "current_coords": {"lat": 12.9616, "lng": 77.5846}, "speed_kmph": 0, "hospital_id": "HOS-004"},
+  {"id": "AMB-010", "vehicle_no": "MH-14-ST-1928", "driver_name": "Prakash Joshi", "driver_phone": "+919876500010", "status": "available", "current_coords": {"lat": 18.5104, "lng": 73.8467}, "speed_kmph": 52, "hospital_id": "HOS-005"}
+];
 
 export const dummyPatients = [
   {
@@ -456,6 +468,4 @@ export type Patient = typeof dummyPatients[0];
 export type Doctor = typeof dummyDoctors[0];
 export type Hospital = typeof dummyHospitals[0];
 export type Medicine = typeof dummyMedicines[0];
-
-
-    
+export type Ambulance = typeof dummyAmbulances[0];

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Ambulance, Phone, QrCode, ClipboardList } from "lucide-react";
 import { Patient } from "@/lib/dummy-data";
 
-export function QuickActions({ patient }: { patient: Patient }) {
+export function QuickActions({ patient, onAmbulanceClick }: { patient: Patient, onAmbulanceClick: () => void }) {
   return (
     <Card className="glassmorphism glowing-shadow">
       <CardHeader>
         <CardTitle className="text-gradient-glow">Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-2 gap-4">
-        <Button variant="destructive" className="h-24 flex flex-col gap-2 glowing-shadow-interactive transition-transform hover:scale-105">
+        <Button onClick={onAmbulanceClick} variant="destructive" className="h-24 flex flex-col gap-2 glowing-shadow-interactive transition-transform hover:scale-105">
           <Ambulance className="w-8 h-8 animate-[pulse_1.5s_ease-in-out_infinite]" />
           <span>Request Ambulance</span>
         </Button>
