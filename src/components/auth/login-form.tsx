@@ -139,7 +139,7 @@ export function LoginForm() {
                       <FormItem>
                         <FormLabel>Phone Number</FormLabel>
                         <FormControl>
-                          <InputWithIcon icon={Phone} placeholder="+1 (555) 000-0000" {...field} />
+                          <InputWithIcon icon={Phone} type="tel" placeholder="+1 (555) 000-0000" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -163,7 +163,7 @@ export function LoginForm() {
                   <FormField name="email" control={doctorForm.control} render={({ field }) => (
                       <FormItem>
                         <FormLabel>Email</FormLabel>
-                        <FormControl><InputWithIcon icon={Mail} placeholder="dr.name@hospital.com" {...field} /></FormControl>
+                        <FormControl><InputWithIcon icon={Mail} type="email" placeholder="dr.name@hospital.com" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -179,7 +179,7 @@ export function LoginForm() {
                   <FormField name="nmrId" control={doctorForm.control} render={({ field }) => (
                       <FormItem>
                         <FormLabel>NMR ID</FormLabel>
-                        <FormControl><InputWithIcon icon={Hash} placeholder="NMRA123456" {...field} /></FormControl>
+                        <FormControl><InputWithIcon icon={Hash} type="text" placeholder="NMRA123456" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -202,7 +202,7 @@ export function LoginForm() {
                     <FormField name="email" control={hospitalForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Hospital Email</FormLabel>
-                            <FormControl><InputWithIcon icon={Mail} placeholder="admin@hospital.com" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Mail} type="email" placeholder="admin@hospital.com" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -218,7 +218,7 @@ export function LoginForm() {
                     <FormField name="nin" control={hospitalForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>NIN</FormLabel>
-                            <FormControl><InputWithIcon icon={Hash} placeholder="10-14 digit number" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Hash} type="text" placeholder="10-14 digit number" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -241,7 +241,7 @@ export function LoginForm() {
                     <FormField name="emailOrPhone" control={ambulanceForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Email or Phone</FormLabel>
-                            <FormControl><InputWithIcon icon={Mail} placeholder="team@ambulance.org" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Mail} type="text" placeholder="team@ambulance.org" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -257,7 +257,7 @@ export function LoginForm() {
                     <FormField name="vehicleNumber" control={ambulanceForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Vehicle Number</FormLabel>
-                            <FormControl><InputWithIcon icon={Car} placeholder="STATE-XX-1234" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Car} type="text" placeholder="STATE-XX-1234" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
