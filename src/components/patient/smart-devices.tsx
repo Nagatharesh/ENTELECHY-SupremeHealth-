@@ -112,13 +112,13 @@ export function SmartDevices() {
 
 const DeviceScanner = ({ devices, isScanning, scanProgress, onScan, onConnect }) => {
     return (
-        <Card className="glassmorphism glowing-shadow">
+        <Card className="glassmorphism glowing-shadow perspective-1000">
             <CardHeader>
                 <CardTitle className="text-gradient-glow">Connect to Smart Devices</CardTitle>
                 <CardDescription>Scan for nearby devices to sync your health data in real-time.</CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col items-center gap-8">
-                <div className="relative w-80 h-80">
+            <CardContent className="flex flex-col items-center gap-8 py-8">
+                <div className="relative w-80 h-80 transform-style-3d" style={{ transform: 'rotateX(60deg) scale(1.2)' }}>
                     <div className="absolute inset-0 radar-container"/>
                     {isScanning && <div className="absolute inset-0 radar-sweep" style={{ animationDuration: '3s' }}/>}
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -134,7 +134,10 @@ const DeviceScanner = ({ devices, isScanning, scanProgress, onScan, onConnect })
 
                         return (
                              <div key={device.id} className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-0" style={{ left: `${x}%`, top: `${y}%`, animation: `appear 0.5s forwards ${index * 0.3}s`}}>
-                                <Smartwatch className="w-8 h-8 text-secondary animate-ping-slow" />
+                                <div className="relative group">
+                                     <Smartwatch className="w-8 h-8 text-secondary animate-ping-slow group-hover:scale-125 transition-transform" />
+                                     <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs bg-background/80 px-2 py-1 rounded-md text-white opacity-0 group-hover:opacity-100 transition-opacity" style={{ transform: 'rotateX(-60deg)' }}>{device.name}</div>
+                                </div>
                              </div>
                         )
                     })}
@@ -157,7 +160,7 @@ const DeviceScanner = ({ devices, isScanning, scanProgress, onScan, onConnect })
 }
 
 const DeviceCard = ({ device, onConnect }) => (
-    <Card className="glassmorphism p-3 flex items-center justify-between">
+    <Card className="glassmorphism p-3 flex items-center justify-between transform transition-transform hover:scale-105">
         <div className="flex items-center gap-4">
             <Smartwatch className="w-8 h-8 text-primary" />
             <div>
@@ -178,7 +181,7 @@ const MetricsDashboard = ({ device, onDisconnect }) => {
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader className="flex-row items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Smartwatch className="w-12 h-12 text-primary" />
+                        <Smartwatch className="w-12 h-12 text-primary animate-ping-slow" />
                         <div>
                             <CardTitle className="text-gradient-glow text-2xl">{device.name}</CardTitle>
                             <CardDescription>Connected via {device.manufacturer} Sync</CardDescription>
@@ -212,7 +215,7 @@ const MetricsDashboard = ({ device, onDisconnect }) => {
 const MetricCard = ({ metric, value, unit }) => {
     const risk = getMetricRisk(metric, Array.isArray(value) ? value[0] : value);
     return (
-        <Card className={cn("glassmorphism p-4", riskBgColors[risk])}>
+        <Card className={cn("glassmorphism p-4 transform transition-transform hover:scale-105 hover:-translate-y-1", riskBgColors[risk])}>
             <p className="text-sm text-muted-foreground">{metric.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</p>
             <p className={cn("text-3xl font-bold", riskColors[risk])}>{value} <span className="text-lg font-normal text-muted-foreground">{unit}</span></p>
         </Card>
@@ -230,7 +233,7 @@ const MetricChart = ({ title, data, dataKey, color, type = 'line' }) => {
     } satisfies ChartConfig;
 
     return (
-        <Card className="glassmorphism p-4 h-64 glowing-shadow">
+        <Card className="glassmorphism p-4 h-64 glowing-shadow perspective-1000">
             <h3 className="text-white font-semibold mb-4">{title}</h3>
             <ChartContainer config={chartConfig} className="w-full h-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -239,7 +242,22 @@ const MetricChart = ({ title, data, dataKey, color, type = 'line' }) => {
                         <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                         <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                         <Tooltip content={<ChartTooltipContent indicator="dot" />} cursor={false} wrapperStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)'}}/>
-                        <PathComponent type="monotone" dataKey={dataKey} stroke={color} fill={color} strokeWidth={2} dot={false} barSize={20} radius={type === 'bar' ? [4, 4, 0, 0] : 0} />
+                        <defs>
+                            <linearGradient id={`gradient-${dataKey}`} x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor={color} stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor={color} stopOpacity={0.1}/>
+                            </linearGradient>
+                        </defs>
+                        <PathComponent 
+                            type="monotone" 
+                            dataKey={dataKey} 
+                            stroke={color} 
+                            fill={type === 'bar' ? `url(#gradient-${dataKey})` : 'none'}
+                            strokeWidth={2} 
+                            dot={false} 
+                            barSize={20} 
+                            radius={type === 'bar' ? [4, 4, 0, 0] : 0} 
+                        />
                     </ChartComponent>
                 </ResponsiveContainer>
             </ChartContainer>

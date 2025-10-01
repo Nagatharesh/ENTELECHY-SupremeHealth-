@@ -25,7 +25,7 @@ const RecordIcon = ({ type }: { type: string }) => {
         case "pulmonology":
         case "cardiology":
         case "dermatology":
-            return <Stethoscope className="w-5 h-5 text-primary" />;
+            return <Stethoscope className="w-5 h-5" />;
         case "emergency":
              return <Ambulance className="w-5 h-5 text-destructive" />;
         case "lab test":
@@ -40,7 +40,7 @@ const RecordIcon = ({ type }: { type: string }) => {
         case "radiology":
         case "ultrasound":
         case "mri": return <Shield className="w-5 h-5 text-yellow-400" />;
-        default: return <FileText className="w-5 h-5 text-primary" />;
+        default: return <FileText className="w-5 h-5" />;
     }
 }
 
@@ -60,44 +60,41 @@ export function MedicalRecords({ patient }: { patient: Patient }) {
             <CardTitle className="text-gradient-glow">Medical History</CardTitle>
         </CardHeader>
         <CardContent>
-            <ScrollArea className="h-[calc(100vh-16rem)]">
-            <Accordion type="single" collapsible className="w-full space-y-4">
-                {allRecords.map((record) => (
-                    <EncounterAccordionItem key={record.encounterId} record={record as MedicalEncounter} patient={patient}/>
+            <ScrollArea className="h-[calc(100vh-16rem)] perspective-1000">
+            <div className="w-full space-y-4 pr-4">
+                {allRecords.map((record, index) => (
+                    <EncounterCard key={record.encounterId} record={record as MedicalEncounter} patient={patient} index={index}/>
                 ))}
-            </Accordion>
+            </div>
             </ScrollArea>
         </CardContent>
     </Card>
   );
 }
 
-const EncounterAccordionItem = ({ record, patient }: { record: MedicalEncounter, patient: Patient }) => {
+const EncounterCard = ({ record, patient, index }: { record: MedicalEncounter, patient: Patient, index: number }) => {
     const encounterInvestigations = patient.investigations.filter(inv => inv.date === record.date && inv.doctor === record.doctor);
-    const encounterMedications = [
-        ...(patient.medications.current || []),
-        ...(patient.medications.past || [])
-    ].filter(med => record.treatment.includes(med.name));
 
     return (
-        <AccordionItem value={record.encounterId} className="bg-card/50 rounded-lg border-none px-4 glowing-shadow">
-            <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-4 w-full">
-                    <div className="p-3 bg-primary/10 rounded-full border border-primary/20">
-                        <RecordIcon type={record.department} />
+        <div className="timeline-glow relative">
+            <div className="timeline-point-glow">
+                <RecordIcon type={record.department} />
+            </div>
+            <Card className="glassmorphism timeline-card-glow" style={{ animationDelay: `${index * 100}ms`, transform: `perspective(1000px) rotateY(-5deg) translateZ(${index * -10}px)` }}>
+                <CardHeader>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <CardTitle className="text-lg text-gradient-glow">{record.department}</CardTitle>
+                            <CardDescription>
+                                {new Date(record.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                {' \u2022 '}
+                                {getDoctorName(record.doctor)}
+                            </CardDescription>
+                        </div>
+                         {record.department.toLowerCase() === 'emergency' && <Badge variant="destructive">Urgent</Badge>}
                     </div>
-                    <div className="flex-grow text-left">
-                        <p className="font-semibold text-white text-lg">{record.department}</p>
-                        <p className="text-sm text-muted-foreground">
-                            {new Date(record.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                            {' \u2022 '}
-                            {getDoctorName(record.doctor)}
-                        </p>
-                    </div>
-                </div>
-            </AccordionTrigger>
-            <AccordionContent className="pt-0 pb-4">
-                <div className="space-y-4 pl-16">
+                </CardHeader>
+                <CardContent className="space-y-4">
                     <DetailSection title="Reason for Visit" content={record.reason} />
                     <DetailSection title="Findings" content={record.findings} />
                     <DetailSection title="Treatment" content={record.treatment} />
@@ -112,9 +109,9 @@ const EncounterAccordionItem = ({ record, patient }: { record: MedicalEncounter,
                     )}
                     
                     <DetailSection title="Discharge Notes" content={record.dischargeNotes} />
-                </div>
-            </AccordionContent>
-        </AccordionItem>
+                </CardContent>
+            </Card>
+        </div>
     )
 }
 

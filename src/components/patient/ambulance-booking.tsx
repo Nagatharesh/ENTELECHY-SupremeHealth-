@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 const AmbulanceCard = ({ ambulance, onSelect, patientCoords }) => {
     const distance = useMemo(() => {
@@ -116,45 +117,45 @@ const TrackingView = ({ booking, onCancel }) => {
                 <p className="text-sm text-muted-foreground italic">“Help is on the way — stay calm, we’ll get you there.”</p>
             </CardHeader>
             <CardContent>
-                 <div className="relative h-80 bg-background/50 rounded-lg overflow-hidden border border-primary/20">
-                    <div className="absolute inset-0 bg-grid-primary/10 [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)] animate-pulse"></div>
-                     <div className="absolute inset-0 flex items-center justify-center p-4">
-                        <div className="w-full h-full border-2 border-dashed border-primary/30 rounded-lg flex items-center justify-center p-4">
-                            {/* Path and markers */}
-                            <div className="relative w-full h-1/2">
-                                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-primary/20 rounded-full"/>
-                                <div 
-                                    className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full animate-pulse"
-                                    style={{ width: `${progress}%`, transition: 'width 1s linear' }}
-                                />
+                 <div className="relative h-96 bg-background/50 rounded-lg overflow-hidden border border-primary/20 perspective-1000">
+                    <Image src="/3d-map.png" layout="fill" objectFit="cover" alt="3D map" className="opacity-30" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
-                                <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
-                                    <div className="w-4 h-4 rounded-full bg-secondary animate-ping"/>
-                                    <div className="absolute w-3 h-3 rounded-full bg-secondary"/>
-                                </div>
-
-                                <div 
-                                    className="absolute top-1/2 -translate-y-1/2"
-                                    style={{ left: `${progress}%`, transition: 'left 1s linear' }}
-                                >
-                                    <div className="relative -translate-x-1/2">
-                                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center animate-ping-slow">
-                                            <Ambulance className="w-5 h-5 text-primary" />
-                                        </div>
-                                         <Ambulance className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
-                                    </div>
-                                </div>
-                                
-                                <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
-                                    <div className="w-3 h-3 rounded-full bg-destructive"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div className="absolute top-4 left-4 glassmorphism p-2 rounded-lg">
                         <p className="text-sm text-muted-foreground">ETA</p>
                         <p className="text-2xl font-bold text-white">{formatTime(eta)}</p>
                     </div>
+
+                    <div 
+                        className="absolute top-1/2 left-1/2 transform-style-3d"
+                        style={{ 
+                            width: '2px', 
+                            height: '2px', 
+                            transform: `translate(-50%, -50%) rotateX(60deg) translateX(${(progress-50)*4}px)`,
+                            transition: 'transform 1s linear'
+                        }}
+                    >
+                        {/* 3D animated path */}
+                        <div className="absolute w-96 h-0.5 bg-primary/20 -translate-x-1/2 -translate-y-1/2">
+                            <div className="h-full bg-primary animate-pulse" style={{width: `${progress}%`}} />
+                        </div>
+                        
+                        {/* Ambulance Icon */}
+                        <div className="absolute transform -translate-x-1/2 -translate-y-full">
+                             <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center animate-ping-slow">
+                                <Ambulance className="w-5 h-5 text-primary" />
+                            </div>
+                             <Ambulance className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 text-primary" style={{ transform: 'rotate(-30deg)' }} />
+                        </div>
+
+                         {/* Destination Icon */}
+                        <div className="absolute transform -translate-y-1/2" style={{ left: '190px'}}>
+                            <div className="w-4 h-4 rounded-full bg-destructive animate-ping"/>
+                            <div className="absolute w-3 h-3 rounded-full bg-destructive"/>
+                        </div>
+                    </div>
+
+
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center text-primary font-bold bg-background/50 px-4 py-1 rounded-full text-sm">
                         Live 3D Tracking Simulation
                     </div>
@@ -358,7 +359,3 @@ const AmbulanceTypeCard = ({ icon: Icon, type, selected, onSelect }) => {
         </Card>
     )
 }
-
-    
-
-    

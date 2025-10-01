@@ -108,6 +108,13 @@
 }
 
 @layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
   .bg-grid-white\/\[0\.05\] {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='white' stroke-opacity='0.05'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
   }
@@ -156,6 +163,50 @@
     .marker-label {
         @apply absolute left-1/2 -translate-x-1/2 top-4 whitespace-nowrap text-xs bg-background/70 px-2 py-1 rounded-md text-white;
     }
+
+    .timeline-glow {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline-glow::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, hsl(var(--primary)/0.1), hsl(var(--secondary)/0.1));
+      box-shadow: 0 0 5px hsl(var(--primary)/0.5);
+    }
+    .timeline-point-glow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: hsl(var(--background));
+      border: 2px solid hsl(var(--primary));
+      box-shadow: 0 0 10px hsl(var(--primary));
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .timeline-point-glow > svg {
+      color: hsl(var(--primary));
+      width: 12px;
+      height: 12px;
+    }
+    .timeline-card-glow {
+      transition: all 0.3s ease;
+      transform: perspective(1000px) rotateY(-5deg);
+    }
+    .timeline-card-glow:hover {
+      transform: perspective(1000px) rotateY(0deg) scale(1.02);
+      box-shadow: 0 10px 30px hsl(var(--secondary)/0.2);
+    }
+
 
     @keyframes radar-sweep {
       from { transform: rotate(0deg); }

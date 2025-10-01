@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -66,19 +65,20 @@ export function DoctorsHub({ patient }: { patient: Patient }) {
 
     return (
         <div className="space-y-6">
-            <Card className="glassmorphism glowing-shadow relative h-[60vh] overflow-hidden">
+            <Card className="glassmorphism glowing-shadow relative h-[70vh] overflow-hidden perspective-1000">
                 <CardHeader>
                     <CardTitle className="text-gradient-glow">Find a Doctor</CardTitle>
                     <CardDescription>Nearby hospitals and doctors at your fingertips.</CardDescription>
                 </CardHeader>
-                <CardContent className="relative flex items-center justify-center h-full">
+                <CardContent className="relative flex items-center justify-center h-full transform-style-3d">
                     {/* Map Background */}
-                    <div className="absolute inset-0 bg-grid-primary/10 [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)]"></div>
+                    <Image src="/3d-map.png" layout="fill" objectFit="cover" alt="3D map" className="opacity-10 transform-gpu" style={{ transform: 'rotateX(60deg) scale(1.5)' }}/>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
 
                     {/* Radar Animation */}
                     {showRadar && (
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="radar-container">
+                            <div className="radar-container" style={{ transform: 'rotateX(60deg) scale(1.2)' }}>
                                 <div className="radar-sweep"></div>
                                 <div className="radar-marker-center"></div>
                             </div>
@@ -86,7 +86,7 @@ export function DoctorsHub({ patient }: { patient: Patient }) {
                     )}
                     
                     {/* Hospital Markers */}
-                    <div className="w-full h-full">
+                    <div className="w-full h-full transform-style-3d" style={{ transform: 'rotateX(60deg) scale(1.2)'}}>
                         {nearbyHospitals.map((hospital, index) => {
                              const angle = (index / nearbyHospitals.length) * 360 + 45;
                              const radius = (index + 1) * 30 + 30; // simple distribution
@@ -104,10 +104,10 @@ export function DoctorsHub({ patient }: { patient: Patient }) {
                                     }}
                                     onClick={() => handleMarkerClick(hospital)}
                                 >
-                                    <div className="relative">
+                                    <div className="relative group">
                                         <div className="marker-pulse"></div>
                                         <div className="marker-dot"></div>
-                                        <div className="marker-label">{hospital.name} ({hospital.distance.toFixed(1)} km)</div>
+                                        <div className="marker-label opacity-0 group-hover:opacity-100 transition-opacity" style={{ transform: 'rotateX(-60deg)' }}>{hospital.name} ({hospital.distance.toFixed(1)} km)</div>
                                     </div>
                                 </div>
                             )
