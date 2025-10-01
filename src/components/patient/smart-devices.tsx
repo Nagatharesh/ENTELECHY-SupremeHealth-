@@ -162,7 +162,7 @@ const DeviceCard = ({ device, onConnect }) => (
             <Smartwatch className="w-8 h-8 text-primary" />
             <div>
                 <p className="font-bold text-white">{device.name}</p>
-                <p className="text-sm text-muted-foreground">{device.manufacturer} - <Badge variant="outline">{device.type}</Badge></p>
+                <div className="text-sm text-muted-foreground">{device.manufacturer} - <Badge variant="outline">{device.type}</Badge></div>
             </div>
         </div>
         <div className="flex items-center gap-4">
@@ -239,3 +239,6 @@ const MetricChart = ({ title, data, dataKey, color, type = 'line' }) => {
 };
 
 
+
+
+    
