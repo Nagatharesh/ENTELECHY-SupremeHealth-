@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, AmbulanceIcon, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield } from 'lucide-react';
+import { User, Bell, PanelLeft, Ambulance, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield } from 'lucide-react';
 import { dummyPatients, Patient } from '@/lib/dummy-data';
 import { PatientProfile } from '@/components/patient/patient-profile';
 import { MedicalRecords } from '@/components/patient/medical-records';
@@ -84,7 +84,7 @@ function DashboardContent() {
     { id: 'records', icon: FileText, label: 'Records' },
     { id: 'appointments', icon: Calendar, label: 'Appointments' },
     { id: 'vitals', icon: HeartPulse, label: 'Vitals' },
-    { id: 'ambulance', icon: AmbulanceIcon, label: 'Ambulance' },
+    { id: 'ambulance', icon: Ambulance, label: 'Ambulance' },
     { id: 'doctors', icon: Stethoscope, label: 'Doctors' },
     { id: 'diagnostics', icon: Microscope, label: 'Diagnostics' },
     { id: 'meds', icon: Pill, label: 'Medicines' },
@@ -168,5 +168,3 @@ export default function PatientDashboardPage() {
     </Suspense>
   );
 }
-
-    

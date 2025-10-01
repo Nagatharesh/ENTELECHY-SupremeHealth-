@@ -6,7 +6,8 @@ export const dummyDoctors = [
       "specialty": "General Physician",
       "hospitalId": "HOS-001",
       "contact": "+919876543210",
-      "waitTime": "15 mins"
+      "waitTime": "15 mins",
+      "rating": 4.6
     },
     {
       "doctorId": "DOC-002",
@@ -14,7 +15,8 @@ export const dummyDoctors = [
       "specialty": "Gynecologist",
       "hospitalId": "HOS-002",
       "contact": "+919876543211",
-      "waitTime": "30 mins"
+      "waitTime": "30 mins",
+      "rating": 4.8
     },
     {
       "doctorId": "DOC-003",
@@ -22,7 +24,8 @@ export const dummyDoctors = [
       "specialty": "Endocrinologist",
       "hospitalId": "HOS-003",
       "contact": "+919876543212",
-      "waitTime": "20 mins"
+      "waitTime": "20 mins",
+      "rating": 4.7
     },
     {
       "doctorId": "DOC-004",
@@ -30,7 +33,8 @@ export const dummyDoctors = [
       "specialty": "Cardiologist",
       "hospitalId": "HOS-004",
       "contact": "+919876543213",
-      "waitTime": "45 mins"
+      "waitTime": "45 mins",
+      "rating": 4.9
     },
     {
       "doctorId": "DOC-005",
@@ -38,54 +42,57 @@ export const dummyDoctors = [
       "specialty": "Orthopedic Surgeon",
       "hospitalId": "HOS-003",
       "contact": "+919876543214",
-      "waitTime": "25 mins"
+      "waitTime": "25 mins",
+      "rating": 4.6
     },
-    { "doctorId": "DOC-006", "name": "Dr. Neha Kapoor", "specialty": "Pulmonologist", "hospitalId": "HOS-002", "contact": "+911122223333", "waitTime": "20 mins" },
-    { "doctorId": "DOC-007", "name": "Dr. Amit Verma", "specialty": "General Physician", "hospitalId": "HOS-001", "contact": "+911133334444", "waitTime": "10 mins" },
-    { "doctorId": "DOC-008", "name": "Dr. Ritu Malhotra", "specialty": "Emergency Medicine", "hospitalId": "HOS-003", "contact": "+911144445555", "waitTime": "5 mins" },
-    { "doctorId": "DOC-009", "name": "Dr. Sunil Kumar", "specialty": "Dermatologist", "hospitalId": "HOS-005", "contact": "+911166667777", "waitTime": "15 mins" }
+    { "doctorId": "DOC-006", "name": "Dr. Neha Kapoor", "specialty": "Pulmonologist", "hospitalId": "HOS-001", "contact": "+911122223333", "waitTime": "20 mins", "rating": 4.8 },
+    { "doctorId": "DOC-007", "name": "Dr. Amit Verma", "specialty": "General Physician", "hospitalId": "HOS-002", "contact": "+911133334444", "waitTime": "10 mins", "rating": 4.6 },
+    { "doctorId": "DOC-008", "name": "Dr. Ritu Malhotra", "specialty": "Emergency Medicine", "hospitalId": "HOS-003", "contact": "+911144445555", "waitTime": "5 mins", "rating": 4.7 },
+    { "doctorId": "DOC-009", "name": "Dr. Sunil Kumar", "specialty": "Dermatologist", "hospitalId": "HOS-005", "contact": "+911166667777", "waitTime": "15 mins", "rating": 4.5 },
+    { "doctorId": "DOC-010", "name": "Dr. Rajesh Mehra", "specialty": "Cardiologist", "hospitalId": "HOS-004", "contact": "+919876543215", "waitTime": "40 mins", "rating": 4.9 },
+    { "doctorId": "DOC-011", "name": "Dr. Priya Singh", "specialty": "Dermatologist", "hospitalId": "HOS-005", "contact": "+919876543216", "waitTime": "15 mins", "rating": 4.5 }
 ]
 
 export const dummyHospitals = [
     {
         "hospitalId": "HOS-001",
-        "name": "Starlight General Hospital",
+        "name": "Apollo Hospital",
+        "location": "New Delhi, DL",
+        "contact": "+911145678901",
+        "patientLoad": "High",
+        "coordinates": {"lat": 28.7041, "lng": 77.1025}
+    },
+    {
+        "hospitalId": "HOS-002",
+        "name": "Fortis Hospital",
         "location": "Mumbai, MH",
         "contact": "+912226206666",
         "patientLoad": "High",
         "coordinates": {"lat": 19.0760, "lng": 72.8777}
     },
     {
-        "hospitalId": "HOS-002",
-        "name": "CityCare Hospital",
-        "location": "Delhi, DL",
-        "contact": "+911145678901",
+        "hospitalId": "HOS-003",
+        "name": "AIIMS",
+        "location": "Bangalore, KA",
+        "contact": "+918022221111",
         "patientLoad": "Medium",
-        "coordinates": {"lat": 28.7041, "lng": 77.1025}
+        "coordinates": {"lat": 12.9716, "lng": 77.5946}
     },
     {
-        "hospitalId": "HOS-003",
-        "name": "Apollo Health City",
+        "hospitalId": "HOS-004",
+        "name": "Medanta",
         "location": "Hyderabad, TS",
         "contact": "+914023607777",
         "patientLoad": "High",
         "coordinates": {"lat": 17.3850, "lng": 78.4867}
     },
     {
-        "hospitalId": "HOS-004",
-        "name": "Heartbeat Institute",
-        "location": "Bangalore, KA",
-        "contact": "+918022221111",
-        "patientLoad": "Low",
-        "coordinates": {"lat": 12.9716, "lng": 77.5946}
-    },
-    {
         "hospitalId": "HOS-005",
-        "name": "Evergreen Wellness Center",
-        "location": "Pune, MH",
-        "contact": "+912066066606",
+        "name": "Max Healthcare",
+        "location": "Chennai, TN",
+        "contact": "+914428282828",
         "patientLoad": "Medium",
-        "coordinates": {"lat": 18.5204, "lng": 73.8567}
+        "coordinates": {"lat": 13.0827, "lng": 80.2707}
     }
 ]
 
@@ -159,7 +166,8 @@ export const dummyPatients = [
       "diet": "Vegetarian, balanced diet",
     },
     "appointments": [
-      {"appointmentId": "APP-001", "date": "2025-10-20", "doctorId": "DOC-006", "hospitalId": "HOS-002", "status": "booked", "urgent": false}
+      {"appointmentId": "APP-001", "date": "2025-10-20T10:00:00Z", "doctorId": "DOC-006", "hospitalId": "HOS-001", "status": "booked", "urgent": false},
+      {"appointmentId": "APP-002", "date": "2025-09-15T14:30:00Z", "doctorId": "DOC-007", "hospitalId": "HOS-002", "status": "completed", "urgent": false}
     ],
     "predictions": {
       "vitalsNext7Days": {"heartRate": [80, 81, 79, 82, 83, 81, 80], "bloodPressure": ["128/82","127/81","129/83","130/84","128/82","129/83","128/82"]},
@@ -210,7 +218,7 @@ export const dummyPatients = [
         "encounterId": "ENC-004",
         "date": "2025-09-28",
         "department": "Cardiology",
-        "doctor": "Dr. Rahul Mehra",
+        "doctor": "Dr. Rajesh Mehra",
         "reason": "Follow-up for borderline high BP",
         "findings": "BP 128/84. No other significant findings.",
         "investigations": "2D Echocardiogram, Stress Test",
@@ -221,7 +229,7 @@ export const dummyPatients = [
         "encounterId": "ENC-005",
         "date": "2025-10-05",
         "department": "Dermatology",
-        "doctor": "Dr. Sunil Kumar",
+        "doctor": "Dr. Priya Singh",
         "reason": "Minor skin rash on arm",
         "findings": "Mild contact dermatitis, likely from a new detergent.",
         "investigations": "None",
@@ -297,7 +305,7 @@ export const dummyPatients = [
       "diet": "Non-vegetarian, balanced diet",
     },
     "appointments": [
-      {"appointmentId": "APP-003", "date": "2025-10-07", "doctorId": "DOC-002", "hospitalId": "HOS-002", "status": "booked", "urgent": false }
+      {"appointmentId": "APP-003", "date": "2025-10-07T11:00:00Z", "doctorId": "DOC-002", "hospitalId": "HOS-002", "status": "booked", "urgent": false }
     ],
     "predictions": {
       "vitalsNext7Days": {"heartRate": [79,78,80,81,79,78,80], "bloodPressure": ["119/77","120/78","118/76","119/77","120/78","119/77","118/76"]},
@@ -341,4 +349,3 @@ export type Medicine = typeof dummyMedicines[0];
 export type Ambulance = typeof dummyAmbulances[0];
 export type MedicalEncounter = Patient["medicalEncounters"][0];
 export type Investigation = Patient["investigations"][0];
-    
