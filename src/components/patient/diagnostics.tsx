@@ -29,7 +29,7 @@ const scanReportData = {
     roadmap: [
         { step: 1, title: 'Consult Neurologist', details: 'Immediate consultation with a specialist.', doctorId: 'DOC-010' },
         { step: 2, title: 'Follow-up Imaging', details: 'Repeat MRI in 3 months to monitor growth.' },
-        { step 3, title: 'Medication', details: 'Potential start on tumor growth inhibitors if changes are observed.' },
+        { step: 3, title: 'Medication', details: 'Potential start on tumor growth inhibitors if changes are observed.' },
         { step: 4, title: 'Lifestyle & Support', details: 'Physiotherapy and dietary adjustments. Ayurvedic support like Brahmi and Ashwagandha.' },
     ],
     doctor: dummyDoctors.find(d => d.doctorId === 'DOC-010')
@@ -408,3 +408,7 @@ const SuggestedDoctor = ({ doctor, onBook }) => {
         </Card>
     );
 };
+
+    
+
+    
