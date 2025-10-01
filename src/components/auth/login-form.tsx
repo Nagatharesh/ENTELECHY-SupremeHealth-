@@ -110,23 +110,23 @@ export function LoginForm() {
   return (
     <div className="w-full max-w-md animate-fade-in-up z-10">
         <div className="flex justify-center mb-8">
-            <Link href="/" className="group">
+            <Link href="/">
                 <Logo />
             </Link>
         </div>
       <Tabs defaultValue={defaultTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 bg-background/70 backdrop-blur-sm border-white/10">
+        <TabsList className="grid w-full grid-cols-4 glassmorphism p-1 h-auto">
           <TabsTrigger value="patient"><HeartPulse className="mr-0 md:mr-2 h-4 w-4" /><span className="hidden md:inline">Patient</span></TabsTrigger>
           <TabsTrigger value="doctor"><Stethoscope className="mr-0 md:mr-2 h-4 w-4" /><span className="hidden md:inline">Doctor</span></TabsTrigger>
           <TabsTrigger value="hospital"><Hospital className="mr-0 md:mr-2 h-4 w-4" /><span className="hidden md:inline">Hospital</span></TabsTrigger>
           <TabsTrigger value="ambulance"><Ambulance className="mr-0 md:mr-2 h-4 w-4" /><span className="hidden md:inline">Ambulance</span></TabsTrigger>
         </TabsList>
-        <Card className="bg-background/70 backdrop-blur-lg border-white/10 mt-2">
+        <Card className="glassmorphism mt-2 animate-glow-pulse">
             
           {/* Patient Tab */}
           <TabsContent value="patient">
             <CardHeader>
-              <CardTitle>Patient Hub</CardTitle>
+              <CardTitle className="text-gradient-glow">Patient Hub</CardTitle>
               <CardDescription>Login or create an account with your phone number.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -145,7 +145,7 @@ export function LoginForm() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full shadow-[0_0_15px_hsl(var(--primary)/0.5)] transition-all hover:shadow-[0_0_25px_hsl(var(--primary)/0.7)]">Send OTP</Button>
+                  <Button type="submit" className="w-full glowing-shadow-interactive">Send OTP</Button>
                 </form>
               </Form>
             </CardContent>
@@ -154,7 +154,7 @@ export function LoginForm() {
           {/* Doctor Tab */}
           <TabsContent value="doctor">
             <CardHeader>
-              <CardTitle>Doctor Hub</CardTitle>
+              <CardTitle className="text-gradient-glow">Doctor Hub</CardTitle>
               <CardDescription>Login or register with your professional credentials.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -184,7 +184,7 @@ export function LoginForm() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full shadow-[0_0_15px_hsl(var(--primary)/0.5)] transition-all hover:shadow-[0_0_25px_hsl(var(--primary)/0.7)]">Login / Register</Button>
+                  <Button type="submit" className="w-full glowing-shadow-interactive">Login / Register</Button>
                 </form>
               </Form>
             </CardContent>
@@ -193,7 +193,7 @@ export function LoginForm() {
           {/* Hospital Tab */}
           <TabsContent value="hospital">
             <CardHeader>
-                <CardTitle>Hospital Hub</CardTitle>
+                <CardTitle className="text-gradient-glow">Hospital Hub</CardTitle>
                 <CardDescription>Access the hospital management dashboard.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -223,7 +223,7 @@ export function LoginForm() {
                         </FormItem>
                     )}
                     />
-                    <Button type="submit" className="w-full shadow-[0_0_15px_hsl(var(--primary)/0.5)] transition-all hover:shadow-[0_0_25px_hsl(var(--primary)/0.7)]">Login / Register</Button>
+                    <Button type="submit" className="w-full glowing-shadow-interactive">Login / Register</Button>
                 </form>
                 </Form>
             </CardContent>
@@ -232,7 +232,7 @@ export function LoginForm() {
           {/* Ambulance Tab */}
           <TabsContent value="ambulance">
             <CardHeader>
-                <CardTitle>Ambulance Hub</CardTitle>
+                <CardTitle className="text-gradient-glow">Ambulance Hub</CardTitle>
                 <CardDescription>Login to manage dispatches and vehicle status.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -262,7 +262,7 @@ export function LoginForm() {
                         </FormItem>
                     )}
                     />
-                    <Button type="submit" className="w-full shadow-[0_0_15px_hsl(var(--primary)/0.5)] transition-all hover:shadow-[0_0_25px_hsl(var(--primary)/0.7)]">Login / Register</Button>
+                    <Button type="submit" className="w-full glowing-shadow-interactive">Login / Register</Button>
                 </form>
                 </Form>
             </CardContent>

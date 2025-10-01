@@ -18,7 +18,7 @@ export function Hero() {
       )}
       <div className="absolute inset-0 bg-background/70 bg-gradient-to-t from-background via-background/50 to-transparent" />
       <div className="relative z-10 container mx-auto px-4 animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-400">
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter mb-4 text-gradient-glow">
           The Future of Healthcare
         </h1>
         <p className="text-lg md:text-xl max-w-3xl mx-auto text-muted-foreground">

@@ -44,7 +44,7 @@ export function RoleSelection() {
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Choose Your Hub</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gradient-glow">Choose Your Hub</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-4">
             Enter the future of care. Each role is equipped with a dedicated dashboard tailored to your needs.
             </p>
@@ -56,16 +56,16 @@ export function RoleSelection() {
               className="animate-fade-in-up"
               style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'backwards' }}
             >
-              <Card className="h-full flex flex-col bg-card/50 backdrop-blur-sm border-white/10 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20">
+              <Card className="h-full flex flex-col glassmorphism transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20 hover:border-primary/50 animate-glow-pulse">
                 <CardHeader className="items-center text-center">
-                  <div className="p-4 rounded-full bg-primary/10 mb-4 border border-primary/20">
+                  <div className="p-4 rounded-full bg-primary/10 mb-4 border border-primary/20 transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-110">
                     <role.icon className="w-10 h-10 text-primary" />
                   </div>
-                  <CardTitle>{role.name}</CardTitle>
+                  <CardTitle className="text-gradient-glow">{role.name}</CardTitle>
                   <CardDescription className="flex-grow">{role.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="mt-auto">
-                  <Button asChild className="w-full shadow-[0_0_15px_hsl(var(--primary)/0.3)] transition-all hover:shadow-[0_0_25px_hsl(var(--primary)/0.5)]">
+                  <Button asChild className="w-full glowing-shadow-interactive">
                     <Link href={role.link}>{role.cta}</Link>
                   </Button>
                 </CardContent>
