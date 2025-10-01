@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { addDays, format, isSameDay } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
+import Image from 'next/image';
 
 
 const getDoctorById = (doctorId: string) => dummyDoctors.find(d => d.doctorId === doctorId);
@@ -24,7 +25,7 @@ export function Appointments({ patient }: { patient: Patient }) {
   const [appointments, setAppointments] = useState(patient.appointments);
   const { toast } = useToast();
 
-  const sortedAppointments = [...appointments].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const sortedAppointments = [...appointments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const upcomingAppointments = sortedAppointments.filter(a => new Date(a.date) >= new Date());
   const pastAppointments = sortedAppointments.filter(a => new Date(a.date) < new Date());
 
@@ -274,6 +275,7 @@ const Step2 = ({ doctors, selected, onSelect }) => (
                         className={cn("glassmorphism cursor-pointer p-3 flex items-center gap-4 transition-all", selected?.doctorId === doc.doctorId && "border-primary shadow-primary/30 shadow-lg")}
                         onClick={() => onSelect(doc)}
                     >
+                       <Image src={`https://i.pravatar.cc/150?u=${doc.doctorId}`} alt={doc.name} width={40} height={40} className="rounded-full" />
                         <div className="flex-grow">
                             <p className="font-bold text-white">{doc.name}</p>
                             <p className="text-xs text-muted-foreground">{hospital?.name}, {hospital?.location}</p>
@@ -350,3 +352,5 @@ const Step4 = ({ doctor, hospital, date, time }) => {
         </div>
     );
 };
+
+    

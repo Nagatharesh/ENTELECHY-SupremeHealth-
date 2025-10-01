@@ -29,15 +29,6 @@ export const dummyDoctors = [
     },
     {
       "doctorId": "DOC-004",
-      "name": "Dr. Rahul Mehra",
-      "specialty": "Cardiologist",
-      "hospitalId": "HOS-004",
-      "contact": "+919876543213",
-      "waitTime": "45 mins",
-      "rating": 4.9
-    },
-    {
-      "doctorId": "DOC-005",
       "name": "Dr. Alok Gupta",
       "specialty": "Orthopedic Surgeon",
       "hospitalId": "HOS-003",
@@ -48,9 +39,8 @@ export const dummyDoctors = [
     { "doctorId": "DOC-006", "name": "Dr. Neha Kapoor", "specialty": "Pulmonologist", "hospitalId": "HOS-001", "contact": "+911122223333", "waitTime": "20 mins", "rating": 4.8 },
     { "doctorId": "DOC-007", "name": "Dr. Amit Verma", "specialty": "General Physician", "hospitalId": "HOS-002", "contact": "+911133334444", "waitTime": "10 mins", "rating": 4.6 },
     { "doctorId": "DOC-008", "name": "Dr. Ritu Malhotra", "specialty": "Emergency Medicine", "hospitalId": "HOS-003", "contact": "+911144445555", "waitTime": "5 mins", "rating": 4.7 },
-    { "doctorId": "DOC-009", "name": "Dr. Sunil Kumar", "specialty": "Dermatologist", "hospitalId": "HOS-005", "contact": "+911166667777", "waitTime": "15 mins", "rating": 4.5 },
-    { "doctorId": "DOC-010", "name": "Dr. Rajesh Mehra", "specialty": "Cardiologist", "hospitalId": "HOS-004", "contact": "+919876543215", "waitTime": "40 mins", "rating": 4.9 },
-    { "doctorId": "DOC-011", "name": "Dr. Priya Singh", "specialty": "Dermatologist", "hospitalId": "HOS-005", "contact": "+919876543216", "waitTime": "15 mins", "rating": 4.5 }
+    { "doctorId": "DOC-009", "name": "Dr. Priya Singh", "specialty": "Dermatologist", "hospitalId": "HOS-005", "contact": "+911166667777", "waitTime": "15 mins", "rating": 4.5 },
+    { "doctorId": "DOC-010", "name": "Dr. Rajesh Mehra", "specialty": "Cardiologist", "hospitalId": "HOS-004", "contact": "+919876543215", "waitTime": "40 mins", "rating": 4.9 }
 ]
 
 export const dummyHospitals = [
@@ -349,3 +339,5 @@ export type Medicine = typeof dummyMedicines[0];
 export type Ambulance = typeof dummyAmbulances[0];
 export type MedicalEncounter = Patient["medicalEncounters"][0];
 export type Investigation = Patient["investigations"][0];
+
+    
