@@ -125,7 +125,7 @@ export function LoginForm() {
     } else {
         patientLoginForm.setError("patientId", {
             type: "manual",
-            message: "Patient ID not found. Please generate one first.",
+            message: "Patient ID not found. Try generating one or use a dummy ID like 'PAT-20251001-0001' for testing.",
         });
     }
   }
