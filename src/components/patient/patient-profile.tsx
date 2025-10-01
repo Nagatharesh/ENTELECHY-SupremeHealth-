@@ -5,7 +5,7 @@ import { Patient } from "@/lib/dummy-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuickActions } from "./quick-actions";
 import { HealthSnapshot } from "./health-snapshot";
-import { User, Phone, Shield, Building, MapPin } from "lucide-react";
+import { User, Phone, Shield, Building, MapPin, Mail } from "lucide-react";
 import Image from "next/image";
 
 export function PatientProfile({ patient }: { patient: Patient }) {
@@ -42,9 +42,10 @@ export function PatientProfile({ patient }: { patient: Patient }) {
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                         <InfoItem icon={Phone} label="Contact" value={patient.phone} />
+                        <InfoItem icon={Mail} label="Email" value={patient.email} />
                         <InfoItem icon={User} label="Emergency Contact" value={`${patient.emergencyContact.name} (${patient.emergencyContact.phone})`} />
                         <InfoItem icon={Shield} label="Aadhaar" value={patient.aadhaar} />
-                        <InfoItem icon={MapPin} label="Address" value={patient.address} />
+                        <InfoItem icon={MapPin} label="Address" value={`${patient.address.street}, ${patient.address.city}, ${patient.address.state} - ${patient.address.zip}`} />
                         <InfoItem icon={Building} label="Insurance" value={`${patient.insurance.provider} - ${patient.insurance.policyId}`} />
                         <InfoItem icon={User} label="Blood Group" value={patient.bloodGroup} />
                     </div>

@@ -17,10 +17,12 @@ export function QuickActions({ patient, onAmbulanceClick }: { patient: Patient, 
           <Ambulance className="w-8 h-8 animate-[pulse_1.5s_ease-in-out_infinite]" />
           <span>Request Ambulance</span>
         </Button>
-        <Button variant="secondary" className="h-24 flex flex-col gap-2 glowing-shadow-interactive transition-transform hover:scale-105">
-          <Phone className="w-8 h-8" />
-          <span>Call Emergency</span>
-        </Button>
+        <a href={`tel:${patient.emergencyContact.phone}`} className="w-full h-full">
+            <Button variant="secondary" className="h-24 w-full flex flex-col gap-2 glowing-shadow-interactive transition-transform hover:scale-105">
+                <Phone className="w-8 h-8" />
+                <span>Call Emergency</span>
+            </Button>
+        </a>
         <Button variant="outline" className="h-24 flex flex-col gap-2 glowing-shadow-interactive transition-transform hover:scale-105">
           <QrCode className="w-8 h-8" />
           <span>Share Summary</span>

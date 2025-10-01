@@ -96,11 +96,13 @@ const TrackingView = ({ booking, onCancel }) => {
             </CardHeader>
             <CardContent>
                 <div className="relative h-64 bg-background/50 rounded-lg overflow-hidden border border-primary/20">
-                     <div className="absolute inset-0 bg-grid-primary/10 [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)]"></div>
-                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Ambulance className="w-16 h-16 text-primary animate-pulse" />
-                        <p className="text-center text-primary font-bold mt-2">Live Tracking Mock</p>
-                     </div>
+                    <div className="absolute inset-0 bg-grid-primary/10 [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)] animate-pulse"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center animate-ping-slow">
+                            <Ambulance className="w-12 h-12 text-primary" />
+                        </div>
+                    </div>
+                     <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center text-primary font-bold">Live Tracking Mock</p>
                 </div>
                 <div className="mt-6 space-y-4">
                      <InfoRow icon={Car} label="Vehicle No" value={booking.ambulance.vehicle_no} />
@@ -151,6 +153,10 @@ export function AmbulanceBooking({ patient }: { patient: Patient }) {
             const distB = Math.sqrt(Math.pow(patientCoords.lat - b.current_coords.lat, 2) + Math.pow(patientCoords.lng - b.current_coords.lng, 2));
             const etaA = a.speed_kmph > 0 ? (distA * 111) / a.speed_kmph : Infinity;
             const etaB = b.speed_kmph > 0 ? (distB * 111) / b.speed_kmph : Infinity;
+            
+            if (a.status !== 'available' && b.status === 'available') return 1;
+            if (a.status === 'available' && b.status !== 'available') return -1;
+            
             return etaA - etaB;
         });
     }, [patientCoords]);
@@ -182,6 +188,19 @@ export function AmbulanceBooking({ patient }: { patient: Patient }) {
         console.log("Booking cancelled", activeBooking.id);
         setActiveBooking(null);
     }
+    
+    const autoAssign = () => {
+        const firstAvailable = sortedAmbulances.find(a => a.status === 'available');
+        if (firstAvailable) {
+            const distance = Math.sqrt(Math.pow(patientCoords.lat - firstAvailable.current_coords.lat, 2) + Math.pow(patientCoords.lng - firstAvailable.current_coords.lng, 2)) * 111;
+            const eta = Math.round((distance / firstAvailable.speed_kmph) * 60);
+            handleSelect(firstAvailable, distance, eta);
+        } else {
+            // In a real app, you'd want to use a toast here
+            alert("No ambulances available at the moment.");
+        }
+    }
+
 
     if (activeBooking) {
         return <TrackingView booking={activeBooking} onCancel={handleCancelBooking}/>;
@@ -196,7 +215,7 @@ export function AmbulanceBooking({ patient }: { patient: Patient }) {
                 </CardHeader>
                 <CardContent>
                     <div className="flex justify-end mb-4">
-                        <Button className="glowing-shadow-interactive"><Bot className="mr-2" /> Auto-assign nearest</Button>
+                        <Button onClick={autoAssign} className="glowing-shadow-interactive"><Bot className="mr-2" /> Auto-assign nearest</Button>
                     </div>
                     <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
                         {sortedAmbulances.map(amb => (
@@ -220,3 +239,4 @@ export function AmbulanceBooking({ patient }: { patient: Patient }) {
         </div>
     );
 }
+

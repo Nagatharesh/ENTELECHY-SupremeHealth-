@@ -1,13 +1,14 @@
 
 "use client";
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { Home, User, Bell, PanelLeft, AmbulanceIcon, HeartPulse, FileText, Calendar } from 'lucide-react';
-import { dummyPatients, Patient, Doctor, Hospital, Ambulance } from '@/lib/dummy-data';
+import { User, Bell, PanelLeft, AmbulanceIcon, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield } from 'lucide-react';
+import { dummyPatients, Patient } from '@/lib/dummy-data';
 import { PatientProfile } from '@/components/patient/patient-profile';
 import { MedicalRecords } from '@/components/patient/medical-records';
 import { Appointments } from '@/components/patient/appointments';
@@ -20,14 +21,12 @@ import {
 import {
   Sidebar,
   SidebarProvider,
-  SidebarTrigger,
   SidebarContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
-  SidebarInset,
 } from "@/components/ui/sidebar"
 import { AmbulanceBooking } from '@/components/patient/ambulance-booking';
 
@@ -36,6 +35,17 @@ function DashboardContent() {
   const searchParams = useSearchParams();
   const patientId = searchParams.get('id');
   const [activeView, setActiveView] = useState('profile');
+
+  useEffect(() => {
+    const handleChangeView = (event: CustomEvent) => {
+      setActiveView(event.detail);
+    };
+
+    window.addEventListener('changeView', handleChangeView as EventListener);
+    return () => {
+      window.removeEventListener('changeView', handleChangeView as EventListener);
+    };
+  }, []);
 
   const patient = dummyPatients.find(p => p.patientId === patientId);
 
@@ -68,50 +78,40 @@ function DashboardContent() {
     }
   }
 
+  const navItems = [
+    { id: 'profile', icon: User, label: 'Profile' },
+    { id: 'records', icon: FileText, label: 'Records' },
+    { id: 'appointments', icon: Calendar, label: 'Appointments' },
+    { id: 'vitals', icon: HeartPulse, label: 'Vitals' },
+    { id: 'ambulance', icon: AmbulanceIcon, label: 'Ambulance' },
+    { id: 'doctors', icon: Stethoscope, label: 'Doctors' },
+    { id: 'diagnostics', icon: Microscope, label: 'Diagnostics' },
+    { id: 'meds', icon: Pill, label: 'Medicines' },
+    { id: 'insurance', icon: Shield, label: 'Insurance' },
+  ];
+
   const NavMenu = ({isSheet = false}: {isSheet?: boolean}) => (
     <>
-      <SidebarHeader className="flex items-center justify-between">
-          <Logo />
-          {!isSheet && <SidebarTrigger />}
+      <SidebarHeader className="flex items-center justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=expanded]:justify-between">
+          <Logo className="group-data-[collapsible=icon]:hidden"/>
+          <SidebarTrigger />
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('profile')} isActive={activeView === 'profile'}>
-              <User />
-              Profile
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('records')} isActive={activeView === 'records'}>
-              <FileText />
-              Medical Records
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('appointments')} isActive={activeView === 'appointments'}>
-              <Calendar />
-              Appointments
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('vitals')} isActive={activeView === 'vitals'}>
-              <HeartPulse />
-              Vitals & Predictions
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('ambulance')} isActive={activeView === 'ambulance'}>
-              <AmbulanceIcon />
-              Ambulance
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {navItems.map(item => (
+            <SidebarMenuItem key={item.id}>
+              <SidebarMenuButton onClick={() => setActiveView(item.id)} isActive={activeView === item.id} tooltip={item.label}>
+                <item.icon />
+                <span>{item.label}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>
-        <div className="flex items-center gap-4 p-2">
-            <User className="h-8 w-8 text-primary rounded-full p-1 bg-primary/10"/>
-            <div>
+        <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:w-auto group-data-[collapsible=expanded]:w-full">
+            <Image src={`https://i.pravatar.cc/150?u=${patient.patientId}`} alt={patient.name} width={40} height={40} className="rounded-full border-2 border-primary/50"/>
+            <div className="ml-3 group-data-[collapsible=icon]:hidden whitespace-nowrap overflow-hidden">
               <span className="font-semibold text-gradient-glow text-lg">{patient.name}</span>
               <p className="text-xs text-muted-foreground">{patient.patientId}</p>
             </div>
@@ -123,7 +123,7 @@ function DashboardContent() {
   return (
     <SidebarProvider>
       <div className="flex flex-col md:flex-row min-h-screen bg-background">
-        <Sidebar className="hidden md:flex flex-col">
+        <Sidebar className="hidden md:flex flex-col glassmorphism !border-r-border/50">
             <NavMenu />
         </Sidebar>
 
@@ -135,7 +135,7 @@ function DashboardContent() {
                   <PanelLeft className="h-6 w-6 text-primary" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="p-0 w-3/4">
+              <SheetContent side="left" className="p-0 w-[var(--sidebar-width-mobile)]">
                  <Sidebar>
                     <NavMenu isSheet={true}/>
                   </Sidebar>

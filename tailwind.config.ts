@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -58,14 +59,14 @@ export default {
           '5': 'hsl(var(--chart-5))',
         },
         sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+          primary: 'hsl(var(--primary))',
+          'primary-foreground': 'hsl(var(--primary-foreground))',
+          accent: 'hsl(var(--primary) / 0.1)',
+          'accent-foreground': 'hsl(var(--primary))',
+          border: 'hsl(var(--border))',
+          ring: 'hsl(var(--ring))',
         },
       },
       borderRadius: {
@@ -116,6 +117,12 @@ export default {
             transform: 'scale(4)',
             opacity: '0'
           }
+        },
+        'ping-slow': {
+          '75%, 100%': {
+            transform: 'scale(2)',
+            opacity: '0',
+          }
         }
       },
       animation: {
@@ -126,6 +133,7 @@ export default {
         'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
         'heartbeat-glow': 'heartbeat-glow 1.5s ease-in-out infinite',
         'logo-rotate': 'logo-rotate 5s ease-in-out infinite',
+        'ping-slow': 'ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
       },
     },
   },
