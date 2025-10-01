@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         body: ['Poppins', 'sans-serif'],
         headline: ['Poppins', 'sans-serif'],
+        orbitron: ['Orbitron', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -101,6 +102,15 @@ export default {
           '0%, 100%': { boxShadow: '0 0 10px hsl(var(--primary)/0.2), 0 0 10px hsl(var(--secondary)/0.2)' },
           '50%': { boxShadow: '0 0 25px hsl(var(--primary)/0.5), 0 0 25px hsl(var(--secondary)/0.5)' },
         },
+        'heartbeat-glow': {
+          '0%, 100%': { strokeWidth: '3.5', filter: 'drop-shadow(0 0 4px hsl(var(--secondary)))' },
+          '50%': { strokeWidth: '5', filter: 'drop-shadow(0 0 10px hsl(var(--secondary)))' },
+        },
+        'logo-rotate': {
+            '0%': { transform: 'rotateY(0deg) rotateZ(0deg) scale(1)' },
+            '50%': { transform: 'rotateY(10deg) rotateZ(-5deg) scale(1.1)' },
+            '100%': { transform: 'rotateY(0deg) rotateZ(0deg) scale(1)' },
+        },
         'ripple': {
           'to': {
             transform: 'scale(4)',
@@ -114,6 +124,8 @@ export default {
         'fade-in': 'fade-in 0.5s ease-out forwards',
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
         'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
+        'heartbeat-glow': 'heartbeat-glow 1.5s ease-in-out infinite',
+        'logo-rotate': 'logo-rotate 5s ease-in-out infinite',
       },
     },
   },

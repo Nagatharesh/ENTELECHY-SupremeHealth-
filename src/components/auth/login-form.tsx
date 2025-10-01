@@ -110,7 +110,7 @@ export function LoginForm() {
   return (
     <div className="w-full max-w-md animate-fade-in-up z-10">
         <div className="flex justify-center mb-8">
-            <Link href="/">
+            <Link href="/home">
                 <Logo />
             </Link>
         </div>
