@@ -97,7 +97,7 @@ export const dummyMedicines = [
     {"medicineId": "MED-006", "name": "Paracetamol", "composition": "Paracetamol 500mg", "costGovt": 2, "costPrivate": 12},
     {"medicineId": "MED-007", "name": "Cetirizine", "composition": "Cetirizine Hydrochloride 10mg", "costGovt": 4, "costPrivate": 20},
     {"medicineId": "MED-008", "name": "Omeprazole", "composition": "Omeprazole 20mg", "costGovt": 6, "costPrivate": 35},
-    {"medicineId": "MED-009", "name": "Salbutamol Inhaler", "composition": "Salbutamol Sulphate 100mcg", "costGovt": 50, "costPrivate": 250},
+    {"medicineId": "MED-009", "name": "Salbutamol Inhaler", "composition": "Salbutamol Sulphate 100mcg/puff", "costGovt": 50, "costPrivate": 250},
     {"medicineId": "MED-010", "name": "Ibuprofen", "composition": "Ibuprofen 400mg", "costGovt": 5, "costPrivate": 30},
     {"medicineId": "MED-011", "name": "D-Rise", "composition": "Cholecalciferol 60000IU", "costGovt": 20, "costPrivate": 100},
     {"medicineId": "MED-012", "name": "Sumatriptan", "composition": "Sumatriptan Succinate 50mg", "costGovt": 15, "costPrivate": 80},
@@ -106,7 +106,7 @@ export const dummyMedicines = [
     {"medicineId": "MED-015", "name": "Iron Folic Acid", "composition": "Ferrous Ascorbate 100mg, Folic Acid 1.5mg", "costGovt": 7, "costPrivate": 40},
     { "medicineId": "MED-016", "name": "Prednisolone", "composition": "Prednisolone 20mg", "costGovt": 10, "costPrivate": 45 },
     { "medicineId": "MED-017", "name": "Azithromycin", "composition": "Azithromycin 500mg", "costGovt": 25, "costPrivate": 120 },
-    { "medicineId": "MED-018", "name": "Multivitamin", "composition": "Standard Multivitamin", "costGovt": 15, "costPrivate": 90 }
+    { "medicineId": "MED-018", "name": "Multivitamin", "composition": "Standard Multivitamin Complex", "costGovt": 15, "costPrivate": 90 }
 ];
 
 export const dummyAmbulances = [
@@ -124,16 +124,22 @@ export const dummyAmbulances = [
 
 export const dummyPatients = [
   {
-    "patientId": "PAT-20251001-0001",
+    "patientId": "P-102345",
     "name": "Rahul Sharma",
     "phone": "+919876543210",
     "email": "rahul.sharma@example.com",
-    "dob": "1993-07-22",
+    "dob": "1992-07-22",
     "gender": "Male",
     "aadhaar": "XXXX-XXXX-1234",
     "address": { "street": "45, Green Park", "city": "New Delhi", "state": "DL", "zip": "110016" },
     "bloodGroup": "O+",
-    "medicalSummary": "Mild asthma, no known drug allergies. Recommended for regular cardiovascular exercises.",
+    "healthOverview": {
+      "status": "Good",
+      "riskLevel": "Medium",
+      "chronicConditions": "Mild asthma",
+      "allergies": "Seasonal pollen (hay fever)",
+      "latestNotes": "2025-09-28: BP borderline high; lifestyle measures advised. 2025-09-20: Occasional shortness of breath; spirometry advised."
+    },
     "emergencyContact": { "name": "Priya Sharma", "phone": "+919888800001" },
     "insurance": { "provider": "Star Health", "policyId": "INS-A01" },
     "vitals": {
@@ -142,11 +148,17 @@ export const dummyPatients = [
       "bloodSugar": [95, 98, 100, 97, 96, 99, 101],
       "oxygenSaturation": [97, 97, 98, 97, 96, 98, 97],
       "temperature": 36.7,
-      "bmi": 24.3
+      "bmi": 24.3,
+      "sleepHours": [6, 7, 6.5, 7, 6, 6.5, 7]
+    },
+    "lifestyle": {
+      "smoking": "No",
+      "alcohol": "Occasional social drinking",
+      "exercise": "3-4 times/week (light jogging and yoga)",
+      "diet": "Vegetarian, balanced diet",
     },
     "appointments": [
-      {"appointmentId": "APP-001", "date": "2025-10-05", "doctorId": "DOC-001", "hospitalId": "HOS-002", "status": "booked"},
-      {"appointmentId": "APP-002", "date": "2025-10-20", "doctorId": "DOC-006", "hospitalId": "HOS-004", "status": "booked", "urgent": true}
+      {"appointmentId": "APP-001", "date": "2025-10-20", "doctorId": "DOC-006", "hospitalId": "HOS-002", "status": "booked", "urgent": false}
     ],
     "predictions": {
       "vitalsNext7Days": {"heartRate": [80, 81, 79, 82, 83, 81, 80], "bloodPressure": ["128/82","127/81","129/83","130/84","128/82","129/83","128/82"]},
@@ -156,24 +168,70 @@ export const dummyPatients = [
         "hypertension": "Medium",
         "diabetes": "Low",
         "heartDisease": "Medium"
-      }
+      },
+      "preventiveMeasures": "Daily 30 min cardio, Reduce refined sugar intake, Monthly BP checks."
     },
-    "medicalRecords": [
-        {"recordId": "REC-001", "date": "2024-03-01", "type": "Consultation", "details": "Asthma follow-up with Dr. Neha Kapoor. Seasonal flare. Wheezing observed.", "doctorId": "DOC-006"},
-        {"recordId": "REC-002", "date": "2025-01-15", "type": "Consultation", "details": "Routine annual checkup with Dr. Amit Verma. BP borderline high.", "doctorId": "DOC-007"},
-        {"recordId": "REC-003", "date": "2025-09-12", "type": "Emergency", "details": "Acute shortness of breath after running. Treated by Dr. Ritu Malhotra.", "doctorId": "DOC-008"},
-        {"recordId": "REC-004", "date": "2024-03-02", "type": "Lab Test", "details": "Spirometry: Mild reversible obstructive pattern. Chest X-ray: Clear.", "doctorId": "DOC-006"},
-        {"recordId": "REC-005", "date": "2025-01-16", "type": "Lab Test", "details": "Fasting glucose: 92 mg/dL; Lipid profile borderline.", "doctorId": "DOC-007"},
-        {"recordId": "REC-006", "date": "2025-09-12", "type": "Lab Test", "details": "ECG: Transient sinus tachycardia; no ischemia.", "doctorId": "DOC-008"}
+    "medicalEncounters": [
+      {
+        "encounterId": "ENC-003",
+        "date": "2025-09-12",
+        "department": "Emergency",
+        "doctor": "Dr. Ritu Malhotra",
+        "reason": "Acute shortness of breath after running",
+        "findings": "Transient tachycardia 110 bpm, SpO₂ 95%",
+        "investigations": "ECG, Peak flow, Chest auscultation",
+        "treatment": "Nebulized bronchodilator, Observation 4 hours",
+        "dischargeNotes": "Symptoms improved; continue inhaler"
+      },
+      {
+        "encounterId": "ENC-002",
+        "date": "2025-01-15",
+        "department": "General Medicine",
+        "doctor": "Dr. Amit Verma",
+        "reason": "Routine annual checkup",
+        "findings": "BP 130/84, HR 80 bpm, BMI 24.1",
+        "investigations": "Fasting glucose 92 mg/dL, Lipid profile, ECG",
+        "treatment": "Lifestyle counseling (diet & exercise)",
+        "dischargeNotes": "Low diabetes risk; monitor BP monthly"
+      },
+      {
+        "encounterId": "ENC-001",
+        "date": "2024-03-01",
+        "department": "Pulmonology",
+        "doctor": "Dr. Neha Kapoor",
+        "reason": "Asthma follow-up - seasonal flare",
+        "findings": "Wheezing; respiratory rate 18/min",
+        "investigations": "Spirometry, Chest X-ray",
+        "treatment": "Salbutamol inhaler (2 puffs PRN), Prednisolone 20mg x5 days",
+        "dischargeNotes": "Avoid triggers; spacer recommended"
+      }
     ],
-    "prescriptions": [
-        {"prescriptionId": "PRE-001", "date": "2024-03-01", "doctorId": "DOC-006", "medicines": [{"medicineId": "MED-009", "dosage": "2 puffs PRN"}, {"medicineId": "MED-016", "dosage": "20mg x5 days"}]},
-        {"prescriptionId": "PRE-001A", "date": "2025-09-12", "doctorId": "DOC-008", "medicines": [{"medicineId": "MED-009", "dosage": "2 puffs PRN"}]},
-        {"prescriptionId": "PRE-001B", "date": "2025-01-15", "doctorId": "DOC-007", "medicines": [{"medicineId": "MED-018", "dosage": "Once daily"}]}
+    "medications": {
+      "current": [
+        {"medicineId": "MED-009", "name": "Salbutamol Inhaler", "dosage": "100 mcg/puff, 2 puffs PRN", "reason": "Asthma (rescue)"},
+        {"medicineId": "MED-018", "name": "Multivitamin", "dosage": "Once daily", "reason": "Supplement"}
+      ],
+      "past": [
+        {"medicineId": "MED-016", "name": "Prednisolone", "dosage": "20 mg, 5 days", "reason": "Asthma exacerbation"},
+        {"medicineId": "MED-017", "name": "Azithromycin", "dosage": "500 mg, 3 days", "reason": "Respiratory infection"}
+      ]
+    },
+    "investigations": [
+      {"investigationId": "INV-004", "date": "2025-09-12", "type": "ECG", "summary": "Transient sinus tachycardia; no ischemia.", "doctor": "Dr. Ritu Malhotra"},
+      {"investigationId": "INV-003", "date": "2025-01-16", "type": "Blood Test", "summary": "FBG 92 mg/dL; Lipid profile borderline.", "doctor": "Dr. Amit Verma"},
+      {"investigationId": "INV-002", "date": "2024-03-02", "type": "Chest X-ray", "summary": "Clear lung fields, no acute abnormalities.", "doctor": "Dr. Neha Kapoor", "imageUrl": "https://picsum.photos/seed/rad1/600/400"},
+      {"investigationId": "INV-001", "date": "2024-03-02", "type": "Spirometry", "summary": "Mild reversible obstructive pattern.", "doctor": "Dr. Neha Kapoor"}
     ],
-    "radiologyReports": [
-      {"reportId": "RAD-001", "date": "2024-03-02", "type": "Chest X-ray", "summary": "Clear lung fields, no acute abnormalities.", "imageUrl": "https://picsum.photos/seed/rad1/600/400"}
-    ]
+    "vaccinations": ["COVID-19 (2 doses + booster)", "Tetanus (Up to date)", "Annual flu vaccine"],
+    "carePlan": {
+      "shortTerm": "Use inhaler PRN; peak flow twice daily for 2 weeks; follow-up Pulmonology if recurrence.",
+      "longTerm": "30 min cardio 3-5x/week; reduce refined sugars; monthly BP checks; annual flu vaccine; up-to-date COVID boosters.",
+      "nextFollowUp": "Pulmonology - 2025-10-20"
+    },
+    "currentStatus": {
+      "clinicalStatus": "Stable with intermittent exertional dyspnea",
+      "workRestrictions": "None; avoid smoke/dust"
+    }
   },
   {
     "patientId": "PAT-20251001-0002",
@@ -185,7 +243,13 @@ export const dummyPatients = [
     "aadhaar": "XXXX-XXXX-2345",
     "address": { "street": "45, GK-1", "city": "New Delhi", "state": "DL", "zip": "110048" },
     "bloodGroup": "A+",
-    "medicalSummary": "Asthma, Vitamin D deficiency",
+    "healthOverview": {
+      "status": "Good",
+      "riskLevel": "Low",
+      "chronicConditions": "Vitamin D deficiency",
+      "allergies": "None",
+      "latestNotes": "Follow-up for Vitamin D levels in 3 months."
+    },
     "emergencyContact": { "name": "Rohan Verma", "phone": "+919888800002" },
     "insurance": { "provider": "ICICI Lombard", "policyId": "INS-B02" },
     "vitals": {
@@ -194,7 +258,14 @@ export const dummyPatients = [
       "bloodSugar": [90, 92, 91, 93, 92, 94, 95],
       "oxygenSaturation": [96, 97, 96, 95, 97, 96, 97],
       "temperature": 36.8,
-      "bmi": 22.1
+      "bmi": 22.1,
+      "sleepHours": [7, 8, 7.5, 8, 7, 7.5, 8]
+    },
+     "lifestyle": {
+      "smoking": "No",
+      "alcohol": "No",
+      "exercise": "5 times/week (Yoga and walking)",
+      "diet": "Non-vegetarian, balanced diet",
     },
     "appointments": [
       {"appointmentId": "APP-003", "date": "2025-10-07", "doctorId": "DOC-002", "hospitalId": "HOS-002", "status": "booked"}
@@ -207,351 +278,29 @@ export const dummyPatients = [
         "hypertension": "Low",
         "diabetes": "Low",
         "heartDisease": "Low"
-      }
+      },
+       "preventiveMeasures": "Continue Vitamin D supplements, regular sun exposure."
     },
-    "medicalRecords": [
-        {"recordId": "REC-007", "date": "2025-09-15", "type": "Consultation", "details": "Follow-up for Asthma. Inhaler dosage adjusted.", "doctorId": "DOC-005"},
-        {"recordId": "REC-008", "date": "2025-08-01", "type": "Procedure", "details": "Prescribed Salbutamol Inhaler and Vitamin D supplements.", "doctorId": "DOC-005"}
+    "medicalEncounters": [
+        {"encounterId": "ENC-004", "date": "2025-09-15", "department": "General Medicine", "doctor": "Dr. Amit Verma", "reason": "Follow-up for Vitamin D deficiency.", "findings": "Levels improving.", "investigations": "Vitamin D test", "treatment": "Continue supplements", "dischargeNotes": "Re-check in 3 months."}
     ],
-    "prescriptions": [
-        {"prescriptionId": "PRE-002", "date": "2025-08-01", "doctorId": "DOC-005", "medicines": [{"medicineId": "MED-009", "dosage": "2 puffs when needed"}, {"medicineId": "MED-011", "dosage": "1 tablet weekly"}]}
-    ],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0003",
-    "name": "Vikram Singh",
-    "phone": "+919999900003",
-    "email": "vikram.singh@example.com",
-    "dob": "1975-11-30",
-    "gender": "Male",
-    "aadhaar": "XXXX-XXXX-3456",
-    "address": { "street": "789, Jubilee Hills", "city": "Hyderabad", "state": "TS", "zip": "500033" },
-    "bloodGroup": "B+",
-    "medicalSummary": "Type 2 Diabetes, on Metformin",
-    "emergencyContact": { "name": "Sunita Singh", "phone": "+919888800003" },
-    "insurance": { "provider": "HDFC Ergo", "policyId": "INS-C03" },
-    "vitals": {
-      "heartRate": [82, 85, 81, 83, 84, 82, 83],
-      "bloodPressure": ["130/85","132/86","129/84","131/85","130/84","132/86","133/87"],
-      "bloodSugar": [140, 145, 138, 150, 142, 148, 146],
-      "oxygenSaturation": [99, 98, 99, 98, 99, 98, 99],
-       "temperature": 36.9,
-      "bmi": 26.5
+    "medications": {
+        "current": [{"medicineId": "MED-011", "name": "D-Rise", "dosage": "1 tablet weekly", "reason": "Vitamin D deficiency"}],
+        "past": []
     },
-    "appointments": [
-      {"appointmentId": "APP-004", "date": "2025-10-10", "doctorId": "DOC-003", "hospitalId": "HOS-003", "status": "booked"},
-      {"appointmentId": "APP-005", "date": "2025-11-01", "doctorId": "DOC-003", "hospitalId": "HOS-003", "status": "booked", "urgent": true}
+    "investigations": [
+        {"investigationId": "INV-005", "date": "2025-09-15", "type": "Blood Test", "summary": "Vitamin D levels at 25 ng/mL (previously 10 ng/mL).", "doctor": "Dr. Amit Verma"}
     ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [83,84,82,83,85,84,83], "bloodPressure": ["131/85","130/84","132/86","133/87","131/85","130/84","132/86"]},
-      "appointmentProbability": [0.7,0.65,0.75,0.8,0.7,0.75,0.8],
-      "medicationAdherence": [0.92,0.9,0.94,0.91,0.93,0.92,0.9],
-       "risk": {
-        "hypertension": "High",
-        "diabetes": "High",
-        "heartDisease": "Medium"
-      }
+    "vaccinations": ["COVID-19 (2 doses + booster)", "Tetanus (Up to date)"],
+    "carePlan": {
+        "shortTerm": "Continue Vitamin D supplement weekly.",
+        "longTerm": "Annual health checkups.",
+        "nextFollowUp": "General Medicine - 2025-12-15"
     },
-    "medicalRecords": [
-        {"recordId": "REC-009", "date": "2025-08-10", "type": "Consultation", "details": "Diabetes management review. Adjusted Metformin dosage.", "doctorId": "DOC-003"}
-    ],
-     "prescriptions": [
-        {"prescriptionId": "PRE-003", "date": "2025-08-10", "doctorId": "DOC-003", "medicines": [{"medicineId": "MED-002", "dosage": "500mg BD"}]}
-    ],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0004",
-    "name": "Priya Kapoor",
-    "phone": "+919999900004",
-    "email": "priya.kapoor@example.com",
-    "dob": "2001-01-25",
-    "gender": "Female",
-    "aadhaar": "XXXX-XXXX-4567",
-    "address": { "street": "101, Indiranagar", "city": "Bangalore", "state": "KA", "zip": "560038" },
-    "bloodGroup": "AB+",
-    "medicalSummary": "No significant history. Generally healthy.",
-    "emergencyContact": { "name": "Anil Kapoor", "phone": "+919888800004" },
-    "insurance": { "provider": "Bajaj Allianz", "policyId": "INS-D04" },
-    "vitals": {
-      "heartRate": [68, 70, 69, 71, 70, 69, 72],
-      "bloodPressure": ["110/70","112/72","111/71","110/70","112/72","111/71","113/73"],
-      "bloodSugar": [85, 88, 86, 87, 85, 89, 90],
-      "oxygenSaturation": [99, 99, 98, 99, 99, 99, 99],
-       "temperature": 36.6,
-      "bmi": 21.2
-    },
-    "appointments": [
-      {"appointmentId": "APP-006", "date": "2026-01-20", "doctorId": "DOC-001", "hospitalId": "HOS-001", "status": "booked"}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [70,71,70,69,72,71,70], "bloodPressure": ["111/71","110/70","112/72","111/71","113/73","112/72","110/70"]},
-      "appointmentProbability": [0.1,0.1,0.1,0.1,0.1,0.1,0.1],
-      "medicationAdherence": [1,1,1,1,1,1,1],
-      "risk": {
-        "hypertension": "Low",
-        "diabetes": "Low",
-        "heartDisease": "Low"
-      }
-    },
-    "medicalRecords": [
-         {"recordId": "REC-010", "date": "2025-01-20", "type": "Consultation", "details": "Annual physical exam. All clear.", "doctorId": "DOC-001"}
-    ],
-    "prescriptions": [],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0005",
-    "name": "Sanjay Gupta",
-    "phone": "+919999900005",
-    "email": "sanjay.gupta@example.com",
-    "dob": "1965-06-12",
-    "gender": "Male",
-    "aadhaar": "XXXX-XXXX-5678",
-    "address": { "street": "22, Koramangala", "city": "Bangalore", "state": "KA", "zip": "560034" },
-    "bloodGroup": "O-",
-    "medicalSummary": "Coronary Artery Disease, post-stent.",
-    "emergencyContact": { "name": "Meena Gupta", "phone": "+919888800005" },
-    "insurance": { "provider": "Care Health", "policyId": "INS-E05" },
-    "vitals": {
-      "heartRate": [65, 66, 64, 67, 65, 66, 68],
-      "bloodPressure": ["125/82","126/83","124/81","127/84","125/82","126/83","128/84"],
-      "bloodSugar": [110, 112, 109, 115, 111, 114, 113],
-      "oxygenSaturation": [97, 98, 97, 98, 97, 98, 97],
-       "temperature": 37.0,
-      "bmi": 28.1
-    },
-    "appointments": [
-      {"appointmentId": "APP-007", "date": "2025-10-25", "doctorId": "DOC-004", "hospitalId": "HOS-004", "status": "booked", "urgent": true}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [66,65,67,68,66,65,67], "bloodPressure": ["126/83","125/82","127/84","128/84","126/83","125/82","127/84"]},
-      "appointmentProbability": [0.9,0.9,0.9,0.9,0.9,0.9,0.9],
-      "medicationAdherence": [0.98,0.99,0.97,0.98,0.99,0.98,0.97],
-      "risk": {
-        "hypertension": "High",
-        "diabetes": "Medium",
-        "heartDisease": "High"
-      }
-    },
-    "medicalRecords": [
-      {"recordId": "REC-011", "date": "2025-04-15", "type": "Procedure", "details": "Coronary angioplasty with stent placement.", "doctorId": "DOC-004"},
-      {"recordId": "REC-012", "date": "2025-04-15", "type": "Procedure", "details": "Prescribed Aspirin and Clopidogrel.", "doctorId": "DOC-004"}
-    ],
-    "prescriptions": [
-        {"prescriptionId": "PRE-004", "date": "2025-04-15", "doctorId": "DOC-004", "medicines": [{"medicineId": "MED-003", "dosage": "75mg OD"}, {"medicineId": "MED-013", "dosage": "75mg OD"}]}
-    ],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0006",
-    "name": "Meera Iyer",
-    "phone": "+919999900006",
-    "email": "meera.iyer@example.com",
-    "dob": "1998-09-05",
-    "gender": "Female",
-    "aadhaar": "XXXX-XXXX-6789",
-    "address": { "street": "33, Alwarpet", "city": "Chennai", "state": "TN", "zip": "600018" },
-    "bloodGroup": "B-",
-    "medicalSummary": "Migraines, occasional Iron deficiency.",
-    "emergencyContact": { "name": "Suresh Iyer", "phone": "+919888800006" },
-    "insurance": { "provider": "New India Assurance", "policyId": "INS-F06" },
-    "vitals": {
-      "heartRate": [74, 76, 75, 77, 76, 75, 78],
-      "bloodPressure": ["115/75","116/76","114/74","117/77","115/75","116/76","118/78"],
-      "bloodSugar": [92, 94, 93, 95, 94, 96, 97],
-      "oxygenSaturation": [98, 99, 98, 99, 98, 99, 98],
-      "temperature": 36.8,
-      "bmi": 20.5
-    },
-    "appointments": [
-      {"appointmentId": "APP-008", "date": "2025-10-12", "doctorId": "DOC-002", "hospitalId": "HOS-002", "status": "booked"}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [76,75,77,78,76,75,77], "bloodPressure": ["116/76","115/75","117/77","118/78","116/76","115/75","117/77"]},
-      "appointmentProbability": [0.4,0.3,0.5,0.4,0.3,0.5,0.4],
-      "medicationAdherence": [0.99,0.98,1,0.99,0.98,1,0.99],
-      "risk": {
-        "hypertension": "Low",
-        "diabetes": "Low",
-        "heartDisease": "Low"
-      }
-    },
-     "medicalRecords": [
-        {"recordId": "REC-013", "date": "2025-06-30", "type": "Consultation", "details": "Consulted for severe migraine episode.", "doctorId": "DOC-002"}
-    ],
-    "prescriptions": [
-        {"prescriptionId": "PRE-005", "date": "2025-06-30", "doctorId": "DOC-002", "medicines": [{"medicineId": "MED-012", "dosage": "50mg as needed"}, {"medicineId": "MED-015", "dosage": "1 tablet OD"}]}
-    ],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0007",
-    "name": "Arjun Reddy",
-    "phone": "+919999900007",
-    "email": "arjun.reddy@example.com",
-    "dob": "1990-07-18",
-    "gender": "Male",
-    "aadhaar": "XXXX-XXXX-7890",
-    "address": { "street": "44, Banjara Hills", "city": "Hyderabad", "state": "TS", "zip": "500034" },
-    "bloodGroup": "AB-",
-    "medicalSummary": "ACL tear recovery (left knee).",
-    "emergencyContact": { "name": "Prakash Reddy", "phone": "+919888800007" },
-    "insurance": { "provider": "United India Insurance", "policyId": "INS-G07" },
-    "vitals": {
-      "heartRate": [70, 72, 71, 73, 72, 74, 75],
-      "bloodPressure": ["122/80","123/81","121/79","124/82","122/80","123/81","125/83"],
-      "bloodSugar": [98, 100, 99, 102, 101, 103, 104],
-      "oxygenSaturation": [99, 98, 99, 98, 99, 98, 99],
-       "temperature": 36.9,
-      "bmi": 25.1
-    },
-    "appointments": [
-      {"appointmentId": "APP-009", "date": "2025-10-20", "doctorId": "DOC-005", "hospitalId": "HOS-003", "status": "booked"}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [72,73,72,74,75,73,72], "bloodPressure": ["123/81","122/80","124/82","125/83","123/81","122/80","124/82"]},
-      "appointmentProbability": [0.6,0.6,0.6,0.6,0.6,0.6,0.6],
-      "medicationAdherence": [1,1,1,1,1,1,1],
-      "risk": {
-        "hypertension": "Low",
-        "diabetes": "Low",
-        "heartDisease": "Low"
-      }
-    },
-    "medicalRecords": [
-      {"recordId": "REC-014", "date": "2025-03-01", "type": "Surgery", "details": "ACL reconstruction surgery, left knee.", "doctorId": "DOC-005"}
-    ],
-    "prescriptions": [],
-    "radiologyReports": [
-        {"reportId": "RAD-002", "date": "2025-02-15", "type": "MRI Knee", "summary": "Post-operative changes of ACL reconstruction. No new tear.", "imageUrl": "https://picsum.photos/seed/rad2/600/400"}
-    ]
-  },
-  {
-    "patientId": "PAT-20251001-0008",
-    "name": "Sunita Rao",
-    "phone": "+919999900008",
-    "email": "sunita.rao@example.com",
-    "dob": "1958-04-22",
-    "gender": "Female",
-    "aadhaar": "XXXX-XXXX-8901",
-    "address": { "street": "55, Jayanagar", "city": "Bangalore", "state": "KA", "zip": "560041" },
-    "bloodGroup": "A-",
-    "medicalSummary": "Osteoporosis, Hypothyroidism.",
-    "emergencyContact": { "name": "Kiran Rao", "phone": "+919888800008" },
-    "insurance": { "provider": "Oriental Insurance", "policyId": "INS-H08" },
-    "vitals": {
-      "heartRate": [76, 78, 77, 79, 78, 80, 81],
-      "bloodPressure": ["135/88","136/89","134/87","137/90","135/88","136/89","138/91"],
-      "bloodSugar": [105, 107, 106, 108, 107, 109, 110],
-      "oxygenSaturation": [96, 97, 96, 97, 96, 97, 96],
-       "temperature": 36.5,
-      "bmi": 23.4
-    },
-    "appointments": [
-      {"appointmentId": "APP-010", "date": "2025-10-18", "doctorId": "DOC-003", "hospitalId": "HOS-001", "status": "booked"},
-      {"appointmentId": "APP-011", "date": "2025-12-18", "doctorId": "DOC-003", "hospitalId": "HOS-001", "status": "booked", "urgent": true}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [78,79,78,80,81,79,78], "bloodPressure": ["136/89","135/88","137/90","138/91","136/89","135/88","137/90"]},
-      "appointmentProbability": [0.8,0.8,0.8,0.8,0.8,0.8,0.8],
-      "medicationAdherence": [0.95,0.96,0.94,0.95,0.96,0.94,0.95],
-       "risk": {
-        "hypertension": "High",
-        "diabetes": "Low",
-        "heartDisease": "Medium"
-      }
-    },
-    "medicalRecords": [
-        {"recordId": "REC-015", "date": "2025-09-01", "type": "Lab Test", "details": "TSH levels check. Dosage adjusted.", "doctorId": "DOC-003"}
-    ],
-    "prescriptions": [
-        {"prescriptionId": "PRE-006", "date": "2025-09-01", "doctorId": "DOC-003", "medicines": [{"medicineId": "MED-005", "dosage": "75mcg OD"}]}
-    ],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0009",
-    "name": "Karan Malhotra",
-    "phone": "+919999900009",
-    "email": "karan.malhotra@example.com",
-    "dob": "1982-12-01",
-    "gender": "Male",
-    "aadhaar": "XXXX-XXXX-9012",
-    "address": { "street": "66, Viman Nagar", "city": "Pune", "state": "MH", "zip": "411014" },
-    "bloodGroup": "O+",
-    "medicalSummary": "GERD, seasonal allergies.",
-    "emergencyContact": { "name": "Neha Malhotra", "phone": "+919888800009" },
-    "insurance": { "provider": "Acko General Insurance", "policyId": "INS-I09" },
-    "vitals": {
-      "heartRate": [71, 73, 72, 74, 73, 75, 74],
-      "bloodPressure": ["124/81","125/82","123/80","126/83","124/81","125/82","126/83"],
-      "bloodSugar": [99, 101, 100, 102, 101, 103, 102],
-      "oxygenSaturation": [98, 97, 98, 97, 98, 97, 98],
-      "temperature": 37.1,
-      "bmi": 27.8
-    },
-    "appointments": [
-      {"appointmentId": "APP-012", "date": "2025-10-22", "doctorId": "DOC-001", "hospitalId": "HOS-002", "status": "booked"}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [73,72,74,75,73,74,73], "bloodPressure": ["125/82","124/81","126/83","126/83","125/82","124/81","126/83"]},
-      "appointmentProbability": [0.5,0.5,0.5,0.5,0.5,0.5,0.5],
-      "medicationAdherence": [0.9,0.88,0.92,0.9,0.89,0.91,0.9],
-      "risk": {
-        "hypertension": "Medium",
-        "diabetes": "Low",
-        "heartDisease": "Low"
-      }
-    },
-    "medicalRecords": [
-        {"recordId": "REC-016", "date": "2025-08-22", "type": "Consultation", "details": "Prescribed medication for GERD flare-up.", "doctorId": "DOC-001"}
-    ],
-    "prescriptions": [
-        {"prescriptionId": "PRE-007", "date": "2025-08-22", "doctorId": "DOC-001", "medicines": [{"medicineId": "MED-008", "dosage": "20mg OD"}, {"medicineId": "MED-007", "dosage": "10mg as needed"}]}
-    ],
-    "radiologyReports": []
-  },
-  {
-    "patientId": "PAT-20251001-0010",
-    "name": "Deepa Khanna",
-    "phone": "+919999900010",
-    "email": "deepa.khanna@example.com",
-    "dob": "1995-02-14",
-    "gender": "Female",
-    "aadhaar": "XXXX-XXXX-0123",
-    "address": { "street": "77, Bandra West", "city": "Mumbai", "state": "MH", "zip": "400050" },
-    "bloodGroup": "B+",
-    "medicalSummary": "PCOS, under observation.",
-    "emergencyContact": { "name": "Raj Khanna", "phone": "+919888800010" },
-    "insurance": { "provider": "Digit Insurance", "policyId": "INS-J10" },
-    "vitals": {
-      "heartRate": [75, 77, 76, 78, 77, 79, 78],
-      "bloodPressure": ["117/76","118/77","116/75","119/78","117/76","118/77","120/79"],
-      "bloodSugar": [94, 96, 95, 97, 96, 98, 99],
-      "oxygenSaturation": [99, 98, 99, 98, 99, 98, 99],
-       "temperature": 36.7,
-      "bmi": 23.9
-    },
-    "appointments": [
-      {"appointmentId": "APP-013", "date": "2025-11-10", "doctorId": "DOC-002", "hospitalId": "HOS-001", "status": "booked"}
-    ],
-    "predictions": {
-      "vitalsNext7Days": {"heartRate": [77,76,78,79,77,78,77], "bloodPressure": ["118/77","117/76","119/78","120/79","118/77","117/76","119/78"]},
-      "appointmentProbability": [0.65,0.7,0.6,0.75,0.65,0.7,0.6],
-      "medicationAdherence": [0.99,0.99,1,0.98,0.99,1,0.99],
-      "risk": {
-        "hypertension": "Low",
-        "diabetes": "Low",
-        "heartDisease": "Low"
-      }
-    },
-    "medicalRecords": [
-        {"recordId": "REC-017", "date": "2025-09-10", "type": "Ultrasound", "details": "Pelvic ultrasound for PCOS monitoring. Results stable.", "doctorId": "DOC-002"}
-    ],
-    "prescriptions": [],
-    "radiologyReports": []
+    "currentStatus": {
+        "clinicalStatus": "Stable and healthy",
+        "workRestrictions": "None"
+    }
   }
 ];
 
@@ -560,5 +309,6 @@ export type Doctor = typeof dummyDoctors[0];
 export type Hospital = typeof dummyHospitals[0];
 export type Medicine = typeof dummyMedicines[0];
 export type Ambulance = typeof dummyAmbulances[0];
-
+export type MedicalEncounter = Patient["medicalEncounters"][0];
+export type Investigation = Patient["investigations"][0];
     

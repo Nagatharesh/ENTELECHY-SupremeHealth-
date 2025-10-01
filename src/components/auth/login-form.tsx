@@ -67,7 +67,7 @@ const hospitalSchema = z.object({
 });
 const ambulanceSchema = z.object({
   emailOrPhone: z.string().min(1, "This field is required."),
-  password: zstring().min(8, "Password must be at least 8 characters."),
+  password: z.string().min(8, "Password must be at least 8 characters."),
   vehicleNumber: z.string().regex(/^[A-Z0-9- ]{4,12}$/, "Invalid vehicle number. Must be 4-12 alphanumeric characters."),
 });
 
@@ -208,7 +208,7 @@ export function LoginForm() {
                         <FormItem>
                             <FormLabel>Patient ID</FormLabel>
                             <FormControl>
-                            <InputWithIcon icon={User} type="text" placeholder="PAT-YYYYMMDD-XXXX" {...field} />
+                            <InputWithIcon icon={User} type="text" placeholder="P-102345" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

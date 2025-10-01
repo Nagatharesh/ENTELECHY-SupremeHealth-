@@ -50,8 +50,8 @@ export function PatientProfile({ patient }: { patient: Patient }) {
                         <InfoItem icon={User} label="Blood Group" value={patient.bloodGroup} />
                     </div>
                     <div className="mt-6">
-                        <h4 className="font-semibold text-white mb-2">Medical Summary</h4>
-                        <p className="text-muted-foreground text-sm">{patient.medicalSummary}</p>
+                        <h4 className="font-semibold text-white mb-2">Health Summary</h4>
+                        <p className="text-muted-foreground text-sm">{patient.healthOverview.latestNotes}</p>
                     </div>
                 </CardContent>
             </Card>
