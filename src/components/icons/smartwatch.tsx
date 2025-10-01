@@ -26,7 +26,7 @@ export function Smartwatch({ className, ...props }: SVGProps<SVGSVGElement>) {
       <rect width="16" height="16" x="4" y="4" rx="2" fill="url(#grad1)" fillOpacity="0.2" stroke="url(#grad1)" />
       <path d="M12 8v4l2 2" stroke="white" />
       <path d="M18 12h2" />
-      <path d- "M6 12H4" />
+      <path d="M6 12H4" />
       <path d="M12 18v2" />
       <path d="M12 6V4" />
     </svg>
