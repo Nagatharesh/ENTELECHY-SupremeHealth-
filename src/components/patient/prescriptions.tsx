@@ -295,9 +295,9 @@ function PrescriptionEditor({ patient, onSave, onClose }) {
             <div className="flex-grow overflow-y-auto pr-6 -mr-6 space-y-6">
                 {/* Patient & Doctor Info */}
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                     <Input label="Patient Name" value={prescription.patientName} disabled/>
-                     <Input label="Patient Aadhaar" value={prescription.patientAadhaar.replace(/(\d{4})-(\d{4})-(\d{4})/, 'XXXX-XXXX-$3')} disabled/>
-                     <Input label="Consultation Date" type="date" value={prescription.consultationDate} onChange={(e) => setPrescription(p => ({...p, consultationDate: e.target.value}))}/>
+                     <InputWithLabel label="Patient Name" value={prescription.patientName} disabled/>
+                     <InputWithLabel label="Patient Aadhaar" value={prescription.patientAadhaar.replace(/(\d{4})-(\d{4})-.*/, 'XXXX-XXXX-....')} disabled/>
+                     <InputWithLabel label="Consultation Date" type="date" value={prescription.consultationDate} onChange={(e) => setPrescription(p => ({...p, consultationDate: e.target.value}))}/>
                      <Select value={prescription.doctorId} onValueChange={(val) => setPrescription(p => ({...p, doctorId: val}))}>
                         <SelectTrigger><SelectValue placeholder="Select Doctor..." /></SelectTrigger>
                         <SelectContent>

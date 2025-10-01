@@ -92,7 +92,7 @@ export function Diagnostics({ patient }: { patient: Patient }) {
             const context = canvasRef.current.getContext('2d');
             if (context) {
                 canvasRef.current.width = videoRef.current.videoWidth;
-                canvasRef.current.height = videoRef-current.videoHeight;
+                canvasRef.current.height = videoRef.current.videoHeight;
                 context.drawImage(videoRef.current, 0, 0);
                 const dataUrl = canvasRef.current.toDataURL('image/png');
                 setUploadedImage(dataUrl);
