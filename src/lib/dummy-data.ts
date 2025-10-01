@@ -1,5 +1,6 @@
 
 
+
 export const dummyAadhaarPatients = [
     { aadhaar_full: '1234-5678-9012', name: 'Rahul Sharma', dob: '1990-05-15', gender: 'Male', contact: '+91 9876543210', address: '45 Green Park, New Delhi', is_test: true },
     { aadhaar_full: '2345-6789-0123', name: 'Anjali Mehta', dob: '1994-08-22', gender: 'Female', contact: '+91 9123456780', address: '12 Rose Street, Mumbai', is_test: true },
@@ -377,7 +378,7 @@ export const dummyPatients = [
     "email": "rahul.sharma@example.com",
     "dob": "1992-07-22",
     "gender": "Male",
-    "aadhaar": "XXXX-XXXX-1234",
+    "aadhaar": "1234-5678-9012",
     "address": { "street": "45, Green Park", "city": "New Delhi", "state": "DL", "zip": "110016" },
     "bloodGroup": "O+",
     "healthOverview": {
@@ -516,7 +517,7 @@ export const dummyPatients = [
     "email": "anjali.verma@example.com",
     "dob": "1992-08-20",
     "gender": "Female",
-    "aadhaar": "XXXX-XXXX-2345",
+    "aadhaar": "2345-6789-0123",
     "address": { "street": "45, GK-1", "city": "New Delhi", "state": "DL", "zip": "110048" },
     "bloodGroup": "A+",
     "healthOverview": {

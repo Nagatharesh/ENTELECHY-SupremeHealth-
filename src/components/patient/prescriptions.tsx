@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useMemo, useEffect } from 'react';
@@ -12,8 +13,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { Fingerprint, User, PlusCircle, Pencil, X, Download, Paperclip, Send, AlertTriangle } from 'lucide-react';
+import { Fingerprint, User, PlusCircle, Pencil, X, Download, Paperclip, Send, AlertTriangle, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import { AadhaarPatientProfile } from './aadhaar-patient-profile';
+import { Progress } from '../ui/progress';
 
 type PrescriptionMedicine = {
     id: string;
@@ -67,6 +70,7 @@ export function Prescriptions({ patient }: { patient: Patient }) {
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [isEditorOpen, setIsEditorOpen] = useState(false);
     const [prescriptions, setPrescriptions] = useState<Prescription[]>(dummyPrescriptions);
+    const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
 
     const handleAadhaarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,10 +99,14 @@ export function Prescriptions({ patient }: { patient: Patient }) {
     };
     
     const handleOtpSubmit = () => {
-        const foundPatient = dummyAadhaarPatients.find(p => p.aadhaar_full === aadhaar);
-        setVerifiedPatient(foundPatient!);
+        setIsLoading(true);
         setShowOtpModal(false);
-        toast({ title: 'Aadhaar Verified!', description: `Patient details for ${foundPatient!.name} have been loaded.` });
+        setTimeout(() => {
+            const foundPatient = dummyAadhaarPatients.find(p => p.aadhaar_full === aadhaar);
+            setVerifiedPatient(foundPatient!);
+            toast({ title: 'Aadhaar Verified!', description: `Patient details for ${foundPatient!.name} have been loaded.` });
+            setIsLoading(false);
+        }, 3000);
     };
 
     const handleSavePrescription = (prescription: Prescription) => {
@@ -139,29 +147,34 @@ export function Prescriptions({ patient }: { patient: Patient }) {
                                 className="pl-10 text-lg tracking-widest"
                                 value={aadhaar}
                                 onChange={handleAadhaarChange}
-                                disabled={!!verifiedPatient}
+                                disabled={!!verifiedPatient || isLoading}
                             />
                         </div>
                         {verifiedPatient ? (
                              <Button variant="outline" onClick={() => { setVerifiedPatient(null); setAadhaar(''); }}><X className="mr-2"/>Clear</Button>
                         ) : (
-                             <Button onClick={handleVerify} disabled={aadhaar.length !== 14} className="glowing-shadow-interactive">Verify</Button>
+                             <Button onClick={handleVerify} disabled={aadhaar.length !== 14 || isLoading} className="glowing-shadow-interactive">
+                                {isLoading ? <Loader2 className="animate-spin" /> : "Verify"}
+                            </Button>
                         )}
                     </div>
+                     {isLoading && (
+                        <div className="mt-4 p-4 bg-background/50 rounded-lg border border-primary/20 flex flex-col items-center gap-4">
+                            <Loader2 className="w-12 h-12 text-primary animate-spin" />
+                            <p className="font-bold text-white text-lg animate-pulse">Verifying & Fetching Patient Data...</p>
+                            <Progress value={33} className="w-full animate-pulse" />
+                        </div>
+                    )}
                     {verifiedPatient && (
-                        <div className="mt-4 p-4 bg-primary/10 rounded-lg border border-primary/20 flex items-center gap-4">
-                            <User className="w-8 h-8 text-primary"/>
-                            <div>
-                                <p className="font-bold text-white text-lg">{verifiedPatient.name}</p>
-                                <p className="text-sm text-muted-foreground">{verifiedPatient.gender}, {new Date().getFullYear() - new Date(verifiedPatient.dob).getFullYear()} years old &bull; {verifiedPatient.contact}</p>
-                            </div>
+                        <div className="mt-4 animate-fade-in-up">
+                            <AadhaarPatientProfile patient={verifiedPatient} />
                         </div>
                     )}
                 </CardContent>
             </Card>
 
             {verifiedPatient && (
-                 <Card className="glassmorphism glowing-shadow">
+                 <Card className="glassmorphism glowing-shadow animate-fade-in-up" style={{animationDelay: '200ms'}}>
                     <CardHeader className="flex flex-row items-center justify-between">
                         <div>
                             <CardTitle className="text-gradient-glow">Prescriptions for {verifiedPatient.name}</CardTitle>
@@ -173,8 +186,8 @@ export function Prescriptions({ patient }: { patient: Patient }) {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            {patientPrescriptions.length > 0 ? patientPrescriptions.map(p => 
-                                <PrescriptionCard key={p.id} prescription={p} onEdit={() => setIsEditorOpen(true)} />
+                            {patientPrescriptions.length > 0 ? patientPrescriptions.map((p, index) => 
+                                <PrescriptionCard key={p.id} prescription={p} onEdit={() => setIsEditorOpen(true)} index={index}/>
                             ) : (
                                 <p className="text-center text-muted-foreground py-8">No prescriptions found for this patient.</p>
                             )}
@@ -187,6 +200,7 @@ export function Prescriptions({ patient }: { patient: Patient }) {
                 <DialogContent className="glassmorphism">
                     <DialogHeader>
                         <DialogTitle className="text-gradient-glow">Enter OTP</DialogTitle>
+
                         <DialogDescription>An OTP has been sent to the mobile number linked with Aadhaar ending in ...{aadhaar.slice(-4)}. (This is a dummy flow, enter any 6 digits).</DialogDescription>
                     </DialogHeader>
                     <div className="py-4">
@@ -214,24 +228,24 @@ export function Prescriptions({ patient }: { patient: Patient }) {
 }
 
 const statusConfig = {
-    draft: { color: "bg-gray-500", label: "Draft" },
-    pending: { color: "bg-yellow-500", label: "Pending" },
-    approved: { color: "bg-green-500", label: "Approved" },
-    rejected: { color: "bg-red-500", label: "Rejected" },
+    draft: { color: "bg-gray-500", label: "Draft", glow: "shadow-gray-500/50" },
+    pending: { color: "bg-yellow-500", label: "Pending", glow: "shadow-yellow-500/50 animate-pulse" },
+    approved: { color: "bg-green-500", label: "Approved", glow: "shadow-green-500/50" },
+    rejected: { color: "bg-red-500", label: "Rejected", glow: "shadow-red-500/50" },
 };
 
-const PrescriptionCard = ({ prescription, onEdit }) => {
+const PrescriptionCard = ({ prescription, onEdit, index }) => {
     const doctor = dummyDoctors.find(d => d.doctorId === prescription.doctorId);
     const status = statusConfig[prescription.status];
     return (
-        <Card className="glassmorphism p-4">
+        <Card className="glassmorphism p-4 timeline-card-glow" style={{animationDelay: `${index * 100}ms`}}>
             <div className="flex justify-between items-start">
                 <div>
                     <p className="text-sm text-muted-foreground">Consultation: {format(new Date(prescription.consultationDate), 'PPP')}</p>
                     <p className="font-bold text-lg text-white">Dr. {doctor?.name}</p>
                 </div>
                  <div className="flex items-center gap-4">
-                     <Badge className={cn("text-white", status.color)}>{status.label}</Badge>
+                     <Badge className={cn("text-white shadow-lg", status.color, status.glow)}>{status.label}</Badge>
                      <Button variant="ghost" size="icon" onClick={onEdit}><Pencil className="w-4 h-4"/></Button>
                  </div>
             </div>
@@ -242,7 +256,7 @@ const PrescriptionCard = ({ prescription, onEdit }) => {
                 </div>
             </div>
              <CardFooter className="p-0 pt-4 flex justify-end">
-                <Button variant="outline" disabled={prescription.status !== 'approved'}><Download className="mr-2"/> Download</Button>
+                <Button variant="outline" disabled={prescription.status !== 'approved'} className="glowing-shadow-interactive disabled:opacity-50"><Download className="mr-2"/> Download</Button>
             </CardFooter>
         </Card>
     )
@@ -256,12 +270,36 @@ function PrescriptionEditor({ patient, onSave, onClose }) {
         consultationDate: format(new Date(), 'yyyy-MM-dd'),
         doctorId: '',
         hospital: '',
-        medicines: [{ id: `M${Date.now()}`, name: '', dose: '', route: '', frequency: '', duration: '' }],
-        notes: '',
+        medicines: [{ id: `M${Date.now()}`, name: 'Paracetamol 500mg', dose: '1 Tab', route: 'Oral', frequency: 'TDS', duration: '3 Days' }],
+        notes: 'Take after food. Drink plenty of fluids.',
         attachments: [],
         status: 'draft',
     });
+    const [isSimulating, setIsSimulating] = useState(false);
+    const [progress, setProgress] = useState(0);
     const { toast } = useToast();
+
+    useEffect(() => {
+        let timer;
+        if(isSimulating) {
+            timer = setInterval(() => {
+                setProgress(prev => {
+                    if (prev >= 100) {
+                        clearInterval(timer);
+                        setIsSimulating(false);
+                        const newPrescription = {...prescription, status: 'approved' as const, approvedAt: new Date().toISOString() };
+                        setPrescription(newPrescription);
+                        onSave(newPrescription);
+                        toast({ title: "Prescription Approved!", description: `Dr. ${dummyDoctors.find(d=>d.doctorId === prescription.doctorId)?.name} has e-signed the prescription. You can now download it.` });
+                        return 100;
+                    }
+                    return prev + (100 / 70); // ~7 second simulation
+                });
+            }, 100);
+        }
+        return () => clearInterval(timer);
+    }, [isSimulating]);
+
 
     const handleMedicineChange = (index, field, value) => {
         const newMedicines = [...prescription.medicines];
@@ -281,9 +319,29 @@ function PrescriptionEditor({ patient, onSave, onClose }) {
     const handleSendForESign = () => {
         const newPrescription = {...prescription, status: 'pending' as const };
         setPrescription(newPrescription);
-        onSave(newPrescription);
-         toast({ title: "Sent for e-Sign", description: `Prescription sent to Dr. ${dummyDoctors.find(d=>d.doctorId === prescription.doctorId)?.name} for approval.` });
+        toast({ title: "Sent for e-Sign", description: `Prescription sent to Dr. ${dummyDoctors.find(d=>d.doctorId === prescription.doctorId)?.name} for approval. Simulating approval...` });
+        setIsSimulating(true);
+        setProgress(0);
     };
+
+    if(isSimulating) {
+        return (
+             <div className="flex flex-col items-center justify-center h-full gap-6 text-center animate-fade-in-up">
+                <div className="relative">
+                    <div className="w-40 h-40 rounded-full border-4 border-dashed border-primary animate-spin-slow" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <Send className="w-20 h-20 text-primary" />
+                    </div>
+                </div>
+                <h2 className="text-2xl font-bold text-gradient-glow">Sending for e-Signature...</h2>
+                <p className="text-muted-foreground">Waiting for Dr. {dummyDoctors.find(d=>d.doctorId === prescription.doctorId)?.name} to approve.</p>
+                <div className="w-full max-w-md">
+                    <Progress value={progress} className="h-2 glowing-shadow" />
+                    <p className="text-xs text-primary mt-2">{Math.round(progress)}% complete</p>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -338,12 +396,12 @@ function PrescriptionEditor({ patient, onSave, onClose }) {
             
             <DialogFooter className="flex-col sm:flex-row justify-between w-full">
                 <div className="flex items-center gap-2">
-                     <Badge className={cn("text-white", statusConfig[prescription.status].color)}>{statusConfig[prescription.status].label}</Badge>
+                     <Badge className={cn("text-white shadow-lg", statusConfig[prescription.status].color, statusConfig[prescription.status].glow)}>{statusConfig[prescription.status].label}</Badge>
                      {prescription.status === 'rejected' && <div className="text-destructive text-sm flex items-center gap-1"><AlertTriangle className="w-4 h-4"/> Rejected by Doctor</div>}
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline" onClick={() => onSave(prescription)}>Save Draft</Button>
-                    <Button className="glowing-shadow-interactive" onClick={handleSendForESign} disabled={!prescription.doctorId || prescription.status === 'pending'}>
+                    <Button className="glowing-shadow-interactive" onClick={handleSendForESign} disabled={!prescription.doctorId || prescription.status === 'pending' || prescription.status === 'approved'}>
                         <Send className="mr-2"/> Send for e-Sign
                     </Button>
                 </div>
