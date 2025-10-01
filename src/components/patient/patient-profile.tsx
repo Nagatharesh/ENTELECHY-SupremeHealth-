@@ -5,7 +5,7 @@ import { Patient } from "@/lib/dummy-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuickActions } from "./quick-actions";
 import { HealthSnapshot } from "./health-snapshot";
-import { User, Phone, Shield, Building, MapPin, Mail } from "lucide-react";
+import { User, Phone, Shield, Building, MapPin, Mail, Droplet } from "lucide-react";
 import Image from "next/image";
 
 export function PatientProfile({ patient }: { patient: Patient }) {
@@ -47,7 +47,7 @@ export function PatientProfile({ patient }: { patient: Patient }) {
                         <InfoItem icon={Shield} label="Aadhaar" value={patient.aadhaar} />
                         <InfoItem icon={MapPin} label="Address" value={`${patient.address.street}, ${patient.address.city}, ${patient.address.state} - ${patient.address.zip}`} />
                         <InfoItem icon={Building} label="Insurance" value={`${patient.insurance.provider} - ${patient.insurance.policyId}`} />
-                        <InfoItem icon={User} label="Blood Group" value={patient.bloodGroup} />
+                        <InfoItem icon={Droplet} label="Blood Group" value={patient.bloodGroup} />
                     </div>
                     <div className="mt-6">
                         <h4 className="font-semibold text-white mb-2">Health Summary</h4>
@@ -73,3 +73,5 @@ const InfoItem = ({ icon: Icon, label, value }: { icon: React.ElementType, label
         </div>
     </div>
 )
+
+    
