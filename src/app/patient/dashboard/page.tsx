@@ -60,9 +60,9 @@ function DashboardContent() {
 
   if (!patient) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center">
+      <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
         <h2 className="text-2xl font-bold text-destructive mb-4">Patient Not Found</h2>
-        <p className="text-muted-foreground mb-8">The patient ID "{patientId}" does not exist in our records. Use a dummy ID like 'P-102345' for testing.</p>
+        <p className="text-muted-foreground mb-8 max-w-md">The patient ID "{patientId}" does not exist in our records. Please use a valid ID like 'P-102345' for testing, accessible from the login page.</p>
         <Button asChild>
           <Link href="/login?role=patient">Return to Login</Link>
         </Button>
