@@ -217,7 +217,7 @@ const MetricCard = ({ metric, value, unit }) => {
     return (
         <Card className={cn("glassmorphism p-4 transform transition-transform hover:scale-105 hover:-translate-y-1", riskBgColors[risk])}>
             <p className="text-sm text-muted-foreground">{metric.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</p>
-            <p className={cn("text-3xl font-bold", riskColors[risk])}>{value} <span className="text-lg font-normal text-muted-foreground">{unit}</span></p>
+            <div className={cn("text-3xl font-bold", riskColors[risk])}>{value} <span className="text-lg font-normal text-muted-foreground">{unit}</span></div>
         </Card>
     );
 };
@@ -255,7 +255,6 @@ const MetricChart = ({ title, data, dataKey, color, type = 'line' }) => {
                             fill={type === 'bar' ? `url(#gradient-${dataKey})` : 'none'}
                             strokeWidth={2} 
                             dot={false} 
-                            barSize={20} 
                             radius={type === 'bar' ? [4, 4, 0, 0] : 0} 
                         />
                     </ChartComponent>
