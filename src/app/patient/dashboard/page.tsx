@@ -27,6 +27,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
+  SidebarTrigger as SidebarTriggerButton
 } from "@/components/ui/sidebar"
 import { AmbulanceBooking } from '@/components/patient/ambulance-booking';
 
@@ -91,10 +92,10 @@ function DashboardContent() {
   ];
 
   const NavMenu = ({isSheet = false}: {isSheet?: boolean}) => (
-    <>
+    <Sidebar>
       <SidebarHeader className="flex items-center justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=expanded]:justify-between">
           <Logo className="group-data-[collapsible=icon]:hidden"/>
-          <SidebarTrigger />
+          <SidebarTriggerButton />
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
@@ -117,15 +118,15 @@ function DashboardContent() {
             </div>
           </div>
       </SidebarFooter>
-    </>
+    </Sidebar>
   )
 
   return (
     <SidebarProvider>
       <div className="flex flex-col md:flex-row min-h-screen bg-background">
-        <Sidebar className="hidden md:flex flex-col glassmorphism !border-r-border/50">
+        <div className="hidden md:flex flex-col glassmorphism !border-r-border/50">
             <NavMenu />
-        </Sidebar>
+        </div>
 
         <main className="flex-1 min-w-0">
           <header className="flex md:hidden items-center justify-between p-4 glassmorphism">
@@ -136,9 +137,7 @@ function DashboardContent() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="p-0 w-[var(--sidebar-width-mobile)]">
-                 <Sidebar>
-                    <NavMenu isSheet={true}/>
-                  </Sidebar>
+                 <NavMenu isSheet={true}/>
               </SheetContent>
             </Sheet>
             <Link href="/home">
