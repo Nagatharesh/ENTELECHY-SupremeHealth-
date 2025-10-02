@@ -131,4 +131,7 @@ const RecommendationCard = ({ icon: Icon, title, content }: { icon: React.Elemen
         <Icon className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
         <div>
             <p className="font-semibold text-lg text-white">{title}</p>
-            <p className="text
+            <p className="text-sm text-muted-foreground">{content}</p>
+        </div>
+    </div>
+);

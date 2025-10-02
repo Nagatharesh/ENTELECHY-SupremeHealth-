@@ -9,7 +9,7 @@ import { Droplets, Hospital, TrendingUp, AlertTriangle } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from '../ui/badge';
 import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
-import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Legend, Cell } from 'recharts';
 
 const bloodTypes = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
@@ -40,6 +40,12 @@ export function BloodBank() {
             return found || { name: type, units: 0 };
         });
     }, [filteredData]);
+
+    const barColors = {
+        low: 'hsl(var(--destructive))',
+        medium: 'hsl(var(--primary))',
+        high: 'hsl(var(--secondary))',
+    };
 
     return (
         <div className="space-y-6">
@@ -86,14 +92,15 @@ export function BloodBank() {
                                     />
                                     <Bar dataKey="units" radius={[4, 4, 0, 0]}>
                                         {chartData.map((entry, index) => (
-                                            <div key={`cell-${index}`} style={{ backgroundColor: entry.units < 10 ? 'hsl(var(--destructive))' : entry.units < 25 ? 'hsl(var(--primary))' : 'hsl(var(--secondary))' }} />
+                                            <Cell key={`cell-${index}`} fill={entry.units < 10 ? barColors.low : entry.units < 25 ? barColors.medium : barColors.high} />
                                         ))}
                                     </Bar>
-                                     <defs>
-                                        <linearGradient id="colorUnits" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                                            <stop offset="95%" stopColor="hsl(var(--accent))" stopOpacity={0.4}/>
-                                        </linearGradient>
-                                    </defs>
-                                    <Bar dataKey="units" fill="url(#colorUnits)" radius={[4, 4, 0, 0]} />
                                 </BarChart>
+                            </ResponsiveContainer>
+                        </ChartContainer>
+                    </Card>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}
