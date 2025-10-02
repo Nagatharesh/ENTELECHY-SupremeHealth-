@@ -31,12 +31,6 @@ import { DoctorProfile } from '@/components/doctor/doctor-profile';
 import { DoctorCommunication } from '@/components/doctor/doctor-communication';
 import { BloodBank } from '@/components/doctor/blood-bank';
 
-const GeneticAnalysis = dynamic(() => import('@/components/doctor/genetic-analysis').then(mod => mod.GeneticAnalysis), {
-  ssr: false,
-  loading: () => <div className="w-full h-[60vh] flex items-center justify-center glassmorphism glowing-shadow"><p className="text-lg text-gradient-glow animate-pulse">Loading DNA Hub...</p></div>,
-});
-
-
 function DashboardContent() {
   const searchParams = useSearchParams();
   const doctorId = searchParams.get('id') || 'DOC-001'; // Default for demo
@@ -64,8 +58,6 @@ function DashboardContent() {
         return <DoctorCommunication doctor={doctor} />;
       case 'blood':
         return <BloodBank />;
-      case 'dna':
-        return <GeneticAnalysis />;
       default:
         return <DoctorProfile doctor={doctor} />;
     }
@@ -75,7 +67,6 @@ function DashboardContent() {
     { id: 'profile', icon: User, label: 'Profile' },
     { id: 'communication', icon: MessageSquare, label: 'Communication' },
     { id: 'blood', icon: Droplets, label: 'Blood Bank' },
-    { id: 'dna', icon: Microscope, label: 'DNA Hub' },
   ];
 
   const NavMenu = () => (
