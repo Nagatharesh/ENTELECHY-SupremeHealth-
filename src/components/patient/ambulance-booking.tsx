@@ -114,7 +114,7 @@ const TrackingView = ({ booking, onCancel }) => {
         <Card className="glassmorphism glowing-shadow">
             <CardHeader>
                 <CardTitle className="text-gradient-glow">Ambulance En-Route</CardTitle>
-                <p className="text-sm text-muted-foreground italic">“Help is on the way — stay calm, we’ll get you there.”</p>
+                <p className="text-sm text-muted-foreground italic">“Your ambulance is 3 km away, arriving in {Math.ceil(eta)} minutes.”</p>
             </CardHeader>
             <CardContent>
                  <div className="relative h-96 bg-background/50 rounded-lg overflow-hidden border border-primary/20 perspective-1000">
@@ -359,3 +359,5 @@ const AmbulanceTypeCard = ({ icon: Icon, type, selected, onSelect }) => {
         </Card>
     )
 }
+
+    
