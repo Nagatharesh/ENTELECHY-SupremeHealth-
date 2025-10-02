@@ -28,9 +28,16 @@ import {
 
 import { dummyDoctors, Doctor } from '@/lib/dummy-data';
 import { DoctorProfile } from '@/components/doctor/doctor-profile';
-import { GeneticAnalysis } from '@/components/doctor/genetic-analysis';
 import { DoctorCommunication } from '@/components/doctor/doctor-communication';
 import { BloodBank } from '@/components/doctor/blood-bank';
+
+const GeneticAnalysis = dynamic(
+  () => import('@/components/doctor/genetic-analysis').then(mod => mod.GeneticAnalysis),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full h-96 flex items-center justify-center glassmorphism"><p className="text-lg text-gradient-glow animate-pulse">Loading DNA Hub...</p></div>
+  }
+);
 
 const OrganVisualization = dynamic(
   () => import('@/components/doctor/organ-visualization').then(mod => mod.OrganVisualization),
