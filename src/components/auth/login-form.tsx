@@ -58,7 +58,7 @@ const patientLoginSchema = z.object({
 const doctorSchema = z.object({
   email: z.string().email("Invalid email address."),
   password: z.string().min(6, "Password must be at least 6 characters."),
-  doctorId: z.string().regex(/^[A-Z0-9-]{7}$/, "Invalid Doctor ID. Must be in 'DOC-XXX' format."),
+  doctorId: z.string().regex(/^DOC-\d{3}$/, "Invalid Doctor ID. Must be in 'DOC-XXX' format."),
 });
 const hospitalSchema = z.object({
   email: z.string().email("Invalid email address."),

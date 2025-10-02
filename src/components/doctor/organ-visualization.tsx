@@ -1,6 +1,7 @@
 
 "use client";
 
+import * as React from 'react';
 import { useState, useRef, useEffect, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html } from '@react-three/drei';
@@ -11,7 +12,6 @@ import { BrainCircuit, Heart, Activity, ShieldAlert } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
-import * as React from 'react';
 
 
 const organModels = {
