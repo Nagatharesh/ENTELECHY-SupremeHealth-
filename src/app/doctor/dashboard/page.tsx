@@ -151,4 +151,8 @@ function DashboardContent() {
 
 export default function DoctorDashboardPage() {
   return (
-    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><p className="text-lg text-gradient-glow animate-pulse">Loading
+    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><p className="text-lg text-gradient-glow animate-pulse">Loading SupremeHealth Dashboard...</p></div>}>
+      <DashboardContent />
+    </Suspense>
+  );
+}

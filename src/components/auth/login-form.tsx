@@ -45,7 +45,7 @@ import {
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { generatePatientId } from "@/lib/utils";
-import { dummyPatients } from "@/lib/dummy-data";
+import { dummyPatients, dummyDoctors } from "@/lib/dummy-data";
 
 const patientSearchSchema = z.object({
   searchTerm: z.string().min(1, "Please enter a search term."),
@@ -57,8 +57,8 @@ const patientLoginSchema = z.object({
 
 const doctorSchema = z.object({
   email: z.string().email("Invalid email address."),
-  password: z.string().min(8, "Password must be at least 8 characters."),
-  nmrId: z.string().regex(/^[A-Z0-9]{8,12}$/, "Invalid NMR ID. Must be 8-12 alphanumeric characters."),
+  password: z.string().min(6, "Password must be at least 6 characters."),
+  doctorId: z.string().regex(/^[A-Z0-9-]{7}$/, "Invalid Doctor ID. Must be in 'DOC-XXX' format."),
 });
 const hospitalSchema = z.object({
   email: z.string().email("Invalid email address."),
@@ -97,7 +97,7 @@ export function LoginForm() {
 
   const doctorForm = useForm<z.infer<typeof doctorSchema>>({
     resolver: zodResolver(doctorSchema),
-    defaultValues: { email: "", password: "", nmrId: "" },
+    defaultValues: { email: "", password: "", doctorId: "" },
   });
   const hospitalForm = useForm<z.infer<typeof hospitalSchema>>({
     resolver: zodResolver(hospitalSchema),
@@ -142,7 +142,20 @@ export function LoginForm() {
   }
 
   function onDoctorSubmit(values: z.infer<typeof doctorSchema>) {
-    console.log("Doctor Signup:", values);
+    const { email, password, doctorId } = values;
+    const doctor = dummyDoctors.find(d => d.email.toLowerCase() === email.toLowerCase() && d.doctorId.toUpperCase() === doctorId.toUpperCase());
+
+    if (doctor && doctor.password === password) {
+      router.push(`/doctor/dashboard?id=${doctor.doctorId}`);
+    } else {
+      doctorForm.setError("root", {
+        type: "manual",
+        message: "Invalid credentials. Please try again.",
+      });
+       doctorForm.setError("email", { type: "manual", message: " " });
+       doctorForm.setError("password", { type: "manual", message: " " });
+       doctorForm.setError("doctorId", { type: "manual", message: " " });
+    }
   }
   function onHospitalSubmit(values: z.infer<typeof hospitalSchema>) {
     console.log("Hospital Signup:", values);
@@ -229,10 +242,15 @@ export function LoginForm() {
             <CardContent>
               <Form {...doctorForm}>
                 <form onSubmit={doctorForm.handleSubmit(onDoctorSubmit)} className="space-y-4">
+                  {doctorForm.formState.errors.root && (
+                    <p className="text-destructive text-sm font-medium p-3 bg-destructive/20 rounded-lg text-center glowing-shadow">
+                      {doctorForm.formState.errors.root.message}
+                    </p>
+                  )}
                   <FormField name="email" control={doctorForm.control} render={({ field }) => (
                       <FormItem>
                         <FormLabel>Email</FormLabel>
-                        <FormControl><InputWithIcon icon={Mail} type="email" placeholder="dr.name@hospital.com" {...field} /></FormControl>
+                        <FormControl><InputWithIcon icon={Mail} type="email" placeholder="akumar@dummy.com" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -240,15 +258,15 @@ export function LoginForm() {
                   <FormField name="password" control={doctorForm.control} render={({ field }) => (
                       <FormItem>
                         <FormLabel>Password</FormLabel>
-                        <FormControl><InputWithIcon icon={Lock} type="password" placeholder="********" {...field} /></FormControl>
+                        <FormControl><InputWithIcon icon={Lock} type="password" placeholder="pass123" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <FormField name="nmrId" control={doctorForm.control} render={({ field }) => (
+                  <FormField name="doctorId" control={doctorForm.control} render={({ field }) => (
                       <FormItem>
-                        <FormLabel>NMR ID</FormLabel>
-                        <FormControl><InputWithIcon icon={Hash} type="text" placeholder="NMRA123456" {...field} /></FormControl>
+                        <FormLabel>Doctor ID</FormLabel>
+                        <FormControl><InputWithIcon icon={Hash} type="text" placeholder="DOC-001" {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
