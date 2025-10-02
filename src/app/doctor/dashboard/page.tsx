@@ -7,8 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, Dna, MessageSquare, Droplets, BrainCircuit } from 'lucide-react';
-import dynamic from 'next/dynamic';
+import { User, Bell, PanelLeft, MessageSquare, Droplets } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -30,22 +29,6 @@ import { dummyDoctors, Doctor } from '@/lib/dummy-data';
 import { DoctorProfile } from '@/components/doctor/doctor-profile';
 import { DoctorCommunication } from '@/components/doctor/doctor-communication';
 import { BloodBank } from '@/components/doctor/blood-bank';
-
-const GeneticAnalysis = dynamic(
-  () => import('@/components/doctor/genetic-analysis').then(mod => mod.GeneticAnalysis),
-  { 
-    ssr: false,
-    loading: () => <div className="w-full h-96 flex items-center justify-center glassmorphism"><p className="text-lg text-gradient-glow animate-pulse">Loading DNA Hub...</p></div>
-  }
-);
-
-const OrganVisualization = dynamic(
-  () => import('@/components/doctor/organ-visualization').then(mod => mod.OrganVisualization),
-  { 
-    ssr: false,
-    loading: () => <div className="w-full h-96 flex items-center justify-center glassmorphism"><p className="text-lg text-gradient-glow animate-pulse">Loading 3D Viewer...</p></div>
-  }
-);
 
 
 function DashboardContent() {
@@ -71,14 +54,10 @@ function DashboardContent() {
     switch(activeView) {
       case 'profile':
         return <DoctorProfile doctor={doctor} />;
-      case 'genetics':
-        return <GeneticAnalysis />;
       case 'communication':
         return <DoctorCommunication doctor={doctor} />;
       case 'blood':
         return <BloodBank />;
-      case 'organs':
-        return <OrganVisualization />;
       default:
         return <DoctorProfile doctor={doctor} />;
     }
@@ -86,10 +65,8 @@ function DashboardContent() {
 
   const navItems = [
     { id: 'profile', icon: User, label: 'Profile' },
-    { id: 'genetics', icon: Dna, label: 'Genetic Analysis' },
     { id: 'communication', icon: MessageSquare, label: 'Communication' },
     { id: 'blood', icon: Droplets, label: 'Blood Bank' },
-    { id: 'organs', icon: BrainCircuit, label: 'Organ Visualization' },
   ];
 
   const NavMenu = () => (

@@ -1,102 +1,149 @@
-
 "use client";
 
-import * as React from 'react';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { dummyOrganStatus } from '@/lib/dummy-data';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Suspense, useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { BrainCircuit, Heart, Activity } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { cn } from '@/lib/utils';
+import { User, Bell, PanelLeft, MessageSquare, Droplets } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import {
+  Sidebar,
+  SidebarProvider,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarFooter,
+  SidebarTrigger as SidebarTriggerButton
+} from "@/components/ui/sidebar"
 
-const OrganViewer = dynamic(() => import('./organ-viewer').then(mod => mod.OrganViewer), {
-    ssr: false,
-    loading: () => <div className="w-full h-full flex items-center justify-center glassmorphism"><p className="text-lg text-gradient-glow animate-pulse">Loading 3D Viewer...</p></div>
-});
+import { dummyDoctors, Doctor } from '@/lib/dummy-data';
+import { DoctorProfile } from '@/components/doctor/doctor-profile';
+import { DoctorCommunication } from '@/components/doctor/doctor-communication';
+import { BloodBank } from '@/components/doctor/blood-bank';
 
-const organModels = {
-    Heart: { icon: Heart },
-    Brain: { icon: BrainCircuit },
-    Lungs: { icon: Activity },
-    Liver: { icon: Activity },
-    Kidneys: { icon: Activity },
-};
 
-export function OrganVisualization() {
-    const [selectedPatientId, setSelectedPatientId] = useState(dummyOrganStatus[0].patientId);
-    const [selectedOrgan, setSelectedOrgan] = useState('Heart');
+function DashboardContent() {
+  const searchParams = useSearchParams();
+  const doctorId = searchParams.get('id') || 'DOC-001'; // Default for demo
+  const [activeView, setActiveView] = useState('profile');
 
-    const patientData = dummyOrganStatus.find(p => p.patientId === selectedPatientId);
-    const organData = patientData?.organs.find(o => o.name === selectedOrgan);
+  const doctor = dummyDoctors.find(d => d.doctorId === doctorId);
 
-    const OrganIcon = organModels[selectedOrgan as keyof typeof organModels]?.icon || Activity;
-
-    const getStatusColor = (status?: string) => {
-        switch (status) {
-            case 'Normal': return 'text-green-400';
-            case 'Fatty Liver':
-            case 'Mild Infection': return 'text-yellow-400';
-            case 'Tumor Detected': return 'text-destructive';
-            default: return 'text-white';
-        }
-    };
-
+  if (!doctor) {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[80vh]">
-            <div className="lg:col-span-2 h-full">
-                <Card className="glassmorphism glowing-shadow h-full">
-                    <CardHeader>
-                        <CardTitle className="text-gradient-glow">3D Organ Viewer</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[90%]">
-                        <OrganViewer organName={selectedOrgan} annotations={organData?.annotations || []} />
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="lg:col-span-1 space-y-6 h-full">
-                <Card className="glassmorphism glowing-shadow">
-                    <CardHeader>
-                        <CardTitle className="text-gradient-glow text-lg">Controls</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <Select onValueChange={setSelectedPatientId} value={selectedPatientId}>
-                            <SelectTrigger><SelectValue placeholder="Select Patient..." /></SelectTrigger>
-                            <SelectContent>
-                                {dummyOrganStatus.map(p => <SelectItem key={p.patientId} value={p.patientId}>{p.patientId}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                        <div className="grid grid-cols-3 gap-2">
-                            {Object.keys(organModels).map(organName => (
-                                <Button key={organName} variant={selectedOrgan === organName ? 'default' : 'outline'} onClick={() => setSelectedOrgan(organName)} className="flex-col h-16">
-                                    {React.createElement(organModels[organName as keyof typeof organModels].icon, { className: "w-6 h-6" })}
-                                    <span className="text-xs">{organName}</span>
-                                </Button>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-                 <Card className="glassmorphism glowing-shadow">
-                    <CardHeader>
-                        <CardTitle className="text-gradient-glow text-lg flex items-center gap-2">
-                           <OrganIcon /> {selectedOrgan} Status
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                        <p className="flex justify-between">Status: <span className={cn("font-bold", getStatusColor(organData?.status))}>{organData?.status}</span></p>
-                        <p className="text-sm text-muted-foreground">{organData?.details}</p>
-                         {organData?.annotations && organData.annotations.length > 0 && (
-                            <div>
-                                <h4 className="font-semibold text-white mt-4">Annotations:</h4>
-                                <ul className="list-disc list-inside text-muted-foreground text-sm space-y-1 mt-2">
-                                     {organData.annotations.map((anno, i) => <li key={i}>{anno.text}</li>)}
-                                </ul>
-                            </div>
-                         )}
-                    </CardContent>
-                 </Card>
-            </div>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-screen text-center p-4">
+        <h2 className="text-2xl font-bold text-destructive mb-4">Doctor Not Found</h2>
+        <p className="text-muted-foreground mb-8 max-w-md">The doctor ID provided does not exist. Please login again.</p>
+        <Button asChild>
+          <Link href="/login?role=doctor">Return to Login</Link>
+        </Button>
+      </div>
     );
+  }
+  
+  const renderContent = () => {
+    switch(activeView) {
+      case 'profile':
+        return <DoctorProfile doctor={doctor} />;
+      case 'communication':
+        return <DoctorCommunication doctor={doctor} />;
+      case 'blood':
+        return <BloodBank />;
+      default:
+        return <DoctorProfile doctor={doctor} />;
+    }
+  }
+
+  const navItems = [
+    { id: 'profile', icon: User, label: 'Profile' },
+    { id: 'communication', icon: MessageSquare, label: 'Communication' },
+    { id: 'blood', icon: Droplets, label: 'Blood Bank' },
+  ];
+
+  const NavMenu = () => (
+    <SidebarProvider>
+        <Sidebar>
+        <SidebarHeader className="flex items-center justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=expanded]:justify-between">
+            <Logo className="group-data-[collapsible=icon]:hidden"/>
+            <SidebarTriggerButton />
+        </SidebarHeader>
+        <SidebarContent>
+            <SidebarMenu>
+            {navItems.map(item => (
+                <SidebarMenuItem key={item.id}>
+                <SidebarMenuButton onClick={() => setActiveView(item.id)} isActive={activeView === item.id} tooltip={item.label}>
+                    <item.icon />
+                    <span>{item.label}</span>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+            ))}
+            </SidebarMenu>
+        </SidebarContent>
+        <SidebarFooter>
+            <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:w-auto group-data-[collapsible=expanded]:w-full">
+                <Image src={`https://i.pravatar.cc/150?u=${doctor.doctorId}`} alt={doctor.name} width={40} height={40} className="rounded-full border-2 border-primary/50"/>
+                <div className="ml-3 group-data-[collapsible=icon]:hidden whitespace-nowrap overflow-hidden">
+                <span className="font-semibold text-gradient-glow text-lg">{doctor.name}</span>
+                <p className="text-xs text-muted-foreground">{doctor.specialty}</p>
+                </div>
+            </div>
+        </SidebarFooter>
+        </Sidebar>
+    </SidebarProvider>
+  )
+
+  return (
+    
+      <div className="flex flex-col md:flex-row min-h-screen bg-background">
+        <div className="hidden md:flex flex-col glassmorphism !border-r-border/50">
+            <NavMenu />
+        </div>
+
+        <main className="flex-1 min-w-0">
+          <header className="flex md:hidden items-center justify-between p-4 glassmorphism">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <PanelLeft className="h-6 w-6 text-primary" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="p-0 w-[var(--sidebar-width-mobile)]">
+                 <NavMenu />
+              </SheetContent>
+            </Sheet>
+            <Link href="/home">
+              <Logo />
+            </Link>
+             <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5 text-primary" />
+              <span className="absolute top-1 right-1 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+            </Button>
+          </header>
+          
+          <div className="p-4 md:p-8 animate-fade-in-up">
+            {renderContent()}
+          </div>
+        </main>
+      </div>
+    
+  );
+}
+
+export default function DoctorDashboardPage() {
+  return (
+    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center"><p className="text-lg text-gradient-glow animate-pulse">Loading SupremeHealth Dashboard...</p></div>}>
+      <DashboardContent />
+    </Suspense>
+  );
 }
