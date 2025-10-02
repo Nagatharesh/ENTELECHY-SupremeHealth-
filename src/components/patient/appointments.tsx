@@ -4,7 +4,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Calendar, Clock, Bot, PlusCircle, Video, MessageSquare, ArrowRight, ArrowLeft, Star } from "lucide-react";
+import { Calendar, Clock, Bot, PlusCircle, Video, MessageSquare, ArrowRight, ArrowLeft, Star, Users, BriefcaseMedical } from "lucide-react";
 import { Patient, dummyDoctors, dummyHospitals, Doctor } from "@/lib/dummy-data";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { addDays, format, isSameDay } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
 import Image from 'next/image';
+import { Progress } from "../ui/progress";
 
 
 const getDoctorById = (doctorId: string) => dummyDoctors.find(d => d.doctorId === doctorId);
@@ -26,7 +27,7 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
   const [appointments, setAppointments] = useState(patient.appointments);
   const { toast } = useToast();
 
-  const sortedAppointments = [...appointments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sortedAppointments = [...appointments].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   const upcomingAppointments = sortedAppointments.filter(a => new Date(a.date) >= new Date());
   const pastAppointments = sortedAppointments.filter(a => new Date(a.date) < new Date());
 
@@ -41,43 +42,91 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-gradient-glow">Appointments</h2>
-        {showBookingButton && <BookingDialog onBook={handleNewAppointment} patientId={patient.patientId} />}
-      </div>
+        <div className="flex justify-between items-center">
+            <h2 className="text-3xl font-bold text-gradient-glow">Appointments</h2>
+            {showBookingButton && <BookingDialog onBook={handleNewAppointment} patientId={patient.patientId} />}
+        </div>
+        
+        <Card className="glassmorphism glowing-shadow">
+            <CardHeader>
+                <CardTitle className="text-gradient-glow">Appointment Timeline</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <AppointmentTimeline appointments={sortedAppointments} />
+            </CardContent>
+        </Card>
 
-      <Card className="glassmorphism glowing-shadow">
-        <CardHeader>
-          <CardTitle className="text-gradient-glow">Upcoming Appointments</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {upcomingAppointments.length > 0 ? upcomingAppointments.map((appt) => (
-              <AppointmentCard key={appt.appointmentId} appointment={appt} />
-            )) : (
-              <p className="text-muted-foreground text-center py-8">No upcoming appointments.</p>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+        {upcomingAppointments.length > 0 && (
+            <Card className="glassmorphism glowing-shadow">
+                <CardHeader>
+                <CardTitle className="text-gradient-glow">Upcoming Appointments</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {upcomingAppointments.map((appt) => (
+                            <AppointmentCard key={appt.appointmentId} appointment={appt} />
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
+        )}
       
       <Card className="glassmorphism">
         <CardHeader>
           <CardTitle className="text-gradient-glow">Past Appointments</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {pastAppointments.length > 0 ? pastAppointments.map((appt) => (
-              <AppointmentCard key={appt.appointmentId} appointment={appt} isPast />
-            )) : (
-              <p className="text-muted-foreground text-center py-8">No past appointments.</p>
+            {pastAppointments.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {pastAppointments.map((appt) => (
+                    <AppointmentCard key={appt.appointmentId} appointment={appt} isPast />
+                    ))}
+                </div>
+            ) : (
+                <p className="text-muted-foreground text-center py-8">No past appointments.</p>
             )}
-          </div>
         </CardContent>
       </Card>
     </div>
   );
 }
+
+const AppointmentTimeline = ({ appointments }) => {
+    if (!appointments || appointments.length === 0) return <p className="text-muted-foreground">No appointments to show.</p>;
+  
+    return (
+      <div className="relative w-full h-48 p-4">
+        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20"/>
+        <div className="relative flex justify-between h-full">
+          {appointments.map((appt, index) => {
+            const isPast = new Date(appt.date) < new Date();
+            const doctor = getDoctorById(appt.doctorId);
+            const position = (index / (appointments.length -1)) * 100;
+  
+            return (
+              <div 
+                key={appt.appointmentId} 
+                className="group absolute top-1/2 transform -translate-x-1/2 -translate-y-1/2" 
+                style={{ left: `${position}%` }}
+              >
+                <div className={cn("w-4 h-4 rounded-full border-2 cursor-pointer transition-all duration-300", 
+                  isPast ? "bg-muted border-muted-foreground" : "bg-primary border-primary animate-pulse",
+                  "group-hover:scale-150"
+                  )}>
+                </div>
+                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-48 p-2 glassmorphism opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                  <p className="font-bold text-sm text-white">{doctor?.name}</p>
+                  <p className="text-xs text-muted-foreground">{format(new Date(appt.date), 'MMM d, yyyy')}</p>
+                  <Badge variant={isPast ? 'secondary' : 'default'} className="mt-1 text-xs">{isPast ? 'Completed' : 'Upcoming'}</Badge>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+  
 
 const AppointmentCard = ({ appointment, isPast = false }) => {
   const doctor = getDoctorById(appointment.doctorId);
@@ -86,47 +135,96 @@ const AppointmentCard = ({ appointment, isPast = false }) => {
   return (
     <div
       className={cn(
-        "p-4 rounded-lg flex items-start gap-4 transition-all duration-300",
-        appointment.urgent ? "bg-destructive/10 border-l-4 border-destructive" : "bg-card/50",
-        isPast && "opacity-60"
+        "p-4 rounded-lg flex flex-col gap-4 transition-all duration-300 glassmorphism timeline-card-glow",
+        appointment.urgent ? "border-l-4 border-destructive shadow-destructive/20" : "hover:border-primary/50",
+        isPast && "opacity-70 hover:opacity-100"
       )}
     >
-      <div className="p-3 bg-primary/10 rounded-full border border-primary/20">
-        <Calendar className="w-8 h-8 text-primary" />
-      </div>
-      <div className="flex-grow">
-        <p className="font-semibold text-white text-lg">{doctor?.name}</p>
-        <p className="text-sm text-muted-foreground">{hospital?.name}</p>
-        <div className="flex items-center gap-2 text-sm text-primary mt-2">
-          <Clock className="w-4 h-4" />
-          <span>{format(new Date(appointment.date), 'EEE, MMM d, yyyy @ h:mm a')}</span>
+      <div className="flex-grow flex items-start gap-4">
+         <Image src={`https://i.pravatar.cc/150?u=${doctor?.doctorId}`} alt={doctor?.name || ''} width={50} height={50} className="rounded-full border-2 border-primary/30" />
+        <div className="flex-grow">
+            <p className="font-semibold text-white text-lg">{doctor?.name}</p>
+            <p className="text-sm text-muted-foreground">{hospital?.name}</p>
+            <div className="flex items-center gap-2 text-sm text-primary mt-2">
+            <Clock className="w-4 h-4" />
+            <span>{format(new Date(appointment.date), 'EEE, MMM d, yyyy @ h:mm a')}</span>
+            </div>
         </div>
-      </div>
-      <div className="flex flex-col items-end gap-2">
         {appointment.urgent && <Badge variant="destructive">Urgent</Badge>}
-        {!isPast && (
-          <div className="flex gap-2">
-            <Button size="sm" variant="outline"><MessageSquare className="w-4 h-4 mr-2"/>Chat</Button>
-            <Button size="sm" variant="outline"><Video className="w-4 h-4 mr-2"/>Video Call</Button>
-          </div>
-        )}
       </div>
+
+      {!isPast ? (
+        <>
+            <div className="grid grid-cols-2 gap-4 text-center">
+                <div className="glassmorphism p-2 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Token No.</p>
+                    <p className="text-2xl font-bold text-gradient-glow">#5</p>
+                </div>
+                <div className="glassmorphism p-2 rounded-lg">
+                    <p className="text-sm text-muted-foreground">Wait Time</p>
+                    <p className="text-2xl font-bold text-gradient-glow">~15m</p>
+                </div>
+            </div>
+            <Progress value={25} className="h-2" />
+            <div className="flex gap-2">
+                <Button size="sm" variant="outline" className="w-full relative overflow-hidden aura-breathing">
+                <MessageSquare className="w-4 h-4 mr-2"/>Chat
+                </Button>
+                <Button size="sm" variant="outline" className="w-full relative overflow-hidden animate-ripple">
+                <Video className="w-4 h-4 mr-2"/>Video Call
+                </Button>
+            </div>
+        </>
+      ) : (
+        <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">Your feedback:</p>
+                 <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className={cn("w-5 h-5 cursor-pointer transition-colors", star <= 4 ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground hover:text-yellow-300")} />
+                    ))}
+                </div>
+            </div>
+             <Button size="sm" variant="secondary" className="w-full">View Summary</Button>
+        </div>
+      )}
     </div>
   );
 };
 
+
 function BookingDialog({ onBook, patientId }) {
     const [open, setOpen] = useState(false);
+    const [showRadar, setShowRadar] = useState(false);
+
+    const handleTriggerClick = () => {
+        setShowRadar(true);
+        setTimeout(() => {
+            setShowRadar(false);
+            setOpen(true);
+        }, 2000);
+    }
 
     return (
+        <>
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="glowing-shadow-interactive"><PlusCircle className="mr-2" /> Book New Appointment</Button>
+                <Button onClick={handleTriggerClick} className="glowing-shadow-interactive"><PlusCircle className="mr-2" /> Book New Appointment</Button>
             </DialogTrigger>
             <DialogContent className="glassmorphism sm:max-w-[600px]">
                  <BookingWizard onBook={(appt) => { onBook(appt); setOpen(false); }} patientId={patientId} />
             </DialogContent>
         </Dialog>
+        
+        <Dialog open={showRadar}>
+            <DialogContent className="glassmorphism bg-transparent border-none shadow-none flex items-center justify-center p-0">
+                <div className="radar-container">
+                    <div className="radar-sweep"></div>
+                    <div className="radar-marker-center"></div>
+                </div>
+            </DialogContent>
+        </Dialog>
+        </>
     )
 }
 

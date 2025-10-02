@@ -145,6 +145,10 @@
   .aura-breathing {
     animation: aura-breathing 4s ease-in-out infinite;
   }
+  
+  .animate-ripple {
+      animation: ripple 1s linear infinite;
+  }
 
   .radar-container {
       @apply relative w-80 h-80 rounded-full border-2 border-primary/30 flex items-center justify-center;
@@ -258,4 +262,15 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+     @keyframes ripple {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
 }
+
