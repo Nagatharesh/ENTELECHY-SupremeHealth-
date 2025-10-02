@@ -2,14 +2,16 @@
 "use client";
 
 import { Patient } from "@/lib/dummy-data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { QuickActions } from "./quick-actions";
 import { HealthSnapshot } from "./health-snapshot";
-import { User, Phone, Shield, Building, MapPin, Mail, Droplet } from "lucide-react";
+import { User, Phone, Shield, Droplet, Heart, Activity, Siren, GitBranchPlus, FileClock, ShieldAlert, Pill } from "lucide-react";
 import Image from "next/image";
+import { ProfileAnalytics } from "./profile-analytics";
 
 export function PatientProfile({ patient }: { patient: Patient }) {
   const getAge = (dob: string) => {
+    if (!dob) return '';
     const birthDate = new Date(dob);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
@@ -21,7 +23,6 @@ export function PatientProfile({ patient }: { patient: Patient }) {
   }
   
   const handleAmbulanceClick = () => {
-    // This is a placeholder. The parent dashboard component will handle switching the view.
     const event = new CustomEvent('changeView', { detail: 'ambulance' });
     window.dispatchEvent(event);
   };
@@ -36,22 +37,19 @@ export function PatientProfile({ patient }: { patient: Patient }) {
                     <Image src={`https://i.pravatar.cc/150?u=${patient.patientId}`} alt={patient.name} width={100} height={100} className="rounded-full border-4 border-primary/50 glowing-shadow"/>
                     <div>
                         <CardTitle className="text-4xl font-bold text-gradient-glow">{patient.name}</CardTitle>
-                        <p className="text-muted-foreground">{patient.patientId} &bull; {getAge(patient.dob)} years old &bull; {patient.gender}</p>
+                        <CardDescription className="text-lg">
+                           {getAge(patient.dob)} years old {patient.gender} &bull; {patient.bloodGroup}
+                        </CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-                        <InfoItem icon={Phone} label="Contact" value={patient.phone} />
-                        <InfoItem icon={Mail} label="Email" value={patient.email} />
-                        <InfoItem icon={User} label="Emergency Contact" value={`${patient.emergencyContact.name} (${patient.emergencyContact.phone})`} />
-                        <InfoItem icon={Shield} label="Aadhaar" value={patient.aadhaar} />
-                        <InfoItem icon={MapPin} label="Address" value={`${patient.address.street}, ${patient.address.city}, ${patient.address.state} - ${patient.address.zip}`} />
-                        <InfoItem icon={Building} label="Insurance" value={`${patient.insurance.provider} - ${patient.insurance.policyId}`} />
-                        <InfoItem icon={Droplet} label="Blood Group" value={patient.bloodGroup} />
-                    </div>
-                    <div className="mt-6">
-                        <h4 className="font-semibold text-white mb-2">Health Summary</h4>
-                        <p className="text-muted-foreground text-sm">{patient.healthOverview.latestNotes}</p>
+                        <InfoItem icon={Heart} label="Chronic Conditions" value={patient.healthOverview.chronicConditions.join(', ')} />
+                        <InfoItem icon={ShieldAlert} label="Allergies" value={patient.healthOverview.allergies.join(', ')} />
+                        <InfoItem icon={Activity} label="Lifestyle" value={patient.healthOverview.lifestyle} />
+                        <InfoItem icon={Pill} label="Current Medications" value={patient.medications.current.map(m => m.name).join(', ')} />
+                        <InfoItem icon={FileClock} label="Last Visit" value={new Date(patient.medicalEncounters[patient.medicalEncounters.length - 1].date).toLocaleDateString()} />
+                        <InfoItem icon={GitBranchPlus} label="Insurance" value={`${patient.insurance.provider}`} />
                     </div>
                 </CardContent>
             </Card>
@@ -59,7 +57,7 @@ export function PatientProfile({ patient }: { patient: Patient }) {
         <QuickActions patient={patient} onAmbulanceClick={handleAmbulanceClick}/>
       </div>
 
-      <HealthSnapshot vitals={patient.vitals} />
+      <ProfileAnalytics patient={patient} />
     </div>
   );
 }
@@ -73,5 +71,3 @@ const InfoItem = ({ icon: Icon, label, value }: { icon: React.ElementType, label
         </div>
     </div>
 )
-
-    

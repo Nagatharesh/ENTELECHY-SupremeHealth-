@@ -119,7 +119,7 @@ export const dummyMedicines = [
     { "medicineId": "MED-009", "name": "Omeprazole", "chemical": "C17H19N3O3S", "usage": "Acidity, GERD", "dosageForm": "Capsule", "prescribedBy": "DOC-007", "govtPrice": 6, "privatePrice": 35, "frequentlyUsed": true },
     { "medicineId": "MED-010", "name": "Salbutamol Inhaler", "chemical": "C13H21NO3", "usage": "Asthma, COPD", "dosageForm": "Inhaler", "prescribedBy": "DOC-006", "govtPrice": 50, "privatePrice": 250, "frequentlyUsed": true },
     { "medicineId": "MED-011", "name": "Levothyroxine", "chemical": "C15H11I4NO4", "usage": "Hypothyroidism", "dosageForm": "Tablet", "prescribedBy": "DOC-003", "govtPrice": 10, "privatePrice": 60, "frequentlyUsed": false },
-    { "medicineId": "MED-012", "name": "D-Rise (Vitamin D)", "chemical": "C27H44O", "usage": "Vitamin D Deficiency", "dosageForm": "Capsule", "prescribedBy": "DOC-007", "govtPrice": 20, "privatePrice": 100, "frequentlyUsed": true },
+    { "medicineId": "MED-012", "name": "Vitamin D3 Supplement", "chemical": "C27H44O", "usage": "Vitamin D Deficiency", "dosageForm": "Capsule", "prescribedBy": "DOC-007", "govtPrice": 20, "privatePrice": 100, "frequentlyUsed": true },
     { "medicineId": "MED-013", "name": "Clopidogrel", "chemical": "C16H16ClNO2S", "usage": "Blood Thinner", "dosageForm": "Tablet", "prescribedBy": "DOC-010", "govtPrice": 12, "privatePrice": 70, "frequentlyUsed": false },
     { "medicineId": "MED-014", "name": "Prednisolone", "chemical": "C21H28O5", "usage": "Inflammation, Allergy", "dosageForm": "Tablet", "prescribedBy": "DOC-006", "govtPrice": 10, "privatePrice": 45, "frequentlyUsed": false },
     { "medicineId": "MED-015", "name": "Multivitamin", "chemical": "Varies", "usage": "Supplement", "dosageForm": "Tablet", "prescribedBy": "DOC-007", "govtPrice": 15, "privatePrice": 90, "frequentlyUsed": true },
@@ -379,23 +379,66 @@ export const dummyInsurancePlans = [
 export const dummyPatients = [
   {
     "patientId": "P-102345",
-    "name": "Rahul Sharma",
+    "name": "Ananya Sharma",
     "phone": "+919876543210",
-    "email": "rahul.sharma@example.com",
-    "dob": "1992-07-22",
-    "gender": "Male",
+    "email": "ananya.sharma@example.com",
+    "dob": "1993-07-22", // Age: 32
+    "gender": "Female",
+    "bloodGroup": "B+",
     "aadhaar": "1234-5678-9012",
     "address": { "street": "45, Green Park", "city": "New Delhi", "state": "DL", "zip": "110016" },
-    "bloodGroup": "O+",
+    "emergencyContact": { "name": "Priya Sharma", "phone": "+919888800001" },
+    "insurance": { "provider": "Star Health", "policyId": "INS-A01" },
+    
     "healthOverview": {
       "status": "Good",
       "riskLevel": "Medium",
-      "chronicConditions": "Mild asthma",
-      "allergies": "Seasonal pollen (hay fever)",
-      "latestNotes": "2025-09-28: BP borderline high; lifestyle measures advised. 2025-09-20: Occasional shortness of breath; spirometry advised."
+      "chronicConditions": ["Mild Asthma", "Vitamin D Deficiency"],
+      "allergies": ["Penicillin"],
+      "lifestyle": "Non-smoker, vegetarian, occasional exercise",
+      "latestNotes": "Follow-up for Vitamin D levels in 3 months. Continue asthma management as needed."
     },
-    "emergencyContact": { "name": "Priya Sharma", "phone": "+919888800001" },
-    "insurance": { "provider": "Star Health", "policyId": "INS-A01" },
+    
+    "medications": {
+      "current": [
+        { "medicineId": "MED-010", "name": "Salbutamol Inhaler", "dosage": "2 puffs PRN", "reason": "Asthma", "type": "current" },
+        { "medicineId": "MED-012", "name": "Vitamin D3 Supplement", "dosage": "2000 IU daily", "reason": "Deficiency", "type": "current" },
+        { "medicineId": "MED-002", "name": "Cetirizine", "dosage": "10mg PRN", "reason": "Allergies", "type": "current" }
+      ],
+      "past": [
+        { "medicineId": "MED-014", "name": "Prednisolone", "dosage": "20 mg, 5 days", "reason": "Asthma exacerbation", "type": "past" }
+      ],
+      "otc": []
+    },
+
+    "analytics": {
+      "vitalSigns": [
+        { "month": "Apr", "BP": 125, "HR": 76 },
+        { "month": "May", "BP": 122, "HR": 75 },
+        { "month": "Jun", "BP": 130, "HR": 80 },
+        { "month": "Jul", "BP": 128, "HR": 78 },
+        { "month": "Aug", "BP": 126, "HR": 77 },
+        { "month": "Sep", "BP": 128, "HR": 78 }
+      ],
+      "spO2": 97,
+      "medicationCompliance": [
+        { "name": "Vitamin D3", "adherence": 87 },
+        { "name": "Inhaler Usage", "adherence": 92 }
+      ],
+      "lifestyleScore": [
+        { "metric": "Diet", "score": 75 },
+        { "metric": "Exercise", "score": 60 },
+        { "metric": "Sleep", "score": 82 },
+        { "metric": "Stress", "score": 68 },
+        { "metric": "Social", "score": 88 }
+      ],
+      "futureRisk": {
+        "asthmaFlareUp": { "risk": "Moderate", "details": "Increased pollen count expected in the next 3 months." },
+        "vitaminD": { "risk": "Low", "details": "Trend is improving with supplementation." },
+        "cardiovascular": { "risk": "Low", "details": "BP and lifestyle factors are within a healthy range." }
+      }
+    },
+
     "vitals": {
       "heartRate": [78, 80, 81, 79, 85, 82, 82],
       "bloodPressure": ["125/80","126/82","128/81","127/83","130/85","128/84","128/84"],
@@ -405,16 +448,12 @@ export const dummyPatients = [
       "bmi": 24.3,
       "sleepHours": [6, 7, 6.5, 7, 6, 6.5, 7]
     },
-    "lifestyle": {
-      "smoking": "No",
-      "alcohol": "Occasional social drinking",
-      "exercise": "3-4 times/week (light jogging and yoga)",
-      "diet": "Vegetarian, balanced diet",
-    },
+    
     "appointments": [
       {"appointmentId": "APP-001", "date": "2025-10-20T10:00:00Z", "doctorId": "DOC-006", "hospitalId": "HOS-001", "status": "booked", "urgent": false},
       {"appointmentId": "APP-002", "date": "2025-09-15T14:30:00Z", "doctorId": "DOC-007", "hospitalId": "HOS-002", "status": "completed", "urgent": false}
     ],
+    
     "predictions": {
       "vitalsNext7Days": {"heartRate": [80, 81, 79, 82, 83, 81, 80], "bloodPressure": ["128/82","127/81","129/83","130/84","128/82","129/83","128/82"]},
       "appointmentProbability": [0.3,0.4,0.3,0.5,0.4,0.3,0.4],
@@ -426,6 +465,7 @@ export const dummyPatients = [
       },
       "preventiveMeasures": "Daily 30 min cardio, Reduce refined sugar intake, Monthly BP checks."
     },
+    
     "medicalEncounters": [
       {
         "encounterId": "ENC-001",
@@ -483,27 +523,14 @@ export const dummyPatients = [
         "dischargeNotes": "Avoid new detergent. Follow-up if rash persists. Outcome: Improving."
       }
     ],
-    "medications": {
-      "current": [
-        {"medicineId": "MED-010", "name": "Salbutamol Inhaler", "dosage": "100 mcg/puff, 2 puffs PRN", "reason": "Asthma (rescue)", "type": "current"},
-        {"medicineId": "MED-015", "name": "Multivitamin", "dosage": "Once daily", "reason": "Supplement", "type": "current"}
-      ],
-      "past": [
-        {"medicineId": "MED-014", "name": "Prednisolone", "dosage": "20 mg, 5 days, oral", "reason": "Asthma exacerbation", "type": "past"},
-        {"medicineId": "MED-005", "name": "Azithromycin", "dosage": "500 mg, 3 days, oral", "reason": "Respiratory infection", "type": "past"}
-      ],
-      "otc": [
-        {"name": "Paracetamol", "dosage": "500mg PRN", "reason": "Headache/Fever", "type": "otc"},
-        {"name": "Cough lozenges", "dosage": "PRN", "reason": "Sore throat", "type": "otc"}
-      ]
-    },
+
     "investigations": [
       {"investigationId": "INV-001", "date": "2024-03-02", "type": "Spirometry", "summary": "Mild reversible obstructive pattern.", "doctor": "Dr. Neha Kapoor"},
       {"investigationId": "INV-002", "date": "2024-03-02", "type": "Chest X-ray", "summary": "Clear lung fields, no acute abnormalities.", "doctor": "Dr. Neha Kapoor", "imageUrl": "https://picsum.photos/seed/rad1/600/400"},
       {"investigationId": "INV-003", "date": "2025-01-16", "type": "Blood Test", "summary": "FBG 92 mg/dL; Lipid profile borderline.", "doctor": "Dr. Amit Verma"},
       {"investigationId": "INV-004", "date": "2025-09-12", "type": "ECG", "summary": "Transient sinus tachycardia; no ischemia.", "doctor": "Dr. Ritu Malhotra"},
-      {"investigationId": "INV-005", "date": "2025-09-30", "type": "Ultrasound", "summary": "2D Echo: Structurally normal heart, EF 60%.", "doctor": "Dr. Rahul Mehra", "imageUrl": "https://picsum.photos/seed/rad2/600/400"},
-      {"investigationId": "INV-006", "date": "2025-09-30", "type": "MRI", "summary": "Stress Test: Negative for inducible ischemia.", "doctor": "Dr. Rahul Mehra"}
+      {"investigationId": "INV-005", "date": "2025-09-30", "type": "Ultrasound", "summary": "2D Echo: Structurally normal heart, EF 60%.", "doctor": "Dr. Rajesh Mehra", "imageUrl": "https://picsum.photos/seed/rad2/600/400"},
+      {"investigationId": "INV-006", "date": "2025-09-30", "type": "MRI", "summary": "Stress Test: Negative for inducible ischemia.", "doctor": "Dr. Rajesh Mehra"}
     ],
     "vaccinations": ["COVID-19 (2 doses + booster)", "Tetanus (Up to date)", "Annual flu vaccine"],
     "carePlan": {
@@ -529,8 +556,9 @@ export const dummyPatients = [
     "healthOverview": {
       "status": "Good",
       "riskLevel": "Low",
-      "chronicConditions": "Vitamin D deficiency",
-      "allergies": "None",
+      "chronicConditions": ["Vitamin D deficiency"],
+      "allergies": [],
+      "lifestyle": "Non-smoker, non-vegetarian, regular exercise",
       "latestNotes": "Follow-up for Vitamin D levels in 3 months."
     },
     "emergencyContact": { "name": "Rohan Verma", "phone": "+919888800002" },
@@ -544,11 +572,10 @@ export const dummyPatients = [
       "bmi": 22.1,
       "sleepHours": [7, 8, 7.5, 8, 7, 7.5, 8]
     },
-     "lifestyle": {
-      "smoking": "No",
-      "alcohol": "No",
-      "exercise": "5 times/week (Yoga and walking)",
-      "diet": "Non-vegetarian, balanced diet",
+     "medications": {
+      "current": [{"medicineId": "MED-012", "name": "Vitamin D3 Supplement", "dosage": "1 tablet weekly", "reason": "Vitamin D deficiency", "type": "current"}],
+      "past": [],
+      "otc": []
     },
     "appointments": [
       {"appointmentId": "APP-003", "date": "2025-10-07T11:00:00Z", "doctorId": "DOC-002", "hospitalId": "HOS-002", "status": "booked", "urgent": false }
@@ -567,11 +594,6 @@ export const dummyPatients = [
     "medicalEncounters": [
         {"encounterId": "ENC-006", "date": "2025-09-15", "department": "General Medicine", "doctor": "Dr. Amit Verma", "reason": "Follow-up for Vitamin D deficiency.", "findings": "Levels improving.", "investigations": "Vitamin D test", "treatment": "Continue supplements", "dischargeNotes": "Re-check in 3 months."}
     ],
-    "medications": {
-        "current": [{"medicineId": "MED-012", "name": "D-Rise (Vitamin D)", "dosage": "1 tablet weekly", "reason": "Vitamin D deficiency", "type": "current"}],
-        "past": [],
-        "otc": []
-    },
     "investigations": [
         {"investigationId": "INV-007", "date": "2025-09-15", "type": "Blood Test", "summary": "Vitamin D levels at 25 ng/mL (previously 10 ng/mL).", "doctor": "Dr. Amit Verma"}
     ],
