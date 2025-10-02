@@ -1,7 +1,160 @@
 
 
-
-
+export const dummyGeneticPatients: GeneticPatientProfile[] = [
+    {
+        id: "GP-001",
+        name: "John Doe",
+        age: 45,
+        geneticRiskScore: 78,
+        geneticDisorder: "Lynch Syndrome",
+        medicalHistory: "History of colon polyps. Family history of colorectal cancer.",
+        aiTreatmentSuggestion: "Recommend annual colonoscopy. Consider genetic testing for family members. High-fiber diet and regular exercise advised. Potential for immunotherapy in case of malignancy.",
+        charts: {
+            mutationLevels: [
+                { gene: "MLH1", level: 85 },
+                { gene: "MSH2", level: 60 },
+                { gene: "MSH6", level: 40 },
+                { gene: "PMS2", level: 20 },
+            ],
+            riskProgression: [
+                { year: 2020, risk: 50 },
+                { year: 2021, risk: 55 },
+                { year: 2022, risk: 62 },
+                { year: 2023, risk: 70 },
+                { year: 2024, risk: 78 },
+            ],
+            diseaseDistribution: [
+                { name: "Colorectal", value: 400 },
+                { name: "Endometrial", value: 300 },
+                { name: "Ovarian", value: 100 },
+                { name: "Gastric", value: 200 },
+            ]
+        }
+    },
+    {
+        id: "GP-002",
+        name: "Jane Smith",
+        age: 32,
+        geneticRiskScore: 65,
+        geneticDisorder: "BRCA1 Mutation",
+        medicalHistory: "Mother and aunt diagnosed with breast cancer before age 50.",
+        aiTreatmentSuggestion: "High-risk screening protocol recommended: annual MRI and mammogram. Discuss prophylactic surgery options (mastectomy, oophorectomy). PARP inhibitors are a potential targeted therapy.",
+        charts: {
+            mutationLevels: [
+                { gene: "BRCA1", level: 90 },
+                { gene: "BRCA2", level: 10 },
+                { gene: "PALB2", level: 5 },
+                { gene: "CHEK2", level: 15 },
+            ],
+            riskProgression: [
+                { year: 2020, risk: 40 },
+                { year: 2021, risk: 48 },
+                { year: 2022, risk: 55 },
+                { year: 2023, risk: 60 },
+                { year: 2024, risk: 65 },
+            ],
+            diseaseDistribution: [
+                { name: "Breast", value: 500 },
+                { name: "Ovarian", value: 350 },
+                { name: "Prostate", value: 50 },
+                { name: "Pancreatic", value: 100 },
+            ]
+        }
+    },
+    {
+        id: "GP-003",
+        name: "Peter Jones",
+        age: 58,
+        geneticRiskScore: 82,
+        geneticDisorder: "Familial Hypercholesterolemia",
+        medicalHistory: "High LDL cholesterol since young age, resistant to standard statins. Father had a heart attack at 45.",
+        aiTreatmentSuggestion: "Aggressive lipid-lowering therapy required. Recommend PCSK9 inhibitors in addition to high-dose statins. Regular cardiovascular screening, including calcium score and stress tests.",
+        charts: {
+            mutationLevels: [
+                { gene: "LDLR", level: 95 },
+                { gene: "APOB", level: 30 },
+                { gene: "PCSK9", level: 50 },
+            ],
+            riskProgression: [
+                { year: 2020, risk: 60 },
+                { year: 2021, risk: 65 },
+                { year: 2022, risk: 72 },
+                { year: 2023, risk: 78 },
+                { year: 2024, risk: 82 },
+            ],
+            diseaseDistribution: [
+                { name: "Coronary Artery Disease", value: 600 },
+                { name: "Stroke", value: 250 },
+                { name: "Peripheral Artery Disease", value: 150 },
+            ]
+        }
+    },
+    {
+        id: "GP-004",
+        name: "Emily White",
+        age: 28,
+        geneticRiskScore: 40,
+        geneticDisorder: "Cystic Fibrosis Carrier",
+        medicalHistory: "No significant personal medical history. Sibling has Cystic Fibrosis.",
+        aiTreatmentSuggestion: "As a carrier, no treatment is needed for the patient. Genetic counseling is crucial for family planning to understand the risk of passing the gene to offspring. Partner screening recommended.",
+        charts: {
+            mutationLevels: [
+                { gene: "CFTR", level: 50 },
+            ],
+            riskProgression: [
+                { year: 2020, risk: 40 },
+                { year: 2021, risk: 40 },
+                { year: 2022, risk: 40 },
+                { year: 2023, risk: 40 },
+                { year: 2024, risk: 40 },
+            ],
+            diseaseDistribution: [
+                { name: "Carrier Status", value: 1000 },
+            ]
+        }
+    },
+    {
+        id: "GP-005",
+        name: "Michael Brown",
+        age: 65,
+        geneticRiskScore: 75,
+        geneticDisorder: "APOE4 Carrier (Alzheimer's)",
+        medicalHistory: "Mild cognitive impairment noted in last checkup. Concerns about memory loss.",
+        aiTreatmentSuggestion: "Focus on lifestyle modifications: Mediterranean diet, regular aerobic exercise, cognitive training, and social engagement. Monitor cognitive function with annual neuropsychological testing. No current cure, but lifestyle can slow progression.",
+        charts: {
+            mutationLevels: [
+                { gene: "APOE4", level: 88 },
+                { gene: "APP", level: 20 },
+                { gene: "PSEN1", level: 10 },
+            ],
+            riskProgression: [
+                { year: 2020, risk: 50 },
+                { year: 2021, risk: 58 },
+                { year: 2022, risk: 65 },
+                { year: 2023, risk: 70 },
+                { year: 2024, risk: 75 },
+            ],
+            diseaseDistribution: [
+                { name: "Late-Onset Alzheimer's", value: 700 },
+                { name: "Cardiovascular Disease", value: 300 },
+            ]
+        }
+    }
+];
+export interface GeneticPatientProfile {
+    id: string;
+    name: string;
+    age: number;
+    geneticRiskScore: number;
+    geneticDisorder: string;
+    medicalHistory: string;
+    aiTreatmentSuggestion: string;
+    charts: {
+        mutationLevels: { gene: string, level: number }[];
+        riskProgression: { year: number, risk: number }[];
+        diseaseDistribution: { name: string, value: number }[];
+    }
+}
 
 
 export const dummyAadhaarPatients = [
