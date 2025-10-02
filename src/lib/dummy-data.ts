@@ -17,22 +17,22 @@ export const dummyAadhaarPatients = [
 
 
 export const dummyDoctors = [
-    { "doctorId": "DOC-001", "name": "Dr. A Kumar", "specialty": "Cardiology", "hospitalId": "HOS-001", "contact": "+919876543210", "waitTime": "15 mins", "rating": 4.8, "license": "DEL-98765", "slots": ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM"], "queue": "3 patients" },
-    { "doctorId": "DOC-002", "name": "Dr. S Mehra", "specialty": "Dermatology", "hospitalId": "HOS-001", "contact": "+919876543211", "waitTime": "20 mins", "rating": 4.6, "license": "MUM-54321", "slots": ["09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM"], "queue": "2 patients" },
-    { "doctorId": "DOC-003", "name": "Dr. R Verma", "specialty": "Neurology", "hospitalId": "HOS-002", "contact": "+919876543212", "waitTime": "10 mins", "rating": 4.9, "license": "DEL-11223", "slots": ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM", "15:30 PM", "16:00 PM"], "queue": "1 patient" },
-    { "doctorId": "DOC-004", "name": "Dr. P Singh", "specialty": "Pediatrics", "hospitalId": "HOS-001", "contact": "+919876543214", "waitTime": "25 mins", "rating": 4.7, "license": "DEL-67891", "slots": ["08:00 AM", "08:30 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM"], "queue": "4 patients" },
-    { "doctorId": "DOC-005", "name": "Dr. N Sharma", "specialty": "Orthopedics", "hospitalId": "HOS-002", "contact": "+919876543215", "waitTime": "18 mins", "rating": 4.8, "license": "HYD-98765", "slots": ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM"], "queue": "2 patients" },
-    { "doctorId": "DOC-006", "name": "Dr. L Kapoor", "specialty": "ENT", "hospitalId": "HOS-001", "contact": "+911122223333", "waitTime": "12 mins", "rating": 4.5, "license": "DEL-33445", "slots": ["09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM"], "queue": "2 patients" },
-    { "doctorId": "DOC-007", "name": "Dr. M Jain", "specialty": "Gynecology", "hospitalId": "HOS-002", "contact": "+911133334444", "waitTime": "20 mins", "rating": 4.7, "license": "BLR-44556", "slots": ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM"], "queue": "3 patients" },
-    { "doctorId": "DOC-008", "name": "Dr. T Khanna", "specialty": "Ophthalmology", "hospitalId": "HOS-001", "contact": "+911144445555", "waitTime": "22 mins", "rating": 4.6, "license": "MUM-66778", "slots": ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM"], "queue": "2 patients" },
-    { "doctorId": "DOC-009", "name": "Dr. K Reddy", "specialty": "General Medicine", "hospitalId": "HOS-002", "contact": "+911166667777", "waitTime": "15 mins", "rating": 4.8, "license": "BLR-98766", "slots": ["08:30 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM"], "queue": "1 patient" },
-    { "doctorId": "DOC-010", "name": "Dr. V Mehta", "specialty": "Pediatrics", "hospitalId": "HOS-001", "contact": "+919876543216", "waitTime": "10 mins", "rating": 4.7, "license": "DEL-67892", "slots": ["12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM", "15:30 PM", "16:00 PM"], "queue": "2 patients" },
-    { "doctorId": "DOC-011", "name": "Dr. Sneha Bhatia", "specialty": "Pediatrics", "hospitalId": "HOS-003", "contact": "+919876543217", "waitTime": "14 mins", "rating": 4.8, "license": "MUM-98768", "slots": ["09:45 AM", "10:00 AM", "10:15 AM", "10:30 AM", "10:45 AM", "11:00 AM", "11:15 AM"], "queue": "3 patients" },
-    { "doctorId": "DOC-012", "name": "Dr. Rajeev Sinha", "specialty": "Neurology", "hospitalId": "HOS-004", "contact": "+919876543218", "waitTime": "25 mins", "rating": 4.9, "license": "DEL-54322", "slots": ["11:15 AM", "11:30 AM", "11:45 AM", "12:00 PM", "12:15 PM"], "queue": "4 patients" },
-    { "doctorId": "DOC-013", "name": "Dr. Alok Gupta", "specialty": "Orthopedics", "hospitalId": "HOS-005", "contact": "+919876543219", "waitTime": "25 mins", "rating": 4.6, "license": "BLR-67891", "slots": ["14:00 PM", "14:15 PM", "14:30 PM", "14:45 PM"], "queue": "4 patients" },
-    { "doctorId": "DOC-014", "name": "Dr. Rajesh Mehra", "specialty": "Cardiology", "hospitalId": "HOS-006", "contact": "+919876543220", "waitTime": "40 mins", "rating": 4.9, "license": "HYD-98765", "slots": ["15:00 PM", "15:15 PM", "15:30 PM"], "queue": "5 patients" },
-    { "doctorId": "DOC-015", "name": "Dr. Kavya Nair", "specialty": "Neurology", "hospitalId": "HOS-007", "contact": "+919876543221", "waitTime": "35 mins", "rating": 4.8, "license": "DEL-98766", "slots": ["16:00 PM", "16:15 PM", "16:30 PM", "16:45 PM", "17:00 PM"], "queue": "3 patients" },
-    { "doctorId": "DOC-016", "name": "Dr. Sameer Khan", "specialty": "General Medicine", "hospitalId": "HOS-008", "contact": "+919876543222", "waitTime": "30 mins", "rating": 4.7, "license": "BLR-67893", "slots": ["09:00 AM", "09:15 AM", "09:30 AM", "09:45 AM"], "queue": "2 patients" }
+    { "doctorId": "DOC-001", "name": "Dr. A Kumar", "specialty": "Cardiology", "hospitalId": "HOS-001", "contact": "+919876543210", "waitTime": "15 mins", "rating": 4.8, "license": "DEL-98765", "slots": ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00"], "queue": 3 },
+    { "doctorId": "DOC-002", "name": "Dr. S Mehra", "specialty": "Dermatology", "hospitalId": "HOS-001", "contact": "+919876543211", "waitTime": "20 mins", "rating": 4.6, "license": "MUM-54321", "slots": ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00"], "queue": 2 },
+    { "doctorId": "DOC-003", "name": "Dr. R Verma", "specialty": "Neurology", "hospitalId": "HOS-002", "contact": "+919876543212", "waitTime": "10 mins", "rating": 4.9, "license": "DEL-11223", "slots": ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00"], "queue": 1 },
+    { "doctorId": "DOC-004", "name": "Dr. P Singh", "specialty": "Pediatrics", "hospitalId": "HOS-001", "contact": "+919876543214", "waitTime": "25 mins", "rating": 4.7, "license": "DEL-67891", "slots": ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00"], "queue": 4 },
+    { "doctorId": "DOC-005", "name": "Dr. N Sharma", "specialty": "Orthopedics", "hospitalId": "HOS-002", "contact": "+919876543215", "waitTime": "18 mins", "rating": 4.8, "license": "HYD-98765", "slots": ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00"], "queue": 2 },
+    { "doctorId": "DOC-006", "name": "Dr. L Kapoor", "specialty": "ENT", "hospitalId": "HOS-001", "contact": "+911122223333", "waitTime": "12 mins", "rating": 4.5, "license": "DEL-33445", "slots": ["09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"], "queue": 2 },
+    { "doctorId": "DOC-007", "name": "Dr. M Jain", "specialty": "Gynecology", "hospitalId": "HOS-002", "contact": "+911133334444", "waitTime": "20 mins", "rating": 4.7, "license": "BLR-44556", "slots": ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00"], "queue": 3 },
+    { "doctorId": "DOC-008", "name": "Dr. T Khanna", "specialty": "Ophthalmology", "hospitalId": "HOS-001", "contact": "+911144445555", "waitTime": "22 mins", "rating": 4.6, "license": "MUM-66778", "slots": ["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00"], "queue": 2 },
+    { "doctorId": "DOC-009", "name": "Dr. K Reddy", "specialty": "General Medicine", "hospitalId": "HOS-002", "contact": "+911166667777", "waitTime": "15 mins", "rating": 4.8, "license": "BLR-98766", "slots": ["08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30"], "queue": 1 },
+    { "doctorId": "DOC-010", "name": "Dr. V Mehta", "specialty": "Pediatrics", "hospitalId": "HOS-001", "contact": "+919876543216", "waitTime": "10 mins", "rating": 4.7, "license": "DEL-67892", "slots": ["12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00"], "queue": 2 },
+    { "doctorId": "DOC-011", "name": "Dr. Sneha Bhatia", "specialty": "Pediatrics", "hospitalId": "HOS-003", "contact": "+919876543217", "waitTime": "14 mins", "rating": 4.8, "license": "MUM-98768", "slots": ["09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15"], "queue": 3 },
+    { "doctorId": "DOC-012", "name": "Dr. Rajeev Sinha", "specialty": "Neurology", "hospitalId": "HOS-004", "contact": "+919876543218", "waitTime": "25 mins", "rating": 4.9, "license": "DEL-54322", "slots": ["11:15", "11:30", "11:45", "12:00", "12:15"], "queue": 4 },
+    { "doctorId": "DOC-013", "name": "Dr. Alok Gupta", "specialty": "Orthopedics", "hospitalId": "HOS-005", "contact": "+919876543219", "waitTime": "25 mins", "rating": 4.6, "license": "BLR-67891", "slots": ["14:00", "14:15", "14:30", "14:45"], "queue": 4 },
+    { "doctorId": "DOC-014", "name": "Dr. Rajesh Mehra", "specialty": "Cardiology", "hospitalId": "HOS-006", "contact": "+919876543220", "waitTime": "40 mins", "rating": 4.9, "license": "HYD-98765", "slots": ["15:00", "15:15", "15:30"], "queue": 5 },
+    { "doctorId": "DOC-015", "name": "Dr. Kavya Nair", "specialty": "Neurology", "hospitalId": "HOS-007", "contact": "+919876543221", "waitTime": "35 mins", "rating": 4.8, "license": "DEL-98766", "slots": ["16:00", "16:15", "16:30", "16:45", "17:00"], "queue": 3 },
+    { "doctorId": "DOC-016", "name": "Dr. Sameer Khan", "specialty": "General Medicine", "hospitalId": "HOS-008", "contact": "+919876543222", "waitTime": "30 mins", "rating": 4.7, "license": "BLR-67893", "slots": ["09:00", "09:15", "09:30", "09:45"], "queue": 2 }
 ];
 
 export const dummyHospitals = [
@@ -41,7 +41,7 @@ export const dummyHospitals = [
         "name": "City Hospital",
         "location": "New Delhi, DL",
         "contact": "+911145678901",
-        "patientLoad": "12",
+        "patientLoad": 12,
         "coordinates": {"lat": 28.7041, "lng": 77.1025}
     },
     {
@@ -49,7 +49,7 @@ export const dummyHospitals = [
         "name": "Green Hospital",
         "location": "Mumbai, MH",
         "contact": "+912226206666",
-        "patientLoad": "8",
+        "patientLoad": 8,
         "coordinates": {"lat": 19.0760, "lng": 72.8777}
     },
     {
@@ -57,7 +57,7 @@ export const dummyHospitals = [
         "name": "Manipal Hospitals",
         "location": "Bangalore, KA",
         "contact": "+918022221111",
-        "patientLoad": "20",
+        "patientLoad": 20,
         "coordinates": {"lat": 12.9716, "lng": 77.5946}
     },
     {
@@ -65,7 +65,7 @@ export const dummyHospitals = [
         "name": "Narayana Health",
         "location": "Hyderabad, TS",
         "contact": "+914023607777",
-        "patientLoad": "15",
+        "patientLoad": 15,
         "coordinates": {"lat": 17.3850, "lng": 78.4867}
     },
     {
@@ -73,14 +73,14 @@ export const dummyHospitals = [
         "name": "Rainbow Children’s Hospital",
         "location": "Chennai, TN",
         "contact": "+914428282828",
-        "patientLoad": "10",
+        "patientLoad": 10,
         "coordinates": {"lat": 13.0827, "lng": 80.2707}
     },
-    { "hospitalId": "HOS-006", "name": "Max Healthcare", "location": "New Delhi, DL", "contact": "+911147135000", "patientLoad": "18", "coordinates": { "lat": 28.5676, "lng": 77.2122 } },
-    { "hospitalId": "HOS-007", "name": "AIIMS", "location": "New Delhi, DL", "contact": "+911126588500", "patientLoad": "50", "coordinates": { "lat": 28.5663, "lng": 77.2123 } },
-    { "hospitalId": "HOS-008", "name": "Columbia Asia", "location": "Bangalore, KA", "contact": "+918066756666", "patientLoad": "14", "coordinates": { "lat": 12.9345, "lng": 77.6268 } },
-    { "hospitalId": "HOS-009", "name": "Yashoda Hospital", "location": "Hyderabad, TS", "contact": "+914024177000", "patientLoad": "45", "coordinates": { "lat": 17.3616, "lng": 78.4747 } },
-    { "hospitalId": "HOS-010", "name": "NIMHANS", "location": "Bangalore, KA", "contact": "+918026995000", "patientLoad": "30", "coordinates": { "lat": 12.9400, "lng": 77.5960 } }
+    { "hospitalId": "HOS-006", "name": "Max Healthcare", "location": "New Delhi, DL", "contact": "+911147135000", "patientLoad": 18, "coordinates": { "lat": 28.5676, "lng": 77.2122 } },
+    { "hospitalId": "HOS-007", "name": "AIIMS", "location": "New Delhi, DL", "contact": "+911126588500", "patientLoad": 50, "coordinates": { "lat": 28.5663, "lng": 77.2123 } },
+    { "hospitalId": "HOS-008", "name": "Columbia Asia", "location": "Bangalore, KA", "contact": "+918066756666", "patientLoad": 14, "coordinates": { "lat": 12.9345, "lng": 77.6268 } },
+    { "hospitalId": "HOS-009", "name": "Yashoda Hospital", "location": "Hyderabad, TS", "contact": "+914024177000", "patientLoad": 45, "coordinates": { "lat": 17.3616, "lng": 78.4747 } },
+    { "hospitalId": "HOS-010", "name": "NIMHANS", "location": "Bangalore, KA", "contact": "+918026995000", "patientLoad": 30, "coordinates": { "lat": 12.9400, "lng": 77.5960 } }
 ]
 
 export const dummyMedicines = [
@@ -94,7 +94,6 @@ export const dummyMedicines = [
     { "medicineId": "MED-008", "name": "Atorvastatin", "chemical": "C33H35FN2O5", "usage": "High Cholesterol", "dosageForm": "Tablet", "prescribedBy": "DOC-010", "govtPrice": 8, "privatePrice": 50, "frequentlyUsed": false },
     { "medicineId": "MED-009", "name": "Omeprazole", "chemical": "C17H19N3O3S", "usage": "Acidity, GERD", "dosageForm": "Capsule", "prescribedBy": "DOC-007", "govtPrice": 6, "privatePrice": 35, "frequentlyUsed": true },
     { "medicineId": "MED-010", "name": "Salbutamol Inhaler", "chemical": "C13H21NO3", "usage": "Asthma, COPD", "dosageForm": "Inhaler", "prescribedBy": "DOC-006", "govtPrice": 50, "privatePrice": 250, "frequentlyUsed": true },
-    { "medicineId": "MED-011", "name": "Levothyroxine", "chemical": "C15H11I4NO4", "usage": "Hypothyroidism", "dosageForm": "Tablet", "prescribedBy": "DOC-003", "govtPrice": 10, "privatePrice": 60, "frequentlyUsed": false },
     { "medicineId": "MED-012", "name": "Vitamin D3 Supplement", "chemical": "C27H44O", "usage": "Vitamin D Deficiency", "dosageForm": "Capsule", "prescribedBy": "DOC-007", "govtPrice": 20, "privatePrice": 100, "frequentlyUsed": true },
     { "medicineId": "MED-013", "name": "Clopidogrel", "chemical": "C16H16ClNO2S", "usage": "Blood Thinner", "dosageForm": "Tablet", "prescribedBy": "DOC-010", "govtPrice": 12, "privatePrice": 70, "frequentlyUsed": false },
     { "medicineId": "MED-014", "name": "Prednisolone", "chemical": "C21H28O5", "usage": "Inflammation, Allergy", "dosageForm": "Tablet", "prescribedBy": "DOC-006", "govtPrice": 10, "privatePrice": 45, "frequentlyUsed": false },
@@ -413,6 +412,21 @@ export const dummyPatients = [
         "vitaminD": { "risk": "Low", "details": "Trend is improving with supplementation." },
         "cardiovascular": { "risk": "Low", "details": "BP and lifestyle factors are within a healthy range." }
       }
+    },
+    
+    "predictions": {
+      "vitalsNext7Days": {
+        "heartRate": [83, 84, 82, 85, 84, 83, 82],
+        "bloodPressure": ["129/85", "130/86", "128/84", "131/86", "130/85", "129/84", "128/84"]
+      },
+      "appointmentProbability": [0.15, 0.2, 0.18, 0.25, 0.22, 0.2, 0.19],
+      "medicationAdherence": [0.95, 0.96, 0.94, 0.97, 0.95, 0.96, 0.95],
+      "risk": {
+        "hypertension": "Low",
+        "diabetes": "Low",
+        "heartDisease": "Low"
+      },
+      "preventiveMeasures": "Continue regular exercise and monitor salt intake."
     },
 
     "vitals": {
