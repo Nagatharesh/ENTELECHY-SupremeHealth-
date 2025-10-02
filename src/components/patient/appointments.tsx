@@ -26,6 +26,7 @@ const cities = [...new Set(dummyHospitals.map(h => h.location.split(',')[0]))];
 export function Appointments({ patient, showBookingButton = true }: { patient: Patient, showBookingButton?: boolean }) {
   const [appointments, setAppointments] = useState(patient.appointments);
   const { toast } = useToast();
+  const [activeInteraction, setActiveInteraction] = useState<{type: 'chat' | 'video' | 'summary', data: any} | null>(null);
 
   const sortedAppointments = [...appointments].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   const upcomingAppointments = sortedAppointments.filter(a => new Date(a.date) >= new Date());
@@ -39,6 +40,10 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
       variant: "default",
     });
   };
+  
+  const handleInteraction = (type, data) => {
+    setActiveInteraction({type, data});
+  }
 
   return (
     <div className="space-y-6">
@@ -60,11 +65,12 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
                 <CardTitle className="text-gradient-glow">Upcoming Appointments</CardTitle>
+                 <DialogDescription className="flex items-center gap-2 text-primary animate-pulse"><Bot className="w-5 h-5"/>AI Suggestion: An earlier slot for Dr. Neha Kapoor is available on Oct 18 at Apollo Hospital.</DialogDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {upcomingAppointments.map((appt) => (
-                            <AppointmentCard key={appt.appointmentId} appointment={appt} />
+                            <AppointmentCard key={appt.appointmentId} appointment={appt} onInteraction={handleInteraction} />
                         ))}
                     </div>
                 </CardContent>
@@ -79,7 +85,7 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
             {pastAppointments.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {pastAppointments.map((appt) => (
-                    <AppointmentCard key={appt.appointmentId} appointment={appt} isPast />
+                    <AppointmentCard key={appt.appointmentId} appointment={appt} isPast onInteraction={handleInteraction}/>
                     ))}
                 </div>
             ) : (
@@ -87,9 +93,56 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
             )}
         </CardContent>
       </Card>
+      
+       <InteractionDialog activeInteraction={activeInteraction} onClose={() => setActiveInteraction(null)} />
     </div>
   );
 }
+
+const InteractionDialog = ({ activeInteraction, onClose }) => {
+    if (!activeInteraction) return null;
+
+    const { type, data } = activeInteraction;
+    const doctor = getDoctorById(data.doctorId);
+
+    let title = '';
+    let content = null;
+
+    switch (type) {
+        case 'chat':
+            title = `Chat with Dr. ${doctor?.name}`;
+            content = <p className="text-lg italic text-white p-4 glassmorphism rounded-lg">"{data.chatResponse}"</p>;
+            break;
+        case 'video':
+            title = `Video Call with Dr. ${doctor?.name}`;
+            content = (
+                <div className="w-full aspect-video bg-black rounded-lg flex items-center justify-center glassmorphism glowing-shadow">
+                    <div className="relative w-24 h-24">
+                        <div className="absolute inset-0 rounded-full bg-primary animate-ripple"/>
+                        <div className="absolute inset-2 rounded-full bg-primary animate-ripple" style={{animationDelay: '0.5s'}}/>
+                        <Video className="w-12 h-12 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+                    </div>
+                </div>
+            );
+            break;
+        case 'summary':
+            title = `Summary for visit on ${format(new Date(data.date), 'PPP')}`;
+            content = <p className="text-lg text-white p-4 glassmorphism rounded-lg">{data.summary}</p>;
+            break;
+    }
+
+    return (
+        <Dialog open={true} onOpenChange={onClose}>
+            <DialogContent className="glassmorphism">
+                <DialogHeader>
+                    <DialogTitle className="text-gradient-glow">{title}</DialogTitle>
+                </DialogHeader>
+                {content}
+            </DialogContent>
+        </Dialog>
+    );
+};
+
 
 const AppointmentTimeline = ({ appointments }) => {
     if (!appointments || appointments.length === 0) return <p className="text-muted-foreground">No appointments to show.</p>;
@@ -128,7 +181,7 @@ const AppointmentTimeline = ({ appointments }) => {
   };
   
 
-const AppointmentCard = ({ appointment, isPast = false }) => {
+const AppointmentCard = ({ appointment, isPast = false, onInteraction }) => {
   const doctor = getDoctorById(appointment.doctorId);
   const hospital = getHospitalById(appointment.hospitalId);
 
@@ -158,20 +211,20 @@ const AppointmentCard = ({ appointment, isPast = false }) => {
             <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="glassmorphism p-2 rounded-lg">
                     <p className="text-sm text-muted-foreground">Token No.</p>
-                    <p className="text-2xl font-bold text-gradient-glow">#5</p>
+                    <p className="text-2xl font-bold text-gradient-glow">#{appointment.token}</p>
                 </div>
                 <div className="glassmorphism p-2 rounded-lg">
                     <p className="text-sm text-muted-foreground">Wait Time</p>
-                    <p className="text-2xl font-bold text-gradient-glow">~15m</p>
+                    <p className="text-2xl font-bold text-gradient-glow">~{appointment.waitTime}m</p>
                 </div>
             </div>
-            <Progress value={25} className="h-2" />
+            <Progress value={appointment.patientsAhead / (appointment.patientsAhead + appointment.token) * 100} className="h-2" />
             <div className="flex gap-2">
-                <Button size="sm" variant="outline" className="w-full relative overflow-hidden aura-breathing">
-                <MessageSquare className="w-4 h-4 mr-2"/>Chat
+                <Button size="sm" variant="outline" className="w-full relative overflow-hidden aura-breathing" onClick={() => onInteraction('chat', appointment)}>
+                    <MessageSquare className="w-4 h-4 mr-2"/>Chat
                 </Button>
-                <Button size="sm" variant="outline" className="w-full relative overflow-hidden animate-ripple">
-                <Video className="w-4 h-4 mr-2"/>Video Call
+                <Button size="sm" variant="outline" className="w-full relative overflow-hidden animate-ripple" onClick={() => onInteraction('video', appointment)}>
+                    <Video className="w-4 h-4 mr-2"/>Video Call
                 </Button>
             </div>
         </>
@@ -181,11 +234,11 @@ const AppointmentCard = ({ appointment, isPast = false }) => {
                 <p className="text-sm text-muted-foreground">Your feedback:</p>
                  <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className={cn("w-5 h-5 cursor-pointer transition-colors", star <= 4 ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground hover:text-yellow-300")} />
+                        <Star key={star} className={cn("w-5 h-5 cursor-pointer transition-colors", star <= appointment.feedback ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground hover:text-yellow-300")} />
                     ))}
                 </div>
             </div>
-             <Button size="sm" variant="secondary" className="w-full">View Summary</Button>
+             <Button size="sm" variant="secondary" className="w-full" onClick={() => onInteraction('summary', appointment)}>View Summary</Button>
         </div>
       )}
     </div>
@@ -216,7 +269,7 @@ function BookingDialog({ onBook, patientId }) {
             </DialogContent>
         </Dialog>
         
-        <Dialog open={showRadar}>
+        <Dialog open={showRadar} onOpenChange={setShowRadar}>
             <DialogContent className="glassmorphism bg-transparent border-none shadow-none flex items-center justify-center p-0">
                 <DialogHeader>
                     <DialogTitle className="sr-only">Finding Doctors</DialogTitle>
@@ -302,7 +355,14 @@ export function BookingWizard({ onBook, patientId, preselectedDoctor = null, onB
         doctorId: selectedDoctor.doctorId,
         hospitalId: selectedDoctor.hospitalId,
         status: "booked",
-        urgent: false
+        urgent: false,
+        // Add dummy data for new fields
+        token: Math.floor(Math.random() * 20) + 1,
+        patientsAhead: Math.floor(Math.random() * 5),
+        waitTime: Math.floor(Math.random() * 30) + 5,
+        chatResponse: "Your appointment is confirmed. Please arrive 15 minutes early.",
+        summary: "New appointment booked.",
+        feedback: 0,
       };
       onBook(newAppointment);
       reset();
@@ -481,5 +541,7 @@ const Step4 = ({ doctor, hospital, date, time }) => {
         </div>
     );
 };
+
+    
 
     
