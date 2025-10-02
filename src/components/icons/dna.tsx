@@ -1,11 +1,19 @@
+
 "use client";
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const DNAStrand = ({ position, rotationY, color1, color2 }) => {
-    const meshRef = useRef();
+interface DNAStrandProps {
+    position?: [number, number, number];
+    rotationY?: number;
+    color1?: string;
+    color2?: string;
+}
+
+const DNAStrand: React.FC<DNAStrandProps> = ({ position, rotationY, color1, color2 }) => {
+    const meshRef = useRef<THREE.Mesh>(null);
 
     const points = useMemo(() => {
         const p = [];
@@ -15,16 +23,11 @@ const DNAStrand = ({ position, rotationY, color1, color2 }) => {
         return new THREE.CatmullRomCurve3(p).getPoints(100);
     }, []);
 
-    useFrame((state, delta) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.y += delta * 0.1;
-        }
-    });
+    const tubeGeometry = useMemo(() => new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 100, 0.02, 8, false), [points]);
 
     return (
         <group position={position} rotation-y={rotationY}>
-            <mesh ref={meshRef}>
-                <tubeGeometry args={[new THREE.CatmullRomCurve3(points), 100, 0.02, 8, false]} />
+            <mesh ref={meshRef} geometry={tubeGeometry}>
                 <meshStandardMaterial attach="material" color={color1} emissive={color1} emissiveIntensity={2} roughness={0.5} metalness={0.8} />
             </mesh>
         </group>
@@ -33,10 +36,11 @@ const DNAStrand = ({ position, rotationY, color1, color2 }) => {
 
 
 const Connectors = ({ count = 10, interactive }) => {
-    const instancedMeshRef = useRef();
+    const instancedMeshRef = useRef<THREE.InstancedMesh>(null);
     const dummy = useMemo(() => new THREE.Object3D(), []);
 
     useEffect(() => {
+        if (!instancedMeshRef.current) return;
         for (let i = 0; i < count; i++) {
             const y = (i - count / 2) * 0.4;
             const angle = i * 1;
@@ -46,7 +50,7 @@ const Connectors = ({ count = 10, interactive }) => {
             instancedMeshRef.current.setMatrixAt(i, dummy.matrix);
         }
         instancedMeshRef.current.instanceMatrix.needsUpdate = true;
-    }, [count]);
+    }, [count, dummy]);
 
     useFrame((state) => {
         if (instancedMeshRef.current && interactive) {
@@ -62,10 +66,11 @@ const Connectors = ({ count = 10, interactive }) => {
              instancedMeshRef.current.instanceMatrix.needsUpdate = true;
         }
     });
+    
+    const cylinderGeom = useMemo(() => new THREE.CylinderGeometry(0.01, 0.01, 0.4, 8), []);
 
     return (
-        <instancedMesh ref={instancedMeshRef} args={[null, null, count]}>
-            <cylinderGeometry args={[0.01, 0.01, 0.4, 8]} />
+        <instancedMesh ref={instancedMeshRef} args={[cylinderGeom, undefined, count]}>
             <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={3} />
         </instancedMesh>
     );
@@ -73,7 +78,7 @@ const Connectors = ({ count = 10, interactive }) => {
 
 
 export const DNA = ({ interactive = false }) => {
-    const groupRef = useRef();
+    const groupRef = useRef<THREE.Group>(null);
 
     useFrame((state, delta) => {
         if (groupRef.current && !interactive) {
@@ -84,8 +89,8 @@ export const DNA = ({ interactive = false }) => {
 
     return (
         <group ref={groupRef}>
-            <DNAStrand position={[0, 0, 0]} rotationY={0} color1="#ff2e92" color2="#9d4edd" />
-            <DNAStrand position={[0, 0, 0]} rotationY={Math.PI} color1="#00efff" color2="#39ff14" />
+            <DNAStrand position={[0, 0, 0]} rotationY={0} color1="#ff2e92" />
+            <DNAStrand position={[0, 0, 0]} rotationY={Math.PI} color1="#00efff" />
             <Connectors count={10} interactive={interactive}/>
         </group>
     );
