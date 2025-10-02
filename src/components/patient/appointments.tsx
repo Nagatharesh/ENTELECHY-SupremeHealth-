@@ -66,12 +66,11 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
                 <CardHeader>
                   <CardTitle className="text-gradient-glow">Upcoming Appointments</CardTitle>
                   <Dialog>
-                    <DialogContent className="hidden">
+                    <DialogContent className="hidden" />
                       <DialogHeader>
-                        <DialogTitle>AI Suggestion</DialogTitle>
-                        <DialogDescription className="flex items-center gap-2 text-primary animate-pulse"><Bot className="w-5 h-5"/>AI Suggestion: An earlier slot for Dr. Neha Kapoor is available on Oct 18 at Apollo Hospital.</DialogDescription>
+                          <DialogTitle>AI Suggestion</DialogTitle>
+                           <DialogDescription className="flex items-center gap-2 text-primary animate-pulse"><Bot className="w-5 h-5"/>AI Suggestion: An earlier slot for Dr. Neha Kapoor is available on Oct 18 at Apollo Hospital.</DialogDescription>
                       </DialogHeader>
-                    </DialogContent>
                   </Dialog>
                 </CardHeader>
                 <CardContent>
