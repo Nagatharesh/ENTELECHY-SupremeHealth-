@@ -2,8 +2,6 @@
 "use client";
 
 import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import { DNA } from '../icons/dna';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 const dummyPatients = [
@@ -21,12 +19,13 @@ export function GeneticAnalysis() {
                 <CardDescription>Live visualization of genetic markers and associated risk profiles.</CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="w-full h-96">
-                    <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
-                        <ambientLight intensity={0.5} />
-                        <pointLight position={[10, 10, 10]} intensity={1.5} />
-                        <DNA />
-                    </Canvas>
+                <div className="w-full h-96 flex items-center justify-center glassmorphism p-6 text-center">
+                    <div>
+                        <h2 className="text-white text-2xl mb-2">Genetic Analysis Hub</h2>
+                        <p className="text-muted-foreground">
+                            3D DNA Analysis feature is currently disabled for stability.
+                        </p>
+                    </div>
                 </div>
             </CardContent>
         </Card>
