@@ -4,12 +4,22 @@
 import { Patient } from "@/lib/dummy-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { QuickActions } from "./quick-actions";
-import { HealthSnapshot } from "./health-snapshot";
 import { User, Phone, Shield, Droplet, Heart, Activity, Siren, GitBranchPlus, FileClock, ShieldAlert, Pill } from "lucide-react";
 import Image from "next/image";
 import { ProfileAnalytics } from "./profile-analytics";
+import { useState, useEffect } from "react";
 
 export function PatientProfile({ patient }: { patient: Patient }) {
+  const [lastVisitDate, setLastVisitDate] = useState('');
+  
+  useEffect(() => {
+    // This ensures date formatting only happens on the client, avoiding hydration mismatches.
+    const lastEncounter = patient.medicalEncounters[patient.medicalEncounters.length - 1];
+    if (lastEncounter) {
+      setLastVisitDate(new Date(lastEncounter.date).toLocaleDateString());
+    }
+  }, [patient.medicalEncounters]);
+
   const getAge = (dob: string) => {
     if (!dob) return '';
     const birthDate = new Date(dob);
@@ -48,7 +58,7 @@ export function PatientProfile({ patient }: { patient: Patient }) {
                         <InfoItem icon={ShieldAlert} label="Allergies" value={patient.healthOverview.allergies.join(', ')} />
                         <InfoItem icon={Activity} label="Lifestyle" value={patient.healthOverview.lifestyle} />
                         <InfoItem icon={Pill} label="Current Medications" value={patient.medications.current.map(m => m.name).join(', ')} />
-                        <InfoItem icon={FileClock} label="Last Visit" value={new Date(patient.medicalEncounters[patient.medicalEncounters.length - 1].date).toLocaleDateString()} />
+                        <InfoItem icon={FileClock} label="Last Visit" value={lastVisitDate || 'Loading...'} />
                         <InfoItem icon={GitBranchPlus} label="Insurance" value={`${patient.insurance.provider}`} />
                     </div>
                 </CardContent>
