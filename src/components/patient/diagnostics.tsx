@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Patient, dummyDoctors, Doctor } from '@/lib/dummy-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Upload, Camera, FileScan, Bot, X, Leaf, Pill, ChevronRight, MessageSquare, Video, Calendar } from 'lucide-react';
+import { Upload, Camera, FileScan, Bot, X, Leaf, Pill, ChevronRight, MessageSquare, Video, Calendar, BarChart, History, Activity } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -15,30 +15,69 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { BookingWizard } from './appointments';
 
-const skinDiseasesData = [
-    { disease: 'Psoriasis', stage: 'Moderate', modern: 'Topical Steroids, Methotrexate', ayurvedic: 'Aloe Vera gel, Turmeric paste', doctorId: 'DOC-006' },
-    { disease: 'Eczema', stage: 'Mild', modern: 'Hydrocortisone cream', ayurvedic: 'Coconut oil, Neem paste', doctorId: 'DOC-009' },
-    { disease: 'Fungal Infection', stage: 'Severe', modern: 'Antifungal cream, Oral Fluconazole', ayurvedic: 'Neem oil, Tulsi paste', doctorId: 'DOC-007' },
-    { disease: 'Acne', stage: 'Moderate', modern: 'Benzoyl Peroxide, Retinoids', ayurvedic: 'Sandalwood paste, Tea tree oil', doctorId: 'DOC-009' },
-];
+// --- Expanded Dummy Data for Rich Analytics ---
 
-const scanReportData = {
-    type: 'MRI Brain Scan',
-    finding: 'Small benign tumor detected in right temporal lobe',
-    stage: 'Early Stage (1/4)',
-    roadmap: [
-        { step: 1, title: 'Consult Neurologist', details: 'Immediate consultation with a specialist.', doctorId: 'DOC-010' },
-        { step: 2, title: 'Follow-up Imaging', details: 'Repeat MRI in 3 months to monitor growth.' },
-        { step: 3, title: 'Medication', details: 'Potential start on tumor growth inhibitors if changes are observed.' },
-        { step: 4, title: 'Lifestyle & Support', details: 'Physiotherapy and dietary adjustments. Ayurvedic support like Brahmi and Ashwagandha.' },
-    ],
-    doctor: dummyDoctors.find(d => d.doctorId === 'DOC-010')
+const skinAnalysisData = {
+    disease: 'Psoriasis',
+    analytics: {
+        stage: [
+            { name: 'Stage 1', value: 12 },
+            { name: 'Stage 2', value: 38 },
+            { name: 'Stage 3', value: 45 },
+            { name: 'Stage 4', value: 5 },
+        ],
+        medicines: [
+            { name: 'Topical Steroids', availability: 80, rate: 350 },
+            { name: 'Methotrexate', availability: 65, rate: 800 },
+            { name: 'Aloe Vera Gel', availability: 95, rate: 150 },
+        ],
+        effectiveness: [
+            { name: 'Steroids', improvement: 70 },
+            { name: 'Methotrexate', improvement: 85 },
+            { name: 'Aloe Vera', improvement: 40 },
+        ]
+    },
+    suggestedDoctors: [dummyDoctors.find(d => d.specialty === "Dermatology")],
+    history: [
+        { date: '2024-03-15', severity: 30, medicine: 'Topical Steroids' },
+        { date: '2024-06-20', severity: 45, medicine: 'Methotrexate' },
+        { date: '2024-09-01', severity: 25, medicine: 'Aloe Vera Gel' },
+    ]
 };
 
+const scanAnalysisData = {
+    type: 'MRI Brain Scan',
+    finding: 'Small benign tumor detected in right temporal lobe',
+    analytics: {
+        stage: [
+            { name: 'Stage 1', value: 70 },
+            { name: 'Stage 2', value: 25 },
+            { name: 'Stage 3', value: 5 },
+            { name: 'Stage 4', value: 0 },
+        ],
+        medicines: [
+            { name: 'Tumor Inhibitors', availability: 50, rate: 5000 },
+            { name: 'Brahmi', availability: 90, rate: 400 },
+        ],
+        effectiveness: [
+            { name: 'Inhibitors', improvement: 65 },
+            { name: 'Brahmi', improvement: 20 },
+        ]
+    },
+    suggestedDoctors: [dummyDoctors.find(d => d.specialty === "Neurology"), dummyDoctors.find(d => d.specialty === "Oncology")],
+     history: [
+        { date: '2023-11-01', severity: 10, medicine: 'Observation' },
+        { date: '2024-02-10', severity: 12, medicine: 'Observation' },
+        { date: '2024-05-15', severity: 15, medicine: 'Brahmi' },
+        { date: '2024-08-20', severity: 18, medicine: 'Inhibitor Trial' },
+    ]
+};
+
+// --- Main Component ---
 
 export function Diagnostics({ patient }: { patient: Patient }) {
     const { toast } = useToast();
-    const [activeTab, setActiveTab] = useState('skin'); // 'skin' or 'scan'
+    const [activeTab, setActiveTab] = useState('skin');
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
     const [analysisResult, setAnalysisResult] = useState<any | null>(null);
@@ -53,7 +92,6 @@ export function Diagnostics({ patient }: { patient: Patient }) {
 
     useEffect(() => {
         return () => {
-            // Stop camera stream when component unmounts
             if (videoRef.current && videoRef.current.srcObject) {
                 const stream = videoRef.current.srcObject as MediaStream;
                 stream.getTracks().forEach(track => track.stop());
@@ -62,7 +100,7 @@ export function Diagnostics({ patient }: { patient: Patient }) {
     }, []);
 
     const getCameraPermission = async () => {
-      if (hasCameraPermission) { // If permission is already granted, just start the stream
+      if (hasCameraPermission) {
         if(videoRef.current && !videoRef.current.srcObject){
             const stream = await navigator.mediaDevices.getUserMedia({video: true});
             videoRef.current.srcObject = stream;
@@ -145,10 +183,9 @@ export function Diagnostics({ patient }: { patient: Patient }) {
         setIsAnalyzing(true);
         setTimeout(() => {
             if (activeTab === 'skin') {
-                const randomDisease = skinDiseasesData[Math.floor(Math.random() * skinDiseasesData.length)];
-                setAnalysisResult({ ...randomDisease, doctor: dummyDoctors.find(d => d.doctorId === randomDisease.doctorId), type: 'skin' });
+                setAnalysisResult({ ...skinAnalysisData, type: 'skin' });
             } else {
-                setAnalysisResult({...scanReportData, type: 'scan'});
+                setAnalysisResult({...scanAnalysisData, type: 'scan'});
             }
             setIsAnalyzing(false);
         }, 3000);
@@ -235,6 +272,8 @@ export function Diagnostics({ patient }: { patient: Patient }) {
     );
 }
 
+// --- UI Components for Analysis ---
+
 const UploadArea = ({ onFileChange, onDrop, uploadedFileName, activeTab, onRemove }) => (
      <div 
         onDragOver={(e) => e.preventDefault()}
@@ -284,7 +323,6 @@ const CameraArea = ({ activeTab, hasCameraPermission, getCameraPermission, takeP
     );
 };
 
-
 const AnalysisResult = ({ result, onReset, onBook }) => (
     <div className="animate-fade-in-up space-y-6">
         <div className="flex justify-between items-start">
@@ -295,116 +333,93 @@ const AnalysisResult = ({ result, onReset, onBook }) => (
             <Button variant="ghost" onClick={onReset}><X className="mr-2"/>Start Over</Button>
         </div>
 
-        {result.type === 'skin' && <SkinResult result={result} onBook={onBook} />}
-        {result.type === 'scan' && <ScanResult result={result} onBook={onBook} />}
-    </div>
-);
-
-const getSeverityBadge = (severity) => {
-    switch (severity?.toLowerCase()) {
-        case 'mild': return 'default';
-        case 'moderate': return 'secondary';
-        case 'severe': return 'destructive';
-        default: return 'outline';
-    }
-}
-
-const SkinResult = ({ result, onBook }) => (
-    <div className="space-y-4">
-         <Card className="glassmorphism p-4">
-            <h3 className="font-semibold text-lg text-white">Diagnosis</h3>
-            <div className="flex justify-between items-center mt-2">
-                <p className="text-4xl font-bold text-primary">{result.disease}</p>
-                <Badge variant={getSeverityBadge(result.stage)} className="text-lg px-4 py-1">{result.stage}</Badge>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+                <DiagnosisCard result={result} />
+                <GlowingBarChartCard title="Disease Stage Distribution" data={result.analytics.stage} dataKey="value" unit="%" color="hsl(var(--primary))" />
+                <GlowingBarChartCard title="Medicine Availability" data={result.analytics.medicines} dataKey="availability" unit="%" color="hsl(var(--secondary))" />
+                <GlowingBarChartCard title="Predicted Treatment Effectiveness" data={result.analytics.effectiveness} dataKey="improvement" unit="%" color="hsl(var(--tertiary))" />
             </div>
-        </Card>
-
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden glassmorphism p-2 glowing-shadow">
-            <Image src="https://picsum.photos/seed/skin1/600/400" alt="Uploaded skin condition" layout="fill" objectFit="cover" className="rounded-md" />
-            <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-40 h-40 border-4 border-dashed border-red-500 rounded-full animate-pulse bg-red-500/20"/>
-            </div>
-            <div className="absolute top-2 left-2 bg-background/70 p-2 rounded-md">
-                 <p className="text-white font-bold">3D Visualization Overlay</p>
+            <div className="space-y-6">
+                <DoctorsSuggestionsCard doctors={result.suggestedDoctors} onBook={onBook} />
             </div>
         </div>
 
-        <TreatmentPlan title="Modern Medicine" icon={Pill} plan={result.modern} />
-        <TreatmentPlan title="Ayurvedic Remedies" icon={Leaf} plan={result.ayurvedic} />
-        
-        <SuggestedDoctor doctor={result.doctor} onBook={onBook} />
+        <HistoryAnalyticsCard history={result.history} />
     </div>
 );
 
-
-const ScanResult = ({ result, onBook }) => (
-     <div className="space-y-4">
-        <Card className="glassmorphism p-4">
-            <h3 className="font-semibold text-lg text-white">Diagnosis from {result.type}</h3>
-            <div className="flex justify-between items-center mt-2">
-                <p className="text-2xl font-bold text-primary max-w-md">{result.finding}</p>
-                <Badge variant={getSeverityBadge(result.stage)} className="text-lg px-4 py-1">{result.stage}</Badge>
-            </div>
-        </Card>
-        
-        <div>
-            <h3 className="font-semibold text-lg text-white mb-2">Treatment Roadmap</h3>
-            <div className="space-y-2">
-                {result.roadmap.map((item, index) => (
-                    <div key={item.step} className="flex items-start gap-4">
-                        <div className="flex flex-col items-center">
-                            <div className={cn("w-10 h-10 rounded-full flex items-center justify-center font-bold text-primary-foreground", item.doctorId ? "bg-primary" : "bg-muted")}>
-                                {item.step}
-                            </div>
-                            {index < result.roadmap.length - 1 && <div className="w-px h-12 bg-border" />}
-                        </div>
-                        <Card className="flex-1 glassmorphism p-3 timeline-card-glow" style={{ animationDelay: `${index * 100}ms` }}>
-                           <p className="font-semibold text-white">{item.title}</p>
-                           <p className="text-sm text-muted-foreground">{item.details}</p>
-                           {item.doctorId && <Button size="sm" className="mt-2" onClick={() => onBook(dummyDoctors.find(d => d.doctorId === item.doctorId))}>Book with Specialist</Button>}
-                        </Card>
-                    </div>
-                ))}
-            </div>
-        </div>
-
-        <SuggestedDoctor doctor={result.doctor} onBook={onBook} />
-    </div>
-);
-
-
-const TreatmentPlan = ({ title, icon: Icon, plan }) => (
-    <Card className="glassmorphism">
-        <CardHeader className="flex-row items-center gap-4 p-4">
-            <Icon className="w-8 h-8 text-primary" />
-            <CardTitle className="text-lg text-white m-0">{title}</CardTitle>
-        </CardHeader>
-        <CardContent className="p-4 pt-0">
-            <p className="text-muted-foreground">{plan}</p>
-        </CardContent>
+const DiagnosisCard = ({result}) => (
+    <Card className="glassmorphism p-4 glowing-shadow">
+        <h3 className="font-semibold text-lg text-white mb-2">{result.type === 'skin' ? 'Skin Diagnosis' : `Report Findings (${result.type})`}</h3>
+        <p className="text-3xl font-bold text-primary">{result.disease || result.finding}</p>
     </Card>
 );
 
-const SuggestedDoctor = ({ doctor, onBook }) => {
-    if (!doctor) return null;
-    return (
-        <Card className="glassmorphism glowing-shadow p-4">
-             <h3 className="font-semibold text-lg text-white mb-2">Suggested Specialist</h3>
-             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                 <div className="flex items-center gap-4">
-                     <Image src={`https://i.pravatar.cc/150?u=${doctor.doctorId}`} alt={doctor.name} width={60} height={60} className="rounded-full border-2 border-primary/50" />
-                     <div>
-                        <p className="font-bold text-white text-xl">{doctor.name}</p>
-                        <p className="text-muted-foreground">{doctor.specialty}</p>
-                        <p className="text-xs text-primary">{doctor.contact}</p>
-                     </div>
-                 </div>
-                 <div className="flex gap-2">
-                     <Button variant="outline"><MessageSquare/></Button>
-                     <Button variant="outline"><Video/></Button>
-                     <Button className="glowing-shadow-interactive" onClick={() => onBook(doctor)}><Calendar className="mr-2"/>Book Appointment</Button>
-                 </div>
-             </div>
-        </Card>
-    );
-};
+const GlowingBarChartCard = ({ title, data, dataKey, unit, color }) => (
+    <Card className="glassmorphism p-4 glowing-shadow">
+        <h3 className="font-semibold text-lg text-white mb-4 flex items-center gap-2"><BarChart className="text-primary"/>{title}</h3>
+        <div className="space-y-3">
+            {data.map((item, index) => (
+                <div key={index} className="space-y-1">
+                    <div className="flex justify-between text-sm">
+                        <span className="font-medium text-muted-foreground">{item.name}</span>
+                        <span className="font-bold text-white">{item[dataKey]}{unit}</span>
+                    </div>
+                    <div className="h-3 w-full bg-background/50 rounded-full overflow-hidden border border-primary/20">
+                        <div 
+                            className="h-full rounded-full transition-all duration-1000"
+                            style={{ 
+                                width: `${item[dataKey]}%`,
+                                background: `linear-gradient(90deg, ${color} 0%, hsl(var(--accent)) 100%)`,
+                                boxShadow: `0 0 8px ${color}`
+                            }}
+                        />
+                    </div>
+                </div>
+            ))}
+        </div>
+    </Card>
+);
+
+const DoctorsSuggestionsCard = ({ doctors, onBook }) => (
+    <Card className="glassmorphism p-4 glowing-shadow">
+        <h3 className="font-semibold text-lg text-white mb-4">Suggested Specialists</h3>
+        <div className="space-y-3">
+            {doctors.map(doctor => (
+                doctor &&
+                <div key={doctor.doctorId} className="glassmorphism p-3 rounded-lg flex items-center justify-between transition-all hover:border-primary/50 hover:scale-105">
+                    <div>
+                        <p className="font-bold text-white">{doctor.name}</p>
+                        <p className="text-xs text-muted-foreground">{doctor.specialty}</p>
+                        <Badge variant="outline" className="mt-1">{doctor.rating}/5 ★</Badge>
+                    </div>
+                    <Button size="sm" className="glowing-shadow-interactive" onClick={() => onBook(doctor)}>Book</Button>
+                </div>
+            ))}
+        </div>
+    </Card>
+);
+
+const HistoryAnalyticsCard = ({ history }) => (
+    <Card className="glassmorphism p-4 glowing-shadow">
+        <h3 className="font-semibold text-lg text-white mb-4 flex items-center gap-2"><History className="text-primary"/>Past Progression Analytics</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {history.map((record, index) => (
+                <div key={index} className="glassmorphism p-3 rounded-lg flex flex-col items-center justify-end text-center h-48 relative overflow-hidden">
+                    <p className="text-xs text-muted-foreground absolute top-2">{new Date(record.date).toLocaleDateString('en-GB', {month: 'short', year: 'numeric'})}</p>
+                    <div 
+                        className="w-full bg-gradient-to-t from-primary/50 to-secondary/50 rounded-t-md transition-all duration-700" 
+                        style={{ height: `${record.severity}%` }}
+                    >
+                         <div className="h-full w-full" style={{boxShadow: `inset 0 0 10px hsl(var(--primary)/0.5)`}} />
+                    </div>
+                    <p className="font-bold text-xl text-white mt-2">{record.severity}%</p>
+                    <p className="text-xs font-semibold text-muted-foreground">{record.medicine}</p>
+                </div>
+            ))}
+        </div>
+    </Card>
+);
+
+    
