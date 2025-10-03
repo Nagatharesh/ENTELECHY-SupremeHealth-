@@ -599,7 +599,6 @@ export const dummyMedicinesForPrescription = [
     { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30, notes: "With dinner" }
 ];
     
-
 // --- START OF PATIENT INTERFACES AND DATA ---
 
 export interface MedicalEncounter {
@@ -1527,4 +1526,73 @@ export const dummyCommunication = [
   }
 ];
 
+export const dummyHospitalData = {
+    hospitalInfo: {
+        hospitalId: 'HOS-001',
+        name: 'Supreme Health City Hospital',
+    },
+    analytics: {
+        livePatientCount: 124,
+        bedOccupancyRate: 85,
+        activeAlerts: 3,
+        labReportsPending: 12,
+        patientLoadHistory: [
+            { month: 'Apr', count: 4500 },
+            { month: 'May', count: 4800 },
+            { month: 'Jun', count: 5200 },
+            { month: 'Jul', count: 5100 },
+            { month: 'Aug', count: 5500 },
+            { month: 'Sep', count: 5300 },
+        ],
+        revenue: [
+            { month: 'Apr', amount: 8000000 },
+            { month: 'May', amount: 8500000 },
+            { month: 'Jun', amount: 9100000 },
+            { month: 'Jul', amount: 9000000 },
+            { month: 'Aug', amount: 9500000 },
+            { month: 'Sep', amount: 9300000 },
+        ],
+    },
+    staff: [
+        { staffId: 'DOC-001', name: 'Dr. A Kumar', role: 'Cardiologist', department: 'Cardiology', stressLevel: 8, hoursThisWeek: 55, consecutiveDaysWorked: 6 },
+        { staffId: 'DOC-002', name: 'Dr. S Mehra', role: 'Dermatologist', department: 'Dermatology', stressLevel: 4, hoursThisWeek: 42, consecutiveDaysWorked: 4 },
+        { staffId: 'NRS-001', name: 'Sunita Sharma', role: 'Head Nurse', department: 'ICU', stressLevel: 7, hoursThisWeek: 60, consecutiveDaysWorked: 7 },
+    ],
+    labReports: [
+        { reportId: 'LAB-501', patientName: 'Rohan Gupta', testName: 'Complete Blood Count', date: '2024-10-02', status: 'completed' },
+        { reportId: 'LAB-502', patientName: 'Priya Sharma', testName: 'Lipid Profile', date: '2024-10-03', status: 'processing' },
+        { reportId: 'LAB-503', patientName: 'Amit Singh', testName: 'Thyroid Function Test', date: '2024-10-03', status: 'pending' },
+    ],
+    safety: {
+        checks: [
+            { name: 'Fire Alarms', status: 'OK' },
+            { name: 'Sprinkler System', status: 'OK' },
+            { name: 'Emergency Exits', status: 'OK' },
+            { name: 'Oxygen Lines', status: 'Maintenance Required' },
+        ],
+    },
+    alerts: {
+        fire: { title: 'Fire Alert', description: 'Smoke detector activated in Ward B, Floor 3. Evacuation protocol initiated.', level: 'high', timestamp: '2024-10-03T10:30:00Z' },
+        security: { title: 'Security Alert', description: 'Unauthorized access attempt at main entrance.', level: 'medium', timestamp: '2024-10-03T09:15:00Z' },
+        facility: { title: 'Facility Alert', description: 'Generator fuel level at 15%. Refill required.', level: 'low', timestamp: '2024-10-03T11:00:00Z' },
+    },
+    facilities: {
+        beds: { general: { total: 300, occupied: 250 }, icu: { total: 50, occupied: 45 } },
+        opdSlots: { total: 500, used: 410 },
+        oxygen: { levelPercentage: 70, status: 'Active' },
+        generator: { status: 'Active', fuelHoursLeft: 8, capacityHours: 24 },
+        solar: { status: 'Active', currentProductionKw: 150, capacityKw: 200 },
+    },
+    equipment: [
+        { name: 'Ventilators', status: 'Operational', aiNote: 'AI predicts 2 more needed in next 24h.' },
+        { name: 'MRI Machine', status: 'Operational', aiNote: 'Coil #3 showing signs of wear.' },
+        { name: 'CT Scanner', status: 'Under Maintenance', aiNote: 'Service due in 2 days.' },
+        { name: 'X-Ray Machine 1', status: 'Operational', aiNote: 'Optimal performance.' },
+    ],
+    aiInsights: {
+        predictivePatientLoad: 'AI predicts a 15% increase in patient load tomorrow due to local events.',
+        facilityHealthCheck: 'Oxygen supply levels are dropping faster than usual. Check for potential leaks.',
+        doctorStressPrediction: 'Dr. Kumar is at high risk of burnout. Automated leave recommendation sent.',
+    },
+};
     
