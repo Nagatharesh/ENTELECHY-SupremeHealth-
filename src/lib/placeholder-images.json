@@ -5,6 +5,12 @@
       "description": "Abstract futuristic network background",
       "imageUrl": "https://images.unsplash.com/photo-1738082956254-1dd63ad1db71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWJzdHJhY3QlMjBuZXR3b3JrfGVufDB8fHx8MTc1OTI1MzU1OHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "abstract network"
+    },
+    {
+      "id": "dna-strand",
+      "description": "A glowing, futuristic DNA strand with a dark background.",
+      "imageUrl": "https://storage.googleapis.com/project-spark-3e3c6.appspot.com/users/studio-output-user/images/a530f2ae-5154-47e3-9999-5e72a8c3d82a.jpeg",
+      "imageHint": "dna strand"
     }
   ]
 }

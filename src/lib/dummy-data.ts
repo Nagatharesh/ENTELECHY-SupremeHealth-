@@ -4,6 +4,7 @@
 
 
 
+
 export const dummyAadhaarPatients = [
     { aadhaar_full: '123412341234', name: 'Rahul Sharma', dob: '1993-01-05', gender: 'M', contact: '+91 9876543210', address: '45 Green Park, New Delhi', is_test: true },
     { aadhaar_full: '234523452345', name: 'Anjali Mehta', dob: '1997-08-22', gender: 'F', contact: '+91 9123456780', address: '12 Rose Street, Mumbai', is_test: true },
@@ -459,8 +460,9 @@ export interface DnaPatient {
     preventiveMeasures: string[];
   };
   graphs: {
-    riskProgression: { year: string; risk: number }[];
-    diseaseDistribution: { name: string; value: number }[];
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
   };
 }
 
@@ -480,22 +482,16 @@ export const dummyDnaPatients: DnaPatient[] = [
     },
     medication: {
       current: 'Metformin',
-      aiSuggestion: 'Consider Dapagliflozin trial based on renal function.',
+      aiSuggestion: 'Add Dapagliflozin.',
     },
     advanced: {
       predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
       preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
     },
     graphs: {
-      riskProgression: [
-        { year: '2020', risk: 30 },
-        { year: '2022', risk: 45 },
-        { year: '2024', risk: 60 },
-      ],
-      diseaseDistribution: [
-        { name: 'Diabetes', value: 60 },
-        { name: 'Cardiac', value: 25 },
-        { name: 'Renal', value: 15 },
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
       ],
     },
   },
@@ -511,18 +507,13 @@ export const dummyDnaPatients: DnaPatient[] = [
     },
     medication: {
       current: 'None',
-      aiSuggestion: 'Preventive hormone therapy (e.g., Tamoxifen).',
+      aiSuggestion: 'Preventive hormone therapy (e.g., Tamoxifen) and trial drugs.',
     },
     advanced: {
       predictedDiseases: ['Ovarian Cancer'],
       preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
     },
     graphs: {
-      riskProgression: [
-        { year: '2021', risk: 50 },
-        { year: '2023', risk: 70 },
-        { year: '2025', risk: 85 },
-      ],
       diseaseDistribution: [
         { name: 'Breast Cancer', value: 70 },
         { name: 'Ovarian Cancer', value: 30 },
@@ -544,22 +535,16 @@ export const dummyDnaPatients: DnaPatient[] = [
     },
     medication: {
       current: 'Beta blockers',
-      aiSuggestion: 'Consider ARB alternative (e.g., Losartan) for better side-effect profile.',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
     },
     advanced: {
       predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
       preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
     },
     graphs: {
-      riskProgression: [
-        { year: '2019', risk: 40 },
-        { year: '2021', risk: 55 },
-        { year: '2023', risk: 65 },
-      ],
-      diseaseDistribution: [
-        { name: 'Hypertension', value: 50 },
-        { name: 'Stroke', value: 30 },
-        { name: 'CAD', value: 20 },
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
       ],
     },
   },
@@ -582,16 +567,10 @@ export const dummyDnaPatients: DnaPatient[] = [
       preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
     },
     graphs: {
-      riskProgression: [
-        { year: '2022', risk: 60 },
-        { year: '2023', risk: 75 },
-        { year: '2024', risk: 70 },
-      ],
-      diseaseDistribution: [
-        { name: 'Lupus', value: 80 },
-        { name: 'Nephritis', value: 15 },
-        { name: 'Arthritis', value: 5 },
-      ],
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
     },
   },
   {
@@ -599,14 +578,14 @@ export const dummyDnaPatients: DnaPatient[] = [
     name: 'Kiran Patel',
     age: 60,
     gender: 'Male',
-    condition: 'Alzheimer’s early markers',
+    condition: 'Alzheimer’s Risk',
     geneticRisk: {
-      familyHistory: ['Family history of dementia'],
+      familyHistory: ['Family dementia history'],
       markers: [{ gene: 'APOE-e4', risk: 'High' }],
     },
     medication: {
       current: 'Donepezil',
-      aiSuggestion: 'Recommend clinical trial for BACE inhibitors.',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
     },
     advanced: {
       predictedDiseases: ['Rapid cognitive decline'],
@@ -614,16 +593,10 @@ export const dummyDnaPatients: DnaPatient[] = [
     },
     graphs: {
       riskProgression: [
-        { year: '2020', risk: 20 },
-        { year: '2022', risk: 40 },
-        { year: '2024', risk: 55 },
-      ],
-      diseaseDistribution: [
-        { name: 'Alzheimer\'s', value: 85 },
-        { name: 'Cognitive Decline', value: 15 },
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
       ],
     },
   },
 ];
 // --- END OF DNA PATIENT INTERFACES AND DATA ---
-
