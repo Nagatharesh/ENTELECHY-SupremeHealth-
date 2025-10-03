@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { Input } from '../ui/input';
+import { useToast } from "@/hooks/use-toast";
 
 const SystemStatusWidget = ({ title, status, icon: Icon }) => {
     const statusConfig = {
@@ -30,7 +31,8 @@ const SystemStatusWidget = ({ title, status, icon: Icon }) => {
     );
 };
 
-const AlertCard = ({ alert }) => {
+const AlertCard = ({ alert, onAcknowledge, isAcknowledged }) => {
+    const { toast } = useToast();
     const severityConfig = {
         critical: { color: "text-destructive", bg: "bg-destructive/10", border: "border-destructive/50", icon: Siren, glow: "" },
         warning: { color: "text-yellow-400", bg: "bg-yellow-400/10", border: "border-yellow-400/50", icon: AlertTriangle, glow: "" },
@@ -38,9 +40,19 @@ const AlertCard = ({ alert }) => {
     };
     const config = severityConfig[alert.severity] || severityConfig.info;
     const Icon = config.icon;
+    
+    const handleNotify = () => {
+        toast({
+            title: "Team Notified",
+            description: `The relevant team has been notified about the alert in ${alert.location}.`,
+        });
+    };
 
     return (
-        <div className={`p-4 rounded-lg flex flex-col gap-3 ${config.bg} border ${config.border} ${config.glow}`}>
+        <div className={cn(
+            `p-4 rounded-lg flex flex-col gap-3 transition-all`,
+            isAcknowledged ? 'bg-background/30 border-muted-foreground/30 opacity-60' : `${config.bg} border ${config.border} ${config.glow}`
+        )}>
             <div className="flex items-start gap-3">
                 <Icon className={`w-6 h-6 ${config.color} flex-shrink-0 mt-1`} />
                 <div>
@@ -50,8 +62,10 @@ const AlertCard = ({ alert }) => {
                 </div>
             </div>
              <div className="flex gap-2 justify-end">
-                <Button size="sm" variant="outline">Acknowledge</Button>
-                <Button size="sm" variant="secondary" className="glowing-shadow-interactive"><Bell className="mr-2 h-4 w-4"/>Notify Team</Button>
+                <Button size="sm" variant="outline" onClick={() => onAcknowledge(alert.id)} disabled={isAcknowledged}>
+                    {isAcknowledged ? 'Acknowledged' : 'Acknowledge'}
+                </Button>
+                <Button size="sm" variant="secondary" className="glowing-shadow-interactive" onClick={handleNotify}><Bell className="mr-2 h-4 w-4"/>Notify Team</Button>
             </div>
         </div>
     );
@@ -61,7 +75,20 @@ export function SafetyAndAlerts({ hospitalData }) {
     const { safety, alerts } = hospitalData;
     const [alertFilter, setAlertFilter] = useState('all');
     const [severityFilter, setSeverityFilter] = useState('all');
+    const [acknowledgedAlerts, setAcknowledgedAlerts] = useState<string[]>([]);
+    const { toast } = useToast();
     
+    const handleAcknowledge = (alertId: string) => {
+        setAcknowledgedAlerts(prev => [...prev, alertId]);
+    };
+
+    const handleEmergencyAction = (action: string) => {
+        toast({
+            title: "Action Triggered",
+            description: `${action} protocol has been initiated.`,
+        });
+    };
+
     const filteredAlerts = useMemo(() => {
         return alerts.filter(alert => {
             const typeMatch = alertFilter === 'all' || alert.type.toLowerCase() === alertFilter;
@@ -75,7 +102,7 @@ export function SafetyAndAlerts({ hospitalData }) {
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
                     <CardTitle className="text-gradient-glow text-2xl">Advanced Safety &amp; Incident Command</CardTitle>
-                    <CardDescription>Real-time system monitoring, 3D visualization, and incident response center.</CardDescription>
+                    <CardDescription>Real-time system monitoring and incident response center.</CardDescription>
                 </CardHeader>
             </Card>
 
@@ -127,7 +154,7 @@ export function SafetyAndAlerts({ hospitalData }) {
                     </CardHeader>
                     <CardContent className="flex-grow space-y-3 overflow-y-auto pr-2 -mr-2">
                         {filteredAlerts.length > 0 ? (
-                            filteredAlerts.map(alert => <AlertCard key={alert.id} alert={alert} />)
+                            filteredAlerts.map(alert => <AlertCard key={alert.id} alert={alert} onAcknowledge={handleAcknowledge} isAcknowledged={acknowledgedAlerts.includes(alert.id)}/>)
                         ) : (
                             <div className="h-full flex items-center justify-center text-muted-foreground">
                                 <p>No alerts match filters.</p>
@@ -141,10 +168,10 @@ export function SafetyAndAlerts({ hospitalData }) {
                     <CardTitle className="text-white">Emergency Actions</CardTitle>
                 </CardHeader>
                 <CardContent className="flex gap-4">
-                    <Button variant="destructive" className="flex-1 glowing-shadow-interactive"><Siren className="mr-2"/> Evacuate Ward B</Button>
-                    <Button variant="secondary" className="flex-1"><Bell className="mr-2"/> Notify All Staff</Button>
-                    <Button variant="secondary" className="flex-1"><Phone className="mr-2"/> Call Fire Dept.</Button>
-                    <Button variant="outline" className="flex-1">Test Alarms</Button>
+                    <Button variant="destructive" className="flex-1 glowing-shadow-interactive" onClick={() => handleEmergencyAction('Evacuation for Ward B')}><Siren className="mr-2"/> Evacuate Ward B</Button>
+                    <Button variant="secondary" className="flex-1" onClick={() => handleEmergencyAction('All Staff Notification')}><Bell className="mr-2"/> Notify All Staff</Button>
+                    <Button variant="secondary" className="flex-1" onClick={() => handleEmergencyAction('Fire Department Call')}><Phone className="mr-2"/> Call Fire Dept.</Button>
+                    <Button variant="outline" className="flex-1" onClick={() => handleEmergencyAction('Alarm Test')}>Test Alarms</Button>
                 </CardContent>
             </Card>
         </div>
@@ -152,3 +179,5 @@ export function SafetyAndAlerts({ hospitalData }) {
 
     
 }
+
+    

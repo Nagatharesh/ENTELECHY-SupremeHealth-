@@ -18,13 +18,25 @@ import {
   CartesianGrid,
 } from 'recharts';
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { useState } from "react";
 
 const StressLevelCard = ({ staff }) => {
     const { toast } = useToast();
+    const [open, setOpen] = useState(false);
     const stressPercentage = (staff.stressLevel / 10) * 100;
     const stressColor = stressPercentage > 70 ? 'hsl(var(--destructive))' : stressPercentage > 40 ? 'hsl(var(--primary))' : 'hsl(var(--secondary))';
 
     const handleGrantLeave = () => {
+        setOpen(false);
         toast({
             title: "Leave Recommended",
             description: `An automated leave recommendation has been sent to ${staff.name}.`,
@@ -52,9 +64,25 @@ const StressLevelCard = ({ staff }) => {
                 </div>
                 <Progress value={stressPercentage} indicatorColor={stressColor} />
                 {staff.stressLevel > 7 && (
-                    <Button variant="destructive" size="sm" className="w-full glowing-shadow-interactive" onClick={handleGrantLeave}>
-                        <Coffee className="mr-2" /> Recommend Leave
-                    </Button>
+                    <Dialog open={open} onOpenChange={setOpen}>
+                        <DialogTrigger asChild>
+                            <Button variant="destructive" size="sm" className="w-full glowing-shadow-interactive">
+                                <Coffee className="mr-2" /> Recommend Leave
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="glassmorphism">
+                            <DialogHeader>
+                                <DialogTitle>Confirm Leave Recommendation</DialogTitle>
+                                <DialogDescription>
+                                    This will send a notification to HR and {staff.name} suggesting a mandatory rest day due to high stress levels. Are you sure?
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                                <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+                                <Button variant="destructive" onClick={handleGrantLeave}>Confirm Recommendation</Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 )}
             </div>
         </Card>
@@ -75,7 +103,7 @@ export function StaffManagement({ hospitalData }) {
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
-                    <CardTitle className="text-gradient-glow text-2xl">Doctor & Staff Stress Management</CardTitle>
+                    <CardTitle className="text-gradient-glow text-2xl">Doctor &amp; Staff Stress Management</CardTitle>
                     <CardDescription>AI-powered monitoring to prevent burnout and ensure patient safety.</CardDescription>
                 </CardHeader>
             </Card>
@@ -107,3 +135,5 @@ export function StaffManagement({ hospitalData }) {
         </div>
     );
 }
+
+    

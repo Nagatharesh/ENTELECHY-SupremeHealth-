@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -10,6 +11,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, FileText, Send, CheckCircle, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const statusConfig = {
     pending: { label: "Pending", color: "bg-yellow-500/20 text-yellow-400" },
@@ -36,6 +45,27 @@ export function LabReportCenter({ hospitalData }) {
             description: `Report ${reportId} has been sent to the patient and doctor.`,
         });
     };
+    
+    const ReportView = ({ report }) => (
+        <DialogContent className="glassmorphism max-w-2xl">
+            <DialogHeader>
+                <DialogTitle className="text-gradient-glow">{report.testName} Report</DialogTitle>
+                <DialogDescription>
+                    Report ID: {report.reportId} | Patient: {report.patientName}
+                </DialogDescription>
+            </DialogHeader>
+            <div className="p-4 my-4 border rounded-lg border-dashed border-primary/30 bg-background/50">
+                <h3 className="font-bold text-white mb-2">Simulated Report Details:</h3>
+                <p className="text-sm text-muted-foreground">This is a placeholder for the actual lab report PDF. In a real application, this would embed or link to the official report document.</p>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+                    <p><strong className="text-white">Hemoglobin:</strong> 14.5 g/dL</p>
+                    <p><strong className="text-white">WBC Count:</strong> 7,500 /mcL</p>
+                    <p><strong className="text-white">Platelets:</strong> 250,000 /mcL</p>
+                    <p><strong className="text-white">Glucose:</strong> 98 mg/dL</p>
+                </div>
+            </div>
+        </DialogContent>
+    );
 
     return (
         <div className="space-y-6">
@@ -92,7 +122,12 @@ export function LabReportCenter({ hospitalData }) {
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="sm"><FileText className="w-4 h-4 mr-1" /> View</Button>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button variant="outline" size="sm"><FileText className="w-4 h-4 mr-1" /> View</Button>
+                                            </DialogTrigger>
+                                            <ReportView report={report} />
+                                        </Dialog>
                                         <Button 
                                             size="sm" 
                                             disabled={report.status !== 'completed'}
@@ -111,3 +146,5 @@ export function LabReportCenter({ hospitalData }) {
         </div>
     );
 }
+
+    
