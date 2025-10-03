@@ -9,12 +9,14 @@ import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRe
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { AlertTriangle, Siren } from 'lucide-react';
 
 
 export function FacilitiesManagement({ hospitalData }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [info, setInfo] = useState('Click any object to inspect. Toggle layers on the left.');
+    const [info, setInfo] = useState<{ title: string, details: string[] }>({ title: 'System Normal', details: ['Click any object to inspect.', 'Use toggles to control layers.'] });
     const [toggles, setToggles] = useState({
         buildings: true,
         interiors: true,
@@ -22,11 +24,16 @@ export function FacilitiesManagement({ hospitalData }) {
         ambulance: true,
         night: false,
     });
+    const [alerts, setAlerts] = useState(hospitalData.alerts || []);
+    const [selectedObject, setSelectedObject] = useState(null);
+
 
     useEffect(() => {
         if (!canvasRef.current) return;
 
         const canvas = canvasRef.current;
+        
+        let hovered = null;
 
         const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -149,13 +156,25 @@ export function FacilitiesManagement({ hospitalData }) {
           return new THREE.MeshStandardMaterial({ color: baseColor, emissive: 0x0a0d13, roughness: 0.6, metalness: 0.1 });
         }
 
-        function createBuilding({ width, height, depth, color = 0x9dadbd, windows = true }) {
+        function createBuilding({ name, width, height, depth, color = 0x9dadbd, windows = true, maintenance = false }) {
           const bldg = new THREE.Group();
-          const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.05 }));
+          bldg.name = name;
+          const bodyMat = new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.05 });
+          const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), bodyMat);
           body.castShadow = true;
           body.receiveShadow = true;
           body.position.y = height / 2;
           bldg.add(body);
+        
+          bldg.userData = { 
+              type: 'building', 
+              name,
+              info: `Department: ${name}, Status: ${maintenance ? 'Under Maintenance' : 'Operational'}` 
+          };
+
+          if (maintenance) {
+            bldg.userData.alert = true;
+          }
 
           if (windows) {
             const windowMat = createWindowMaterial(0xbac8d8);
@@ -177,8 +196,6 @@ export function FacilitiesManagement({ hospitalData }) {
               }
             }
           }
-
-          bldg.userData.type = 'building';
           return bldg;
         }
 
@@ -186,15 +203,15 @@ export function FacilitiesManagement({ hospitalData }) {
         campus.userData.collection = 'buildings';
         world.add(campus);
 
-        const mainBlock = createBuilding({ width: 50, height: 24, depth: 30, color: 0xb7c5d6 });
+        const mainBlock = createBuilding({ name: "Main Block", width: 50, height: 24, depth: 30, color: 0xb7c5d6 });
         mainBlock.position.set(40, 0, 10);
         campus.add(mainBlock);
 
-        const erBlock = createBuilding({ width: 26, height: 16, depth: 22, color: 0xcbd7e4 });
+        const erBlock = createBuilding({ name: "ER Block", width: 26, height: 16, depth: 22, color: 0xcbd7e4, maintenance: true });
         erBlock.position.set(0, 0, -40);
         campus.add(erBlock);
 
-        const wardBlock = createBuilding({ width: 40, height: 20, depth: 24, color: 0xaec0d1 });
+        const wardBlock = createBuilding({ name: "Ward Block", width: 40, height: 20, depth: 24, color: 0xaec0d1 });
         wardBlock.position.set(-70, 0, 18);
         campus.add(wardBlock);
 
@@ -528,7 +545,7 @@ export function FacilitiesManagement({ hospitalData }) {
 
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
-        let hovered = null;
+        
         let selected = null;
         let isolatedRoot = null;
         const selectionHelper = new THREE.Box3Helper(new THREE.Box3(), 0x4ea1ff);
@@ -539,23 +556,19 @@ export function FacilitiesManagement({ hospitalData }) {
         const clock = new THREE.Clock();
 
         function updateInfo(target) {
-          if (!target) { setInfo('Click any object to inspect. Toggle layers on the left.'); return; }
-          const t = target.userData.type || 'object';
-          setInfo(`Selected: ${t}`);
+            if (!target || !target.userData.name) {
+              setInfo({ title: 'System Normal', details: ['Click any object to inspect.'] });
+              return;
+            }
+            setInfo({ title: target.userData.name, details: (target.userData.info || '').split(', ') });
         }
-        updateInfo();
-
-        const onPointerMove = (e) => {
-          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-          mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-          tooltipEl.style.left = e.clientX + 'px';
-          tooltipEl.style.top = e.clientY + 'px';
-        };
-
+        updateInfo(null);
+        
         const onClick = () => {
             if (hovered) {
                 const target = hovered;
                 updateInfo(target);
+                setSelectedObject(target);
                 focusOnObject(target);
                 highlight(target);
                 const root = findTopGroup(target);
@@ -566,15 +579,22 @@ export function FacilitiesManagement({ hospitalData }) {
             }
         };
 
+        const onPointerMove = (e) => {
+            if (!canvasRef.current) return;
+            const rect = canvasRef.current.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        };
+
         const onDblClick = () => {
           if (!hovered) return;
-          const root = findTopGroup(hovered.object);
+          const root = findTopGroup(hovered);
           isolate(root);
         };
 
-        window.addEventListener('pointermove', onPointerMove);
-        window.addEventListener('click', onClick);
-        window.addEventListener('dblclick', onDblClick);
+        canvas.addEventListener('pointermove', onPointerMove);
+        canvas.addEventListener('click', onClick);
+        canvas.addEventListener('dblclick', onDblClick);
 
 
         function setGroupVisible(group, visible) {
@@ -606,14 +626,6 @@ export function FacilitiesManagement({ hospitalData }) {
           scene.background.set(night ? 0x07080a : 0x0e1012);
         }
 
-        const handleToggleChange = (e) => {
-            const { id, checked } = e.target;
-            const newToggles = { ...toggles, [id.replace('toggle-', '')]: checked };
-            setToggles(newToggles);
-            applyToggles(newToggles);
-        };
-
-        Object.values(document.querySelectorAll('#hud input[type="checkbox"]')).forEach(el => el.addEventListener('change', handleToggleChange));
         applyToggles(toggles);
 
         const onWindowResize = () => {
@@ -628,9 +640,14 @@ export function FacilitiesManagement({ hospitalData }) {
         let t = 0;
         let ambulancePaused = false;
         
+        const tmp = new THREE.Vector3();
+        const tmp2 = new THREE.Vector3();
+        
         function animate() {
           requestAnimationFrame(animate);
           controls.update();
+
+          const delta = clock.getDelta();
 
           if (ambulance.visible && !ambulancePaused) {
             t = (t + 0.0016) % 1;
@@ -653,7 +670,9 @@ export function FacilitiesManagement({ hospitalData }) {
           }
 
           raycaster.setFromCamera(mouse, camera);
-          const intersect = raycaster.intersectObjects(world.children, true)[0];
+          const intersects = raycaster.intersectObjects(world.children, true);
+          const intersect = intersects[0];
+
           if (intersect && intersect.object.visible) {
             hovered = intersect.object;
             if(canvasRef.current) canvasRef.current.style.cursor = 'pointer';
@@ -782,11 +801,11 @@ export function FacilitiesManagement({ hospitalData }) {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'F' || e.key === 'f') { if (hovered) focusOnObject(hovered.object); }
             if (e.key === 'X' || e.key === 'x') { resetIsolation(); selectionHelper.visible = false; }
-            if (e.key === '1') { (document.getElementById('toggle-buildings') as HTMLInputElement).click(); }
-            if (e.key === '2') { (document.getElementById('toggle-interiors') as HTMLInputElement).click(); }
-            if (e.key === '3') { (document.getElementById('toggle-equipment') as HTMLInputElement).click(); }
-            if (e.key === '4') { (document.getElementById('toggle-ambulance') as HTMLInputElement).click(); }
-            if (e.key === 'N' || e.key === 'n') { (document.getElementById('toggle-daynight') as HTMLInputElement).click(); }
+            if (e.key === '1') { handleToggle({ target: { id: 'toggle-buildings', checked: !toggles.buildings } }); }
+            if (e.key === '2') { handleToggle({ target: { id: 'toggle-interiors', checked: !toggles.interiors } }); }
+            if (e.key === '3') { handleToggle({ target: { id: 'toggle-equipment', checked: !toggles.equipment } }); }
+            if (e.key === '4') { handleToggle({ target: { id: 'toggle-ambulance', checked: !toggles.ambulance } }); }
+            if (e.key === 'n' || e.key === 'N') { handleToggle({ target: { id: 'toggle-night', checked: !toggles.night } }); }
             if (e.code === 'Space') { ambulancePaused = !ambulancePaused; e.preventDefault(); }
         };
 
@@ -794,9 +813,9 @@ export function FacilitiesManagement({ hospitalData }) {
 
         return () => {
             window.removeEventListener('resize', onWindowResize);
-            window.removeEventListener('pointermove', onPointerMove);
-            window.removeEventListener('click', onClick);
-            window.removeEventListener('dblclick', onDblClick);
+            canvas.removeEventListener('pointermove', onPointerMove);
+            canvas.removeEventListener('click', onClick);
+            canvas.removeEventListener('dblclick', onDblClick);
             window.removeEventListener('keydown', handleKeyDown);
             if (labelRenderer.domElement.parentNode) {
                 document.body.removeChild(labelRenderer.domElement);
@@ -805,9 +824,23 @@ export function FacilitiesManagement({ hospitalData }) {
                 document.body.removeChild(tooltipEl);
             }
             renderer.dispose();
+            scene.children.forEach(child => {
+                if (child instanceof THREE.Group) {
+                    child.traverse(subChild => {
+                        if (subChild instanceof THREE.Mesh) {
+                            subChild.geometry.dispose();
+                            if(Array.isArray(subChild.material)) {
+                                subChild.material.forEach(m => m.dispose());
+                            } else {
+                                subChild.material.dispose();
+                            }
+                        }
+                    });
+                }
+            });
         };
 
-    }, [toggles]);
+    }, [toggles, hospitalData]);
 
     const handleToggle = (e) => {
         const { id, checked } = e.target;
@@ -819,7 +852,7 @@ export function FacilitiesManagement({ hospitalData }) {
             <canvas ref={canvasRef} id="three-canvas"></canvas>
             <div id="hud">
                 <div className="panel">
-                    <h2>3D Hospital</h2>
+                    <h2 className="text-xl font-bold text-gradient-glow">3D Campus View</h2>
                     <div className="row">
                         <label><input type="checkbox" id="toggle-buildings" checked={toggles.buildings} onChange={handleToggle} /> Buildings</label>
                         <label><input type="checkbox" id="toggle-interiors" checked={toggles.interiors} onChange={handleToggle} /> Interiors</label>
@@ -829,16 +862,25 @@ export function FacilitiesManagement({ hospitalData }) {
                         <label><input type="checkbox" id="toggle-ambulance" checked={toggles.ambulance} onChange={handleToggle} /> Ambulance</label>
                     </div>
                     <div className="row">
-                        <label><input type="checkbox" id="toggle-daynight" checked={toggles.night} onChange={handleToggle} /> Night Mode</label>
+                        <label><input type="checkbox" id="toggle-night" checked={toggles.night} onChange={handleToggle} /> Night Mode</label>
                     </div>
                     <div className="legend">
-                        <span className="legend-item building">Building</span>
-                        <span className="legend-item interior">Interior</span>
-                        <span className="legend-item equipment">Equipment</span>
-                        <span className="legend-item ambulance">Ambulance</span>
+                        <Badge variant="secondary" className="bg-blue-500/20 text-blue-300">Building</Badge>
+                        <Badge variant="secondary" className="bg-green-500/20 text-green-300">Interior</Badge>
+                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-300">Equipment</Badge>
+                        <Badge variant="secondary" className="bg-red-500/20 text-red-300">Ambulance</Badge>
                     </div>
                 </div>
-                <div id="info" dangerouslySetInnerHTML={{ __html: info }}></div>
+                 <div id="info" className="panel bottom-4 left-4 min-w-[250px]">
+                    <h2 className="text-lg font-bold text-white">{info.title}</h2>
+                    {info.details.map((line, i) => <p key={i} className="text-sm text-muted-foreground">{line}</p>)}
+                    {selectedObject?.userData?.alert && (
+                        <div className="mt-2 p-2 bg-yellow-500/10 border-l-4 border-yellow-400 text-yellow-300 text-sm">
+                            <Siren className="inline-block w-4 h-4 mr-2"/>
+                            Maintenance alert for this facility.
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
