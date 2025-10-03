@@ -30,7 +30,12 @@ import { dummyDoctors, Doctor } from '@/lib/dummy-data';
 import { DoctorProfile } from '@/components/doctor/doctor-profile';
 import { DoctorCommunication } from '@/components/doctor/doctor-communication';
 import { BloodBank } from '@/components/doctor/blood-bank';
-import { DnaHub } from '@/components/doctor/dna-hub';
+
+const DnaHub = dynamic(() => import('@/components/doctor/dna-hub').then(mod => mod.DnaHub), {
+  ssr: false,
+  loading: () => <div className="w-full h-[60vh] flex items-center justify-center"><p className="text-lg text-gradient-glow animate-pulse">Loading DNA Hub...</p></div>,
+});
+
 
 function DashboardContent() {
   const searchParams = useSearchParams();
@@ -152,4 +157,3 @@ export default function DoctorDashboardPage() {
     </Suspense>
   );
 }
-
