@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartCircuit } from 'lucide-react';
+import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -32,6 +32,7 @@ import { BloodBank } from '@/components/doctor/blood-bank';
 import { PatientReferralHub } from '@/components/doctor/patient-referral-hub';
 import { StrokePredictionHub } from '@/components/doctor/stroke-prediction-hub';
 import { CardiacDeviceHub } from '@/components/doctor/cardiac-device-hub';
+import { DnaHub } from '@/components/doctor/dna-hub';
 
 
 function DashboardContent() {
@@ -61,6 +62,8 @@ function DashboardContent() {
         return <DoctorCommunication doctor={doctor} />;
       case 'blood':
         return <BloodBank />;
+      case 'dna':
+        return <DnaHub />;
       case 'referral':
         return <PatientReferralHub />;
       case 'stroke':
@@ -76,9 +79,10 @@ function DashboardContent() {
     { id: 'profile', icon: User, label: 'Profile' },
     { id: 'communication', icon: MessageSquare, label: 'Communication' },
     { id: 'blood', icon: Droplets, label: 'Blood Bank' },
+    { id: 'dna', icon: Dna, label: 'DNA Hub' },
     { id: 'referral', icon: Search, label: 'Referral Hub'},
     { id: 'stroke', icon: BrainCircuit, label: 'Stroke Prediction' },
-    { id: 'cardiac', icon: HeartCircuit, label: 'Cardiac ASI' },
+    { id: 'cardiac', icon: HeartPulse, label: 'Cardiac ASI' },
   ];
 
   const NavMenu = () => (

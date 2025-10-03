@@ -9,7 +9,7 @@ import { dummyCardiacPatients, CardiacPatient } from '@/lib/dummy-data';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { Zap, Activity, Heart, Brain, Shield, Info, X, Search, Bot, FileText, User, BarChart, GitBranch, Pill, Hospital, HeartCircuit, Map, Battery, AlertTriangle, Phone, ChevronRight, CheckCircle, Ambulance, Bell, Send } from 'lucide-react';
+import { Zap, Activity, Heart, Brain, Shield, Info, X, Search, Bot, FileText, User, BarChart, GitBranch, Pill, Hospital, HeartPulse, Map, Battery, AlertTriangle, Phone, ChevronRight, CheckCircle, Ambulance, Bell, Send } from 'lucide-react';
 import { LineChart, ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
@@ -64,7 +64,7 @@ export function CardiacDeviceHub() {
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
-                    <CardTitle className="text-gradient-glow text-2xl flex items-center gap-2"><HeartCircuit />Cardiac Device Watch — Predict & Protect</CardTitle>
+                    <CardTitle className="text-gradient-glow text-2xl flex items-center gap-2"><HeartPulse />Cardiac Device Watch — Predict & Protect</CardTitle>
                     <CardDescription>Continuously monitoring implanted cardiac devices to predict failure and orchestrate emergency responses.</CardDescription>
                 </CardHeader>
                 <CardContent>
