@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -25,6 +26,12 @@ export function HospitalOverview({ hospitalData }) {
     const patientLoadData = analytics.patientLoadHistory.map(d => ({ name: d.month, patients: d.count }));
     const revenueData = analytics.revenue.map(d => ({ name: d.month, revenue: d.amount / 100000 })); // in Lakhs
 
+    const chartConfig = {
+      patients: {
+        label: "Patients",
+      },
+    };
+
     return (
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
@@ -47,15 +54,17 @@ export function HospitalOverview({ hospitalData }) {
                         <CardTitle className="text-white">Patient Load (Last 6 Months)</CardTitle>
                     </CardHeader>
                     <CardContent className="h-64">
-                         <ResponsiveContainer width="100%" height="100%">
-                            <RechartsBarChart data={patientLoadData}>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
-                                <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
-                                <YAxis tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
-                                <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--primary)/0.1)' }} />
-                                <Bar dataKey="patients" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                            </RechartsBarChart>
-                        </ResponsiveContainer>
+                         <ChartContainer config={chartConfig}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <RechartsBarChart data={patientLoadData}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
+                                    <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
+                                    <YAxis tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
+                                    <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--primary)/0.1)' }} />
+                                    <Bar dataKey="patients" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                                </RechartsBarChart>
+                            </ResponsiveContainer>
+                        </ChartContainer>
                     </CardContent>
                 </Card>
                 <Card className="lg:col-span-2 glassmorphism glowing-shadow">
