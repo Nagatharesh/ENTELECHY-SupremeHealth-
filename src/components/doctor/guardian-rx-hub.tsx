@@ -1,33 +1,19 @@
-
 "use client";
 
-import React, { useState, useMemo, Suspense } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import React, { useState, useMemo } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Bot, UserCheck, PhoneCall, MessageSquare, AlertTriangle, Pill, X } from 'lucide-react';
+import { Bot, PhoneCall, MessageSquare, Pill, X } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '../ui/progress';
-
-const dummyPatients = [
-    { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDose: '08:00 AM', contact_info: 'sanjay@email.com', assigned_doctor_id: 'D001', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
-    { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDose: '07:30 AM', contact_info: 'priya@email.com', assigned_doctor_id: 'D001', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
-    { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDose: '08:15 AM', contact_info: 'rohit@email.com', assigned_doctor_id: 'D002', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
-    { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDose: '08:05 AM', contact_info: 'ananya@email.com', assigned_doctor_id: 'D002', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
-    { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDose: '07:45 AM', contact_info: 'vikram@email.com', assigned_doctor_id: 'D003', timeline: ['taken', 'taken', 'taken', 'missed', 'late', 'taken', 'taken'] }
-];
-
-const dummyAlerts = [
-    { alert_id: 'A001', patient_id: 'P003', alert_type: 'missed dose', risk_percentage: 25, timestamp_alerted: '2025-10-03 08:30', message: 'Rohit Kumar missed 3 doses → risk of hospitalization 25%.' },
-    { alert_id: 'A002', patient_id: 'P002', alert_type: 'high risk', risk_percentage: 15, timestamp_alerted: '2025-10-03 08:50', message: 'Patient Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.' }
-];
+import { dummyGuardianRxPatients, GuardianRxPatient, dummyAlerts } from '@/lib/dummy-data';
 
 export function GuardianRxHub() {
-    const [selectedPatient, setSelectedPatient] = useState<any | null>(null);
+    const [selectedPatient, setSelectedPatient] = useState<GuardianRxPatient | null>(null);
 
-    const handlePatientClick = (patient) => {
+    const handlePatientClick = (patient: GuardianRxPatient) => {
         setSelectedPatient(patient);
     };
     
@@ -51,8 +37,18 @@ export function GuardianRxHub() {
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 50 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+                    onClick={handleCloseDetail}
                 >
-                    <PatientDetailView patient={selectedPatient} onClose={handleCloseDetail} />
+                    <motion.div
+                        className="w-full max-w-3xl"
+                        initial={{ scale: 0.9 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0.9 }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <PatientDetailView patient={selectedPatient} onClose={handleCloseDetail} />
+                    </motion.div>
                 </motion.div>
             )}
             </AnimatePresence>
@@ -62,7 +58,7 @@ export function GuardianRxHub() {
                 layout
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
             >
-                {dummyPatients.map(patient => (
+                {dummyGuardianRxPatients.map(patient => (
                     <PatientPillCard key={patient.patient_id} patient={patient} onSelect={handlePatientClick} isSelected={selectedPatient?.patient_id === patient.patient_id} />
                 ))}
             </motion.div>
@@ -72,7 +68,7 @@ export function GuardianRxHub() {
     );
 }
 
-const PatientPillCard = ({ patient, onSelect, isSelected }) => {
+const PatientPillCard = ({ patient, onSelect, isSelected }: { patient: GuardianRxPatient, onSelect: (p: GuardianRxPatient) => void, isSelected: boolean }) => {
     const adherenceColor = patient.adherence > 90 ? 'hsl(var(--secondary))' : patient.adherence > 80 ? 'hsl(var(--primary))' : 'hsl(var(--destructive))';
     return (
         <motion.div layoutId={`patient-card-${patient.patient_id}`} onClick={() => onSelect(patient)} >
@@ -90,13 +86,13 @@ const PatientPillCard = ({ patient, onSelect, isSelected }) => {
     );
 };
 
-const PatientDetailView = ({ patient, onClose }) => {
+const PatientDetailView = ({ patient, onClose }: { patient: GuardianRxPatient, onClose: () => void }) => {
     const adherenceColor = patient.adherence > 90 ? 'hsl(var(--secondary))' : patient.adherence > 80 ? 'hsl(var(--primary))' : 'hsl(var(--destructive))';
     const alert = dummyAlerts.find(a => a.patient_id === patient.patient_id);
     return (
         <Card className="glassmorphism glowing-shadow grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
             <div className="lg:col-span-1">
-                <motion.div layoutId={`patient-card-${patient.patient_id}`}>
+                <motion.div layoutId={`patient-card-${patient.patient_id}-title`}>
                     <h2 className="text-2xl font-bold text-gradient-glow">{patient.name}</h2>
                     <p className="text-muted-foreground">{patient.age} years old &bull; {patient.condition}</p>
                 </motion.div>
@@ -136,12 +132,6 @@ const PatientDetailView = ({ patient, onClose }) => {
                         <AlertDescription>{alert.message}</AlertDescription>
                     </Alert>
                 )}
-                 <div className="text-center p-4 mt-4 glassmorphism text-sm">
-                    <p className="text-muted-foreground">
-                        <AlertTriangle className="inline w-4 h-4 mr-2" />
-                        Digital Twin simulation not available in GuardianLite. This is a simplified tracking view.
-                    </p>
-                </div>
             </div>
         </Card>
     )
@@ -155,10 +145,12 @@ const AiAlertsPanel = () => (
         <CardContent className="space-y-3">
             {dummyAlerts.map(alert => (
                 <Alert key={alert.alert_id} variant={alert.risk_percentage > 20 ? 'destructive' : 'default'}>
-                    <AlertTitle>{dummyPatients.find(p=>p.patient_id === alert.patient_id)?.name}</AlertTitle>
+                    <AlertTitle>{dummyGuardianRxPatients.find(p=>p.patient_id === alert.patient_id)?.name}</AlertTitle>
                     <AlertDescription>{alert.message}</AlertDescription>
                 </Alert>
             ))}
         </CardContent>
     </Card>
 );
+
+    

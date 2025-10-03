@@ -1,21 +1,12 @@
-
 "use client";
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { DnaPatient } from '@/lib/dummy-data';
+import { DnaPatient, dummyDnaAiResponses } from '@/lib/dummy-data';
 import { Bot, Send, FileText, FlaskConical, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-const dummyAiResponses = {
-    "P1001": "Based on John's TCF7L2 gene marker, Dapagliflozin shows a 15% higher efficacy in glycemic control compared to Metformin alone in recent cohort studies. I recommend a trial.",
-    "P1002": "Anita's BRCA1 mutation puts her in a high-risk category. A new clinical trial for a PARP inhibitor (Olaparib) has shown a 40% risk reduction in similar profiles. See attached study: [Link to Nature study]",
-    "P1003": "Liam's ACE gene polymorphism responds better to ARBs. Losartan has fewer side effects like cough compared to his current beta-blockers. Global data from 100,000 patients confirms this.",
-    "P1004": "For Sophia's Lupus, biologics like Belimumab directly target B-lymphocyte stimulator protein, which is overactive in patients with her HLA-DR3 marker. This is more targeted than general corticosteroids.",
-    "P1005": "Kiran's APOE-e4 marker suggests aggressive amyloid plaque formation. A BACE inhibitor trial (Phase 3) is recruiting. While risky, it's the most promising current research avenue to slow progression."
-}
 
 export function ResearchPanel({ patient }: { patient: DnaPatient }) {
     const [query, setQuery] = useState('');
@@ -30,7 +21,7 @@ export function ResearchPanel({ patient }: { patient: DnaPatient }) {
         setQuery('');
 
         setTimeout(() => {
-            const aiResponse = dummyAiResponses[patient.id] || "I am analyzing the global database for insights. Please specify your query.";
+            const aiResponse = dummyDnaAiResponses[patient.id as keyof typeof dummyDnaAiResponses] || "I am analyzing the global database for insights. Please specify your query.";
             setChatHistory(prev => [...prev, { user: userQuery, ai: aiResponse }]);
             setIsLoading(false);
         }, 1500);
@@ -83,3 +74,5 @@ const InfoPill = ({ icon: Icon, text }: { icon: React.ElementType, text: string 
         <span className="font-medium text-white">{text}</span>
     </div>
 );
+
+    

@@ -1092,3 +1092,49 @@ export const dummyCardiacPatients: CardiacPatient[] = [
 ];
 
 // --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AI Responses ---
