@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { onlinePrescriptionData, dummyPatientsForPrescription as allPatients, dummyDoctorsForPrescription as allDoctors, dummyMedicinesForPrescription as allMedicines } from '@/lib/dummy-data';
 import { useToast } from "@/hooks/use-toast";
 import { cn } from '@/lib/utils';
-import { Bot, Pencil, Loader2, Send, CheckCircle, AlertTriangle, FileText, Pill, Download, Search, X, User, Fingerprint, PlusCircle } from 'lucide-react';
+import { Bot, Pencil, Loader2, Send, CheckCircle, AlertTriangle, FileText, Pill, Download, Search, X, User, Fingerprint, PlusCircle, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const DoctorInfo = {
@@ -339,3 +339,5 @@ const InfoItem = ({ label, value, isWarning=false }) => (
         <p className={cn("font-semibold text-white", isWarning && "text-destructive font-bold")}>{value}</p>
     </div>
 )
+
+    
