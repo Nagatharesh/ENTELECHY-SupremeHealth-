@@ -2,7 +2,7 @@
 "use client";
 
 import React from 'react';
-import { doctorDashboardData } from '@/lib/dummy-data';
+import { doctorPatientDashboardData } from '@/lib/dummy-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -31,7 +31,7 @@ const StatCard = ({ label, value, icon: Icon, subValue, subLabel }: { label: str
 );
 
 export function PatientListDashboard() {
-    const { doctorInfo, patients, analyticsSummary, uiHints, flags } = doctorDashboardData.doctorPatientDashboardData;
+    const { doctorInfo, patients, analyticsSummary, uiHints, flags } = doctorPatientDashboardData;
 
     return (
         <div className="space-y-8">
