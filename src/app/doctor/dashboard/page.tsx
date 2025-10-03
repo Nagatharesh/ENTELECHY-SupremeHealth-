@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Suspense, useState, useEffect } from 'react';
@@ -24,7 +25,7 @@ import {
   SidebarTrigger as SidebarTriggerButton
 } from "@/components/ui/sidebar"
 
-import { dummyDoctors, Doctor, singleDemoDoctor, DoctorProfileData } from '@/lib/dummy-data';
+import { dummyDoctors, Doctor } from '@/lib/dummy-data';
 import { DoctorProfile } from '@/components/doctor/doctor-profile';
 import { DoctorCommunication } from '@/components/doctor/doctor-communication';
 import { BloodBank } from '@/components/doctor/blood-bank';
@@ -56,7 +57,7 @@ function DashboardContent() {
   const renderContent = () => {
     switch(activeView) {
       case 'profile':
-        return <DoctorProfile doctor={singleDemoDoctor} />;
+        return <DoctorProfile />;
       case 'dashboard':
         return <p>Patient List & Dashboard coming soon...</p>;
       case 'communication':
@@ -72,7 +73,7 @@ function DashboardContent() {
       case 'guardian-rx':
         return <GuardianRxHub />;
       default:
-        return <DoctorProfile doctor={doctor} />;
+        return <DoctorProfile />;
     }
   }
 

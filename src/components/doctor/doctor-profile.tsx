@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -18,7 +19,8 @@ const StatCard = ({ label, value, icon: Icon }: { label: string, value: string |
 );
 
 
-export function DoctorProfile({ doctor }: { doctor: DoctorProfileData }) {
+export function DoctorProfile() {
+    const doctor = singleDemoDoctor;
 
     if (!doctor) {
         return <p>Loading doctor profile...</p>
@@ -103,7 +105,7 @@ export function DoctorProfile({ doctor }: { doctor: DoctorProfileData }) {
 }
 
 
-const InfoItem = ({ icon: Icon, label, value }) => (
+const InfoItem = ({ icon: Icon, label, value }: {icon: React.ElementType, label: string, value: string}) => (
     <div className="flex items-start gap-3">
         <Icon className="w-5 h-5 mt-1 text-primary"/>
         <div>
