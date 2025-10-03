@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo } from 'react';
@@ -31,7 +32,7 @@ const SystemStatusWidget = ({ title, status, icon: Icon }) => {
 
 const AlertCard = ({ alert }) => {
     const severityConfig = {
-        critical: { color: "text-destructive", bg: "bg-destructive/10", border: "border-destructive/50", icon: Siren, glow: "animate-pulse" },
+        critical: { color: "text-destructive", bg: "bg-destructive/10", border: "border-destructive/50", icon: Siren, glow: "" },
         warning: { color: "text-yellow-400", bg: "bg-yellow-400/10", border: "border-yellow-400/50", icon: AlertTriangle, glow: "" },
         info: { color: "text-blue-400", bg: "bg-blue-400/10", border: "border-blue-400/50", icon: Shield, glow: "" }
     };
@@ -73,7 +74,7 @@ export function SafetyAndAlerts({ hospitalData }) {
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
-                    <CardTitle className="text-gradient-glow text-2xl">Advanced Safety & Incident Command</CardTitle>
+                    <CardTitle className="text-gradient-glow text-2xl">Advanced Safety &amp; Incident Command</CardTitle>
                     <CardDescription>Real-time system monitoring, 3D visualization, and incident response center.</CardDescription>
                 </CardHeader>
             </Card>
@@ -161,4 +162,5 @@ export function SafetyAndAlerts({ hospitalData }) {
             </Card>
         </div>
     );
-}
+
+    
