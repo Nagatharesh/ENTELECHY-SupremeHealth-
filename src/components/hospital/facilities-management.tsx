@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from 'react';
@@ -81,12 +80,12 @@ export function FacilitiesManagement({ hospitalData }) {
         controls.maxDistance = 350;
 
         const zoomIn = () => {
-            controls.dollyIn(1.2);
+            camera.position.multiplyScalar(0.8);
             controls.update();
         };
 
         const zoomOut = () => {
-            controls.dollyOut(1.2);
+            camera.position.multiplyScalar(1.2);
             controls.update();
         };
         
@@ -564,7 +563,6 @@ export function FacilitiesManagement({ hospitalData }) {
         const mouse = new THREE.Vector2();
         
         let selected = null;
-        let isolatedRoot = null;
         const selectionHelper = new THREE.Box3Helper(new THREE.Box3(), 0x4ea1ff);
         selectionHelper.visible = false;
         world.add(selectionHelper);
@@ -779,6 +777,7 @@ export function FacilitiesManagement({ hospitalData }) {
             return cur;
         }
 
+        let isolatedRoot = null;
         function isolate(root) {
             isolatedRoot = root;
             world.traverse((o) => {
@@ -908,3 +907,5 @@ export function FacilitiesManagement({ hospitalData }) {
         </div>
     );
 }
+
+    
