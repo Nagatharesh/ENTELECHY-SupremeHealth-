@@ -6,13 +6,19 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { dummyDnaPatients, DnaPatient } from '@/lib/dummy-data';
-import { DnaVisualization } from './dna-visualization';
 import { ResearchPanel } from './research-panel';
 import { BarChart, LineChart, PieChart, ResponsiveContainer, Bar, Line, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Zap, Activity, Heart, Brain, Shield, Info, X } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const DnaVisualization = dynamic(() => import('./dna-visualization').then(mod => mod.DnaVisualization), {
+  ssr: false,
+  loading: () => <div className="w-24 h-48 flex items-center justify-center"><p className="text-xs text-primary animate-pulse">Loading DNA...</p></div>
+});
+
 
 const riskColors = {
   Low: 'text-green-400',
