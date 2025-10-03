@@ -1,4 +1,5 @@
 
+
 export const dummyDonors: Donor[] = [
     { donorId: 'DONOR-001', name: 'Rohan Sharma', phone: '9876543210', bloodGroup: 'O+', location: 'Delhi', donationCount: 5, lastDonationDate: '2024-05-15', donationHistory: [{ donationId: 'DH-001', date: '2024-05-15', location: 'Delhi Blood Bank', type: 'Whole Blood' }] },
     { donorId: 'DONOR-002', name: 'Priya Singh', phone: '9876543211', bloodGroup: 'A+', location: 'Mumbai', donationCount: 3, lastDonationDate: '2024-03-20', donationHistory: [{ donationId: 'DH-002', date: '2024-03-20', location: 'Mumbai Donation Center', type: 'Platelets' }] },
@@ -1530,6 +1531,13 @@ export const dummyHospitalData = {
     hospitalInfo: {
         hospitalId: 'HOS-001',
         name: 'Supreme Health City Hospital',
+        facilities: {
+            beds: { general: { total: 300, occupied: 250 }, icu: { total: 50, occupied: 45 } },
+            opdSlots: { total: 500, used: 410 },
+            oxygen: { levelPercentage: 70, status: 'Active' },
+            generator: { status: 'Active', fuelHoursLeft: 8, capacityHours: 24 },
+            solar: { status: 'Active', currentProductionKw: 150, capacityKw: 200 },
+        },
     },
     analytics: {
         livePatientCount: 124,
@@ -1575,13 +1583,6 @@ export const dummyHospitalData = {
         fire: { title: 'Fire Alert', description: 'Smoke detector activated in Ward B, Floor 3. Evacuation protocol initiated.', level: 'high', timestamp: '2024-10-03T10:30:00Z' },
         security: { title: 'Security Alert', description: 'Unauthorized access attempt at main entrance.', level: 'medium', timestamp: '2024-10-03T09:15:00Z' },
         facility: { title: 'Facility Alert', description: 'Generator fuel level at 15%. Refill required.', level: 'low', timestamp: '2024-10-03T11:00:00Z' },
-    },
-    facilities: {
-        beds: { general: { total: 300, occupied: 250 }, icu: { total: 50, occupied: 45 } },
-        opdSlots: { total: 500, used: 410 },
-        oxygen: { levelPercentage: 70, status: 'Active' },
-        generator: { status: 'Active', fuelHoursLeft: 8, capacityHours: 24 },
-        solar: { status: 'Active', currentProductionKw: 150, capacityKw: 200 },
     },
     equipment: [
         { name: 'Ventilators', status: 'Operational', aiNote: 'AI predicts 2 more needed in next 24h.' },
