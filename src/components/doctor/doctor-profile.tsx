@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Award, Briefcase, Star, TrendingUp, UserCheck, BarChart, Users, CheckCircle, User as UserIcon } from "lucide-react";
 import Image from "next/image";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
-import { BarChart as RechartsBarChart, Bar as RechartsBar, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
+import { BarChart as RechartsBarChart, Bar as RechartsBar, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell, Legend } from 'recharts';
 
 export function DoctorProfile({ doctor }: { doctor: Doctor }) {
 
