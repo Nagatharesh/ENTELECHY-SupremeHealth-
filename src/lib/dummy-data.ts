@@ -195,7 +195,7 @@ export const dummyPrescriptions = [
     clinic: {
       name: "Narayana Health, Hyderabad"
     },
-    date: "2025-06-10T09:45:00.000Z",
+    date: "2025-06-10T09:45:00.00Z",
     medicines: [
       { name: "Levothyroxine", strength: "50mcg", dose: "1 tablet", form: "Tablet", frequency: "Once daily before breakfast", duration_days: 90 }
     ],
@@ -1619,9 +1619,9 @@ export const dummyHospitalData = {
     },
     staff: {
         members: [
-            { staffId: 'DOC-001', name: 'Dr. A Kumar', role: 'Cardiologist', department: 'Cardiology', stressLevel: 8, hoursThisWeek: 55, consecutiveDaysWorked: 6 },
-            { staffId: 'DOC-002', name: 'Dr. S Mehra', role: 'Dermatologist', department: 'Dermatology', stressLevel: 4, hoursThisWeek: 42, consecutiveDaysWorked: 4 },
-            { staffId: 'NRS-001', name: 'Sunita Sharma', role: 'Head Nurse', department: 'ICU', stressLevel: 7, hoursThisWeek: 60, consecutiveDaysWorked: 7 },
+            { staffId: 'DOC-001', name: 'Dr. A Kumar', role: 'Cardiologist', department: 'Cardiology', stressLevel: 8, hoursThisWeek: 55, consecutiveDaysWorked: 6, aiNote: 'High patient load and consecutive long shifts are contributing to high stress.' },
+            { staffId: 'DOC-002', name: 'Dr. S Mehra', role: 'Dermatologist', department: 'Dermatology', stressLevel: 4, hoursThisWeek: 42, consecutiveDaysWorked: 4, aiNote: 'Workload is manageable. Stress levels are within normal range.' },
+            { staffId: 'NRS-001', name: 'Sunita Sharma', role: 'Head Nurse', department: 'ICU', stressLevel: 7, hoursThisWeek: 60, consecutiveDaysWorked: 7, aiNote: 'Consistently high hours and ICU intensity. Burnout risk is moderate.' },
         ],
         departmentAnalytics: [
             { department: 'Cardiology', totalHours: 450 },
@@ -1717,11 +1717,3 @@ export const dummyHospitalData = {
     ]
 };
     
-
-
-
-
-
-
-
-

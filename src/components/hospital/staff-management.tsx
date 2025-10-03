@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -6,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { User, Clock, Coffee, Send, BrainCircuit, BarChart } from "lucide-react";
+import { User, Clock, Coffee, Send, BrainCircuit, BarChart, Bot } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   BarChart as RechartsBarChart,
@@ -28,6 +29,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const StressLevelCard = ({ staff }) => {
     const { toast } = useToast();
@@ -44,7 +46,7 @@ const StressLevelCard = ({ staff }) => {
     };
 
     return (
-        <Card className="glassmorphism p-4 flex flex-col md:flex-row items-center gap-4">
+        <Card className="glassmorphism p-4 flex flex-col md:flex-row items-center gap-6">
             <Avatar className="h-20 w-20 border-4" style={{ borderColor: stressColor }}>
                 <AvatarImage src={`https://i.pravatar.cc/150?u=${staff.staffId}`} alt={staff.name} />
                 <AvatarFallback>{staff.name.substring(0, 2)}</AvatarFallback>
@@ -56,6 +58,13 @@ const StressLevelCard = ({ staff }) => {
                     <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-muted-foreground"/>Hours this week: <span className="font-bold text-white">{staff.hoursThisWeek}</span></div>
                     <div className="flex items-center gap-2"><Clock className="w-4 h-4 text-muted-foreground"/>Consecutive Days: <span className="font-bold text-white">{staff.consecutiveDaysWorked}</span></div>
                 </div>
+                 <Alert className="mt-2 bg-background/30 border-primary/20">
+                    <Bot className="h-4 w-4 text-primary" />
+                    <AlertTitle className="text-sm text-primary">AI Insight</AlertTitle>
+                    <AlertDescription className="text-xs">
+                        {staff.aiNote}
+                    </AlertDescription>
+                </Alert>
             </div>
             <div className="w-full md:w-1/3 space-y-2 text-center">
                 <p className="text-sm font-medium text-muted-foreground">AI Stress Prediction</p>
