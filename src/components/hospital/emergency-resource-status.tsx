@@ -1,87 +1,95 @@
 
 "use client";
 
-import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { BedDouble, User, Clock, AlertTriangle } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { formatDistanceToNow } from 'date-fns';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const triageConfig = {
-    Critical: { color: 'bg-red-500 border-red-400', shadow: 'shadow-red-500/50' },
-    Moderate: { color: 'bg-orange-500 border-orange-400', shadow: 'shadow-orange-500/50' },
-    Minor: { color: 'bg-yellow-500 border-yellow-400', shadow: 'shadow-yellow-500/50' },
-    Stable: { color: 'bg-green-500 border-green-400', shadow: 'shadow-green-500/50' },
-    available: { color: 'bg-gray-500 border-gray-400', shadow: 'shadow-gray-500/50' },
-    'in-use': { color: 'bg-blue-500 border-blue-400', shadow: 'shadow-blue-500/50' },
-};
-
-const Bed = ({ bed }) => {
-    const config = triageConfig[bed.triage] || triageConfig[bed.status];
-
-    const content = (
-        <div className={cn("w-full h-full rounded flex items-center justify-center transition-all duration-300", config.color)}>
-            <BedDouble className="w-6 h-6 text-white/80" />
-        </div>
-    );
-
-    if (bed.status === 'available') {
-        return <div className="w-12 h-20 rounded bg-green-500/10 border-2 border-dashed border-green-500/50 flex items-center justify-center"><BedDouble className="w-6 h-6 text-green-500/70" /></div>
-    }
-
-    return (
-        <TooltipProvider>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <div className={cn("w-12 h-20 rounded border-2 cursor-pointer transform hover:scale-110", config.color, config.shadow)}>
-                        {content}
-                    </div>
-                </TooltipTrigger>
-                <TooltipContent className="glassmorphism">
-                    <p className="font-bold">{bed.bedId}</p>
-                    <p><span className="font-semibold">Patient:</span> {bed.patient || 'N/A'}</p>
-                    <p><span className="font-semibold">Status:</span> {bed.status}</p>
-                    {bed.occupiedSince && <p><span className="font-semibold">Occupied:</span> {formatDistanceToNow(new Date(bed.occupiedSince), { addSuffix: true })}</p>}
-                    <p><span className="font-semibold">Triage:</span> <span className={cn(config.color, 'p-1 rounded-sm')}>{bed.triage}</span></p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-    );
-};
+// This component now acts as a placeholder for a more advanced 3D visualization.
+// The structure below is designed to be replaced or enhanced with a library like Three.js.
 
 export function EmergencyResourceStatus({ hospitalData }) {
-    const { beds } = hospitalData.hospitalInfo;
-    const wings = [...new Set(beds.map(b => b.wing))];
+    const { facilities } = hospitalData.hospitalInfo;
+
+    // Dummy data for display purposes
+    const resources = {
+        traumaRooms: [
+            { name: "Trauma Room 1", status: "Occupied" },
+            { name: "Trauma Room 2", status: "Occupied" },
+            { name: "Trauma Room 3", status: "Available" },
+        ],
+        orAvailability: [
+            { name: "Emergency OR 1", status: "In Use" },
+            { name: "Emergency OR 2", status: "Ready" },
+        ],
+        staffStatus: [
+            { name: "Emergency Physicians", active: 6, total: 6 },
+            { name: "Trauma Nurses", active: 11, total: 12 },
+        ]
+    };
+
+    const getStatusColor = (status: string) => {
+        switch (status.toLowerCase()) {
+            case 'occupied':
+            case 'in use':
+                return 'text-red-500';
+            case 'available':
+            case 'ready':
+                return 'text-green-500';
+            default:
+                return 'text-white';
+        }
+    };
 
     return (
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
-                    <CardTitle className="text-gradient-glow text-2xl">Emergency Resource Status</CardTitle>
-                    <CardDescription>Live 3D view of all patient beds, trauma rooms, and OR availability.</CardDescription>
+                    <div className="flex justify-between items-center">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-grow">
+                            <div>
+                                <h3 className="font-semibold text-white">Emergency Resource Status</h3>
+                                <ul className="text-sm text-muted-foreground">
+                                    {resources.traumaRooms.map(room => (
+                                        <li key={room.name} className="flex justify-between">
+                                            <span>{room.name}</span>
+                                            <span className={cn("font-bold", getStatusColor(room.status))}>{room.status}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-white">OR Availability</h3>
+                                <ul className="text-sm text-muted-foreground">
+                                    {resources.orAvailability.map(or => (
+                                        <li key={or.name} className="flex justify-between">
+                                            <span>{or.name}</span>
+                                            <span className={cn("font-bold", getStatusColor(or.status))}>{or.status}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                             <div>
+                                <h3 className="font-semibold text-white">Staff Status</h3>
+                                <ul className="text-sm text-muted-foreground">
+                                    {resources.staffStatus.map(staff => (
+                                        <li key={staff.name} className="flex justify-between">
+                                            <span>{staff.name}</span>
+                                            <span className="font-bold text-white">{staff.active}/{staff.total} Active</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                         <div className="ml-8">
+                            <Button className="glowing-shadow-interactive">Triage Assignment</Button>
+                        </div>
+                    </div>
                 </CardHeader>
             </Card>
 
-            <div className="p-8 glassmorphism rounded-lg perspective-1000">
-                {wings.map(wing => (
-                    <div key={wing} className="mb-8">
-                        <h3 className="text-xl font-bold text-white mb-4">{wing} Wing</h3>
-                        <div className="grid grid-cols-10 gap-6 transform-style-3d" style={{transform: 'rotateX(45deg)'}}>
-                            {beds.filter(b => b.wing === wing).map(bed => (
-                                <Bed key={bed.bedId} bed={bed} />
-                            ))}
-                        </div>
-                    </div>
-                ))}
-                 <div className="mt-8 flex justify-center gap-4 text-sm">
-                    {Object.entries(triageConfig).map(([key, value]) => (
-                        <div key={key} className="flex items-center gap-2">
-                            <div className={cn("w-4 h-4 rounded-sm", value.color)}></div>
-                            <span className="capitalize text-muted-foreground">{key}</span>
-                        </div>
-                    ))}
-                </div>
+            <div id="threejs-canvas-container" className="w-full h-[60vh] bg-background/50 rounded-lg border-2 border-dashed border-primary/30 flex items-center justify-center">
+                <p className="text-2xl text-muted-foreground animate-pulse">Loading 3D Emergency Room View...</p>
             </div>
         </div>
     );

@@ -1531,7 +1531,7 @@ export const dummyHospitalData = {
     hospitalInfo: {
         hospitalId: 'HOS-001',
         name: 'Supreme Health City Hospital',
-         facilities: {
+        facilities: {
             beds: { general: { total: 300, occupied: 250 }, icu: { total: 50, occupied: 45 } },
             opdSlots: { total: 500, used: 410 },
             oxygen: { levelPercentage: 70, status: 'Active' },
@@ -1631,5 +1631,6 @@ export const dummyHospitalData = {
     ]
 };
     
+
 
 
