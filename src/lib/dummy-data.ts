@@ -1,13 +1,30 @@
 
+export const dummyDonors: Donor[] = [
+    { donorId: 'DONOR-001', name: 'Rohan Sharma', phone: '9876543210', bloodGroup: 'O+', location: 'Delhi', donationCount: 5, lastDonationDate: '2024-05-15', donationHistory: [{ donationId: 'DH-001', date: '2024-05-15', location: 'Delhi Blood Bank', type: 'Whole Blood' }] },
+    { donorId: 'DONOR-002', name: 'Priya Singh', phone: '9876543211', bloodGroup: 'A+', location: 'Mumbai', donationCount: 3, lastDonationDate: '2024-03-20', donationHistory: [{ donationId: 'DH-002', date: '2024-03-20', location: 'Mumbai Donation Center', type: 'Platelets' }] },
+    { donorId: 'DONOR-003', name: 'Amit Patel', phone: '9876543212', bloodGroup: 'B-', location: 'Bangalore', donationCount: 8, lastDonationDate: '2024-06-01', donationHistory: [{ donationId: 'DH-003', date: '2024-06-01', location: 'Bangalore Red Cross', type: 'Whole Blood' }] },
+    { donorId: 'DONOR-004', name: 'Sneha Gupta', phone: '9876543213', bloodGroup: 'AB+', location: 'Chennai', donationCount: 2, lastDonationDate: '2024-01-10', donationHistory: [{ donationId: 'DH-004', date: '2024-01-10', location: 'Chennai General Hospital', type: 'Plasma' }] },
+    { donorId: 'DONOR-005', name: 'Vikram Reddy', phone: '9876543214', bloodGroup: 'O-', location: 'Hyderabad', donationCount: 12, lastDonationDate: '2024-07-05', donationHistory: [{ donationId: 'DH-005', date: '2024-07-05', location: 'Hyderabad Blood Services', type: 'Whole Blood' }] },
+    { donorId: 'DONOR-006', name: 'Meera Krishnan', phone: '9876543215', bloodGroup: 'A-', location: 'Kolkata', donationCount: 4, lastDonationDate: '2024-04-22', donationHistory: [{ donationId: 'DH-006', date: '2024-04-22', location: 'Kolkata Medical College', type: 'Whole Blood' }] },
+    { donorId: 'DONOR-007', name: 'Arjun Desai', phone: '9876543216', bloodGroup: 'B+', location: 'Pune', donationCount: 6, lastDonationDate: '2024-02-14', donationHistory: [{ donationId: 'DH-007', date: '2024-02-14', location: 'Pune Donation Drive', type: 'Platelets' }] },
+    { donorId: 'DONOR-008', name: 'Kavita Iyer', phone: '9876543217', bloodGroup: 'O+', location: 'Ahmedabad', donationCount: 1, lastDonationDate: '2024-07-18', donationHistory: [{ donationId: 'DH-008', date: '2024-07-18', location: 'Ahmedabad Civil Hospital', type: 'Whole Blood' }] },
+    { donorId: 'DONOR-009', name: 'Sandeep Menon', phone: '9876543218', bloodGroup: 'AB-', location: 'Jaipur', donationCount: 7, lastDonationDate: '2024-05-30', donationHistory: [{ donationId: 'DH-009', date: '2024-05-30', location: 'Jaipur Blood Center', type: 'Plasma' }] },
+    { donorId: 'DONOR-010', name: 'Nisha Verma', phone: '9876543219', bloodGroup: 'B+', location: 'Lucknow', donationCount: 9, lastDonationDate: '2024-06-25', donationHistory: [{ donationId: 'DH-010', date: '2024-06-25', location: 'Lucknow Medical Center', type: 'Whole Blood' }] }
+];
+export type Donor = typeof dummyDonors[0];
 
-
-
-
-
-
-
-
-
+export const dummyDonations = [
+    { donationId: 'D-001', donorId: 'DONOR-001', date: '2024-05-15', type: 'Whole Blood' },
+    { donationId: 'D-002', donorId: 'DONOR-002', date: '2024-03-20', type: 'Platelets' },
+    { donationId: 'D-003', donorId: 'DONOR-003', date: '2024-06-01', type: 'Whole Blood' },
+    { donationId: 'D-004', donorId: 'DONOR-004', date: '2024-01-10', type: 'Plasma' },
+    { donationId: 'D-005', donorId: 'DONOR-005', date: '2024-07-05', type: 'Whole Blood' },
+    { donationId: 'D-006', donorId: 'DONOR-006', date: '2024-04-22', type: 'Whole Blood' },
+    { donationId: 'D-007', donorId: 'DONOR-007', date: '2024-02-14', type: 'Platelets' },
+    { donationId: 'D-008', donorId: 'DONOR-008', date: '2024-07-18', type: 'Whole Blood' },
+    { donationId: 'D-009', donorId: 'DONOR-009', date: '2024-05-30', type: 'Plasma' },
+    { donationId: 'D-010', donorId: 'DONOR-010', date: '2024-06-25', type: 'Whole Blood' },
+];
 
 export const dummyAadhaarPatients = [
     { aadhaar_full: '123412341234', name: 'Rahul Sharma', dob: '1993-01-05', gender: 'M', contact: '+91 9876543210', address: '45 Green Park, New Delhi', is_test: true },
@@ -48,14 +65,23 @@ export const dummyDoctors = [
 ];
 
 
-export const dummyHospitals = [
-    { hospitalId: "HOS-001", name: "City Hospital", location: "Delhi", contact: "+911122334455", patientLoad: 75, coordinates: { lat: 12.9150, lng: 74.8565 } },
-    { hospitalId: "HOS-002", name: "Green Hospital", location: "Mumbai", contact: "+912233445566", patientLoad: 60, coordinates: { lat: 12.9130, lng: 74.8550 } },
-    { hospitalId: "HOS-003", name: "Blue Hospital", location: "Bangalore", contact: "+918099887766", patientLoad: 85, coordinates: { lat: 12.9165, lng: 74.8580 } },
-    { hospitalId: "HOS-004", name: "AIIMS", location: "New Delhi", contact: "+911126588500", patientLoad: 95, coordinates: { lat: 12.9120, lng: 74.8590 } },
-    { hospitalId: "HOS-005", name: "Tata Memorial", location: "Mumbai", contact: "+912224177000", patientLoad: 90, coordinates: { lat: 12.9180, lng: 74.8540 } },
-    { hospitalId: "HOS-006", name: "Rainbow Children’s Hospital", location: "Chennai", contact: "+914448600000", patientLoad: 70, coordinates: { lat: 12.9100, lng: 74.8530 } }
+export const dummyHospitals: Hospital[] = [
+    { hospitalId: "HOS-001", name: "City Hospital", location: "Delhi", contact: "+911122334455", patientLoad: 75, coordinates: { lat: 12.9150, lng: 74.8565 }, stock: { "A+": 50, "A-": 20, "B+": 35, "B-": 15, "AB+": 10, "AB-": 5, "O+": 80, "O-": 30 } },
+    { hospitalId: "HOS-002", name: "Green Hospital", location: "Mumbai", contact: "+912233445566", patientLoad: 60, coordinates: { lat: 12.9130, lng: 74.8550 }, stock: { "A+": 40, "A-": 10, "B+": 25, "B-": 5, "AB+": 8, "AB-": 2, "O+": 90, "O-": 25 } },
+    { hospitalId: "HOS-003", name: "Blue Hospital", location: "Bangalore", contact: "+918099887766", patientLoad: 85, coordinates: { lat: 12.9165, lng: 74.8580 }, stock: { "A+": 60, "A-": 25, "B+": 45, "B-": 18, "AB+": 12, "AB-": 8, "O+": 100, "O-": 40 } },
+    { hospitalId: "HOS-004", name: "AIIMS", location: "New Delhi", contact: "+911126588500", patientLoad: 95, coordinates: { lat: 12.9120, lng: 74.8590 }, stock: { "A+": 70, "A-": 30, "B+": 50, "B-": 20, "AB+": 15, "AB-": 10, "O+": 120, "O-": 50 } },
+    { hospitalId: "HOS-005", name: "Tata Memorial", location: "Mumbai", contact: "+912224177000", patientLoad: 90, coordinates: { lat: 12.9180, lng: 74.8540 }, stock: { "A+": 45, "A-": 18, "B+": 30, "B-": 12, "AB+": 9, "AB-": 4, "O+": 95, "O-": 35 } },
+    { hospitalId: "HOS-006", name: "Rainbow Children’s Hospital", location: "Chennai", contact: "+914448600000", patientLoad: 70, coordinates: { lat: 12.9100, lng: 74.8530 }, stock: { "A+": 30, "A-": 15, "B+": 20, "B-": 10, "AB+": 5, "AB-": 3, "O+": 60, "O-": 20 } }
 ];
+export type Hospital = {
+    hospitalId: string;
+    name: string;
+    location: string;
+    contact: string;
+    patientLoad: number;
+    coordinates: { lat: number; lng: number };
+    stock: { [key: string]: number };
+};
 
 export const dummyEncounters = [
     { encounterId: 'ENC1001', patientId: 'P10001', doctorId: '3001', date: '2025-09-25', notes: 'Patient presented with symptoms of an upper respiratory tract infection (URTI). Advised rest and hydration.' },
@@ -262,95 +288,101 @@ export const singleDemoDoctor = {
 
 export type DoctorProfileData = typeof singleDemoDoctor;
 
-
-export const dummyAmbulances = [
-  { id: "AMB-001", vehicle_no: "MH-01-AB-1234", driver_name: "Ramesh Kumar", driver_phone: "+919000000001", type: "ICU", speed_kmph: 60, status: "available", current_coords: { lat: 19.08, lng: 72.88 }, driver: {name: 'Ramesh Kumar', experience: 5, completedRides: 320, rating: 4.9, contact: '9000000001'}, facilities: { oxygenLevel: 95, ventilator: true, emergencyKit: true }, oxygenLevel: 95 },
-  { id: "AMB-002", vehicle_no: "DL-02-CD-5678", driver_name: "Sunil Mehta", driver_phone: "+919000000002", type: "Basic", speed_kmph: 50, status: "available", current_coords: { lat: 19.06, lng: 72.86 }, driver: {name: 'Sunil Mehta', experience: 3, completedRides: 150, rating: 4.8, contact: '9000000002'}, facilities: { oxygenLevel: 98, ventilator: false, emergencyKit: true }, oxygenLevel: 98 },
-  { id: "AMB-003", vehicle_no: "KA-03-EF-9012", driver_name: "Anita Sharma", driver_phone: "+919000000003", type: "Advanced Life Support", speed_kmph: 70, status: "enroute", current_coords: { lat: 19.09, lng: 72.89 }, driver: {name: 'Anita Sharma', experience: 4, completedRides: 210, rating: 4.7, contact: '9000000003'}, facilities: { oxygenLevel: 90, ventilator: true, emergencyKit: false }, oxygenLevel: 90 },
-  { id: "AMB-004", vehicle_no: "TN-04-GH-3456", driver_name: "Mohammed Aslam", driver_phone: "+919000000004", type: "Basic", speed_kmph: 45, status: "available", current_coords: { lat: 19.05, lng: 72.88 }, driver: {name: 'Mohammed Aslam', experience: 2, completedRides: 100, rating: 4.6, contact: '9000000004'}, facilities: { oxygenLevel: 99, ventilator: false, emergencyKit: true }, oxygenLevel: 99 },
-  { id: "AMB-005", vehicle_no: "GJ-05-IJ-7890", driver_name: "Kiran Patel", driver_phone: "+919000000005", type: "ICU", speed_kmph: 65, status: "available", current_coords: { lat: 19.07, lng: 72.85 }, driver: {name: 'Kiran Patel', experience: 6, completedRides: 400, rating: 4.9, contact: '9000000005'}, facilities: { oxygenLevel: 96, ventilator: true, emergencyKit: true }, oxygenLevel: 96 },
-  { id: "AMB-006", vehicle_no: "WB-06-KL-1234", driver_name: "Rajesh Gupta", driver_phone: "+919000000006", type: "Advanced Life Support", speed_kmph: 75, status: "maintenance", current_coords: { lat: 19.10, lng: 72.90 }, driver: {name: 'Rajesh Gupta', experience: 7, completedRides: 500, rating: 4.8, contact: '9000000006'}, facilities: { oxygenLevel: 88, ventilator: true, emergencyKit: true }, oxygenLevel: 88 },
-  { id: "AMB-007", vehicle_no: "RJ-07-MN-5678", driver_name: "Pooja Iyer", driver_phone: "+919000000007", type: "Basic", speed_kmph: 55, status: "available", current_coords: { lat: 19.08, lng: 72.87 }, driver: {name: 'Pooja Iyer', experience: 3, completedRides: 180, rating: 4.7, contact: '9000000007'}, facilities: { oxygenLevel: 97, ventilator: false, emergencyKit: false }, oxygenLevel: 97 },
-  { id: "AMB-008", vehicle_no: "UP-08-OP-9012", driver_name: "Deepak Reddy", driver_phone: "+919000000008", type: "ICU", speed_kmph: 68, status: "available", current_coords: { lat: 19.06, lng: 72.89 }, driver: {name: 'Deepak Reddy', experience: 5, completedRides: 350, rating: 4.9, contact: '9000000008'}, facilities: { oxygenLevel: 94, ventilator: true, emergencyKit: true }, oxygenLevel: 94 },
-  { id: "AMB-009", vehicle_no: "MP-09-QR-3456", driver_name: "Sandeep Singh", driver_phone: "+919000000009", type: "Basic", speed_kmph: 52, status: "available", current_coords: { lat: 19.09, lng: 72.86 }, driver: {name: 'Sandeep Singh', experience: 2, completedRides: 120, rating: 4.6, contact: '9000000009'}, facilities: { oxygenLevel: 98, ventilator: false, emergencyKit: true }, oxygenLevel: 98 },
-  { id: "AMB-010", vehicle_no: "HR-10-ST-7890", driver_name: "Meena Joshi", driver_phone: "+919000000010", type: "Advanced Life Support", speed_kmph: 72, status: "available", current_coords: { lat: 19.07, lng: 72.90 }, driver: {name: 'Meena Joshi', experience: 6, completedRides: 450, rating: 4.8, contact: '9000000010'}, facilities: { oxygenLevel: 92, ventilator: true, emergencyKit: true }, oxygenLevel: 92 }
-];
-
-
-export const dummyMedicines = [
-    { medicineId: "MED-001", name: "Paracetamol", chemical: "Acetaminophen", usage: "Fever, Pain", frequentlyUsed: true, prescribedBy: "DOC-009", govtPrice: 10.50, privatePrice: 25.00 },
-    { medicineId: "MED-002", name: "Ibuprofen", chemical: "Propionic Acid", usage: "Pain, Inflammation", frequentlyUsed: true, prescribedBy: "DOC-005", govtPrice: 15.00, privatePrice: 40.00 },
-    { medicineId: "MED-003", name: "Amoxicillin", chemical: "Penicillin", usage: "Bacterial Infection", frequentlyUsed: false, prescribedBy: "DOC-004", govtPrice: 50.75, privatePrice: 120.00 },
-    { medicineId: "MED-004", name: "Metformin", chemical: "Biguanide", usage: "Diabetes", frequentlyUsed: true, prescribedBy: "DOC-017", govtPrice: 8.00, privatePrice: 30.00 },
-    { medicineId: "MED-005", name: "Atorvastatin", chemical: "Statin", usage: "High Cholesterol", frequentlyUsed: false, prescribedBy: "DOC-001", govtPrice: 25.00, privatePrice: 90.00 },
-    { medicineId: "MED-006", name: "Amlodipine", chemical: "Dihydropyridine", usage: "High Blood Pressure", frequentlyUsed: true, prescribedBy: "DOC-001", govtPrice: 12.00, privatePrice: 35.00 },
-    { medicineId: "MED-007", name: "Salbutamol Inhaler", chemical: "Beta-agonist", usage: "Asthma", frequentlyUsed: true, prescribedBy: "DOC-011", govtPrice: 150.00, privatePrice: 350.00 },
-    { medicineId: "MED-008", name: "Sertraline", chemical: "SSRI", usage: "Depression, Anxiety", frequentlyUsed: false, prescribedBy: "DOC-020", govtPrice: 40.00, privatePrice: 150.00 },
-    { medicineId: "MED-009", name: "Cetirizine", chemical: "Antihistamine", usage: "Allergies", frequentlyUsed: true, prescribedBy: "DOC-002", govtPrice: 5.00, privatePrice: 15.00 },
-    { medicineId: "MED-010", name: "Pantoprazole", chemical: "Proton Pump Inhibitor", usage: "Acidity, GERD", frequentlyUsed: true, prescribedBy: "DOC-009", govtPrice: 7.50, privatePrice: 28.00 }
-];
-export type Medicine = typeof dummyMedicines[0];
-
-export const dummyInsurancePlans = [
-    { planId: 'INS-001', planName: 'Suraksha Health', insurerName: 'LIC', hospitalName: 'City Hospital', city: 'Delhi', coverageLimit: 500000, premiumAnnual: 10000, premiumMonthly: 850, copayPercent: 10, waitingPeriodMonths: 24, rating: 4.5, inclusions: ['Hospitalization', 'Day Care', 'Pre & Post Hospitalization'], exclusions: ['Cosmetic Surgery', 'Dental'], policyText: 'Standard policy terms apply. Pre-existing diseases covered after 2 years.' },
-    { planId: 'INS-002', planName: 'Arogya Sanjeevani', insurerName: 'HDFC Ergo', hospitalName: 'Green Hospital', city: 'Mumbai', coverageLimit: 300000, premiumAnnual: 8000, premiumMonthly: 680, copayPercent: 5, waitingPeriodMonths: 36, rating: 4.7, inclusions: ['Room Rent Capped', 'ICU Charges', 'Ambulance'], exclusions: ['Maternity', 'Alternative Treatments'], policyText: 'Government-mandated standard policy. Co-pay is 5%.' },
-    { planId: 'INS-003', planName: 'Optima Restore', insurerName: 'Apollo Munich', hospitalName: 'Blue Hospital', city: 'Bangalore', coverageLimit: 1000000, premiumAnnual: 15000, premiumMonthly: 1275, copayPercent: 0, waitingPeriodMonths: 36, opdCoverage: 20000, rating: 4.9, inclusions: ['Restore Benefit', 'OPD cover', 'Health Checkups'], exclusions: ['Self-inflicted injuries', 'War-related injuries'], policyText: 'Restore benefit refills sum insured if exhausted.' },
-    { planId: 'INS-004', planName: 'Family Floater', insurerName: 'Star Health', hospitalName: 'AIIMS', city: 'New Delhi', coverageLimit: 750000, premiumAnnual: 12000, premiumMonthly: 1020, copayPercent: 15, waitingPeriodMonths: 24, rating: 4.6, inclusions: ['Family Cover', 'Maternity', 'Newborn Baby Cover'], exclusions: ['Adventure Sports', 'Mental Disorders'], policyText: 'Covers up to 2 adults and 2 children. Co-pay of 15% on all claims.' },
-];
-export type InsurancePlan = typeof dummyInsurancePlans[0];
-
-
-export const dummyGeneticData = [
-    { patientId: 'P-102345', markers: [{ gene: 'BRCA1', riskFactor: 'High', details: 'Associated with increased risk for breast and ovarian cancers.' }], recommendations: { preventiveCare: 'Regular mammograms and genetic counseling recommended.', medication: 'Consider PARP inhibitors if cancer develops.' } },
-    { patientId: 'P-102346', markers: [{ gene: 'APOE ε4', riskFactor: 'Medium', details: 'Associated with a higher risk of developing late-onset Alzheimer\'s disease.' }], recommendations: { preventiveCare: 'Adopt a heart-healthy diet, regular exercise, and cognitive stimulation.', medication: 'No specific preventive medication; manage cardiovascular risk factors.' } },
-    { patientId: 'P-102347', markers: [{ gene: 'HBB', riskFactor: 'Low', details: 'Carrier for sickle cell trait. Generally asymptomatic but can pass the trait to children.' }], recommendations: { preventiveCare: 'Genetic counseling if planning a family.', medication: 'No treatment required for sickle cell trait.' } },
-];
-
-export const dummyOrganStatus = [
-    { patientId: 'P-102345', organs: [{ name: 'Heart', status: 'Normal', details: 'No abnormalities detected.', annotations: [] }] },
-    { patientId: 'P-102346', organs: [{ name: 'Liver', status: 'Fatty Liver', details: 'Mild steatosis observed, likely due to lifestyle.', annotations: [{ text: 'Fatty Deposits', position: [0.5, 0.5, 0.5] }] }] },
-    { patientId: 'P-102347', organs: [{ name: 'Lungs', status: 'Mild Infection', details: 'Minor inflammation in the lower lobe, suggestive of bronchitis.', annotations: [{ text: 'Inflammation', position: [0, -1, 0] }] }, { name: 'Brain', status: 'Tumor Detected', details: 'Small benign tumor in the temporal lobe.', annotations: [{ text: 'Benign Tumor', position: [1, 0, 0] }] }] }
-];
-
-
-export const dummyCommunication = [
-  {
-    id: 1,
-    with: dummyDoctors.find(d => d.doctorId === "DOC-003"),
-    lastMessage: { text: "Sure, I'll take a look at the MRI.", timestamp: "10:30 AM" },
-    messages: [
-      { sender: "Dr. A Kumar", text: "Hey, can you check the neuro scans for patient P-102345?", timestamp: "10:28 AM" },
-      { sender: "Dr. R Verma", text: "Sure, I'll take a look at the MRI.", timestamp: "10:30 AM" }
-    ]
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
   },
-  {
-    id: 2,
-    with: dummyDoctors.find(d => d.doctorId === "DOC-002"),
-    lastMessage: { text: "Thanks for the quick report!", timestamp: "Yesterday" },
-    messages: [
-      { sender: "Dr. S Mehra", text: "The biopsy report is in. It's benign.", timestamp: "Yesterday" },
-      { sender: "Dr. A Kumar", text: "Thanks for the quick report!", timestamp: "Yesterday" }
-    ]
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
   }
-];
-
-export const dummyBloodBank = [
-    { bloodType: "A+", units: 50, hospitalId: "HOS-001" },
-    { bloodType: "A-", units: 20, hospitalId: "HOS-001" },
-    { bloodType: "B+", units: 35, hospitalId: "HOS-001" },
-    { bloodType: "B-", units: 15, hospitalId: "HOS-001" },
-    { bloodType: "AB+", units: 10, hospitalId: "HOS-001" },
-    { bloodType: "AB-", units: 5, hospitalId: "HOS-001" },
-    { bloodType: "O+", units: 80, hospitalId: "HOS-001" },
-    { bloodType: "O-", units: 30, hospitalId: "HOS-001" },
-    
-    { bloodType: "A+", units: 40, hospitalId: "HOS-002" },
-    { bloodType: "O+", units: 90, hospitalId: "HOS-002" },
-    { bloodType: "B+", units: 25, hospitalId: "HOS-002" },
-    
-    { bloodType: "A+", units: 60, hospitalId: "HOS-003" },
-    { bloodType: "O-", units: 40, hospitalId: "HOS-003" }
-];
+};
 
 export const doctorPatientDashboardData = {
     "doctorInfo": {
@@ -548,102 +580,6 @@ export const doctorPatientDashboardData = {
     }
   };
 
-export const onlinePrescriptionData = {
-  "doctorId": "dr-arjun-singh-demo",
-  "subHubId": "online-prescription-ai-assist",
-  "flags": { "demo": true, "restrictDownload": true },
-  "aiHints": {
-    "mappings": [
-      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
-      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
-      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
-      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
-    ],
-    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
-  },
-  "medicines": [
-    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
-    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
-    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
-    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
-    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
-    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
-    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
-    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
-    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
-    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
-  ],
-  "samplePrescription": {
-    "prescriptionId": "presc-demo-0001",
-    "doctorId": "dr-arjun-singh-demo",
-    "patientId": "pt-demo-1001",
-    "dateCreated": "2025-10-03T09:30:00Z",
-    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
-    "aiSuggestedMeds": [
-      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
-      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
-      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
-    ],
-    "finalizedMeds": [
-      {
-        "medId": "paracetamol-500",
-        "name": "Paracetamol",
-        "dose": "500 mg",
-        "frequencyPerDay": 3,
-        "tabletsPerDose": 1,
-        "days": 5,
-        "totalTablets": 15,
-        "pricePerUnit": 1.5,
-        "lineCost": 22.5
-      },
-      {
-        "medId": "amoxy-500",
-        "name": "Amoxicillin",
-        "dose": "500 mg",
-        "frequencyPerDay": 3,
-        "tabletsPerDose": 1,
-        "days": 5,
-        "totalTablets": 15,
-        "pricePerUnit": 3.0,
-        "lineCost": 45.0
-      },
-      {
-        "medId": "dextromethorphan-30",
-        "name": "Dextromethorphan",
-        "dose": "10 ml",
-        "frequencyPerDay": 3,
-        "tabletsPerDose": null,
-        "days": 5,
-        "totalTablets": 15,
-        "pricePerUnit": 25.0,
-        "lineCost": 375.0
-      }
-    ],
-    "totalCost": 442.5,
-    "eSignature": {
-      "doctorSigned": true,
-      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
-      "signedAt": "2025-10-03T09:33:00Z"
-    },
-    "delivery": {
-      "notifyPatientPhone": "+91-9999900001 (demo)",
-      "deliveryStatus": "sent",
-      "pushedToPharmacyName": "DemoCare Pharmacy",
-      "pharmacyContact": "+91-9999900100 (demo)"
-    },
-    "notificationsLog": [
-      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
-      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
-    ],
-    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
-  },
-  "uiHints": {
-    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
-    "searchMedsButtonLabel": "Search medicines & add",
-    "pharmacyAutoFill": true
-  }
-};
-
 export const dummyPatientsForPrescription = [
     { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
     { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
@@ -656,11 +592,11 @@ export const dummyDoctorsForPrescription = [
 ];
 
 export const dummyMedicinesForPrescription = [
-    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
-    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
-    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
-    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
-    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10, notes: "After food" },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6, notes: "Once daily" },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1, notes: "As needed" },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30, notes: "Morning" },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30, notes: "With dinner" }
 ];
     
 
@@ -1519,3 +1455,76 @@ export const dummyDnaAiResponses = {
   P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
 };
 // --- END of DNA AIResponses ---
+
+export const dummyAmbulances = [
+  { id: "AMB-001", vehicle_no: "MH-01-AB-1234", driver_name: "Ramesh Kumar", driver_phone: "+919000000001", type: "ICU", speed_kmph: 60, status: "available", current_coords: { lat: 19.08, lng: 72.88 }, driver: {name: 'Ramesh Kumar', experience: 5, completedRides: 320, rating: 4.9, contact: '9000000001'}, facilities: { oxygenLevel: 95, ventilator: true, emergencyKit: true }, oxygenLevel: 95 },
+  { id: "AMB-002", vehicle_no: "DL-02-CD-5678", driver_name: "Sunil Mehta", driver_phone: "+919000000002", type: "Basic", speed_kmph: 50, status: "available", current_coords: { lat: 19.06, lng: 72.86 }, driver: {name: 'Sunil Mehta', experience: 3, completedRides: 150, rating: 4.8, contact: '9000000002'}, facilities: { oxygenLevel: 98, ventilator: false, emergencyKit: true }, oxygenLevel: 98 },
+  { id: "AMB-003", vehicle_no: "KA-03-EF-9012", driver_name: "Anita Sharma", driver_phone: "+919000000003", type: "Advanced Life Support", speed_kmph: 70, status: "enroute", current_coords: { lat: 19.09, lng: 72.89 }, driver: {name: 'Anita Sharma', experience: 4, completedRides: 210, rating: 4.7, contact: '9000000003'}, facilities: { oxygenLevel: 90, ventilator: true, emergencyKit: false }, oxygenLevel: 90 },
+  { id: "AMB-004", vehicle_no: "TN-04-GH-3456", driver_name: "Mohammed Aslam", driver_phone: "+919000000004", type: "Basic", speed_kmph: 45, status: "available", current_coords: { lat: 19.05, lng: 72.88 }, driver: {name: 'Mohammed Aslam', experience: 2, completedRides: 100, rating: 4.6, contact: '9000000004'}, facilities: { oxygenLevel: 99, ventilator: false, emergencyKit: true }, oxygenLevel: 99 },
+  { id: "AMB-005", vehicle_no: "GJ-05-IJ-7890", driver_name: "Kiran Patel", driver_phone: "+919000000005", type: "ICU", speed_kmph: 65, status: "available", current_coords: { lat: 19.07, lng: 72.85 }, driver: {name: 'Kiran Patel', experience: 6, completedRides: 400, rating: 4.9, contact: '9000000005'}, facilities: { oxygenLevel: 96, ventilator: true, emergencyKit: true }, oxygenLevel: 96 },
+  { id: "AMB-006", vehicle_no: "WB-06-KL-1234", driver_name: "Rajesh Gupta", driver_phone: "+919000000006", type: "Advanced Life Support", speed_kmph: 75, status: "maintenance", current_coords: { lat: 19.10, lng: 72.90 }, driver: {name: 'Rajesh Gupta', experience: 7, completedRides: 500, rating: 4.8, contact: '9000000006'}, facilities: { oxygenLevel: 88, ventilator: true, emergencyKit: true }, oxygenLevel: 88 },
+  { id: "AMB-007", vehicle_no: "RJ-07-MN-5678", driver_name: "Pooja Iyer", driver_phone: "+919000000007", type: "Basic", speed_kmph: 55, status: "available", current_coords: { lat: 19.08, lng: 72.87 }, driver: {name: 'Pooja Iyer', experience: 3, completedRides: 180, rating: 4.7, contact: '9000000007'}, facilities: { oxygenLevel: 97, ventilator: false, emergencyKit: false }, oxygenLevel: 97 },
+  { id: "AMB-008", vehicle_no: "UP-08-OP-9012", driver_name: "Deepak Reddy", driver_phone: "+919000000008", type: "ICU", speed_kmph: 68, status: "available", current_coords: { lat: 19.06, lng: 72.89 }, driver: {name: 'Deepak Reddy', experience: 5, completedRides: 350, rating: 4.9, contact: '9000000008'}, facilities: { oxygenLevel: 94, ventilator: true, emergencyKit: true }, oxygenLevel: 94 },
+  { id: "AMB-009", vehicle_no: "MP-09-QR-3456", driver_name: "Sandeep Singh", driver_phone: "+919000000009", type: "Basic", speed_kmph: 52, status: "available", current_coords: { lat: 19.09, lng: 72.86 }, driver: {name: 'Sandeep Singh', experience: 2, completedRides: 120, rating: 4.6, contact: '9000000009'}, facilities: { oxygenLevel: 98, ventilator: false, emergencyKit: true }, oxygenLevel: 98 },
+  { id: "AMB-010", vehicle_no: "HR-10-ST-7890", driver_name: "Meena Joshi", driver_phone: "+919000000010", type: "Advanced Life Support", speed_kmph: 72, status: "available", current_coords: { lat: 19.07, lng: 72.90 }, driver: {name: 'Meena Joshi', experience: 6, completedRides: 450, rating: 4.8, contact: '9000000010'}, facilities: { oxygenLevel: 92, ventilator: true, emergencyKit: true }, oxygenLevel: 92 }
+];
+
+
+export const dummyMedicines = [
+    { medicineId: "MED-001", name: "Paracetamol", chemical: "Acetaminophen", usage: "Fever, Pain", frequentlyUsed: true, prescribedBy: "DOC-009", govtPrice: 10.50, privatePrice: 25.00 },
+    { medicineId: "MED-002", name: "Ibuprofen", chemical: "Propionic Acid", usage: "Pain, Inflammation", frequentlyUsed: true, prescribedBy: "DOC-005", govtPrice: 15.00, privatePrice: 40.00 },
+    { medicineId: "MED-003", name: "Amoxicillin", chemical: "Penicillin", usage: "Bacterial Infection", frequentlyUsed: false, prescribedBy: "DOC-004", govtPrice: 50.75, privatePrice: 120.00 },
+    { medicineId: "MED-004", name: "Metformin", chemical: "Biguanide", usage: "Diabetes", frequentlyUsed: true, prescribedBy: "DOC-017", govtPrice: 8.00, privatePrice: 30.00 },
+    { medicineId: "MED-005", name: "Atorvastatin", chemical: "Statin", usage: "High Cholesterol", frequentlyUsed: false, prescribedBy: "DOC-001", govtPrice: 25.00, privatePrice: 90.00 },
+    { medicineId: "MED-006", name: "Amlodipine", chemical: "Dihydropyridine", usage: "High Blood Pressure", frequentlyUsed: true, prescribedBy: "DOC-001", govtPrice: 12.00, privatePrice: 35.00 },
+    { medicineId: "MED-007", name: "Salbutamol Inhaler", chemical: "Beta-agonist", usage: "Asthma", frequentlyUsed: true, prescribedBy: "DOC-011", govtPrice: 150.00, privatePrice: 350.00 },
+    { medicineId: "MED-008", name: "Sertraline", chemical: "SSRI", usage: "Depression, Anxiety", frequentlyUsed: false, prescribedBy: "DOC-020", govtPrice: 40.00, privatePrice: 150.00 },
+    { medicineId: "MED-009", name: "Cetirizine", chemical: "Antihistamine", usage: "Allergies", frequentlyUsed: true, prescribedBy: "DOC-002", govtPrice: 5.00, privatePrice: 15.00 },
+    { medicineId: "MED-010", name: "Pantoprazole", chemical: "Proton Pump Inhibitor", usage: "Acidity, GERD", frequentlyUsed: true, prescribedBy: "DOC-009", govtPrice: 7.50, privatePrice: 28.00 }
+];
+export type Medicine = typeof dummyMedicines[0];
+
+export const dummyInsurancePlans = [
+    { planId: 'INS-001', planName: 'Suraksha Health', insurerName: 'LIC', hospitalName: 'City Hospital', city: 'Delhi', coverageLimit: 500000, premiumAnnual: 10000, premiumMonthly: 850, copayPercent: 10, waitingPeriodMonths: 24, rating: 4.5, inclusions: ['Hospitalization', 'Day Care', 'Pre & Post Hospitalization'], exclusions: ['Cosmetic Surgery', 'Dental'], policyText: 'Standard policy terms apply. Pre-existing diseases covered after 2 years.' },
+    { planId: 'INS-002', planName: 'Arogya Sanjeevani', insurerName: 'HDFC Ergo', hospitalName: 'Green Hospital', city: 'Mumbai', coverageLimit: 300000, premiumAnnual: 8000, premiumMonthly: 680, copayPercent: 5, waitingPeriodMonths: 36, rating: 4.7, inclusions: ['Room Rent Capped', 'ICU Charges', 'Ambulance'], exclusions: ['Maternity', 'Alternative Treatments'], policyText: 'Government-mandated standard policy. Co-pay is 5%.' },
+    { planId: 'INS-003', planName: 'Optima Restore', insurerName: 'Apollo Munich', hospitalName: 'Blue Hospital', city: 'Bangalore', coverageLimit: 1000000, premiumAnnual: 15000, premiumMonthly: 1275, copayPercent: 0, waitingPeriodMonths: 36, opdCoverage: 20000, rating: 4.9, inclusions: ['Restore Benefit', 'OPD cover', 'Health Checkups'], exclusions: ['Self-inflicted injuries', 'War-related injuries'], policyText: 'Restore benefit refills sum insured if exhausted.' },
+    { planId: 'INS-004', planName: 'Family Floater', insurerName: 'Star Health', hospitalName: 'AIIMS', city: 'New Delhi', coverageLimit: 750000, premiumAnnual: 12000, premiumMonthly: 1020, copayPercent: 15, waitingPeriodMonths: 24, rating: 4.6, inclusions: ['Family Cover', 'Maternity', 'Newborn Baby Cover'], exclusions: ['Adventure Sports', 'Mental Disorders'], policyText: 'Covers up to 2 adults and 2 children. Co-pay of 15% on all claims.' },
+];
+export type InsurancePlan = typeof dummyInsurancePlans[0];
+
+
+export const dummyGeneticData = [
+    { patientId: 'P-102345', markers: [{ gene: 'BRCA1', riskFactor: 'High', details: 'Associated with increased risk for breast and ovarian cancers.' }], recommendations: { preventiveCare: 'Regular mammograms and genetic counseling recommended.', medication: 'Consider PARP inhibitors if cancer develops.' } },
+    { patientId: 'P-102346', markers: [{ gene: 'APOE ε4', riskFactor: 'Medium', details: 'Associated with a higher risk of developing late-onset Alzheimer\'s disease.' }], recommendations: { preventiveCare: 'Adopt a heart-healthy diet, regular exercise, and cognitive stimulation.', medication: 'No specific preventive medication; manage cardiovascular risk factors.' } },
+    { patientId: 'P-102347', markers: [{ gene: 'HBB', riskFactor: 'Low', details: 'Carrier for sickle cell trait. Generally asymptomatic but can pass the trait to children.' }], recommendations: { preventiveCare: 'Genetic counseling if planning a family.', medication: 'No treatment required for sickle cell trait.' } },
+];
+
+export const dummyOrganStatus = [
+    { patientId: 'P-102345', organs: [{ name: 'Heart', status: 'Normal', details: 'No abnormalities detected.', annotations: [] }] },
+    { patientId: 'P-102346', organs: [{ name: 'Liver', status: 'Fatty Liver', details: 'Mild steatosis observed, likely due to lifestyle.', annotations: [{ text: 'Fatty Deposits', position: [0.5, 0.5, 0.5] }] }] },
+    { patientId: 'P-102347', organs: [{ name: 'Lungs', status: 'Mild Infection', details: 'Minor inflammation in the lower lobe, suggestive of bronchitis.', annotations: [{ text: 'Inflammation', position: [0, -1, 0] }] }, { name: 'Brain', status: 'Tumor Detected', details: 'Small benign tumor in the temporal lobe.', annotations: [{ text: 'Benign Tumor', position: [1, 0, 0] }] }] }
+];
+
+
+export const dummyCommunication = [
+  {
+    id: 1,
+    with: dummyDoctors.find(d => d.doctorId === "DOC-003"),
+    lastMessage: { text: "Sure, I'll take a look at the MRI.", timestamp: "10:30 AM" },
+    messages: [
+      { sender: "Dr. A Kumar", text: "Hey, can you check the neuro scans for patient P-102345?", timestamp: "10:28 AM" },
+      { sender: "Dr. R Verma", text: "Sure, I'll take a look at the MRI.", timestamp: "10:30 AM" }
+    ]
+  },
+  {
+    id: 2,
+    with: dummyDoctors.find(d => d.doctorId === "DOC-002"),
+    lastMessage: { text: "Thanks for the quick report!", timestamp: "Yesterday" },
+    messages: [
+      { sender: "Dr. S Mehra", text: "The biopsy report is in. It's benign.", timestamp: "Yesterday" },
+      { sender: "Dr. A Kumar", text: "Thanks for the quick report!", timestamp: "Yesterday" }
+    ]
+  }
+];
+
+    
