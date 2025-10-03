@@ -73,13 +73,15 @@ const PatientAdherenceDashboard = ({ onSelectPatient }: { onSelectPatient: (pati
                         onClick={() => onSelectPatient(patient)}
                     >
                          <div className="w-24 h-24 mx-auto my-4">
-                             <Canvas>
-                                <ambientLight intensity={0.5} />
-                                <pointLight position={[10, 10, 10]} />
-                                 <Float speed={1} rotationIntensity={1} floatIntensity={2}>
-                                    <Pill3D adherence={patient.adherence} />
-                                </Float>
-                            </Canvas>
+                            <Suspense fallback={<div className="w-full h-full bg-background/50 rounded-full animate-pulse" />}>
+                                <Canvas>
+                                    <ambientLight intensity={0.5} />
+                                    <pointLight position={[10, 10, 10]} />
+                                    <Float speed={1} rotationIntensity={1} floatIntensity={2}>
+                                        <Pill3D adherence={patient.adherence} />
+                                    </Float>
+                                </Canvas>
+                            </Suspense>
                          </div>
                         <div>
                             <p className="font-bold text-white text-lg">{patient.name}</p>
@@ -129,7 +131,9 @@ const PatientDetailView = ({ patient, onBack }: { patient: GuardianRxPatient, on
                         <CardHeader><CardTitle className="text-gradient-glow">Digital Twin Health Panel</CardTitle></CardHeader>
                         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 h-96">
                             <div className="w-full h-full">
-                                <OrganViewer organName={patient.digitalTwin.organ} annotations={[]} />
+                                <Suspense fallback={<div className="w-full h-full bg-background/50 rounded-lg animate-pulse" />}>
+                                    <OrganViewer organName={patient.digitalTwin.organ} annotations={[]} />
+                                </Suspense>
                             </div>
                             <div className="space-y-4">
                                 <h3 className="font-semibold text-white">Predicted Effects (Missed Dose)</h3>
