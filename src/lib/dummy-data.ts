@@ -1,5 +1,34 @@
 
 
+export interface TriagePatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female' | 'Other';
+    symptoms: string;
+    triageLevel: 'Critical' | 'Moderate' | 'Minor';
+    status: 'waiting' | 'assigned';
+}
+
+export const dummyTriagePatients: TriagePatient[] = [
+    { patientId: 'TP-001', name: 'Rohan Mehra', age: 45, gender: 'Male', symptoms: 'Severe chest pain, shortness of breath', triageLevel: 'Critical', status: 'waiting' },
+    { patientId: 'TP-002', name: 'Priya Sharma', age: 28, gender: 'Female', symptoms: 'Minor cut on hand, bleeding controlled', triageLevel: 'Minor', status: 'waiting' },
+    { patientId: 'TP-003', name: 'Amit Desai', age: 62, gender: 'Male', symptoms: 'Abdominal pain, nausea', triageLevel: 'Moderate', status: 'waiting' },
+    { patientId: 'TP-004', name: 'Sunita Joshi', age: 34, gender: 'Female', symptoms: 'High fever, headache', triageLevel: 'Moderate', status: 'waiting' },
+    { patientId: 'TP-005', name: 'Raj Patel', age: 55, gender: 'Male', symptoms: 'Difficulty breathing, history of asthma', triageLevel: 'Critical', status: 'waiting' },
+    { patientId: 'TP-006', name: 'Anjali Verma', age: 19, gender: 'Female', symptoms: 'Sprained ankle, unable to walk', triageLevel: 'Minor', status: 'waiting' },
+    { patientId: 'TP-007', name: 'Vikram Singh', age: 71, gender: 'Male', symptoms: 'Sudden confusion, slurred speech', triageLevel: 'Critical', status: 'waiting' },
+    { patientId: 'TP-008', name: 'Kavita Iyer', age: 50, gender: 'Female', symptoms: 'Deep laceration on arm', triageLevel: 'Moderate', status: 'waiting' },
+    { patientId: 'TP-009', name: 'Sandeep Kumar', age: 30, gender: 'Male', symptoms: 'Mild allergic reaction, skin rash', triageLevel: 'Minor', status: 'waiting' },
+    { patientId: 'TP-010', name: 'Nisha Gupta', age: 41, gender: 'Female', symptoms: 'Possible broken arm after fall', triageLevel: 'Moderate', status: 'waiting' },
+    { patientId: 'TP-011', name: 'Arjun Das', age: 68, gender: 'Male', symptoms: 'Uncontrolled bleeding from nose', triageLevel: 'Critical', status:waiting: 'waiting' },
+    { patientId: 'TP-012', name: 'Meera Chowdhury', age: 25, gender: 'Female', symptoms: 'Vomiting and diarrhea for 24 hours', triageLevel: 'Moderate', status: 'waiting' },
+    { patientId: 'TP-013', name: 'Imran Khan', age: 38, gender: 'Male', symptoms: 'Burn on hand from hot water', triageLevel: 'Minor', status: 'waiting' },
+    { patientId: 'TP-014', name: 'Pooja Reddy', age: 58, gender: 'Female', symptoms: 'Symptoms of a stroke, facial drooping', triageLevel: 'Critical', status: 'waiting' },
+    { patientId: 'TP-015', name: 'Sameer Rao', age: 22, gender: 'Male', symptoms: 'Sore throat and fever', triageLevel: 'Minor', status: 'waiting' },
+];
+
+
 export const dummyDonors: Donor[] = [
     { donorId: 'DONOR-001', name: 'Rohan Sharma', phone: '9876543210', bloodGroup: 'O+', location: 'Delhi', donationCount: 5, lastDonationDate: '2024-05-15', donationHistory: [{ donationId: 'DH-001', date: '2024-05-15', location: 'Delhi Blood Bank', type: 'Whole Blood' }] },
     { donorId: 'DONOR-002', name: 'Priya Singh', phone: '9876543211', bloodGroup: 'A+', location: 'Mumbai', donationCount: 3, lastDonationDate: '2024-03-20', donationHistory: [{ donationId: 'DH-002', date: '2024-03-20', location: 'Mumbai Donation Center', type: 'Platelets' }] },
@@ -1614,11 +1643,6 @@ export const dummyHospitalData = {
         security: { title: 'Security Alert', description: 'Unauthorized access attempt at main entrance.', level: 'medium', timestamp: '2024-10-03T09:15:00Z' },
         facility: { title: 'Facility Alert', description: 'Generator fuel level at 15%. Refill required.', level: 'low', timestamp: '2024-10-03T11:00:00Z' },
     },
-    aiInsights: {
-        predictivePatientLoad: 'AI predicts a 15% increase in patient load tomorrow due to local events.',
-        facilityHealthCheck: 'Oxygen supply levels are dropping faster than usual. Check for potential leaks.',
-        doctorStressPrediction: 'Dr. Kumar is at high risk of burnout. Automated leave recommendation sent.',
-    },
     schedules: [
       { id: 'sch-1', staffName: 'Dr. Sarah Johnson', department: 'Emergency', date: '2025-09-21', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-green-500/20' },
       { id: 'sch-2', staffName: 'Emily Davis', department: 'ICU', date: '2025-09-21', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-blue-500/20' },
@@ -1631,6 +1655,7 @@ export const dummyHospitalData = {
     ]
 };
     
+
 
 
 
