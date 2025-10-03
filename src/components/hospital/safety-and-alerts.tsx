@@ -100,21 +100,8 @@ export function SafetyAndAlerts({ hospitalData }) {
                     </CardContent>
                 </Card>
 
-                {/* Center Column: 3D Map */}
-                <Card className="xl:col-span-6 glassmorphism flex flex-col">
-                     <CardHeader>
-                        <CardTitle className="text-white">3D Hospital Fire Exit Map</CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-grow bg-black/50 rounded-lg border border-primary/20 flex items-center justify-center relative">
-                        <Image src="/3d-map.png" layout="fill" objectFit="contain" alt="3D Fire Exit Map" className="opacity-20" />
-                        <p className="z-10 text-white font-bold text-2xl bg-black/50 p-4 rounded-md animate-pulse">
-                            Interactive 3D Map Placeholder
-                        </p>
-                    </CardContent>
-                </Card>
-
-                {/* Right Column: Alerts */}
-                 <Card className="xl:col-span-3 glassmorphism flex flex-col">
+                {/* Right Column: Alerts - Spanning the rest of the grid */}
+                 <Card className="xl:col-span-9 glassmorphism flex flex-col">
                     <CardHeader>
                         <CardTitle className="text-white flex items-center gap-2"><Siren /> Live Alerts</CardTitle>
                         <div className="flex gap-2 pt-2">
@@ -164,3 +151,4 @@ export function SafetyAndAlerts({ hospitalData }) {
     );
 
     
+}
