@@ -4,6 +4,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 export function FacilitiesManagement({ hospitalData }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -185,6 +187,7 @@ export function FacilitiesManagement({ hospitalData }) {
 
         function createWardFloor({ width, depth, beds = 8 }) {
             const g = new THREE.Group();
+            g.userData.type = 'interior';
             const floor = new THREE.Mesh(new THREE.BoxGeometry(width - 2, 0.4, depth - 2), new THREE.MeshStandardMaterial({ color: 0xe6e9ed, roughness: 0.9 }));
             floor.position.y = 0.2;
             floor.receiveShadow = true;
@@ -192,6 +195,7 @@ export function FacilitiesManagement({ hospitalData }) {
 
             const bedGroup = new THREE.Group();
             bedGroup.userData.collection = 'equipment'; 
+            bedGroup.userData.type = 'equipment';
             const bedMat = new THREE.MeshStandardMaterial({ color: 0xced7df, roughness: 0.8 });
             const mattressMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 });
             for (let i = 0; i < beds; i++) {
@@ -202,7 +206,6 @@ export function FacilitiesManagement({ hospitalData }) {
                 mattress.position.set(frame.position.x, 1.0, frame.position.z);
                 bedGroup.add(frame, mattress);
             }
-            bedGroup.userData.type = 'equipment';
             g.add(bedGroup);
 
             const monitorGroup = new THREE.Group();
@@ -218,7 +221,6 @@ export function FacilitiesManagement({ hospitalData }) {
             }
             g.add(monitorGroup);
 
-            g.userData.type = 'interior';
             return g;
         }
 
@@ -273,21 +275,6 @@ export function FacilitiesManagement({ hospitalData }) {
         let hovered = null;
         let lastHovered = null;
 
-        function updateInfo(target) {
-            if (!target) {
-                 setInfo('Click any object to inspect. Toggle layers on the left.');
-                 return;
-            }
-            const data = target.userData;
-            let infoText = `<b>Type:</b> ${data.type}`;
-            if(data.name) infoText += `<br><b>Name:</b> ${data.name}`;
-            if(data.status) infoText += `<br><b>Status:</b> ${data.status}`;
-            if(data.alerts && data.alerts.length > 0) infoText += `<br><b>Alerts:</b> <span style="color: #ffcc00;">${data.alerts.join(', ')}</span>`;
-            if(data.maintenanceDue) infoText += `<br><b>Maintenance:</b> ${data.maintenanceDue}`;
-            
-            setInfo(infoText);
-        }
-        
         const onPointerMove = (e) => {
             const rect = renderer.domElement.getBoundingClientRect();
             mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -296,8 +283,7 @@ export function FacilitiesManagement({ hospitalData }) {
 
         const onClick = () => {
             if (hovered) {
-                const target = hovered.object.parent.userData.type ? hovered.object.parent : hovered.object;
-                updateInfo(target);
+                updateInfo(hovered);
             }
         };
         
@@ -347,14 +333,15 @@ export function FacilitiesManagement({ hospitalData }) {
             
             if (intersectObj && intersectObj.userData.type !== 'road' && intersectObj.userData.type !== 'lawn' && intersectObj.visible) {
                 hovered = intersectObj;
-                document.body.style.cursor = 'pointer';
+                 if(canvasRef.current) canvasRef.current.style.cursor = 'pointer';
 
                 if (lastHovered !== hovered) {
                     if (outlineMesh) scene.remove(outlineMesh);
                     
-                    const geometry = hovered.children[0].geometry;
+                    const geometry = hovered.children[0]?.geometry || hovered.geometry;
                     outlineMesh = new THREE.Mesh(geometry, outlineMaterial);
                     outlineMesh.position.copy(hovered.position);
+                    outlineMesh.rotation.copy(hovered.rotation);
                     outlineMesh.scale.multiplyScalar(1.05);
                     scene.add(outlineMesh);
                     lastHovered = hovered;
@@ -362,7 +349,7 @@ export function FacilitiesManagement({ hospitalData }) {
 
             } else {
                 hovered = null;
-                document.body.style.cursor = 'default';
+                if(canvasRef.current) canvasRef.current.style.cursor = 'default';
                 if(lastHovered){
                     if (outlineMesh) scene.remove(outlineMesh);
                     outlineMesh = null;
@@ -388,9 +375,24 @@ export function FacilitiesManagement({ hospitalData }) {
         setToggles(prev => ({ ...prev, [id.replace('toggle-', '')]: checked }));
     };
 
+    function updateInfo(target) {
+        if (!target) {
+             setInfo('Click any object to inspect. Toggle layers on the left.');
+             return;
+        }
+        const data = target.userData;
+        let infoText = `<b>Type:</b> ${data.type}`;
+        if(data.name) infoText += `<br><b>Name:</b> ${data.name}`;
+        if(data.status) infoText += `<br><b>Status:</b> ${data.status}`;
+        if(data.alerts && data.alerts.length > 0) infoText += `<br><b>Alerts:</b> <span style="color: #ffcc00;">${data.alerts.join(', ')}</span>`;
+        if(data.maintenanceDue) infoText += `<br><b>Maintenance:</b> ${data.maintenanceDue}`;
+        
+        setInfo(infoText);
+    }
+
     return (
         <div id="app" style={{height: '100%', width: '100%', position: 'relative'}}>
-            <canvas ref={canvasRef} id="three-canvas" style={{position: 'fixed', inset: 0, display: 'block', width: '100%', height: '100%'}}></canvas>
+            <canvas ref={canvasRef} id="three-canvas"></canvas>
             <div id="hud">
                 <div className="panel">
                     <h2>3D Hospital</h2>
@@ -417,5 +419,3 @@ export function FacilitiesManagement({ hospitalData }) {
         </div>
     );
 }
-
-    
