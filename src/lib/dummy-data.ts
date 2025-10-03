@@ -791,7 +791,7 @@ export const dummyStrokePatients: StrokePatient[] = [
         name: 'Hassan Ali',
         age: 65,
         gender: 'Male',
-        surgery: 'Hip Replacement',
+        surgery: 'Hip replacement',
         vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
         prediction: {
             chance: 91,
@@ -1060,3 +1060,108 @@ export const dummyCardiacPatients: CardiacPatient[] = [
 ];
 
 // --- END OF CARDIAC PATIENT DATA ---
+
+// --- START OF GUARDIANRX PATIENT DATA ---
+export interface GuardianRxPatient {
+    id: string;
+    name: string;
+    age: number;
+    condition: string;
+    adherence: number;
+    lastDose: string;
+    adherenceHistory: ('taken' | 'late' | 'missed')[];
+    risk: {
+        level: 'Safe' | 'Caution' | 'Critical';
+        details: string;
+    };
+    digitalTwin: {
+        organ: 'Heart' | 'Brain' | 'Lungs' | 'Liver' | 'Kidneys';
+        vitals: {
+            hr: number;
+            bp: string;
+            glucose?: number;
+            cholesterol?: number;
+        };
+        prediction: string;
+    };
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+    {
+        id: 'GRX-001',
+        name: 'Sanjay Sharma',
+        age: 45,
+        condition: 'Hypertension',
+        adherence: 92,
+        lastDose: '08:00 AM',
+        adherenceHistory: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'],
+        risk: { level: 'Safe', details: 'Mild risk if next dose is missed.' },
+        digitalTwin: {
+            organ: 'Heart',
+            vitals: { hr: 75, bp: '125/85' },
+            prediction: 'Missing a dose may elevate BP to 140/90 mmHg.'
+        }
+    },
+    {
+        id: 'GRX-002',
+        name: 'Priya Verma',
+        age: 32,
+        condition: 'Diabetes',
+        adherence: 85,
+        lastDose: '07:30 AM',
+        adherenceHistory: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'],
+        risk: { level: 'Caution', details: 'Risk of hyperglycemia.' },
+        digitalTwin: {
+            organ: 'Kidneys',
+            vitals: { hr: 80, bp: '120/80', glucose: 160 },
+            prediction: 'Two missed doses could raise glucose to 220 mg/dL.'
+        }
+    },
+    {
+        id: 'GRX-003',
+        name: 'Rohit Kumar',
+        age: 60,
+        condition: 'Heart Disease',
+        adherence: 70,
+        lastDose: '08:15 AM',
+        adherenceHistory: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'],
+        risk: { level: 'Critical', details: 'Risk of arrhythmia.' },
+        digitalTwin: {
+            organ: 'Heart',
+            vitals: { hr: 95, bp: '135/88' },
+            prediction: 'High probability of atrial fibrillation if next dose is missed.'
+        }
+    },
+    {
+        id: 'GRX-004',
+        name: 'Ananya Singh',
+        age: 28,
+        condition: 'Thyroid',
+        adherence: 100,
+        lastDose: '08:05 AM',
+        adherenceHistory: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'],
+        risk: { level: 'Safe', details: 'Fully compliant.' },
+        digitalTwin: {
+            organ: 'Brain',
+            vitals: { hr: 70, bp: '110/70' },
+            prediction: 'No immediate risk. Continued adherence is key.'
+        }
+    },
+    {
+        id: 'GRX-005',
+        name: 'Vikram Joshi',
+        age: 50,
+        condition: 'Cholesterol',
+        adherence: 78,
+        lastDose: '07:45 AM',
+        adherenceHistory: ['taken', 'taken', 'missed', 'late', 'taken', 'missed', 'taken'],
+        risk: { level: 'Caution', details: 'Risk of plaque formation.' },
+        digitalTwin: {
+            organ: 'Liver',
+            vitals: { hr: 72, bp: '128/82', cholesterol: 220 },
+            prediction: 'Consistent misses may increase LDL by 15%.'
+        }
+    }
+];
+
+// --- END OF GUARDIANRX PATIENT DATA ---

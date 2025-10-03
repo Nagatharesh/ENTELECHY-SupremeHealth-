@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, MessageSquare, Droplets, Search, BrainCircuit, HeartPulse } from 'lucide-react';
+import { User, Bell, PanelLeft, MessageSquare, Droplets, Search, BrainCircuit, HeartPulse, Dna, Siren } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -32,6 +32,7 @@ import { BloodBank } from '@/components/doctor/blood-bank';
 import { PatientReferralHub } from '@/components/doctor/patient-referral-hub';
 import { StrokePredictionHub } from '@/components/doctor/stroke-prediction-hub';
 import { CardiacDeviceHub } from '@/components/doctor/cardiac-device-hub';
+import { GuardianRxHub } from '@/components/doctor/guardian-rx-hub';
 
 
 function DashboardContent() {
@@ -67,6 +68,8 @@ function DashboardContent() {
         return <StrokePredictionHub />;
       case 'cardiac':
         return <CardiacDeviceHub />;
+      case 'guardian':
+        return <GuardianRxHub />;
       default:
         return <DoctorProfile doctor={doctor} />;
     }
@@ -79,6 +82,7 @@ function DashboardContent() {
     { id: 'referral', icon: Search, label: 'Referral Hub'},
     { id: 'stroke', icon: BrainCircuit, label: 'Stroke Prediction' },
     { id: 'cardiac', icon: HeartPulse, label: 'Cardiac ASI' },
+    { id: 'guardian', icon: Siren, label: 'GuardianRx' },
   ];
 
   const NavMenu = () => (
