@@ -99,13 +99,16 @@ export function FacilitiesManagement({ hospitalData }) {
             return new THREE.MeshStandardMaterial({ color: baseColor, emissive: 0x0a0d13, roughness: 0.6, metalness: 0.1 });
         }
 
-        function createBuilding({ width, height, depth, color = 0x9dadbd, windows = true }) {
+        function createBuilding({ name, width, height, depth, color = 0x9dadbd, windows = true, status = 'Operational', alerts = [] }) {
             const bldg = new THREE.Group();
-            const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.05 }));
+            const bodyMat = new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.05 });
+            const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), bodyMat);
             body.castShadow = true;
             body.receiveShadow = true;
             body.position.y = height / 2;
             bldg.add(body);
+            bldg.userData = { type: 'building', name, status, alerts };
+            bldg.userData.baseMaterial = bodyMat;
 
             if (windows) {
                 const windowMat = createWindowMaterial(0xbac8d8);
@@ -127,7 +130,6 @@ export function FacilitiesManagement({ hospitalData }) {
                     }
                 }
             }
-            bldg.userData.type = 'building';
             return bldg;
         }
 
@@ -135,17 +137,26 @@ export function FacilitiesManagement({ hospitalData }) {
         campus.userData.collection = 'buildings';
         world.add(campus);
 
-        const mainBlock = createBuilding({ width: 50, height: 24, depth: 30, color: 0xb7c5d6 });
+        const mainBlock = createBuilding({ name: 'Main Block', width: 50, height: 24, depth: 30, color: 0xb7c5d6 });
         mainBlock.position.set(40, 0, 10);
         campus.add(mainBlock);
 
-        const erBlock = createBuilding({ width: 26, height: 16, depth: 22, color: 0xcbd7e4 });
+        const erBlock = createBuilding({ name: 'ER Block', width: 26, height: 16, depth: 22, color: 0xcbd7e4, status: 'Maintenance', alerts: ['Power Fluctuation'] });
         erBlock.position.set(0, 0, -40);
         campus.add(erBlock);
 
-        const wardBlock = createBuilding({ width: 40, height: 20, depth: 24, color: 0xaec0d1 });
+        const wardBlock = createBuilding({ name: 'Ward Block', width: 40, height: 20, depth: 24, color: 0xaec0d1 });
         wardBlock.position.set(-70, 0, 18);
         campus.add(wardBlock);
+        
+        const alertMaterial = new THREE.MeshStandardMaterial({ color: 0xffcc00, emissive: 0x884400, transparent: true, opacity: 0.7 });
+        const alertIconTexture = new THREE.TextureLoader().load('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmNjMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJtMjEuNzIgMTQgYy43Ny0uODEuNzctMi4wMyAwLTIuODRsLTguMDEtOC4wMWMtLjc3LS43Ny0yLjAzLS43Ny0yLjg0IDBMLjI4IDExLjE2Yy0uNzcgLjc3LS43NyAyLjAzIDAgMi44NGw4LjAxIDguMDFjLjc3Ljc3IDIuMDMuNzcgMi44NCAwWiIvPjxsaW5lIHgxPSIxMiIgeDI9IjEyIiB5MT0iOCIgeTI9IjEyIi8+PGxpbmUgeDE9IjEyIiB4Mj0iMTIuMDEiIHkxPSIxNiIgeTI9IjE2Ii8+PC9zdmc+');
+        const alertIconMat = new THREE.SpriteMaterial({ map: alertIconTexture, color: 0xffcc00 });
+        const alertSprite = new THREE.Sprite(alertIconMat);
+        alertSprite.position.set(erBlock.position.x, erBlock.children[0].geometry.parameters.height + 3, erBlock.position.z);
+        alertSprite.scale.set(3,3,3);
+        world.add(alertSprite);
+
 
         function createCanopy(w, d, h) {
             const g = new THREE.Group();
@@ -180,7 +191,7 @@ export function FacilitiesManagement({ hospitalData }) {
             g.add(floor);
 
             const bedGroup = new THREE.Group();
-            bedGroup.userData.collection = 'equipment'; // Changed this line
+            bedGroup.userData.collection = 'equipment'; 
             const bedMat = new THREE.MeshStandardMaterial({ color: 0xced7df, roughness: 0.8 });
             const mattressMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 });
             for (let i = 0; i < beds; i++) {
@@ -195,7 +206,7 @@ export function FacilitiesManagement({ hospitalData }) {
             g.add(bedGroup);
 
             const monitorGroup = new THREE.Group();
-            monitorGroup.userData.collection = 'equipment'; // And this one
+            monitorGroup.userData.collection = 'equipment';
             const monitorMat = new THREE.MeshStandardMaterial({ color: 0x2a2f36, emissive: 0x0a141c });
             for (let i = 0; i < Math.min(6, beds); i++) {
                 const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 1.2, 8), new THREE.MeshStandardMaterial({ color: 0x9aa3ab }));
@@ -238,7 +249,9 @@ export function FacilitiesManagement({ hospitalData }) {
             lightBar.position.set(1, 3.6, 0);
             g.add(body, cab, stripe, w1, w2, w3, w4, lightBar);
             g.userData.type = 'ambulance';
-            g.userData.collection = 'ambulance';
+            g.userData.name = 'Ambulance Unit 01';
+            g.userData.status = 'Idle';
+            g.userData.maintenanceDue = '2025-11-15';
             return g;
         }
 
@@ -258,12 +271,23 @@ export function FacilitiesManagement({ hospitalData }) {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         let hovered = null;
-        
+        let lastHovered = null;
+
         function updateInfo(target) {
-            if (!target) { setInfo('Click any object to inspect. Toggle layers on the left.'); return; }
-            const t = target.userData.type || 'object';
-            setInfo(`Selected: ${t}`);
+            if (!target) {
+                 setInfo('Click any object to inspect. Toggle layers on the left.');
+                 return;
+            }
+            const data = target.userData;
+            let infoText = `<b>Type:</b> ${data.type}`;
+            if(data.name) infoText += `<br><b>Name:</b> ${data.name}`;
+            if(data.status) infoText += `<br><b>Status:</b> ${data.status}`;
+            if(data.alerts && data.alerts.length > 0) infoText += `<br><b>Alerts:</b> <span style="color: #ffcc00;">${data.alerts.join(', ')}</span>`;
+            if(data.maintenanceDue) infoText += `<br><b>Maintenance:</b> ${data.maintenanceDue}`;
+            
+            setInfo(infoText);
         }
+        updateInfo(null);
         
         const onPointerMove = (e) => {
             const rect = renderer.domElement.getBoundingClientRect();
@@ -272,7 +296,7 @@ export function FacilitiesManagement({ hospitalData }) {
         };
 
         const onClick = () => {
-            if (hovered) updateInfo(hovered.object);
+            if (hovered) updateInfo(hovered.object.parent.userData.type ? hovered.object.parent : hovered.object);
         };
         
         window.addEventListener('pointermove', onPointerMove);
@@ -288,27 +312,62 @@ export function FacilitiesManagement({ hospitalData }) {
         let t = 0;
         const tmp = new THREE.Vector3();
         const tmp2 = new THREE.Vector3();
+
+        const outlineMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.BackSide });
+        let outlineMesh = null;
+        
+        const clock = new THREE.Clock();
+
         const animate = () => {
             requestAnimationFrame(animate);
             controls.update();
 
+            const delta = clock.getDelta();
+            t = (t + delta * 0.02) % 1; 
+
             if (ambulance.visible) {
-                t = (t + 0.0016) % 1;
                 path.getPointAt(t, tmp);
                 path.getTangentAt(t, tmp2);
                 ambulance.position.set(tmp.x, 0, tmp.z);
                 ambulance.rotation.y = Math.atan2(tmp2.x, tmp2.z);
             }
 
+            erBlock.children[0].material.color.set(erBlock.userData.baseMaterial.color);
+            if(erBlock.userData.alerts.length > 0) {
+                 const pulse = (Math.sin(clock.getElapsedTime() * 4) + 1) / 2; // 0 to 1
+                 erBlock.children[0].material.color.lerp(alertMaterial.color, pulse);
+            }
+
+
             raycaster.setFromCamera(mouse, camera);
-            const intersect = raycaster.intersectObjects(world.children, true)[0];
-            if (intersect && intersect.object.visible) {
-                hovered = intersect;
+            const intersects = raycaster.intersectObjects(world.children, true);
+            let intersectObj = intersects[0] ? (intersects[0].object.parent.userData.type ? intersects[0].object.parent : intersects[0].object) : null;
+            
+            if (intersectObj && intersectObj.userData.type !== 'road' && intersectObj.userData.type !== 'lawn' && intersectObj.visible) {
+                hovered = intersectObj;
                 document.body.style.cursor = 'pointer';
+
+                if (lastHovered !== hovered) {
+                    if (outlineMesh) scene.remove(outlineMesh);
+                    
+                    const geometry = hovered.children[0].geometry;
+                    outlineMesh = new THREE.Mesh(geometry, outlineMaterial);
+                    outlineMesh.position.copy(hovered.position);
+                    outlineMesh.scale.multiplyScalar(1.05);
+                    scene.add(outlineMesh);
+                    lastHovered = hovered;
+                }
+
             } else {
                 hovered = null;
                 document.body.style.cursor = 'default';
+                if(lastHovered){
+                    if (outlineMesh) scene.remove(outlineMesh);
+                    outlineMesh = null;
+                    lastHovered = null;
+                }
             }
+
             renderer.render(scene, camera);
         };
         animate();
@@ -322,42 +381,6 @@ export function FacilitiesManagement({ hospitalData }) {
 
     }, []);
 
-    useEffect(() => {
-        const night = toggles.night;
-        const scene = canvasRef.current?.__THREE__?.scene;
-        if(scene) {
-            const nightLight = scene.getObjectByName('nightLight');
-            const sun = scene.getObjectByName('sun');
-            const hemi = scene.getObjectByName('hemi');
-            if(nightLight) nightLight.visible = night;
-            if(sun) (sun as THREE.DirectionalLight).intensity = night ? 0.2 : 1.1;
-            if(hemi) (hemi as THREE.HemisphereLight).intensity = night ? 0.25 : 0.6;
-            if(scene.background) (scene.background as THREE.Color).set(night ? 0x07080a : 0x0e1012);
-        }
-
-        const world = canvasRef.current?.__THREE__?.world;
-        if(world) {
-            const campus = world.getObjectByName('campus');
-            if(campus) campus.visible = toggles.buildings;
-
-            const interiors = world.getObjectByName('interiors');
-            if(interiors) {
-                interiors.visible = toggles.interiors;
-                interiors.children.forEach((c: THREE.Object3D) => {
-                    c.traverse((o: THREE.Object3D) => { 
-                        if (o.userData.collection === 'equipment') {
-                            o.visible = toggles.equipment;
-                        }
-                    });
-                });
-            }
-            
-            const ambulance = world.getObjectByName('ambulance');
-            if(ambulance) ambulance.visible = toggles.ambulance;
-        }
-
-    }, [toggles]);
-
     const handleToggle = (e) => {
         const { id, checked } = e.target;
         setToggles(prev => ({ ...prev, [id.replace('toggle-', '')]: checked }));
@@ -365,7 +388,7 @@ export function FacilitiesManagement({ hospitalData }) {
 
     return (
         <div id="app" style={{height: '100%', width: '100%', position: 'relative'}}>
-            <canvas ref={canvasRef} style={{position: 'fixed', inset: 0, display: 'block', width: '100%', height: '100%'}}></canvas>
+            <canvas ref={canvasRef} id="three-canvas" style={{position: 'fixed', inset: 0, display: 'block', width: '100%', height: '100%'}}></canvas>
             <div id="hud">
                 <div className="panel">
                     <h2>3D Hospital</h2>
@@ -378,7 +401,7 @@ export function FacilitiesManagement({ hospitalData }) {
                         <label><input type="checkbox" id="toggle-ambulance" checked={toggles.ambulance} onChange={handleToggle} /> Ambulance</label>
                     </div>
                     <div className="row">
-                        <label><input type="checkbox" id="toggle-daynight" checked={toggles.night} onChange={handleToggle} /> Night Mode</label>
+                        <label><input type="checkbox" id="toggle-night" checked={toggles.night} onChange={handleToggle} /> Night Mode</label>
                     </div>
                     <div className="legend">
                         <span className="legend-item building">Building</span>
@@ -387,9 +410,10 @@ export function FacilitiesManagement({ hospitalData }) {
                         <span className="legend-item ambulance">Ambulance</span>
                     </div>
                 </div>
-                <div id="info">{info}</div>
+                <div id="info" dangerouslySetInnerHTML={{ __html: info }}></div>
             </div>
         </div>
     );
 }
 
+    
