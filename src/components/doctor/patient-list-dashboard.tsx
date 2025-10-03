@@ -19,7 +19,7 @@ const statusStyles = {
   cancelled: "bg-red-500/20 text-red-400 border-red-500/30",
 };
 
-const StatCard = ({ label, value, icon: Icon, subValue, subLabel }) => (
+const StatCard = ({ label, value, icon: Icon, subValue, subLabel }: { label: string; value: string | number; icon: React.ElementType; subValue?: string | number; subLabel?: string }) => (
     <div className="glassmorphism p-6 rounded-lg text-center transform transition-transform hover:-translate-y-2 hover:shadow-primary/30 shadow-lg">
         <Icon className="w-10 h-10 text-primary mx-auto mb-3" />
         <p className="text-4xl font-bold text-gradient-glow">{value}</p>
@@ -31,7 +31,7 @@ const StatCard = ({ label, value, icon: Icon, subValue, subLabel }) => (
 );
 
 export function PatientListDashboard() {
-    const { doctorInfo, patients, analyticsSummary, uiHints, flags } = doctorDashboardData;
+    const { doctorInfo, patients, analyticsSummary, uiHints, flags } = doctorDashboardData.doctorPatientDashboardData;
 
     return (
         <div className="space-y-8">
