@@ -21,7 +21,8 @@ const StatCard = ({ icon: Icon, title, value, description }) => (
 );
 
 export function HospitalOverview({ hospitalData }) {
-    const { hospitalInfo, analytics, aiInsights } = hospitalData;
+    const { hospitalInfo, analytics } = hospitalData;
+    const aiInsights = analytics?.aiInsights;
 
     const patientLoadData = analytics.patientLoadHistory.map(d => ({ name: d.month, patients: d.count }));
     const revenueData = analytics.revenue.map(d => ({ name: d.month, revenue: d.amount / 100000 })); // in Lakhs
@@ -72,9 +73,13 @@ export function HospitalOverview({ hospitalData }) {
                         <CardTitle className="text-white">AI Insights</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                         <InsightPill icon={Bot} text={aiInsights.predictivePatientLoad} />
-                         <InsightPill icon={Bot} text={aiInsights.facilityHealthCheck} />
-                         <InsightPill icon={Bot} text={aiInsights.doctorStressPrediction} />
+                         {aiInsights && (
+                            <>
+                                <InsightPill icon={Bot} text={aiInsights.predictivePatientLoad} />
+                                <InsightPill icon={Bot} text={aiInsights.facilityHealthCheck} />
+                                <InsightPill icon={Bot} text={aiInsights.doctorStressPrediction} />
+                            </>
+                         )}
                     </CardContent>
                 </Card>
             </div>
