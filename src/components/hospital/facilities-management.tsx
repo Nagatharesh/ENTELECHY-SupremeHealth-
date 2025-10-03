@@ -11,7 +11,8 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, Siren } from 'lucide-react';
+import { AlertTriangle, Siren, ZoomIn, ZoomOut } from 'lucide-react';
+import { Button } from '../ui/button';
 
 
 export function FacilitiesManagement({ hospitalData }) {
@@ -78,6 +79,22 @@ export function FacilitiesManagement({ hospitalData }) {
         controls.maxPolarAngle = Math.PI * 0.49;
         controls.minDistance = 10;
         controls.maxDistance = 350;
+
+        const zoomIn = () => {
+            controls.dollyIn(1.2);
+            controls.update();
+        };
+
+        const zoomOut = () => {
+            controls.dollyOut(1.2);
+            controls.update();
+        };
+        
+        const zoomInBtn = document.getElementById('zoom-in');
+        const zoomOutBtn = document.getElementById('zoom-out');
+        zoomInBtn?.addEventListener('click', zoomIn);
+        zoomOutBtn?.addEventListener('click', zoomOut);
+
 
         const hemi = new THREE.HemisphereLight(0xffffff, 0x223344, 0.6);
         scene.add(hemi);
@@ -817,6 +834,8 @@ export function FacilitiesManagement({ hospitalData }) {
             canvas.removeEventListener('click', onClick);
             canvas.removeEventListener('dblclick', onDblClick);
             window.removeEventListener('keydown', handleKeyDown);
+            zoomInBtn?.removeEventListener('click', zoomIn);
+            zoomOutBtn?.removeEventListener('click', zoomOut);
             if (labelRenderer.domElement.parentNode) {
                 document.body.removeChild(labelRenderer.domElement);
             }
@@ -863,6 +882,10 @@ export function FacilitiesManagement({ hospitalData }) {
                     </div>
                     <div className="row">
                         <label><input type="checkbox" id="toggle-night" checked={toggles.night} onChange={handleToggle} /> Night Mode</label>
+                    </div>
+                     <div className="row mt-4">
+                        <Button id="zoom-in" variant="outline" size="icon" className="h-8 w-8"><ZoomIn className="h-4 w-4" /></Button>
+                        <Button id="zoom-out" variant="outline" size="icon" className="h-8 w-8"><ZoomOut className="h-4 w-4" /></Button>
                     </div>
                     <div className="legend">
                         <Badge variant="secondary" className="bg-blue-500/20 text-blue-300">Building</Badge>
