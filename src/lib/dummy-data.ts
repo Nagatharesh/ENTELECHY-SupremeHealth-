@@ -6,6 +6,7 @@
 
 
 
+
 export const dummyAadhaarPatients = [
     { aadhaar_full: '123412341234', name: 'Rahul Sharma', dob: '1993-01-05', gender: 'M', contact: '+91 9876543210', address: '45 Green Park, New Delhi', is_test: true },
     { aadhaar_full: '234523452345', name: 'Anjali Mehta', dob: '1997-08-22', gender: 'F', contact: '+91 9123456780', address: '12 Rose Street, Mumbai', is_test: true },
@@ -52,6 +53,11 @@ export const dummyHospitals = [
     { hospitalId: "HOS-004", name: "AIIMS", location: "New Delhi", contact: "+911126588500", patientLoad: 95, coordinates: { lat: 12.9120, lng: 74.8590 } },
     { hospitalId: "HOS-005", name: "Tata Memorial", location: "Mumbai", contact: "+912224177000", patientLoad: 90, coordinates: { lat: 12.9180, lng: 74.8540 } },
     { hospitalId: "HOS-006", name: "Rainbow Children’s Hospital", location: "Chennai", contact: "+914448600000", patientLoad: 70, coordinates: { lat: 12.9100, lng: 74.8530 } }
+];
+
+export const dummyEncounters = [
+    { encounterId: 'ENC1001', patientId: 'P10001', doctorId: '3001', date: '2025-09-25', notes: 'Patient presented with symptoms of an upper respiratory tract infection (URTI). Advised rest and hydration.' },
+    { encounterId: 'ENC1002', patientId: 'P10002', doctorId: '3002', date: '2025-09-20', notes: 'Acute bronchospasm detected. Administered nebulizer and prescribed inhaler.' },
 ];
 
 export const dummyPrescriptions = [
@@ -168,89 +174,89 @@ export type AadhaarPatient = typeof dummyAadhaarPatients[0];
 export type Doctor = typeof dummyDoctors[0];
 
 export const singleDemoDoctor = {
-    "doctor": {
-      "id": "dr-arjun-singh-demo",
-      "fullName": "Dr. Arjun Singh (Demo)",
-      "displayName": "Dr. Arjun",
-      "age": 42,
-      "gender": "Male",
-      "photo_url": "https://via.placeholder.com/400x400?text=Dr+Arjun+Singh+Demo+PHOTO",
-      "title": "Senior Cardiologist (Demo)",
-      "bio": "Senior Cardiologist with 12+ years of clinical experience in interventional cardiology. THIS PROFILE IS A DEMO — credentials are SAMPLE ONLY for UI/testing.",
-      "hospital": {
-        "name": "Apex Heart Institute (Demo)",
-        "department": "Cardiology",
-        "location": { "city": "Bengaluru", "state": "Karnataka", "country": "India" },
-        "workingSince": "2012-06-15"
+  "doctor": {
+    "id": "dr-arjun-singh-demo",
+    "fullName": "Dr. Arjun Singh (Demo)",
+    "displayName": "Dr. Arjun",
+    "age": 42,
+    "gender": "Male",
+    "photo_url": "https://via.placeholder.com/400x400?text=Dr+Arjun+Singh+Demo+PHOTO",
+    "title": "Senior Cardiologist (Demo)",
+    "bio": "Senior Cardiologist with 12+ years of clinical experience in interventional cardiology. THIS PROFILE IS A DEMO — credentials are SAMPLE ONLY for UI/testing.",
+    "hospital": {
+      "name": "Apex Heart Institute (Demo)",
+      "department": "Cardiology",
+      "location": { "city": "Bengaluru", "state": "Karnataka", "country": "India" },
+      "workingSince": "2012-06-15"
+    },
+    "contact": {
+      "email": "arjun.singh.demo@example.test",
+      "phone": "+91-9876500011",
+      "officeHours": "Mon-Fri 09:00-16:00 IST (Demo)"
+    },
+    "certificates": [
+      {
+        "certId": "cert-as-demo-1",
+        "title": "MD Cardiology - SAMPLE (Demo)",
+        "issuedBy": "Mock Medical University (Demo)",
+        "year": 2010,
+        "image_url": "https://via.placeholder.com/800x600?text=SAMPLE+CERTIFICATE+dr-arjun-singh-demo+1+SAMPLE+-+NOT+FOR+OFFICIAL+USE",
+        "note": "SAMPLE - NOT FOR OFFICIAL USE — mock credential for UI/testing"
       },
-      "contact": {
-        "email": "arjun.singh.demo@example.test",
-        "phone": "+91-9876500011",
-        "officeHours": "Mon-Fri 09:00-16:00 IST (Demo)"
+      {
+        "certId": "cert-as-demo-2",
+        "title": "Advanced Cardiac Life Support (ACLS) - SAMPLE (Demo)",
+        "issuedBy": "Mock ACLS Institute (Demo)",
+        "year": 2015,
+        "image_url": "https://via.placeholder.com/800x600?text=SAMPLE+CERTIFICATE+dr-arjun-singh-demo+2+SAMPLE+-+NOT+FOR+OFFICIAL+USE",
+        "note": "SAMPLE - NOT FOR OFFICIAL USE — mock credential for UI/testing"
+      }
+    ],
+    "records": [
+      {
+        "recordId": "rec-as-demo-1",
+        "date": "2025-09-30",
+        "patientSummary": "Mr. R — acute chest discomfort; angiography performed, 1 stent placed (demo).",
+        "diagnosisTags": ["IHD", "Stent"],
+        "notes": "Post-op stable; discharge with dual antiplatelet therapy. Follow-up in 2 weeks (demo).",
+        "linkedPatientId": "pt-demo-1001"
       },
-      "certificates": [
-        {
-          "certId": "cert-as-demo-1",
-          "title": "MD Cardiology - SAMPLE (Demo)",
-          "issuedBy": "Mock Medical University (Demo)",
-          "year": 2010,
-          "image_url": "https://via.placeholder.com/800x600?text=SAMPLE+CERTIFICATE+dr-arjun-singh-demo+1+SAMPLE+-+NOT+FOR+OFFICIAL+USE",
-          "note": "SAMPLE - NOT FOR OFFICIAL USE — mock credential for UI/testing"
-        },
-        {
-          "certId": "cert-as-demo-2",
-          "title": "Advanced Cardiac Life Support (ACLS) - SAMPLE (Demo)",
-          "issuedBy": "Mock ACLS Institute (Demo)",
-          "year": 2015,
-          "image_url": "https://via.placeholder.com/800x600?text=SAMPLE+CERTIFICATE+dr-arjun-singh-demo+2+SAMPLE+-+NOT+FOR+OFFICIAL+USE",
-          "note": "SAMPLE - NOT FOR OFFICIAL USE — mock credential for UI/testing"
-        }
-      ],
-      "records": [
-        {
-          "recordId": "rec-as-demo-1",
-          "date": "2025-09-30",
-          "patientSummary": "Mr. R — acute chest discomfort; angiography performed, 1 stent placed (demo).",
-          "diagnosisTags": ["IHD", "Stent"],
-          "notes": "Post-op stable; discharge with dual antiplatelet therapy. Follow-up in 2 weeks (demo).",
-          "linkedPatientId": "pt-demo-1001"
-        },
-        {
-          "recordId": "rec-as-demo-2",
-          "date": "2025-08-12",
-          "patientSummary": "Mrs. K — palpitations; ECG & Holter normal (demo).",
-          "diagnosisTags": ["Palpitations"],
-          "notes": "Reassurance and lifestyle advice. Consider advanced testing if symptoms recur (demo).",
-          "linkedPatientId": "pt-demo-1002"
-        },
-        {
-          "recordId": "rec-as-demo-3",
-          "date": "2025-06-05",
-          "patientSummary": "Annual cardiac check-up — stable (demo).",
-          "diagnosisTags": ["Routine"],
-          "notes": "Continue statin and exercise regimen. Next review in 12 months (demo).",
-          "linkedPatientId": "pt-demo-1003"
-        }
-      ],
-      "analytics": {
-        "totalPatients": 2348,
-        "lastShift": "2025-10-02T08:00:00Z",
-        "avgResponseMins": 18,
-        "riskScore": 0.12
+      {
+        "recordId": "rec-as-demo-2",
+        "date": "2025-08-12",
+        "patientSummary": "Mrs. K — palpitations; ECG & Holter normal (demo).",
+        "diagnosisTags": ["Palpitations"],
+        "notes": "Reassurance and lifestyle advice. Consider advanced testing if symptoms recur (demo).",
+        "linkedPatientId": "pt-demo-1002"
       },
-      "flags": {
-        "demo": true,
-        "sealedCertificateDownload": true
-      },
-      "uiHints": {
-        "profileCardOrder": ["photo", "fullName", "title", "age", "hospital", "bio", "contact"],
-        "certificatesWatermarkText": "SAMPLE - NOT FOR OFFICIAL USE",
-        "showDownloadButton": false
-      },
-      "createdAt": "2025-10-03T08:00:00Z",
-      "updatedAt": "2025-10-03T08:00:00Z"
-    }
-  };
+      {
+        "recordId": "rec-as-demo-3",
+        "date": "2025-06-05",
+        "patientSummary": "Annual cardiac check-up — stable (demo).",
+        "diagnosisTags": ["Routine"],
+        "notes": "Continue statin and exercise regimen. Next review in 12 months (demo).",
+        "linkedPatientId": "pt-demo-1003"
+      }
+    ],
+    "analytics": {
+      "totalPatients": 2348,
+      "lastShift": "2025-10-02T08:00:00Z",
+      "avgResponseMins": 18,
+      "riskScore": 0.12
+    },
+    "flags": {
+      "demo": true,
+      "sealedCertificateDownload": true
+    },
+    "uiHints": {
+      "profileCardOrder": ["photo", "fullName", "title", "age", "hospital", "bio", "contact"],
+      "certificatesWatermarkText": "SAMPLE - NOT FOR OFFICIAL USE",
+      "showDownloadButton": false
+    },
+    "createdAt": "2025-10-03T08:00:00Z",
+    "updatedAt": "2025-10-03T08:00:00Z"
+  }
+};
 export type DoctorProfileData = typeof singleDemoDoctor;
 
 
@@ -344,38 +350,316 @@ export const dummyBloodBank = [
 ];
 
 export const doctorDashboardData = {
-    overview: {
-        totalPatients: 125,
-        resolved: 85,
-        waiting: 40,
-        onlineBookings: 70,
-        offlineBookings: 55,
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
     },
-    dailyActivity: [
-        { hour: '08:00', patientsSeen: 1, resolved: 1 },
-        { hour: '09:00', patientsSeen: 2, resolved: 1 },
-        { hour: '10:00', patientsSeen: 3, resolved: 2 },
-        { hour: '11:00', patientsSeen: 4, resolved: 3 },
-        { hour: '12:00', patientsSeen: 2, resolved: 2 },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
     ],
-    feedback: [
-        { name: '5★', value: 280 },
-        { name: '4★', value: 30 },
-        { name: '3★', value: 5 },
-        { name: '2★', value: 3 },
-        { name: '1★', value: 2 },
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
     ],
-    mentalState: [
-        { day: 'Mon', patientsSeen: 20, resolved: 15, stressLevel: 7 },
-        { day: 'Tue', patientsSeen: 25, resolved: 18, stressLevel: 8 },
-        { day: 'Wed', patientsSeen: 15, resolved: 10, stressLevel: 6 },
-        { day: 'Thu', patientsSeen: 22, resolved: 17, stressLevel: 7 },
-        { day: 'Fri', patientsSeen: 18, resolved: 14, stressLevel: 6 },
-        { day: 'Sat', patientsSeen: 10, resolved: 8, stressLevel: 5 },
-        { day: 'Sun', patientsSeen: 10, resolved: 8, stressLevel: 4 },
-    ]
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
 };
 
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
 
 // --- START OF PATIENT INTERFACES AND DATA ---
 
@@ -1428,7 +1712,7 @@ export const doctorPatientDashboardData = {
       "restrictDownload": true,
       "placeholderPhotos": true
     }
-  }
+  };
 
 export const onlinePrescriptionData = {
   "doctorId": "dr-arjun-singh-demo",
@@ -1524,7 +1808,10528 @@ export const onlinePrescriptionData = {
     "searchMedsButtonLabel": "Search medicines & add",
     "pharmacyAutoFill": true
   }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
 }
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
+
+export const dummyPatientsForPrescription = [
+    { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },
+    { id: "P10002", name: "Meera Iyer", age: 32, gender: "F", contact: "+91-9876500020", allergies: "None", conditions: "Asthma", lastVisit: "2024-08-20", location: "Mumbai" },
+    { id: "P10003", name: "Arjun Patel", age: 67, gender: "M", contact: "+91-9876500030", allergies: "Sulfa drugs", conditions: "Hypertension", lastVisit: "2024-09-01", location: "Bangalore" }
+];
+
+export const dummyDoctorsForPrescription = [
+    { id: "3001", name: "Dr. Anil Verma", registration: "REG-AP-120", contact: "+91-7000003001", clinic: "Apollo Care" },
+    { id: "3002", name: "Dr. Sneha Rao", registration: "REG-SR-221", contact: "+91-7000003002", clinic: "City Health" }
+];
+
+export const dummyMedicinesForPrescription = [
+    { id: "M001", name: "Paracetamol 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 10 },
+    { id: "M002", name: "Azithromycin 250mg Tablet", strength: "250mg", form: "Tablet", route: "Oral", defaultQty: 6 },
+    { id: "M003", name: "Salbutamol Inhaler 100mcg", strength: "100mcg", form: "Inhaler", route: "Inhalation", defaultQty: 1 },
+    { id: "M004", name: "Amlodipine 5mg Tablet", strength: "5mg", form: "Tablet", route: "Oral", defaultQty: 30 },
+    { id: "M005", name: "Metformin XR 500mg Tablet", strength: "500mg", form: "Tablet", route: "Oral", defaultQty: 30 }
+];
+    
+
+// --- START OF PATIENT INTERFACES AND DATA ---
+
+export interface MedicalEncounter {
+  encounterId: string;
+  date: string;
+  department: string;
+  doctor: string;
+  reason: string;
+  findings: string;
+  treatment: string;
+  dischargeNotes: string;
+  investigations?: string;
+}
+
+export interface Investigation {
+  investigationId: string;
+  date: string;
+  doctor: string;
+  type: string;
+  summary: string;
+  imageUrl?: string;
+}
+
+export interface Patient {
+    patientId: string;
+    name: string;
+    dob: string;
+    gender: "Male" | "Female" | "Other";
+    bloodGroup: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+    phone: string;
+    aadhaar: string;
+    emergencyContact: {
+        name: string;
+        phone: string;
+    };
+    healthOverview: {
+        chronicConditions: string[];
+        allergies: string[];
+        lifestyle: string;
+    };
+    vitals: {
+        heartRate: number[];
+        bloodPressure: string[];
+        bloodSugar: number[];
+        oxygenSaturation: number[];
+    };
+    medications: {
+        current: { name: string, dosage: string }[];
+        past: { name: string, dosage: string }[];
+    };
+    appointments: {
+        appointmentId: string;
+        date: string;
+        doctorId: string;
+        hospitalId: string;
+        status: "booked" | "completed" | "cancelled";
+        urgent: boolean;
+        token: number;
+        patientsAhead: number;
+        waitTime: number;
+        chatResponse: string;
+        summary: string;
+        feedback: number;
+    }[];
+    medicalEncounters: MedicalEncounter[];
+    investigations: Investigation[];
+    insurance: {
+        provider: string;
+        policyNumber: string;
+    };
+    predictions: {
+        vitalsNext7Days: {
+            heartRate: number[];
+            bloodPressure: string[];
+        };
+        medicationAdherence: number[];
+        appointmentProbability: number[];
+    };
+     analytics: {
+        vitalSigns: { month: string, BP: number, HR: number }[];
+        spO2: number;
+        medicalVisits: { month: string, visits: number }[];
+        medicationCompliance: { name: string, adherence: number }[];
+        lifestyleScore: { metric: string, score: number }[];
+        futureRisk: {
+            cardiac: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            diabetes: { risk: 'Low' | 'Moderate' | 'High', details: string };
+            stroke: { risk: 'Low' | 'Moderate' | 'High', details:string };
+        };
+    };
+}
+
+
+export const dummyPatients: Patient[] = [
+  {
+    patientId: "P-102345",
+    name: "Ananya Sharma",
+    dob: "1995-08-15",
+    gender: "Female",
+    bloodGroup: "O+",
+    phone: "+919876543210",
+    aadhaar: "1234-5678-9012",
+    emergencyContact: { name: "Ravi Sharma", phone: "+919876543211" },
+    healthOverview: {
+      chronicConditions: ["Asthma", "Migraine"],
+      allergies: ["Pollen"],
+      lifestyle: "Moderately Active",
+    },
+    vitals: {
+      heartRate: [72, 75, 78, 76, 74, 80, 77],
+      bloodPressure: ["118/78", "120/80", "122/81", "119/79", "121/80", "120/80", "122/82"],
+      bloodSugar: [85, 90, 88, 92, 91, 89, 93],
+      oxygenSaturation: [98, 99, 98, 97, 99, 98, 99],
+    },
+    medications: {
+      current: [{ name: "Salbutamol Inhaler", dosage: "2 puffs PRN" }, { name: "Sumatriptan", dosage: "50mg at onset" }],
+      past: [{ name: "Montelukast", dosage: "10mg daily" }],
+    },
+    appointments: [
+      { appointmentId: "APP-001", date: "2025-10-20T15:30:00.000Z", doctorId: "DOC-011", hospitalId: "HOS-001", status: "booked", urgent: false, token: 12, patientsAhead: 3, waitTime: 18, chatResponse: "Hello, I'll review your asthma progress during our call.", summary: "Last prescription: Inhaler 2 puffs PRN.", feedback: 0 },
+      { appointmentId: "APP-002", date: "2025-10-25T11:00:00.000Z", doctorId: "DOC-012", hospitalId: "HOS-002", status: "booked", urgent: true, token: 8, patientsAhead: 2, waitTime: 10, chatResponse: "Please bring your last ECG report.", summary: "Last visit: Tachycardia, Nebulizer given.", feedback: 0 },
+      { appointmentId: "APP-003", date: "2025-11-02T16:15:00.000Z", doctorId: "DOC-013", hospitalId: "HOS-003", status: "booked", urgent: false, token: 5, patientsAhead: 1, waitTime: 5, chatResponse: "Please send a photo of your skin rash before visit.", summary: "Last visit: Mild dermatitis, hydrocortisone cream prescribed.", feedback: 0 },
+      { appointmentId: "APP-004", date: "2025-09-15T20:00:00.000Z", doctorId: "DOC-014", hospitalId: "HOS-002", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Routine Checkup, BP 130/84.", feedback: 4 },
+      { appointmentId: "APP-005", date: "2025-08-30T18:30:00.000Z", doctorId: "DOC-015", hospitalId: "HOS-004", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Migraine treatment, prescribed Sumatriptan.", feedback: 5 },
+      { appointmentId: "APP-006", date: "2025-07-20T14:00:00.000Z", doctorId: "DOC-016", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Knee pain, MRI done, physiotherapy recommended.", feedback: 3 },
+      { appointmentId: "APP-007", date: "2025-06-10T09:45:00.000Z", doctorId: "DOC-017", hospitalId: "HOS-003", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Thyroid imbalance, Levothyroxine prescribed.", feedback: 4 },
+      { appointmentId: "APP-008", date: "2025-05-05T12:30:00.000Z", doctorId: "DOC-018", hospitalId: "HOS-005", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Preventive cancer screening, all normal.", feedback: 5 },
+      { appointmentId: "APP-009", date: "2025-04-15T10:00:00.000Z", doctorId: "DOC-019", hospitalId: "HOS-006", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Child fever, Paracetamol syrup prescribed.", feedback: 4 },
+      { appointmentId: "APP-010", date: "2025-03-10T19:30:00.000Z", doctorId: "DOC-020", hospitalId: "HOS-001", status: "completed", urgent: false, token: 0, patientsAhead: 0, waitTime: 0, chatResponse: "", summary: "Anxiety counseling, SSRI suggested.", feedback: 5 },
+    ],
+    medicalEncounters: [
+        { encounterId: "ENC-001", date: "2024-03-01", department: "Pulmonology", doctor: "Dr. Neha Kapoor", reason: "Follow-up for Asthma", findings: "Lungs clear, peak flow rate improved.", treatment: "Continued Salbutamol PRN, added Montelukast.", dischargeNotes: "Advised to avoid pollen.", investigations: "Spirometry" },
+        { encounterId: "ENC-002", date: "2024-01-15", department: "Neurology", doctor: "Dr. Kavya Nair", reason: "Severe Headache", findings: "Classic migraine with aura.", treatment: "Prescribed Sumatriptan.", dischargeNotes: "Advised to maintain a headache diary." },
+        { encounterId: "ENC-003", date: "2023-11-20", department: "Emergency", doctor: "Dr. Amit Verma", reason: "Acute Asthma Attack", findings: "Severe bronchospasm.", treatment: "Nebulization with Salbutamol and Ipratropium.", dischargeNotes: "Discharged after 4 hours of observation." , investigations: "ECG, Blood Test"},
+        { encounterId: "ENC-004", date: "2023-09-10", department: "Dermatology", doctor: "Dr. S Mehra", reason: "Skin Rash", findings: "Allergic dermatitis.", treatment: "Topical steroid cream.", dischargeNotes: "Advised to use hypoallergenic products." },
+    ],
+    investigations: [
+        { investigationId: "INV-001", date: "2024-03-01", doctor: "Dr. Neha Kapoor", type: "Spirometry", summary: "FEV1/FVC ratio of 0.75, showing mild obstructive pattern." },
+        { investigationId: "INV-002", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "ECG", summary: "Sinus tachycardia, rate 110 bpm." },
+        { investigationId: "INV-003", date: "2023-11-20", doctor: "Dr. Amit Verma", type: "Blood Test", summary: "WBC count slightly elevated." },
+        { investigationId: "INV-004", date: "2023-08-05", doctor: "Dr. A Kumar", type: "X-Ray", summary: "Chest X-ray clear, no infiltrates.", imageUrl: "https://placehold.co/600x400/000000/FFFFFF/png?text=Chest+X-Ray" },
+    ],
+    insurance: {
+      provider: "Star Health",
+      policyNumber: "SH12345678",
+    },
+    predictions: {
+      vitalsNext7Days: {
+        heartRate: [78, 79, 77, 80, 78, 79, 81],
+        bloodPressure: ["121/81", "123/82", "122/80", "124/83", "123/81", "122/82", "124/82"],
+      },
+      medicationAdherence: [0.9, 0.95, 0.88, 0.92, 0.94, 0.89, 0.93],
+      appointmentProbability: [0.2, 0.3, 0.25, 0.4, 0.35, 0.5, 0.6],
+    },
+    analytics: {
+        vitalSigns: [
+            { month: 'Apr', BP: 125, HR: 80 }, { month: 'May', BP: 122, HR: 78 },
+            { month: 'Jun', BP: 124, HR: 82 }, { month: 'Jul', BP: 120, HR: 75 },
+            { month: 'Aug', BP: 121, HR: 76 }, { month: 'Sep', BP: 118, HR: 72 },
+        ],
+        spO2: 98,
+        medicalVisits: [
+            { month: 'Jan', visits: 1 }, { month: 'Mar', visits: 2 },
+            { month: 'Jun', visits: 1 }, { month: 'Sep', visits: 3 },
+        ],
+        medicationCompliance: [
+            { name: 'Salbutamol', adherence: 90 },
+            { name: 'Sumatriptan', adherence: 75 },
+            { name: 'Montelukast', adherence: 95 },
+        ],
+        lifestyleScore: [
+            { metric: 'Diet', score: 70 }, { metric: 'Exercise', score: 60 },
+            { metric: 'Stress', score: 50 }, { metric: 'Sleep', score: 80 },
+        ],
+        futureRisk: {
+            cardiac: { risk: 'Low', details: 'Low risk due to controlled BP and healthy lifestyle.' },
+            diabetes: { risk: 'Low', details: 'No significant indicators for diabetes.' },
+            stroke: { risk: 'Moderate', details: 'Migraines with aura slightly increase stroke risk. BP management is key.' },
+        }
+    }
+  },
+];
+// --- END OF PATIENT INTERFACES AND DATA ---
+
+// --- START OF DNA PATIENT INTERFACES AND DATA ---
+export interface DnaPatient {
+  id: string;
+  name: string;
+  age: number;
+  gender: 'Male' | 'Female';
+  condition: string;
+  geneticRisk: {
+    familyHistory: string[];
+    markers: { gene: string; risk: 'Low' | 'Moderate' | 'High' }[];
+  };
+  medication: {
+    current: string;
+    aiSuggestion: string;
+  };
+  advanced: {
+    predictedDiseases: string[];
+    preventiveMeasures: string[];
+  };
+  graphs: {
+    riskProgression?: { year: string; risk: number }[];
+    diseaseDistribution?: { name: string; value: number }[];
+    trendData?: { month: string, value: number }[];
+  };
+}
+
+export const dummyDnaPatients: DnaPatient[] = [
+  {
+    id: 'P1001',
+    name: 'John Matthews',
+    age: 45,
+    gender: 'Male',
+    condition: 'Diabetes Type 2',
+    geneticRisk: {
+      familyHistory: ['Father - Diabetes Type 2', 'Grandmother - Diabetes Type 2'],
+      markers: [
+        { gene: 'TCF7L2', risk: 'High' },
+        { gene: 'FTO', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Metformin',
+      aiSuggestion: 'Add Dapagliflozin.',
+    },
+    advanced: {
+      predictedDiseases: ['Diabetic Nephropathy', 'Cardiovascular Complications'],
+      preventiveMeasures: ['Strict glycemic control', 'Annual kidney function tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 154 }, { month: 'Feb', value: 162 }, { month: 'Mar', value: 158 },
+        { month: 'Apr', value: 170 }, { month: 'May', value: 165 }, { month: 'Jun', value: 175 }
+      ],
+    },
+  },
+  {
+    id: 'P1002',
+    name: 'Anita Sharma',
+    age: 32,
+    gender: 'Female',
+    condition: 'Breast Cancer Risk',
+    geneticRisk: {
+      familyHistory: ['Mother - Breast Cancer'],
+      markers: [{ gene: 'BRCA1', risk: 'High' }],
+    },
+    medication: {
+      current: 'Preventive hormone therapy',
+      aiSuggestion: 'Genetic counseling + AI-driven clinical trial drugs.',
+    },
+    advanced: {
+      predictedDiseases: ['Ovarian Cancer'],
+      preventiveMeasures: ['Annual mammograms', 'BRCA-related cancer screening'],
+    },
+    graphs: {
+      diseaseDistribution: [
+        { name: 'Breast Cancer', value: 70 },
+        { name: 'Ovarian Cancer', value: 30 },
+      ],
+    },
+  },
+  {
+    id: 'P1003',
+    name: 'Liam Chen',
+    age: 55,
+    gender: 'Male',
+    condition: 'Hypertension',
+    geneticRisk: {
+      familyHistory: ['Father - Hypertension', 'Mother - Hypertension'],
+      markers: [
+        { gene: 'ACE', risk: 'High' },
+        { gene: 'AGT', risk: 'Moderate' },
+      ],
+    },
+    medication: {
+      current: 'Beta blockers',
+      aiSuggestion: 'Switch to ARBs (e.g., Losartan) for better tolerance.',
+    },
+    advanced: {
+      predictedDiseases: ['Stroke', 'Coronary Artery Disease'],
+      preventiveMeasures: ['Low-sodium diet', 'Regular exercise', 'Stress management'],
+    },
+    graphs: {
+      trendData: [
+        { month: '2023-01', value: 145 }, { month: '2023-04', value: 150 }, { month: '2023-07', value: 148 },
+        { month: '2023-10', value: 152 }, { month: '2024-01', value: 155 }
+      ],
+    },
+  },
+  {
+    id: 'P1004',
+    name: 'Sophia Rodriguez',
+    age: 28,
+    gender: 'Female',
+    condition: 'Autoimmune (Lupus)',
+    geneticRisk: {
+      familyHistory: ['Maternal aunt - Lupus'],
+      markers: [{ gene: 'HLA-DR3', risk: 'High' }],
+    },
+    medication: {
+      current: 'Corticosteroids',
+      aiSuggestion: 'Recommend biologics (e.g., Belimumab) to reduce steroid dependency.',
+    },
+    advanced: {
+      predictedDiseases: ['Lupus Nephritis', 'Arthritis'],
+      preventiveMeasures: ['UV protection', 'Regular renal and antibody tests'],
+    },
+    graphs: {
+      trendData: [
+        { month: 'Jan', value: 2.1 }, { month: 'Feb', value: 2.5 }, { month: 'Mar', value: 3.2 },
+        { month: 'Apr', value: 2.8 }, { month: 'May', value: 3.5 }, { month: 'Jun', value: 4.1 }
+      ]
+    },
+  },
+  {
+    id: 'P1005',
+    name: 'Kiran Patel',
+    age: 60,
+    gender: 'Male',
+    condition: 'Alzheimer’s Risk',
+    geneticRisk: {
+      familyHistory: ['Family dementia history'],
+      markers: [{ gene: 'APOE-e4', risk: 'High' }],
+    },
+    medication: {
+      current: 'Donepezil',
+      aiSuggestion: 'Enroll in clinical trial for BACE inhibitors.',
+    },
+    advanced: {
+      predictedDiseases: ['Rapid cognitive decline'],
+      preventiveMeasures: ['Cognitive exercises', 'Mediterranean diet', 'Social engagement'],
+    },
+    graphs: {
+      riskProgression: [
+        { year: '2020', risk: 20 }, { year: '2021', risk: 25 }, { year: '2022', risk: 35 },
+        { year: '2023', risk: 45 }, { year: '2024', risk: 55 }
+      ],
+    },
+  },
+];
+// --- END OF DNA PATIENT INTERFACES AND DATA ---
+
+// --- START OF REFERRAL PATIENT DATA ---
+export const dummyReferralPatients = {
+    "P1001": {
+        id: "P1001",
+        name: "John Matthews",
+        age: 45,
+        gender: "Male",
+        bloodGroup: "O+",
+        allergies: ["None"],
+        chronicConditions: ["Type 2 Diabetes"],
+        doctorsVisited: ["Dr. S Mehra (Endocrinologist)", "Dr. K Reddy (General Physician)"],
+        medicines: { current: "Metformin", suggestion: "Dapagliflozin" },
+        records: [
+            { type: "Lab Test", name: "HbA1c", result: "6.9%", date: "2024-08-01" },
+            { type: "Lab Test", name: "Fasting Sugar", result: "130 mg/dL", date: "2024-08-01" },
+            { type: "Lab Test", name: "Cholesterol", result: "190 mg/dL", date: "2024-08-01" },
+            { type: "Consultation", name: "Follow-up", doctor: "Dr. S Mehra", date: "2024-08-02" },
+        ],
+        graphs: {
+            hba1cTrend: [{ name: 'Feb', value: 7.5 }, { name: 'May', value: 7.2 }, { name: 'Aug', value: 6.9 }],
+            medicationAdherence: 85
+        },
+        aiInsights: {
+            risk: "Moderate risk of cardiovascular issues due to diabetes. HbA1c trend is positive.",
+            treatment: "Suggest switching to a combination therapy of Metformin and Dapagliflozin for better glycemic control.",
+            prevention: "Recommend incorporating 30 minutes of daily cardio exercise."
+        }
+    },
+    "P1002": {
+        id: "P1002",
+        name: "Anita Sharma",
+        age: 32,
+        gender: "Female",
+        bloodGroup: "A+",
+        allergies: ["Penicillin"],
+        chronicConditions: ["BRCA1 Gene Positive"],
+        doctorsVisited: ["Dr. Priya (Oncologist)"],
+        medicines: { current: "Preventive Hormone Therapy", suggestion: "Consider PARP inhibitors trial" },
+        records: [
+            { type: "Genetic Test", name: "BRCA1/BRCA2", result: "Positive for BRCA1", date: "2023-11-10" },
+            { type: "Consultation", name: "Genetic Counseling", doctor: "Dr. Vikram Singh", date: "2023-11-12" },
+        ],
+        graphs: {
+            mutationProbability: { "Breast Cancer": 65, "Ovarian Cancer": 40 },
+            medicationAdherence: 98
+        },
+        aiInsights: {
+            risk: "High lifetime risk for breast (65%) and ovarian (40%) cancer.",
+            treatment: "Continue hormone therapy. Highly recommend enrolling in PARP inhibitor clinical trials for risk reduction.",
+            prevention: "Annual mammograms and transvaginal ultrasounds are crucial for early detection."
+        }
+    },
+     "P1003": {
+        id: "P1003",
+        name: "Liam Chen",
+        age: 55,
+        gender: "Male",
+        bloodGroup: "B+",
+        allergies: ["None"],
+        chronicConditions: ["Hypertension"],
+        doctorsVisited: ["Dr. A Kumar (Cardiologist)", "Dr. T Wong (Physician)"],
+        medicines: { current: "Beta Blockers", suggestion: "Switch to ARBs" },
+        records: [
+            { type: "ECG", name: "12-Lead ECG", result: "Normal Sinus Rhythm", date: "2024-01-15" },
+            { type: "Report", name: "BP Monitoring", result: "Average 135/90 mmHg", date: "2024-07-20" },
+        ],
+        graphs: {
+            bpTrend: [{ name: '2023', value: "160/100" }, { name: '2024', value: "130/85" }],
+            medicationAdherence: 92
+        },
+        aiInsights: {
+            risk: "Controlled hypertension, but still at risk for stroke. BP trend is positive.",
+            treatment: "Patient reports side effects from Beta Blockers. ARBs like Telmisartan would be better tolerated and equally effective.",
+            prevention: "Advise DASH diet and stress reduction techniques like meditation."
+        }
+    },
+    "P1004": {
+        id: "P1004",
+        name: "Sophia Rodriguez",
+        age: 28,
+        gender: "Female",
+        bloodGroup: "AB+",
+        allergies: ["Gluten"],
+        chronicConditions: ["Lupus (SLE)"],
+        doctorsVisited: ["Dr. M Jain (Immunologist)"],
+        medicines: { current: "Corticosteroids", suggestion: "Introduce Biologics" },
+        records: [
+            { type: "Lab Test", name: "ANA Panel", result: "Positive, Titer 1:640", date: "2024-05-01" },
+            { type: "Lab Test", name: "dsDNA Antibody", result: "Elevated", date: "2024-05-01" },
+        ],
+        graphs: {
+            antibodySpikes: [{ name: 'Jan', value: 200 }, { name: 'Mar', value: 450 }, { name: 'May', value: 300 }, { name: 'Jul', value: 550 }],
+            medicationAdherence: 88
+        },
+        aiInsights: {
+            risk: "Active Lupus with frequent flares. High risk of renal involvement.",
+            treatment: "Long-term corticosteroid use is problematic. Introduce Belimumab (biologic) to target the underlying mechanism and reduce steroid dose.",
+            prevention: "Strict sun protection is mandatory to prevent flares. Monitor kidney function quarterly."
+        }
+    },
+    "P1005": {
+        id: "P1005",
+        name: "Kiran Patel",
+        age: 60,
+        gender: "Male",
+        bloodGroup: "O-",
+        allergies: ["None"],
+        chronicConditions: ["Early Alzheimer's Markers"],
+        doctorsVisited: ["Dr. R Verma (Neurologist)"],
+        medicines: { current: "Donepezil", suggestion: "BACE Inhibitor Trials" },
+        records: [
+            { type: "Scan", name: "Brain MRI", result: "Mild hippocampal atrophy", date: "2024-02-20" },
+            { type: "Report", name: "Cognitive Test (MoCA)", result: "Score 24/30", date: "2024-02-20" },
+        ],
+        graphs: {
+            cognitiveDecline: [{ name: '2020', value: 85 }, { name: '2022', value: 75 }, { name: '2024', value: 65 }],
+            medicationAdherence: 95
+        },
+        aiInsights: {
+            risk: "Positive for APOE-e4 gene. Steady cognitive decline observed. High progression risk.",
+            treatment: "Donepezil provides symptomatic relief. The most promising path is enrolling in a clinical trial for a BACE inhibitor to slow disease progression.",
+            prevention: "Encourage cognitive stimulation (puzzles, reading), social engagement, and a Mediterranean diet."
+        }
+    }
+}
+
+export type ReferralPatient = typeof dummyReferralPatients.P1001;
+// --- END OF REFERRAL PATIENT DATA ---
+
+// --- START OF STROKE PATIENT DATA ---
+export interface StrokePatient {
+    id: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    surgery: string;
+    vitals: {
+        bp: string;
+        heartRate: number;
+        oxygen: number;
+        brainActivity: string;
+    };
+    prediction: {
+        chance: number;
+        explanation: string;
+        suggestion: string;
+    };
+    graphs: {
+        riskCurve: { hour: number; risk: number }[];
+    };
+}
+
+export const dummyStrokePatients: StrokePatient[] = [
+    {
+        id: 'P2001',
+        name: 'Rajesh Kumar',
+        age: 50,
+        gender: 'Male',
+        surgery: 'Bypass Surgery',
+        vitals: { bp: '160/100', heartRate: 110, oxygen: 92, brainActivity: 'Arrhythmia' },
+        prediction: {
+            chance: 78,
+            explanation: 'Family history of strokes, high BP, and post-surgery stress are significant contributing factors.',
+            suggestion: 'Start anticoagulants immediately and maintain close ICU monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 15 }, { hour: 1, risk: 25 }, { hour: 2, risk: 40 }, 
+                { hour: 3, risk: 65 }, { hour: 4, risk: 78 }, { hour: 5, risk: 78 }, { hour: 6, risk: 78 }
+            ]
+        }
+    },
+    {
+        id: 'P2002',
+        name: 'Emily Johnson',
+        age: 38,
+        gender: 'Female',
+        surgery: 'C-section',
+        vitals: { bp: '120/80', heartRate: 75, oxygen: 98, brainActivity: 'Normal' },
+        prediction: {
+            chance: 12,
+            explanation: 'No genetic risk factors and stable vitals indicate a low probability of stroke.',
+            suggestion: 'Continue with regular post-operative monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 10 }, { hour: 1, risk: 11 }, { hour: 2, risk: 12 }, 
+                { hour: 3, risk: 12 }, { hour: 4, risk: 11 }, { hour: 5, risk: 12 }, { hour: 6, risk: 12 }
+            ]
+        }
+    },
+    {
+        id: 'P2003',
+        name: 'Hassan Ali',
+        age: 65,
+        gender: 'Male',
+        surgery: 'Hip replacement',
+        vitals: { bp: '170/110', heartRate: 95, oxygen: 89, brainActivity: 'Normal' },
+        prediction: {
+            chance: 91,
+            explanation: 'Hypertension, poor oxygen, and clotting issues present a critical risk.',
+            suggestion: 'Immediate blood thinners, high-risk monitoring.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 30 }, { hour: 1, risk: 50 }, { hour: 2, risk: 75 }, 
+                { hour: 3, risk: 88 }, { hour: 4, risk: 91 }, { hour: 5, risk: 91 }, { hour: 6, risk: 91 }
+            ]
+        }
+    },
+    {
+        id: 'P2004',
+        name: 'Maria Lopez',
+        age: 47,
+        gender: 'Female',
+        surgery: 'Gallbladder Removal',
+        vitals: { bp: '145/95', heartRate: 88, oxygen: 94, brainActivity: 'Mild Arrhythmia' },
+        prediction: {
+            chance: 48,
+            explanation: 'Irregular heart rhythm + borderline hypertension elevates the stroke risk.',
+            suggestion: 'Keep under watch, prescribe beta blockers.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 20 }, { hour: 1, risk: 28 }, { hour: 2, risk: 35 }, 
+                { hour: 3, risk: 42 }, { hour: 4, risk: 48 }, { hour: 5, risk: 47 }, { hour: 6, risk: 48 }
+            ]
+        }
+    },
+    {
+        id: 'P2005',
+        name: 'Daniel Smith',
+        age: 72,
+        gender: 'Male',
+        surgery: 'Brain Tumor Removal',
+        vitals: { bp: '180/115', heartRate: 120, oxygen: 87, brainActivity: 'Severe Arrhythmia' },
+        prediction: {
+            chance: 97,
+            explanation: 'Critically high BP, oxygen drop, history of strokes indicate an almost certain stroke event.',
+            suggestion: 'Emergency medication, brain scan, ICU transfer.'
+        },
+        graphs: {
+            riskCurve: [
+                { hour: 0, risk: 60 }, { hour: 1, risk: 80 }, { hour: 2, risk: 92 }, 
+                { hour: 3, risk: 95 }, { hour: 4, risk: 97 }, { hour: 5, risk: 97 }, { hour: 6, risk: 97 }
+            ]
+        }
+    }
+];
+// --- END OF STROKE PATIENT DATA ---
+
+// --- START OF CARDIAC PATIENT DATA ---
+
+export interface CardiacPatient {
+    patientId: string;
+    name: string;
+    age: number;
+    gender: 'Male' | 'Female';
+    device: {
+        type: 'Pacemaker' | 'ICD' | 'LVAD';
+        model: string;
+        serial: string;
+        implantedDate: string;
+    };
+    telemetry: {
+        battery: {
+            percentage: number;
+            voltage: number;
+        };
+        leadImpedance: {
+            value: number;
+            trend: number;
+        };
+        pacingThreshold: number;
+        pumpFlow?: number;
+        powerSpikes?: boolean;
+        arrhythmiaEvents: string[];
+    };
+    vitals: {
+        hr: number;
+        bp: string;
+        spo2: number;
+    };
+    aiPrediction: {
+        risk: number;
+        timeframe: string;
+        explanation: string;
+        suggestion: string;
+    };
+    location: {
+        city: string;
+        coordinates: {
+            lat: number;
+            lng: number;
+        };
+    };
+    nearbyHospitals: {
+        name: string;
+        distance: string;
+        tags: string[];
+    }[];
+    assignedDoctor: string;
+}
+
+export const dummyCardiacPatients: CardiacPatient[] = [
+    {
+        patientId: 'P3001',
+        name: 'Rajiv Menon',
+        age: 64,
+        gender: 'Male',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-A100',
+            serial: 'PMX-A-00123',
+            implantedDate: '2019-06-12'
+        },
+        telemetry: {
+            battery: { percentage: 27, voltage: 2.65 },
+            leadImpedance: { value: 680, trend: 38 },
+            pacingThreshold: 2.4,
+            arrhythmiaEvents: ['Bradycardia episodes']
+        },
+        vitals: { hr: 48, bp: '100/60 mmHg', spo2: 93 },
+        aiPrediction: {
+            risk: 84,
+            timeframe: '2h 45m',
+            explanation: 'Lead impedance rose 38% in 48min; battery voltage fell to 2.65V; intermittent bradycardia noted.',
+            suggestion: 'Call patient to present immediately; prepare emergency pacing; consider on-site interrogation.'
+        },
+        location: { city: 'Mumbai, India', coordinates: { lat: 19.0760, lng: 72.8777 } },
+        nearbyHospitals: [
+            { name: 'Apollo Hospitals', distance: '3.2 km', tags: ['Cardiac Cath Lab', 'ICU capacity'] },
+            { name: 'Jaslok Hospital', distance: '4.7 km', tags: ['Neurointerventional available'] }
+        ],
+        assignedDoctor: 'Dr. S. Mehra (Cardiology)'
+    },
+    {
+        patientId: 'P3002',
+        name: 'Aisha Khan',
+        age: 57,
+        gender: 'Female',
+        device: {
+            type: 'ICD',
+            model: 'ICD-Z900',
+            serial: 'ICD-Z-00456',
+            implantedDate: '2021-11-02'
+        },
+        telemetry: {
+            battery: { percentage: 44, voltage: 2.8 },
+            leadImpedance: { value: 950, trend: 55 },
+            pacingThreshold: 1.8,
+            arrhythmiaEvents: ['Frequent ventricular ectopy']
+        },
+        vitals: { hr: 110, bp: '140/90 mmHg', spo2: 95 },
+        aiPrediction: {
+            risk: 71,
+            timeframe: '2h 10m',
+            explanation: 'High risk of inappropriate shocks leading to arrhythmia and collapse due to lead impedance spike and ectopy.',
+            suggestion: 'Initiate Tele-Eval to interrogate device remotely. Prepare for anti-arrhythmic medication.'
+        },
+        location: { city: 'New Delhi, India', coordinates: { lat: 28.6139, lng: 77.2090 } },
+        nearbyHospitals: [
+            { name: 'AIIMS Delhi', distance: '6.0 km', tags: ['Tertiary Cardiac Centre'] },
+            { name: 'Max Super Speciality', distance: '4.2 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. N. Verma (Electrophysiology)'
+    },
+    {
+        patientId: 'P3003',
+        name: 'Thomas Miller',
+        age: 72,
+        gender: 'Male',
+        device: {
+            type: 'LVAD',
+            model: 'LVAD-Pro V3',
+            serial: 'LVAD-P-0789',
+            implantedDate: '2023-02-18'
+        },
+        telemetry: {
+            battery: { percentage: 88, voltage: 14.0 },
+            leadImpedance: { value: 0, trend: 0 },
+            pacingThreshold: 0,
+            pumpFlow: 2.1,
+            powerSpikes: true,
+            arrhythmiaEvents: ['Pump flow drop detected']
+        },
+        vitals: { hr: 85, bp: '88/55 mmHg', spo2: 90 },
+        aiPrediction: {
+            risk: 93,
+            timeframe: '1h 40m',
+            explanation: 'Pump flow dropped from 4.5 to 2.1 L/min with power spikes, indicating imminent thrombosis or pump failure.',
+            suggestion: 'CRITICAL ALERT: Auto-dispatching ambulance. Prepare for emergency VAD team intervention.'
+        },
+        location: { city: 'London, UK', coordinates: { lat: 51.5074, lng: -0.1278 } },
+        nearbyHospitals: [
+            { name: 'Royal London Hospital', distance: '5.5 km', tags: ['VAD center'] },
+            { name: 'St. Thomas’ Hospital', distance: '3.8 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. L. Patel (Heart Failure/VAD specialist)'
+    },
+    {
+        patientId: 'P3004',
+        name: 'Maria Garcia',
+        age: 59,
+        gender: 'Female',
+        device: {
+            type: 'Pacemaker',
+            model: 'PMX-S50',
+            serial: 'PMX-S-0222',
+            implantedDate: '2018-09-05'
+        },
+        telemetry: {
+            battery: { percentage: 38, voltage: 2.75 },
+            leadImpedance: { value: 550, trend: 10 },
+            pacingThreshold: 3.2,
+            arrhythmiaEvents: ['Intermittent loss of capture']
+        },
+        vitals: { hr: 52, bp: '105/70 mmHg', spo2: 94 },
+        aiPrediction: {
+            risk: 58,
+            timeframe: '3h',
+            explanation: 'Pacing threshold has jumped to 3.2V with loss of capture events. Moderate risk of symptomatic bradycardia.',
+            suggestion: 'Schedule an in-person device check within 24 hours. Advise patient to report dizziness.'
+        },
+        location: { city: 'São Paulo, Brazil', coordinates: { lat: -23.5505, lng: -46.6333 } },
+        nearbyHospitals: [
+            { name: 'Hospital do Coração', distance: '2.9 km', tags: ['Cardiac emergency'] },
+            { name: 'São Paulo General', distance: '5.1 km', tags: ['ICU'] }
+        ],
+        assignedDoctor: 'Dr. R. Oliveira (Cardiology)'
+    },
+    {
+        patientId: 'P3005',
+        name: 'Arun Shah',
+        age: 68,
+        gender: 'Male',
+        device: {
+            type: 'ICD',
+            model: 'CRTD-Elite',
+            serial: 'CRTD-E-3344',
+            implantedDate: '2020-04-22'
+        },
+        telemetry: {
+            battery: { percentage: 65, voltage: 2.85 },
+            leadImpedance: { value: 720, trend: 5 },
+            pacingThreshold: 1.5,
+            arrhythmiaEvents: ['Rising atrial fibrillation burden']
+        },
+        vitals: { hr: 120, bp: '130/78 mmHg', spo2: 92 },
+        aiPrediction: {
+            risk: 76,
+            timeframe: '2h 30m',
+            explanation: 'High atrial fibrillation burden with borderline SpO2 and battery voltage fluctuations increases risk of arrhythmia-related collapse.',
+            suggestion: 'Consider remote device adjustment to manage AF. Patient should be on alert for symptoms.'
+        },
+        location: { city: 'Bengaluru, India', coordinates: { lat: 12.9716, lng: 77.5946 } },
+        nearbyHospitals: [
+            { name: 'Fortis Hospital', distance: '6.8 km', tags: ['Cardiac Cath Lab'] },
+            { name: 'Manipal Hospital', distance: '3.5 km', tags: ['Cardiac ICU'] }
+        ],
+        assignedDoctor: 'Dr. K. Srinivasan (Cardiac Electrophysiology)'
+    }
+];
+
+// --- END OF CARDIAC PATIENT DATA ---
+
+// --- START of GuardianRx PATIENT DATA ---
+export interface GuardianRxPatient {
+  patient_id: string;
+  name: string;
+  age: number;
+  condition: string;
+  adherence: number;
+  lastDoseTime: string;
+  timeline: ('taken' | 'missed' | 'late')[];
+}
+
+export const dummyGuardianRxPatients: GuardianRxPatient[] = [
+  { patient_id: 'P001', name: 'Sanjay Sharma', age: 45, condition: 'Hypertension', adherence: 92, lastDoseTime: '08:00 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'late', 'taken', 'taken'] },
+  { patient_id: 'P002', name: 'Priya Verma', age: 32, condition: 'Diabetes', adherence: 85, lastDoseTime: '07:30 AM', timeline: ['taken', 'taken', 'late', 'taken', 'taken', 'taken', 'late'] },
+  { patient_id: 'P003', name: 'Rohit Kumar', age: 60, condition: 'Heart Disease', adherence: 70, lastDoseTime: '08:15 AM', timeline: ['taken', 'missed', 'missed', 'taken', 'taken', 'missed', 'taken'] },
+  { patient_id: 'P004', name: 'Ananya Singh', age: 28, condition: 'Thyroid', adherence: 100, lastDoseTime: '08:05 AM', timeline: ['taken', 'taken', 'taken', 'taken', 'taken', 'taken', 'taken'] },
+  { patient_id: 'P005', name: 'Vikram Joshi', age: 50, condition: 'Cholesterol', adherence: 78, lastDoseTime: '07:45 AM', timeline: ['taken', 'taken', 'missed', 'taken', 'late', 'taken', 'taken'] }
+];
+
+export const dummyAlerts = [
+  { alert_id: 'A001', patient_id: 'P003', message: "Rohit Kumar missed 3 doses → 25% risk of hospitalization.", risk_percentage: 25 },
+  { alert_id: 'A002', patient_id: 'P002', message: "Priya Verma missed 2 doses this week. Risk of hyperglycemia 15%. Suggest follow-up call.", risk_percentage: 15 }
+];
+// --- END of GuardianRx PATIENT DATA ---
+
+// --- START of Cardiac AI Responses ---
+export const dummyCardiacAiResponses = {
+  P3001: "Analysis of global pacemaker data shows a 15% higher failure rate for model PMX-A100 with lead impedance spikes >30%. Recommend immediate device replacement over interrogation.",
+  P3002: "Cross-referencing similar cases with high ventricular ectopy reveals a 40% success rate with an early switch to Amiodarone. Suggest this as a primary action.",
+  P3003: "LVAD thrombosis simulation indicates a 90% chance of full pump seizure within 3 hours. Emergency surgery is the only viable option. Global data supports this.",
+  P3004: "In similar cases, increasing pacing output by 0.5V and shortening the AV delay has resolved intermittent capture loss in 65% of patients. Suggest remote adjustment.",
+  P3005: "Clinical trials for the 'AF-Suppress' drug show an 82% reduction in AF burden for this patient profile. Patient is a prime candidate for trial enrollment."
+};
+// --- END of Cardiac AI Responses ---
+
+// --- START of DNA AI Responses ---
+export const dummyDnaAiResponses = {
+  P1001: "Global data shows patients with TCF7L2 and FTO markers respond 25% better to SGLT2 inhibitors like Dapagliflozin in combination with Metformin. Suggest adding it to the regimen.",
+  P1002: "A recent study from Stanford on a similar genetic profile indicates that a combination of PARP inhibitor Olaparib and a checkpoint inhibitor has shown a 60% risk reduction in BRCA1-positive models.",
+  P1003: "Analysis of 10,000+ patient records suggests that patients with ACE and AGT variants often experience fewer side effects and better BP control with ARBs (Losartan/Telmisartan) than with beta-blockers.",
+  P1004: "Recent clinical trials for Anifrolumab, a type I interferon receptor antagonist, show superior efficacy in reducing disease activity in HLA-DR3 positive lupus patients compared to standard biologics.",
+  P1005: "Simulations based on genetic markers and cognitive decline rate predict a 70% probability of accelerated decline. A clinical trial for the experimental BACE inhibitor 'CNP520' has shown promise in this specific patient cohort."
+};
+// --- END of DNA AIResponses ---
+
+
+export const doctorPatientDashboardData = {
+    "doctorInfo": {
+      "doctorId": "DOC-001",
+      "fullName": "Dr. A Kumar",
+      "specialty": "Cardiology",
+      "workingHours": {
+        "startTime": "09:00",
+        "endTime": "17:00"
+      },
+      "averageConsultTimeMinutes": 15,
+      "totalDailySlots": 32
+    },
+    "patients": [
+      {
+        "patientId": "P-001",
+        "fullName": "Sanjay Sharma",
+        "age": 45,
+        "gender": "Male",
+        "contact": { "phone": "9876543210", "email": "sanjay.s@example.com" },
+        "tokenNumber": 1,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:00", "end": "09:15" },
+        "symptomsText": "Complaint of mild chest pain and shortness of breath.",
+        "status": "completed",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2024-08-15T00:00:00.000Z",
+        "notes": "ECG normal. Prescribed rest and follow-up if symptoms persist."
+      },
+      {
+        "patientId": "P-002",
+        "fullName": "Priya Verma",
+        "age": 32,
+        "gender": "Female",
+        "contact": { "phone": "9876543211", "email": "priya.v@example.com" },
+        "tokenNumber": 2,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:15", "end": "09:30" },
+        "symptomsText": "Routine diabetes check-up. Reports occasional dizziness.",
+        "status": "booked",
+        "messagesCount": 5,
+        "callsCount": 1,
+        "lastVisit": "2024-07-20T00:00:00.000Z",
+        "notes": "HbA1c levels are slightly elevated. Needs diet counseling."
+      },
+      {
+        "patientId": "P-003",
+        "fullName": "Rohit Kumar",
+        "age": 60,
+        "gender": "Male",
+        "contact": { "phone": "9876543212", "email": "rohit.k@example.com" },
+        "tokenNumber": 3,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:30", "end": "09:45" },
+        "symptomsText": "Follow-up after angioplasty. Feeling well.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-01T00:00:00.000Z",
+        "notes": "Recovery is on track. Continue medication as prescribed."
+      },
+      {
+        "patientId": "P-004",
+        "fullName": "Ananya Singh",
+        "age": 28,
+        "gender": "Female",
+        "contact": { "phone": "9876543213", "email": "ananya.s@example.com" },
+        "tokenNumber": 4,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "09:45", "end": "10:00" },
+        "symptomsText": "Persistent cough and cold for a week.",
+        "status": "cancelled",
+        "messagesCount": 3,
+        "callsCount": 2,
+        "lastVisit": "2023-12-10T00:00:00.000Z",
+        "notes": "Patient cancelled due to personal reasons. Asked to reschedule."
+      },
+      {
+        "patientId": "P-005",
+        "fullName": "Vikram Joshi",
+        "age": 50,
+        "gender": "Male",
+        "contact": { "phone": "9876543214", "email": "vikram.j@example.com" },
+        "tokenNumber": 5,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:00", "end": "10:15" },
+        "symptomsText": "Needs prescription renewal for cholesterol medication.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-04-05T00:00:00.000Z",
+        "notes": "Check lipid profile before renewing."
+      },
+      {
+        "patientId": "P-006",
+        "fullName": "Meera Iyer",
+        "age": 38,
+        "gender": "Female",
+        "contact": { "phone": "9876543215", "email": "meera.i@example.com" },
+        "tokenNumber": 6,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:15", "end": "10:30" },
+        "symptomsText": "Discussion about recent lab reports.",
+        "status": "booked",
+        "messagesCount": 1,
+        "callsCount": 0,
+        "lastVisit": "2024-09-25T00:00:00.000Z",
+        "notes": "Reports indicate low Vitamin D levels."
+      },
+      {
+        "patientId": "P-007",
+        "fullName": "Alok Verma",
+        "age": 55,
+        "gender": "Male",
+        "contact": { "phone": "9876543216", "email": "alok.v@example.com" },
+        "tokenNumber": 7,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:30", "end": "10:45" },
+        "symptomsText": "High blood pressure readings at home.",
+        "status": "booked",
+        "messagesCount": 4,
+        "callsCount": 1,
+        "lastVisit": "2024-01-30T00:00:00.000Z",
+        "notes": "Patient seems anxious. Needs BP monitoring and possibly medication adjustment."
+      },
+      {
+        "patientId": "P-008",
+        "fullName": "Sneha Gupta",
+        "age": 41,
+        "gender": "Female",
+        "contact": { "phone": "9876543217", "email": "sneha.g@example.com" },
+        "tokenNumber": 8,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "10:45", "end": "11:00" },
+        "symptomsText": "General weakness and fatigue.",
+        "status": "booked",
+        "messagesCount": 2,
+        "callsCount": 0,
+        "lastVisit": "2023-11-11T00:00:00.000Z",
+        "notes": "Advised complete blood count and iron studies."
+      },
+      {
+        "patientId": "P-009",
+        "fullName": "Ravi Desai",
+        "age": 68,
+        "gender": "Male",
+        "contact": { "phone": "9876543218", "email": "ravi.d@example.com" },
+        "tokenNumber": 9,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:00", "end": "11:15" },
+        "symptomsText": "Follow-up for joint pain.",
+        "status": "booked",
+        "messagesCount": 0,
+        "callsCount": 0,
+        "lastVisit": "2024-09-18T00:00:00.000Z",
+        "notes": "Pain has reduced with physiotherapy."
+      },
+      {
+        "patientId": "P-010",
+        "fullName": "Nisha Patel",
+        "age": 29,
+        "gender": "Female",
+        "contact": { "phone": "9876543219", "email": "nisha.p@example.com" },
+        "tokenNumber": 10,
+        "appointmentDate": "2024-10-03T00:00:00.000Z",
+        "appointmentTime": { "start": "11:15", "end": "11:30" },
+        "symptomsText": "Skin rash on arms.",
+        "status": "booked",
+        "messagesCount": 3,
+        "callsCount": 0,
+        "lastVisit": "2024-09-28T00:00:00.000Z",
+        "notes": "Possible allergic reaction. Sent referral to Dermatology."
+      }
+    ],
+    "analyticsSummary": {
+      "totalPatientsToday": 10,
+      "totalAppointments": 10,
+      "totalMessages": 20,
+      "totalCalls": 4,
+      "averageWaitingTimeMinutes": 12,
+      "busiestHour": "10:00-11:00"
+    },
+    "uiHints": {
+      "showTokenOrder": true,
+      "colorCodeByStatus": true,
+      "showCallAndMessageButtons": true,
+      "displayDoctorWorkingHours": true,
+      "highlightNextAppointment": true
+    },
+    "flags": {
+      "demo": true,
+      "restrictDownload": true,
+      "placeholderPhotos": true
+    }
+  };
+
+export const onlinePrescriptionData = {
+  "doctorId": "dr-arjun-singh-demo",
+  "subHubId": "online-prescription-ai-assist",
+  "flags": { "demo": true, "restrictDownload": true },
+  "aiHints": {
+    "mappings": [
+      { "symptomKeywords": ["fever","temperature"], "suggest": ["paracetamol-500"] },
+      { "symptomKeywords": ["cough","phlegm"], "suggest": ["amoxy-500","dextromethorphan-30"] },
+      { "symptomKeywords": ["chest pain","angina"], "suggest": ["isosorbide-20","aspirin-75"] },
+      { "symptomKeywords": ["infection","sore throat"], "suggest": ["azithro-500"] }
+    ],
+    "note": "SAMPLE - Demo suggestions only. Not clinical advice."
+  },
+  "medicines": [
+    { "medId": "paracetamol-500", "name": "Paracetamol", "form": "Tablet", "strength": "500 mg", "description": "Analgesic/antipyretic (demo).", "pricePerUnit": 1.5, "stockDemo": 200, "tags": ["analgesic","antipyretic"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "amoxy-500", "name": "Amoxicillin", "form": "Capsule", "strength": "500 mg", "description": "Broad-spectrum antibiotic (demo).", "pricePerUnit": 3.0, "stockDemo": 120, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "form": "Syrup", "strength": "30 mg/5ml", "description": "Cough suppressant (demo).", "pricePerUnit": 25.0, "stockDemo": 50, "tags": ["cough"], "pharmacySuggested": "DemoCare Pharmacy" },
+    { "medId": "isosorbide-20", "name": "Isosorbide Mononitrate", "form": "Tablet", "strength": "20 mg", "description": "Anti-anginal (demo).", "pricePerUnit": 4.5, "stockDemo": 60, "tags": ["cardiac"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "aspirin-75", "name": "Aspirin", "form": "Tablet", "strength": "75 mg", "description": "Antiplatelet (demo).", "pricePerUnit": 2.0, "stockDemo": 300, "tags": ["cardiac","antiplatelet"], "pharmacySuggested": "HeartLine Pharmacy" },
+    { "medId": "azithro-500", "name": "Azithromycin", "form": "Tablet", "strength": "500 mg", "description": "Antibiotic (demo).", "pricePerUnit": 12.0, "stockDemo": 80, "tags": ["antibiotic"], "pharmacySuggested": "HealthFirst Pharmacy" },
+    { "medId": "atorva-10", "name": "Atorvastatin", "form": "Tablet", "strength": "10 mg", "description": "Cholesterol-lowering (demo).", "pricePerUnit": 6.0, "stockDemo": 140, "tags": ["cardiac","statin"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "omeprazole-20", "name": "Omeprazole", "form": "Capsule", "strength": "20 mg", "description": "PPI for acidity (demo).", "pricePerUnit": 3.5, "stockDemo": 200, "tags": ["gastric"], "pharmacySuggested": "Central Pharmacy" },
+    { "medId": "saline-100", "name": "Normal Saline (100ml)", "form": "IV", "strength": "100 ml", "description": "IV fluid (demo).", "pricePerUnit": 40.0, "stockDemo": 30, "tags": ["iv"], "pharmacySuggested": "Hospital Pharmacy" },
+    { "medId": "multivit-30", "name": "Multivitamin", "form": "Tablet", "strength": "Standard", "description": "Vitamin supplement (demo).", "pricePerUnit": 1.0, "stockDemo": 500, "tags": ["supplement"], "pharmacySuggested": "DemoCare Pharmacy" }
+  ],
+  "samplePrescription": {
+    "prescriptionId": "presc-demo-0001",
+    "doctorId": "dr-arjun-singh-demo",
+    "patientId": "pt-demo-1001",
+    "dateCreated": "2025-10-03T09:30:00Z",
+    "symptomsText": "Patient reports fever and cough for 2 days with mild chest discomfort.",
+    "aiSuggestedMeds": [
+      { "medId": "paracetamol-500", "name": "Paracetamol", "suggestedDose": "500 mg", "suggestedFrequency": "SOS up to 3x/day", "rationale": "Reduce fever - demo suggestion" },
+      { "medId": "amoxy-500", "name": "Amoxicillin", "suggestedDose": "500 mg", "suggestedFrequency": "3x/day", "rationale": "Cover bacterial infection - demo suggestion" },
+      { "medId": "dextromethorphan-30", "name": "Dextromethorphan", "suggestedDose": "10 ml", "suggestedFrequency": "3x/day", "rationale": "Symptomatic cough relief - demo suggestion" }
+    ],
+    "finalizedMeds": [
+      {
+        "medId": "paracetamol-500",
+        "name": "Paracetamol",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 1.5,
+        "lineCost": 22.5
+      },
+      {
+        "medId": "amoxy-500",
+        "name": "Amoxicillin",
+        "dose": "500 mg",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": 1,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 3.0,
+        "lineCost": 45.0
+      },
+      {
+        "medId": "dextromethorphan-30",
+        "name": "Dextromethorphan",
+        "dose": "10 ml",
+        "frequencyPerDay": 3,
+        "tabletsPerDose": null,
+        "days": 5,
+        "totalTablets": 15,
+        "pricePerUnit": 25.0,
+        "lineCost": 375.0
+      }
+    ],
+    "totalCost": 442.5,
+    "eSignature": {
+      "doctorSigned": true,
+      "signatureImageUrl": "https://via.placeholder.com/400x120?text=DEMO+SIGNATURE+Dr+Arjun+Singh",
+      "signedAt": "2025-10-03T09:33:00Z"
+    },
+    "delivery": {
+      "notifyPatientPhone": "+91-9999900001 (demo)",
+      "deliveryStatus": "sent",
+      "pushedToPharmacyName": "DemoCare Pharmacy",
+      "pharmacyContact": "+91-9999900100 (demo)"
+    },
+    "notificationsLog": [
+      { "to": "patient", "channel": "sms", "status": "sent", "timestamp": "2025-10-03T09:33:05Z" },
+      { "to": "pharmacy", "channel": "fcm", "status": "sent", "timestamp": "2025-10-03T09:33:10Z" }
+    ],
+    "uiHints": { "showEReceipt": true, "showPharmacyMap": true, "disableDownload": true }
+  },
+  "uiHints": {
+    "prescriptionFlowOrder": ["symptomsInput","aiSuggestions","finalizeMeds","eSign","sendToPatient","pushToPharmacy"],
+    "searchMedsButtonLabel": "Search medicines & add",
+    "pharmacyAutoFill": true
+  }
+};
 
 export const dummyPatientsForPrescription = [
     { id: "P10001", name: "Ravi Sharma", age: 45, gender: "M", contact: "+91-9876500010", allergies: "Penicillin", conditions: "Type 2 Diabetes", lastVisit: "2024-09-15", location: "Delhi" },

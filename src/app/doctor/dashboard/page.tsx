@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse, List, Pencil } from 'lucide-react';
+import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse, List, Pencil, FileText } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -35,6 +35,7 @@ import { CardiacDeviceHub } from '@/components/doctor/cardiac-device-hub';
 import { GuardianRxHub } from '@/components/doctor/guardian-rx-hub';
 import { PatientListDashboard } from '@/components/doctor/patient-list-dashboard';
 import { OnlinePrescriptionHub } from '@/components/doctor/online-prescription-hub';
+import { MedicalCertificateHub } from '@/components/doctor/medical-certificate-hub';
 
 
 function DashboardContent() {
@@ -76,6 +77,8 @@ function DashboardContent() {
         return <GuardianRxHub />;
       case 'prescription':
         return <OnlinePrescriptionHub />;
+      case 'medical-certificate':
+        return <MedicalCertificateHub />;
       default:
         return <DoctorProfile />;
     }
@@ -91,6 +94,7 @@ function DashboardContent() {
     { id: 'cardiac', icon: HeartPulse, label: 'Cardiac ASI' },
     { id: 'guardian-rx', icon: Dna, label: 'GuardianRx' },
     { id: 'prescription', icon: Pencil, label: 'Online Prescription' },
+    { id: 'medical-certificate', icon: FileText, label: 'Medical Certificate' },
   ];
 
   const NavMenu = () => (
