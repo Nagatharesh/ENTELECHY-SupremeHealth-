@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { singleDemoDoctor, DoctorProfileData } from "@/lib/dummy-data";
+import { singleDemoDoctor } from "@/lib/dummy-data";
 import { User, Heart, Briefcase, Mail, Phone, Clock, FileText, CheckCircle, BarChart, ShieldAlert } from "lucide-react";
 import Image from "next/image";
 import { format, formatDistanceToNow } from 'date-fns';
@@ -20,7 +20,7 @@ const StatCard = ({ label, value, icon: Icon }: { label: string, value: string |
 
 
 export function DoctorProfile() {
-    const doctor = singleDemoDoctor;
+    const doctor = singleDemoDoctor.doctor;
 
     if (!doctor) {
         return <p>Loading doctor profile...</p>
@@ -114,3 +114,5 @@ const InfoItem = ({ icon: Icon, label, value }: {icon: React.ElementType, label:
         </div>
     </div>
 )
+
+    
