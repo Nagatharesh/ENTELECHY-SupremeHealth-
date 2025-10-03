@@ -1631,9 +1631,66 @@ export const dummyHospitalData = {
         ]
     },
     labReports: [
-        { reportId: 'LAB-501', patientName: 'Rohan Gupta', testName: 'Complete Blood Count', date: '2024-10-02', status: 'completed' },
-        { reportId: 'LAB-502', patientName: 'Priya Sharma', testName: 'Lipid Profile', date: '2024-10-03', status: 'processing' },
-        { reportId: 'LAB-503', patientName: 'Amit Singh', testName: 'Thyroid Function Test', date: '2024-10-03', status: 'pending' },
+        {
+            reportId: 'LAB-501',
+            patientName: 'Rohan Gupta',
+            testName: 'Complete Blood Count',
+            date: '2024-10-02',
+            status: 'completed',
+            critical: true,
+            specimenType: 'Blood (EDTA)',
+            collectionDate: '2024-10-02T09:00:00Z',
+            doctor: 'Dr. A Kumar',
+            results: [
+                { test: 'Hemoglobin', value: 9.1, unit: 'g/dL', range: '13.5-17.5' },
+                { test: 'WBC', value: 12.5, unit: 'x10^3/μL', range: '4.5-11.0' },
+                { test: 'Platelets', value: 130, unit: 'x10^3/μL', range: '150-450' },
+            ],
+            aiSummary: 'Significant anemia and thrombocytopenia detected. The low Hemoglobin (9.1 g/dL) and Platelet count (130) are critical values. Recommend immediate hematologist consultation.'
+        },
+        {
+            reportId: 'LAB-502',
+            patientName: 'Priya Sharma',
+            testName: 'Lipid Profile',
+            date: '2024-10-03',
+            status: 'processing',
+            critical: false,
+            specimenType: 'Blood (Serum)',
+            collectionDate: '2024-10-03T08:30:00Z',
+            doctor: 'Dr. S Mehra',
+            results: [],
+            aiSummary: 'Analysis pending.'
+        },
+        {
+            reportId: 'LAB-503',
+            patientName: 'Amit Singh',
+            testName: 'Thyroid Function Test',
+            date: '2024-10-03',
+            status: 'pending',
+            critical: false,
+            specimenType: 'Blood (Serum)',
+            collectionDate: '2024-10-03T10:15:00Z',
+            doctor: 'Dr. K Reddy',
+            results: [],
+            aiSummary: 'Awaiting specimen processing.'
+        },
+        {
+            reportId: 'LAB-504',
+            patientName: 'Sunita Joshi',
+            testName: 'Liver Function Test',
+            date: '2024-10-01',
+            status: 'completed',
+            critical: false,
+            specimenType: 'Blood (Serum)',
+            collectionDate: '2024-10-01T11:00:00Z',
+            doctor: 'Dr. K Reddy',
+            results: [
+                { test: 'ALT', value: 35, unit: 'U/L', range: '7-56' },
+                { test: 'AST', value: 40, unit: 'U/L', range: '10-40' },
+                { test: 'Bilirubin, Total', value: 0.8, unit: 'mg/dL', range: '0.2-1.2' },
+            ],
+            aiSummary: 'Liver function tests are within normal limits. No abnormalities detected.'
+        }
     ],
     safety: {
         systems: {
@@ -1660,6 +1717,7 @@ export const dummyHospitalData = {
     ]
 };
     
+
 
 
 
