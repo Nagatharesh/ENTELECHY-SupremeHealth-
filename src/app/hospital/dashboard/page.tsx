@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, Building, Users, FlaskConical, AlertTriangle, BarChart3, BedDouble, DollarSign } from 'lucide-react';
+import { User, Bell, PanelLeft, Building, Users, FlaskConical, AlertTriangle, BarChart3, BedDouble, DollarSign, Calendar } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -32,6 +32,7 @@ import { LabReportCenter } from '@/components/hospital/lab-report-center';
 import { SafetyAndAlerts } from '@/components/hospital/safety-and-alerts';
 import { EmergencyResourceStatus } from '@/components/hospital/emergency-resource-status';
 import { ReportsAndAnalytics } from '@/components/hospital/reports-and-analytics';
+import { StaffScheduling } from '@/components/hospital/staff-scheduling';
 
 function DashboardContent() {
   const searchParams = useSearchParams();
@@ -62,6 +63,8 @@ function DashboardContent() {
         return <EmergencyResourceStatus hospitalData={hospitalData} />;
       case 'staff':
         return <StaffManagement hospitalData={hospitalData} />;
+       case 'scheduling':
+        return <StaffScheduling />;
       case 'labs':
         return <LabReportCenter hospitalData={hospitalData} />;
       case 'safety':
@@ -78,6 +81,7 @@ function DashboardContent() {
     { id: 'facilities', icon: Building, label: 'Facilities' },
     { id: 'emergency-resources', icon: BedDouble, label: 'Emergency Resources' },
     { id: 'staff', icon: Users, label: 'Staff Management' },
+    { id: 'scheduling', icon: Calendar, label: 'Staff Scheduling' },
     { id: 'labs', icon: FlaskConical, label: 'Lab Center' },
     { id: 'safety', icon: AlertTriangle, label: 'Safety & Alerts' },
     { id: 'analytics', icon: DollarSign, label: 'Reports & Analytics' },

@@ -253,7 +253,7 @@ export const singleDemoDoctor = {
       {
         "recordId": "rec-as-demo-2",
         "date": "2025-08-12",
-        "patientSummary": "Mrs. K — palpitations; ECG &amp; Holter normal (demo).",
+        "patientSummary": "Mrs. K — palpitations; ECG & Holter normal (demo).",
         "diagnosisTags": ["Palpitations"],
         "notes": "Reassurance and lifestyle advice. Consider advanced testing if symptoms recur (demo).",
         "linkedPatientId": "pt-demo-1002"
@@ -1531,7 +1531,7 @@ export const dummyHospitalData = {
     hospitalInfo: {
         hospitalId: 'HOS-001',
         name: 'Supreme Health City Hospital',
-        facilities: {
+         facilities: {
             beds: { general: { total: 300, occupied: 250 }, icu: { total: 50, occupied: 45 } },
             opdSlots: { total: 500, used: 410 },
             oxygen: { levelPercentage: 70, status: 'Active' },
@@ -1611,5 +1611,16 @@ export const dummyHospitalData = {
         facilityHealthCheck: 'Oxygen supply levels are dropping faster than usual. Check for potential leaks.',
         doctorStressPrediction: 'Dr. Kumar is at high risk of burnout. Automated leave recommendation sent.',
     },
+    schedules: [
+      { id: 'sch-1', staffName: 'Dr. Sarah Johnson', department: 'Emergency', date: '2025-09-21', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-green-500/20' },
+      { id: 'sch-2', staffName: 'Emily Davis', department: 'ICU', date: '2025-09-21', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-blue-500/20' },
+      { id: 'sch-3', staffName: 'Dr. Ben Carter', department: 'Surgery', date: '2025-09-22', shift: 'afternoon', startTime: '14:00', endTime: '22:00', hours: 8.0, color: 'bg-red-500/20' },
+      { id: 'sch-4', staffName: 'Olivia Rodriguez', department: 'Pediatrics', date: '2025-09-23', shift: 'night', startTime: '22:00', endTime: '06:00', hours: 8.0, color: 'bg-yellow-500/20' },
+      { id: 'sch-5', staffName: 'Dr. Sarah Johnson', department: 'Emergency', date: '2025-09-24', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-green-500/20' },
+      { id: 'sch-6', staffName: 'Dr. Ben Carter', department: 'Emergency', date: '2025-09-24', shift: 'afternoon', startTime: '14:00', endTime: '22:00', hours: 8.0, color: 'bg-green-500/20' },
+       { id: 'sch-7', staffName: 'Dr. A Kumar', department: 'Cardiology', date: '2025-09-23', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-purple-500/20' },
+       { id: 'sch-8', staffName: 'Dr. S Mehra', department: 'Dermatology', date: '2025-09-25', shift: 'night', startTime: '22:00', endTime: '06:00', hours: 8.0, color: 'bg-pink-500/20' },
+    ]
 };
     
+
