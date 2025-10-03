@@ -19,6 +19,7 @@ import { format } from 'date-fns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Dialog, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogContent } from '../ui/dialog';
 import { Alert, AlertTitle } from '../ui/alert';
+import { Separator } from "@/components/ui/separator";
 
 const LoggedInDoctor = {
     id: "3001",
@@ -351,3 +352,5 @@ const InfoItem = ({ label, value, isWarning = false }) => (
         <p className={cn("font-semibold text-white", isWarning && "text-destructive font-bold")}>{value}</p>
     </div>
 );
+
+    
