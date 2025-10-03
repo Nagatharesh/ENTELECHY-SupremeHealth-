@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Zap, Activity, Heart, Brain, Shield, Info, X, Search, Bot, FileText, User, BarChart, GitBranch, Pill, Hospital, BrainCircuit, Siren, Droplet, Wind, Thermometer } from 'lucide-react';
 import { LineChart, ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Alert, AlertTitle } from '@/components/ui/alert';
 
 const ChartTooltipContent = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
