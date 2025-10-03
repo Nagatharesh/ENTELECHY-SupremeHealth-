@@ -158,7 +158,15 @@ export function LoginForm() {
     }
   }
   function onHospitalSubmit(values: z.infer<typeof hospitalSchema>) {
-    console.log("Hospital Signup:", values);
+    // Dummy validation for demo
+    if (values.email === "admin@hospital.com" && values.password === "password123" && values.nin === "123456789012") {
+      router.push('/hospital/dashboard?id=HOS-001');
+    } else {
+      hospitalForm.setError("root", {
+        type: "manual",
+        message: "Invalid credentials. Please try again.",
+      });
+    }
   }
   function onAmbulanceSubmit(values: z.infer<typeof ambulanceSchema>) {
     console.log("Ambulance Signup:", values);
@@ -286,6 +294,11 @@ export function LoginForm() {
             <CardContent>
                 <Form {...hospitalForm}>
                 <form onSubmit={hospitalForm.handleSubmit(onHospitalSubmit)} className="space-y-4">
+                     {hospitalForm.formState.errors.root && (
+                        <p className="text-destructive text-sm font-medium p-3 bg-destructive/20 rounded-lg text-center glowing-shadow">
+                        {hospitalForm.formState.errors.root.message}
+                        </p>
+                    )}
                     <FormField name="email" control={hospitalForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Hospital Email</FormLabel>
@@ -297,7 +310,7 @@ export function LoginForm() {
                     <FormField name="password" control={hospitalForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Password</FormLabel>
-                            <FormControl><InputWithIcon icon={Lock} type="password" placeholder="********" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Lock} type="password" placeholder="password123" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -305,7 +318,7 @@ export function LoginForm() {
                     <FormField name="nin" control={hospitalForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>NIN</FormLabel>
-                            <FormControl><InputWithIcon icon={Hash} type="text" placeholder="10-14 digit number" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Hash} type="text" placeholder="123456789012" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
