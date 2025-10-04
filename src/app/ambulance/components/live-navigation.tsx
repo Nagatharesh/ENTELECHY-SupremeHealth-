@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Map, Bot, Route, AlertCircle, CheckCircle, User, Star, TrendingUp, HelpCircle, Phone, WifiOff, XCircle, Car, Ambulance, Heart, Droplet, Wind } from "lucide-react";
+import { Map, Bot, Route, AlertCircle, CheckCircle, User, Star, TrendingUp, HelpCircle, Phone, WifiOff, XCircle, Ambulance, Heart, Droplet, Wind } from "lucide-react";
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -66,7 +66,7 @@ const DriverInfoCard = ({ driver }) => {
             <CardContent className="p-0 space-y-3">
                 <StatBar icon={User} label="Name" value={driver.name} />
                 <StatBar icon={TrendingUp} label="Experience" value={`${driver.experience} years`} />
-                <StatBar icon={Car} label="Completed Rides" value={driver.completedRides} />
+                <StatBar icon={Ambulance} label="Completed Rides" value={driver.completedRides} />
                 <StatBar icon={Star} label="Rating" value={`${driver.rating}/5`} isRating />
             </CardContent>
         </Card>
