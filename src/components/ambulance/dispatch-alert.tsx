@@ -21,7 +21,7 @@ export function DispatchAlert({ dispatch, onAccept }) {
     }
 
     return (
-        <Card className="glassmorphism glowing-shadow border-primary shadow-primary/30 animate-pulse">
+        <Card className="glassmorphism glowing-shadow border-primary shadow-primary/30">
             <CardHeader>
                 <CardTitle className="text-primary text-3xl flex items-center gap-3"><Siren/> New Emergency Dispatch!</CardTitle>
                 <CardDescription>A new dispatch request requires your attention.</CardDescription>
