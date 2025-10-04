@@ -1622,6 +1622,8 @@ export const dummyHospitalData = {
             { staffId: 'DOC-001', name: 'Dr. A Kumar', role: 'Cardiologist', department: 'Cardiology', stressLevel: 8, hoursThisWeek: 55, consecutiveDaysWorked: 6, aiNote: 'High patient load and consecutive long shifts are contributing to high stress.' },
             { staffId: 'DOC-002', name: 'Dr. S Mehra', role: 'Dermatologist', department: 'Dermatology', stressLevel: 4, hoursThisWeek: 42, consecutiveDaysWorked: 4, aiNote: 'Workload is manageable. Stress levels are within normal range.' },
             { staffId: 'NRS-001', name: 'Sunita Sharma', role: 'Head Nurse', department: 'ICU', stressLevel: 7, hoursThisWeek: 60, consecutiveDaysWorked: 7, aiNote: 'Consistently high hours and ICU intensity. Burnout risk is moderate.' },
+            { staffId: 'DOC-003', name: 'Dr. R Verma', role: 'Neurologist', department: 'Neurology', stressLevel: 6, hoursThisWeek: 48, consecutiveDaysWorked: 5, aiNote: 'Slightly elevated stress due to complex cases.' },
+            { staffId: 'NRS-002', name: 'Rajesh Kumar', role: 'Nurse', department: 'Emergency', stressLevel: 9, hoursThisWeek: 65, consecutiveDaysWorked: 8, aiNote: 'Critical burnout risk. Immediate intervention recommended.' },
         ],
         departmentAnalytics: [
             { department: 'Cardiology', totalHours: 450 },
@@ -1714,6 +1716,10 @@ export const dummyHospitalData = {
       { id: 'sch-6', staffName: 'Dr. Ben Carter', department: 'Emergency', date: '2025-09-24', shift: 'afternoon', startTime: '14:00', endTime: '22:00', hours: 8.0, color: 'bg-green-500/20' },
        { id: 'sch-7', staffName: 'Dr. A Kumar', department: 'Cardiology', date: '2025-09-23', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-purple-500/20' },
        { id: 'sch-8', staffName: 'Dr. S Mehra', department: 'Dermatology', date: '2025-09-25', shift: 'night', startTime: '22:00', endTime: '06:00', hours: 8.0, color: 'bg-pink-500/20' },
+       { id: 'sch-9', staffName: 'Dr. R Verma', department: 'Neurology', date: '2025-09-21', shift: 'afternoon', startTime: '14:00', endTime: '22:00', hours: 8.0, color: 'bg-indigo-500/20' },
+       { id: 'sch-10', staffName: 'Sunita Sharma', department: 'ICU', date: '2025-09-22', shift: 'night', startTime: '22:00', endTime: '06:00', hours: 8.0, color: 'bg-blue-500/20' },
+       { id: 'sch-11', staffName: 'Rajesh Kumar', department: 'Emergency', date: '2025-09-25', shift: 'morning', startTime: '06:00', endTime: '14:00', hours: 8.0, color: 'bg-green-500/20' }
     ]
 };
     
+
