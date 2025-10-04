@@ -82,6 +82,8 @@ export function AmbulanceDashboard() {
             description: "The dispatch request has been declined and will be reassigned.",
         });
         // In a real app, you'd also update the dispatch request status on the backend.
+        // For this demo, we'll just clear the current alert.
+        const nextRequest = dummyDispatchRequests.find(d => d.ambulanceId === ambulanceId && d.status === 'pending' && d.id !== dispatchId) || null;
     }
 
     const handlePanic = () => {
