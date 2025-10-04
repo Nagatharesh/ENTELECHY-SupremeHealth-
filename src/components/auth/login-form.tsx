@@ -45,7 +45,7 @@ import {
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { generatePatientId } from "@/lib/utils";
-import { dummyPatients, dummyDoctors } from "@/lib/dummy-data";
+import { dummyPatients, dummyDoctors, dummyAmbulances } from "@/lib/dummy-data";
 
 const patientSearchSchema = z.object({
   searchTerm: z.string().min(1, "Please enter a search term."),
@@ -68,7 +68,7 @@ const hospitalSchema = z.object({
 const ambulanceSchema = z.object({
   emailOrPhone: z.string().min(1, "This field is required."),
   password: z.string().min(8, "Password must be at least 8 characters."),
-  vehicleNumber: z.string().regex(/^[A-Z0-9- ]{4,12}$/, "Invalid vehicle number. Must be 4-12 alphanumeric characters."),
+  vehicleNumber: z.string().regex(/^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/, "Invalid vehicle number format. Eg: MH-01-AB-1234"),
 });
 
 type Role = "patient" | "doctor" | "hospital" | "ambulance";
@@ -169,7 +169,18 @@ export function LoginForm() {
     }
   }
   function onAmbulanceSubmit(values: z.infer<typeof ambulanceSchema>) {
-    console.log("Ambulance Signup:", values);
+    const { emailOrPhone, password, vehicleNumber } = values;
+    const ambulance = dummyAmbulances.find(a => a.vehicle_no.toUpperCase() === vehicleNumber.toUpperCase() && a.driver_phone === emailOrPhone);
+
+    // Dummy password check
+    if (ambulance && password === "password123") {
+        router.push(`/ambulance/dashboard?id=${ambulance.id}`);
+    } else {
+        ambulanceForm.setError("root", {
+            type: "manual",
+            message: "Invalid credentials. Please check your details and try again.",
+        });
+    }
   }
 
   return (
@@ -338,10 +349,15 @@ export function LoginForm() {
             <CardContent>
                 <Form {...ambulanceForm}>
                 <form onSubmit={ambulanceForm.handleSubmit(onAmbulanceSubmit)} className="space-y-4">
+                    {ambulanceForm.formState.errors.root && (
+                        <p className="text-destructive text-sm font-medium p-3 bg-destructive/20 rounded-lg text-center glowing-shadow">
+                        {ambulanceForm.formState.errors.root.message}
+                        </p>
+                    )}
                     <FormField name="emailOrPhone" control={ambulanceForm.control} render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email or Phone</FormLabel>
-                            <FormControl><InputWithIcon icon={Mail} type="text" placeholder="team@ambulance.org" {...field} /></FormControl>
+                            <FormLabel>Driver Phone</FormLabel>
+                            <FormControl><InputWithIcon icon={Phone} type="text" placeholder="9000000001" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -349,7 +365,7 @@ export function LoginForm() {
                     <FormField name="password" control={ambulanceForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Password</FormLabel>
-                            <FormControl><InputWithIcon icon={Lock} type="password" placeholder="********" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Lock} type="password" placeholder="password123" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -357,7 +373,7 @@ export function LoginForm() {
                     <FormField name="vehicleNumber" control={ambulanceForm.control} render={({ field }) => (
                         <FormItem>
                             <FormLabel>Vehicle Number</FormLabel>
-                            <FormControl><InputWithIcon icon={Car} type="text" placeholder="STATE-XX-1234" {...field} /></FormControl>
+                            <FormControl><InputWithIcon icon={Car} type="text" placeholder="MH-01-AB-1234" {...field} /></FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
