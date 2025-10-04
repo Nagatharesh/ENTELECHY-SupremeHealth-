@@ -19,17 +19,36 @@ const EMOJIS = {
   SCHEDULE: '📅',
 };
 
-const QUICK_REPLIES = [
-    { text: `${EMOJIS.PATIENT} Patient Summary`, action: 'flow_patient_summary' },
-    { text: `${EMOJIS.SCHEDULE} My Schedule`, action: 'flow_schedule' },
-    { text: `${EMOJIS.INSIGHT} Latest Lab Results`, action: 'flow_labs' },
-    { text: `${EMOJIS.PATIENT} Find a Patient`, action: 'flow_find_patient' },
-];
+const QUICK_REPLIES = {
+    MAIN_MENU: [
+        { text: `${EMOJIS.PATIENT} Patient Summary`, action: 'flow_patient_summary' },
+        { text: `${EMOJIS.SCHEDULE} My Schedule`, action: 'flow_schedule' },
+        { text: `${EMOJIS.INSIGHT} Latest Lab Results`, action: 'flow_labs' },
+        { text: `${EMOJIS.PATIENT} Find a Patient`, action: 'flow_find_patient' },
+    ],
+    PATIENT_SUMMARY_OPTIONS: [
+        { text: 'Yes, open full chart', action: 'open_chart_P002' },
+        { text: 'Show recent labs', action: 'show_labs_P002' },
+        { text: 'Back to menu', action: 'main_menu' },
+    ],
+    SCHEDULE_OPTIONS: [
+        { text: 'View full schedule', action: 'view_full_schedule' },
+        { text: 'Send "running late" note', action: 'send_late_note' },
+        { text: 'Back to menu', action: 'main_menu' },
+    ],
+    LABS_OPTIONS: [
+        { text: 'View LAB-501', action: 'view_lab_501' },
+        { text: 'Notify hematologist', action: 'notify_hematologist' },
+        { text: 'Back to menu', action: 'main_menu' },
+    ]
+};
 
 export function DoctorChatbot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<{ author: 'bot' | 'user'; text: string; quickReplies?: any[] }[]>([]);
     const [inputValue, setInputValue] = useState('');
+    const [conversationState, setConversationState] = useState('main_menu');
+    const [queryData, setQueryData] = useState<any>({});
     const scrollAreaRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -38,7 +57,7 @@ export function DoctorChatbot() {
                 {
                     author: 'bot',
                     text: `${EMOJIS.WELCOME} Hello Dr. Kumar. I'm your clinical ASI. How can I assist you?`,
-                    quickReplies: QUICK_REPLIES,
+                    quickReplies: QUICK_REPLIES.MAIN_MENU,
                 }
             ]);
         }
@@ -62,8 +81,10 @@ export function DoctorChatbot() {
         setInputValue('');
 
         setTimeout(() => {
-            const botResponse = getBotResponse(messageText);
-            setMessages(prev => [...prev, botResponse]);
+            const botResponse = getBotResponse(messageText, conversationState, queryData);
+            setMessages(prev => [...prev, botResponse.response]);
+            setConversationState(botResponse.nextState || 'main_menu');
+            setQueryData(botResponse.queryData || {});
         }, 1000);
     };
 
@@ -72,70 +93,96 @@ export function DoctorChatbot() {
         setMessages(prev => [...prev, userMessage]);
         
         setTimeout(() => {
-            const botResponse = getBotResponse(action);
-            setMessages(prev => [...prev, botResponse]);
+            const botResponse = getBotResponse(action, conversationState, queryData);
+            setMessages(prev => [...prev, botResponse.response]);
+            setConversationState(botResponse.nextState || 'main_menu');
+            setQueryData(botResponse.queryData || {});
         }, 1000);
     }
 
-    const getBotResponse = (userInput: string): { author: 'bot', text: string, quickReplies?: any[] } => {
+    const getBotResponse = (userInput: string, state: string, currentQueryData: any): { response: { author: 'bot', text: string, quickReplies?: any[] }, nextState?: string, queryData?: any } => {
         const lowerInput = userInput.toLowerCase();
         
-        if (lowerInput.includes('summary')) {
-            return {
-                author: 'bot',
-                text: `${EMOJIS.PATIENT} Patient P-002 (Priya Verma) has upcoming appointments and a history of elevated HbA1c. Recent notes indicate a need for diet counseling. Would you like to view her full chart?`,
-                quickReplies: [
-                    { text: 'Yes, open full chart', action: 'open_chart_P002' },
-                    { text: 'Show recent labs', action: 'show_labs_P002' },
-                    { text: 'Back to menu', action: 'main_menu' },
-                ],
-            };
-        }
-
-        if (lowerInput.includes('schedule')) {
-            return {
-                author: 'bot',
-                text: `${EMOJIS.SCHEDULE} You have 8 appointments today. Your next one is with Priya Verma (P-002) at 09:15 AM for a routine diabetes check-up.`,
-                quickReplies: [
-                    { text: 'View full schedule', action: 'view_full_schedule' },
-                    { text: 'Send "running late" note', action: 'send_late_note' },
-                    { text: 'Back to menu', action: 'main_menu' },
-                ],
-            };
-        }
-
-        if (lowerInput.includes('labs')) {
-             return {
-                author: 'bot',
-                text: `${EMOJIS.INSIGHT} The latest critical lab result is for Rohan Gupta (LAB-501): Hemoglobin is 9.1 g/dL (Low) and Platelets are 130 (Low).`,
-                 quickReplies: [
-                    { text: 'View LAB-501', action: 'view_lab_501' },
-                    { text: 'Notify hematologist', action: 'notify_hematologist' },
-                    { text: 'Back to menu', action: 'main_menu' },
-                ],
-            };
-        }
-        
-        if (lowerInput.includes('find_patient')) {
-            return {
-                author: 'bot',
-                text: "Please provide the patient's name or ID.",
+        // Main menu handler
+        if (lowerInput.startsWith('flow_')) {
+            switch(lowerInput) {
+                case 'flow_patient_summary':
+                    return {
+                        response: { author: 'bot', text: "Which patient's summary would you like to see? Please provide a name or ID.", },
+                        nextState: 'finding_patient_for_summary'
+                    };
+                case 'flow_schedule':
+                    return {
+                        response: { author: 'bot', text: `${EMOJIS.SCHEDULE} You have 8 appointments today. Your next one is with Priya Verma (P-002) at 09:15 AM for a routine diabetes check-up.`, quickReplies: QUICK_REPLIES.SCHEDULE_OPTIONS },
+                        nextState: 'main_menu'
+                    };
+                case 'flow_labs':
+                    return {
+                        response: { author: 'bot', text: `${EMOJIS.INSIGHT} The latest critical lab result is for Rohan Gupta (LAB-501): Hemoglobin is 9.1 g/dL (Low) and Platelets are 130 (Low).`, quickReplies: QUICK_REPLIES.LABS_OPTIONS },
+                        nextState: 'main_menu'
+                    };
+                case 'flow_find_patient':
+                    return {
+                        response: { author: 'bot', text: "Please provide the patient's name or ID to find." },
+                        nextState: 'finding_patient'
+                    };
             }
         }
         
-        if (lowerInput.includes('main_menu')) {
+        if(lowerInput === 'main_menu') {
             return {
-                author: 'bot',
-                text: "Is there anything else I can help with?",
-                quickReplies: QUICK_REPLIES,
+                response: { author: 'bot', text: "Is there anything else I can help with?", quickReplies: QUICK_REPLIES.MAIN_MENU, },
+                nextState: 'main_menu'
             };
         }
 
 
+        // State-based logic
+        switch (state) {
+            case 'finding_patient':
+                if (lowerInput.includes('priya') || lowerInput.includes('p-002')) {
+                    return {
+                        response: { author: 'bot', text: `Found patient: Priya Verma (P-002). What would you like to do?`, quickReplies: QUICK_REPLIES.PATIENT_SUMMARY_OPTIONS },
+                        nextState: 'patient_summary_options',
+                        queryData: { patientId: 'P-002', patientName: 'Priya Verma' }
+                    };
+                }
+                return {
+                    response: { author: 'bot', text: `Sorry, I couldn't find a patient with that name/ID. Please try again.`, },
+                    nextState: 'finding_patient'
+                };
+            
+            case 'finding_patient_for_summary':
+                if (lowerInput.includes('priya') || lowerInput.includes('p-002')) {
+                     return {
+                        response: { author: 'bot', text: `${EMOJIS.PATIENT} Priya Verma (P-002) has upcoming appointments and a history of elevated HbA1c. Recent notes indicate a need for diet counseling. Would you like to view her full chart?`, quickReplies: QUICK_REPLIES.PATIENT_SUMMARY_OPTIONS, },
+                        nextState: 'patient_summary_options',
+                        queryData: { patientId: 'P-002', patientName: 'Priya Verma' }
+                    };
+                }
+                 return {
+                    response: { author: 'bot', text: `Sorry, I couldn't find a patient with that name/ID. Please try again.`, },
+                    nextState: 'finding_patient_for_summary'
+                };
+
+            case 'patient_summary_options':
+                if (lowerInput.includes('open_chart')) {
+                    return { response: { author: 'bot', text: `Opening full chart for ${currentQueryData.patientName}... (This would navigate to their record in a real app).`, quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
+                }
+                if (lowerInput.includes('show_labs')) {
+                    return { response: { author: 'bot', text: `Fetching recent labs for ${currentQueryData.patientName}: HbA1c is 7.2% (High).`, quickReplies: QUICK_REPLIES.PATIENT_SUMMARY_OPTIONS }, nextState: 'patient_summary_options' };
+                }
+                break;
+        }
+
+        // Default fallback
         return {
-            author: 'bot',
-            text: `${EMOJIS.ERROR} I'm still learning. I can help with patient summaries, schedules, and lab results.`,
-            quickReplies: QUICK_REPLIES,
+            response: {
+                author: 'bot',
+                text: `${EMOJIS.ERROR} I'm still learning. I can help with patient summaries, schedules, and lab results.`,
+                quickReplies: QUICK_REPLIES.MAIN_MENU,
+            },
+            nextState: 'main_menu'
         };
     };
 
