@@ -121,7 +121,7 @@ export function EmergencyResourceStatus({ hospitalData }) {
     const cameraFeeds = [
         { id: 'CAM-01', title: 'ICU', location: 'Room 304', image: 'https://picsum.photos/seed/cam1/600/400' },
         { id: 'CAM-02', title: 'Main Ward', location: 'Floor 2', image: 'https://picsum.photos/seed/cam2/600/400' },
-        { id: 'CAM-03', title: 'Canteen', location: 'Ground Floor', image: 'https://picsum,photos/seed/cam3/600/400' },
+        { id: 'CAM-03', title: 'Canteen', location: 'Ground Floor', image: 'https://picsum.photos/seed/cam3/600/400' },
     ];
     
     const globalStatus = useMemo(() => {
