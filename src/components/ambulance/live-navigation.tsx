@@ -5,40 +5,45 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Map, Bot, Route, AlertCircle, CheckCircle, User, Star, TrendingUp, HelpCircle, Phone, WifiOff, XCircle, Car } from "lucide-react";
+import { Map, Bot, Route, AlertCircle, CheckCircle, User, Star, TrendingUp, HelpCircle, Phone, WifiOff, XCircle, Car, Ambulance } from "lucide-react";
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { Ambulance } from 'lucide-react';
 
 
-const DriverInfoCard = ({ driver }) => (
-    <Card className="glassmorphism p-4">
-        <CardHeader className="p-0 mb-4 flex-row items-center justify-between">
-            <CardTitle className="text-white text-lg">Driver Profile</CardTitle>
-            <Button size="sm" variant="outline" asChild><a href={`tel:${driver.contact}`}><Phone/></a></Button>
-        </CardHeader>
-        <CardContent className="p-0 space-y-3">
-            <StatBar icon={User} label="Name" value={driver.name} />
-            <StatBar icon={TrendingUp} label="Experience" value={`${driver.experience} years`} />
-            <StatBar icon={Car} label="Completed Rides" value={driver.completedRides} />
-            <StatBar icon={Star} label="Rating" value={`${driver.rating}/5`} isRating />
-        </CardContent>
-    </Card>
-);
+const DriverInfoCard = ({ driver }) => {
+    if (!driver) return null;
+    return (
+        <Card className="glassmorphism p-4">
+            <CardHeader className="p-0 mb-4 flex-row items-center justify-between">
+                <CardTitle className="text-white text-lg">Driver Profile</CardTitle>
+                <Button size="sm" variant="outline" asChild><a href={`tel:${driver.contact}`}><Phone/></a></Button>
+            </CardHeader>
+            <CardContent className="p-0 space-y-3">
+                <StatBar icon={User} label="Name" value={driver.name} />
+                <StatBar icon={TrendingUp} label="Experience" value={`${driver.experience} years`} />
+                <StatBar icon={Car} label="Completed Rides" value={driver.completedRides} />
+                <StatBar icon={Star} label="Rating" value={`${driver.rating}/5`} isRating />
+            </CardContent>
+        </Card>
+    );
+};
 
-const FacilityStatusCard = ({ ambulance, oxygenLevel }) => (
-    <Card className="glassmorphism p-4">
-        <CardHeader className="p-0 mb-4">
-            <CardTitle className="text-white text-lg">Ambulance Status</CardTitle>
-        </CardHeader>
-        <CardContent className="p-0 space-y-3">
-            <ProgressBar label="Oxygen Level" value={oxygenLevel} unit="%" color="hsl(var(--secondary))" />
-            <FacilityItem label="Ventilator" available={ambulance.facilities.ventilator} />
-            <FacilityItem label="Emergency Kit" available={ambulance.facilities.emergencyKit} />
-        </CardContent>
-    </Card>
-);
+const FacilityStatusCard = ({ ambulance, oxygenLevel }) => {
+    if (!ambulance || !ambulance.facilities) return null;
+    return (
+        <Card className="glassmorphism p-4">
+            <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-white text-lg">Ambulance Status</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0 space-y-3">
+                <ProgressBar label="Oxygen Level" value={oxygenLevel} unit="%" color="hsl(var(--secondary))" />
+                <FacilityItem label="Ventilator" available={ambulance.facilities.ventilator} />
+                <FacilityItem label="Emergency Kit" available={ambulance.facilities.emergencyKit} />
+            </CardContent>
+        </Card>
+    );
+};
 
 const StatBar = ({ icon: Icon, label, value, isRating=false }) => (
     <div>
@@ -162,7 +167,7 @@ export function LiveNavigation({ dispatch, onComplete }) {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                     <DriverInfoCard driver={dispatch.driver} />
-                    <FacilityStatusCard ambulance={dispatch.facilities} oxygenLevel={oxygenLevel} />
+                    <FacilityStatusCard ambulance={dispatch.facilities ? { facilities: dispatch.facilities } : undefined} oxygenLevel={oxygenLevel} />
                 </div>
             </CardContent>
             <CardFooter>
