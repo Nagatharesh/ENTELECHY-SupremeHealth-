@@ -23,11 +23,22 @@ const EMOJIS = {
 
 const QUICK_REPLIES = {
   MAIN_MENU: [
-    { text: `${EMOJIS.BOOK} Appointments`, action: 'appointments', icon: '📅' },
-    { text: `${EMOJIS.HEALTH} My Records`, action: 'records', icon: '📋' },
-    { text: `${EMOJIS.TIME} Reminders`, action: 'reminders', icon: '⏰' },
-    { text: `${EMOJIS.INSIGHT} Health Tips`, action: 'assistance', icon: '🧠' }
+    { text: `${EMOJIS.BOOK} Appointments`, action: 'appointments' },
+    { text: `${EMOJIS.HEALTH} My Records`, action: 'records' },
+    { text: `${EMOJIS.TIME} Reminders`, action: 'reminders' },
+    { text: `${EMOJIS.INSIGHT} Health Tips`, action: 'assistance' }
   ],
+  APPOINTMENTS: [
+      { text: 'Book New Appointment', action: 'book_new' },
+      { text: 'View Upcoming', action: 'view_upcoming' },
+      { text: 'Back to Main Menu', action: 'main_menu' },
+  ],
+  RECORDS: [
+      { text: 'Lab Reports', action: 'records_labs' },
+      { text: 'Prescriptions', action: 'records_rx' },
+      { text: 'Visit History', action: 'records_history' },
+      { text: 'Back to Main Menu', action: 'main_menu' },
+  ]
 };
 
 
@@ -74,47 +85,84 @@ export function PatientChatbot() {
         }, 1000);
     };
 
+    const handleQuickReply = (action: string, text: string) => {
+        const userMessage = { author: 'user' as const, text: text };
+        setMessages(prev => [...prev, userMessage]);
+        
+        setTimeout(() => {
+            const botResponse = getBotResponse(action);
+            setMessages(prev => [...prev, botResponse]);
+        }, 1000);
+    }
+
     const getBotResponse = (userInput: string): { author: 'bot', text: string, quickReplies?: any[] } => {
         const lowerInput = userInput.toLowerCase();
         
-        if (lowerInput.includes('appointment')) {
+        // Main Menu Actions
+        if (lowerInput.includes('appointments')) {
             return {
                 author: 'bot',
-                text: `${EMOJIS.BOOK} I can help with that! Would you like to book a new appointment or view upcoming ones?`,
-                 quickReplies: [
-                    { text: 'Book New', action: 'book_new' },
-                    { text: 'View Upcoming', action: 'view_upcoming' },
-                ]
+                text: `${EMOJIS.BOOK} I can help with appointments! What would you like to do?`,
+                quickReplies: QUICK_REPLIES.APPOINTMENTS
             };
         }
-        if (lowerInput.includes('record')) {
+        if (lowerInput.includes('records')) {
             return {
                 author: 'bot',
                 text: `${EMOJIS.HEALTH} Sure, I can show you your medical records. Which part are you interested in?`,
-                quickReplies: [
-                    { text: 'Lab Reports', action: 'records_labs' },
-                    { text: 'Prescriptions', action: 'records_rx' },
-                    { text: 'Visit History', action: 'records_history' },
-                ]
+                quickReplies: QUICK_REPLIES.RECORDS
             };
         }
-        if (lowerInput.includes('reminder')) {
+         if (lowerInput.includes('reminders')) {
             return {
                 author: 'bot',
-                text: `${EMOJIS.TIME} Let's set a reminder! What is this reminder for? (e.g., "Take Paracetamol")`,
+                text: `${EMOJIS.TIME} Let's set a reminder! What is this reminder for? (e.g., "Take Paracetamol at 8 AM")`,
+                quickReplies: QUICK_REPLIES.MAIN_MENU,
             };
         }
-        if (lowerInput.includes('tip') || lowerInput.includes('assist')) {
+        if (lowerInput.includes('assistance') || lowerInput.includes('tip')) {
              return {
                 author: 'bot',
                 text: `${EMOJIS.INSIGHT} Health Tip: Staying hydrated can improve energy levels and brain function. Try to drink 8 glasses of water a day!`,
                 quickReplies: QUICK_REPLIES.MAIN_MENU,
             };
         }
+        if (lowerInput.includes('main_menu')) {
+            return {
+                author: 'bot',
+                text: `Is there anything else I can help you with?`,
+                quickReplies: QUICK_REPLIES.MAIN_MENU,
+            };
+        }
+
+        // Appointment Sub-flows
+        if (lowerInput.includes('book_new')) {
+            return {
+                author: 'bot',
+                text: "To book a new appointment, please navigate to the 'Doctors' or 'Appointments' tab in your dashboard.",
+                quickReplies: QUICK_REPLIES.APPOINTMENTS,
+            };
+        }
+        if (lowerInput.includes('view_upcoming')) {
+             return {
+                author: 'bot',
+                text: "You can see all your upcoming appointments in the 'Appointments' tab.",
+                quickReplies: QUICK_REPLIES.APPOINTMENTS,
+            };
+        }
+        
+        // Records Sub-flows
+        if (lowerInput.includes('records_labs')) {
+            return {
+                author: 'bot',
+                text: "Your lab reports are available under the 'Records' tab. I can also show you the latest one here if you'd like.",
+                quickReplies: QUICK_REPLIES.RECORDS,
+            };
+        }
 
         return {
             author: 'bot',
-            text: `${EMOJIS.ERROR} I'm still learning. Try asking about appointments, records, or reminders!`,
+            text: `${EMOJIS.ERROR} I'm still learning and my capabilities are currently limited. Please use the main menu for now.`,
             quickReplies: QUICK_REPLIES.MAIN_MENU,
         };
     };
@@ -148,7 +196,7 @@ export function PatientChatbot() {
                                                      {msg.author === 'bot' && msg.quickReplies && (
                                                         <div className="flex flex-wrap gap-2 mt-3">
                                                             {msg.quickReplies.map(qr => (
-                                                                <Button key={qr.action} size="sm" variant="outline" className="text-xs h-auto py-1 px-2" onClick={() => handleSendMessage(qr.text)}>
+                                                                <Button key={qr.action} size="sm" variant="outline" className="text-xs h-auto py-1 px-2" onClick={() => handleQuickReply(qr.action, qr.text)}>
                                                                     {qr.text}
                                                                 </Button>
                                                             ))}
