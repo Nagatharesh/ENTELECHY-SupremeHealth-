@@ -30,6 +30,8 @@ export function AmbulanceDashboard() {
     const [checklistComplete, setChecklistComplete] = useState(false);
     const [eta, setEta] = useState(0);
 
+    const pendingDispatch = useMemo(() => dummyDispatchRequests.find(d => d.ambulanceId === ambulanceId && d.status === 'pending'), [ambulanceId]);
+
     useEffect(() => {
         const foundAmbulance = dummyAmbulances.find(a => a.id === ambulanceId);
         setAmbulance(foundAmbulance);
@@ -131,8 +133,6 @@ export function AmbulanceDashboard() {
     
     const readinessScore = ((ambulance.fuelLevel / 100) * 0.4 + (ambulance.oxygenLevel / 100) * 0.4 + (ambulance.facilities.emergencyKit ? 1 : 0) * 0.2) * 100;
     const isReady = readinessScore > 70 && checklistComplete;
-    
-    const pendingDispatch = useMemo(() => dummyDispatchRequests.find(d => d.ambulanceId === ambulanceId && d.status === 'pending'), [ambulanceId]);
 
     return (
         <div className="min-h-screen bg-background text-white p-4 space-y-6">
