@@ -1,5 +1,5 @@
 
-"use client";
+      "use client";
 
 import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -40,7 +40,7 @@ const AlertCard = ({ alert, onAcknowledge, isAcknowledged }) => {
         info: { color: "text-blue-400", bg: "bg-blue-400/10", border: "border-blue-400/50", icon: Shield, glow: "" }
     };
     const config = severityConfig[alert.severity] || severityConfig.info;
-    const Icon = config.icon;
+    const Icon = alert.type === 'Fire' ? Flame : config.icon;
     
     const handleNotify = () => {
         toast({
@@ -149,7 +149,8 @@ const InfoBox = ({ icon: Icon, label, value, status }) => {
 };
 
 export function SafetyAndAlerts({ hospitalData }) {
-    const { safety, alerts } = hospitalData;
+    const [alerts, setAlerts] = useState(hospitalData.alerts);
+    const [systemStatus, setSystemStatus] = useState(hospitalData.safety.systems);
     const [alertFilter, setAlertFilter] = useState('all');
     const [severityFilter, setSeverityFilter] = useState('all');
     const [acknowledgedAlerts, setAcknowledgedAlerts] = useState<string[]>([]);
@@ -165,10 +166,34 @@ export function SafetyAndAlerts({ hospitalData }) {
             description: `${action} protocol has been initiated.`,
         });
     };
+    
+    const handleSimulateFire = () => {
+        const newAlert = {
+            id: `a${Date.now()}`,
+            type: "Fire",
+            severity: "critical",
+            message: "AI detected smoke pattern in Canteen kitchen camera feed.",
+            location: "Canteen Kitchen",
+            timestamp: new Date().toISOString()
+        };
+        setAlerts(prev => [newAlert, ...prev]);
+        setSystemStatus(prev => ({ ...prev, fireAlarms: 'Alert', sprinklers: 'Alert' }));
+        toast({
+            variant: "destructive",
+            title: "🔥 Fire Alert Simulated!",
+            description: "Automated response systems activated. Notifying security.",
+        });
+        
+        // Reset after 15 seconds
+        setTimeout(() => {
+            setSystemStatus(hospitalData.safety.systems);
+            toast({ title: 'Simulation Ended', description: 'Fire alert cleared. Systems returning to normal.'})
+        }, 15000);
+    };
 
     const filteredAlerts = useMemo(() => {
         return alerts.filter(alert => {
-            const typeMatch = alertFilter === 'all' || alert.type.toLowerCase() === alertFilter;
+            const typeMatch = alertFilter === 'all' || alert.type.toLowerCase() === alertFilter.toLowerCase();
             const severityMatch = severityFilter === 'all' || alert.severity === severityFilter;
             return typeMatch && severityMatch;
         }).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -192,9 +217,9 @@ export function SafetyAndAlerts({ hospitalData }) {
                         <CardTitle className="text-white flex items-center gap-2"><Building /> System Health</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3 flex-grow">
-                        <SystemStatusWidget title="Fire Alarms" status={safety.systems.fireAlarms} icon={Flame} />
-                        <SystemStatusWidget title="Sprinklers" status={safety.systems.sprinklers} icon={Shield} />
-                        <SystemStatusWidget title="Emergency Exits" status={safety.systems.exits} icon={CheckCircle} />
+                        <SystemStatusWidget title="Fire Alarms" status={systemStatus.fireAlarms} icon={Flame} />
+                        <SystemStatusWidget title="Sprinklers" status={systemStatus.sprinklers} icon={Shield} />
+                        <SystemStatusWidget title="Emergency Exits" status={systemStatus.exits} icon={CheckCircle} />
                     </CardContent>
                 </Card>
 
@@ -238,15 +263,16 @@ export function SafetyAndAlerts({ hospitalData }) {
                 <CardHeader>
                     <CardTitle className="text-white">Emergency Actions</CardTitle>
                 </CardHeader>
-                <CardContent className="flex gap-4">
+                <CardContent className="flex flex-wrap gap-4">
                     <Button variant="destructive" className="flex-1 glowing-shadow-interactive" onClick={() => handleEmergencyAction('Evacuation for Ward B')}><Siren className="mr-2"/> Evacuate Ward B</Button>
                     <Button variant="secondary" className="flex-1" onClick={() => handleEmergencyAction('All Staff Notification')}><Bell className="mr-2"/> Notify All Staff</Button>
                     <Button variant="secondary" className="flex-1" onClick={() => handleEmergencyAction('Fire Department Call')}><Phone className="mr-2"/> Call Fire Dept.</Button>
                     <Button variant="outline" className="flex-1" onClick={() => handleEmergencyAction('Alarm Test')}>Test Alarms</Button>
+                    <Button variant="destructive" className="flex-1 glowing-shadow-interactive" onClick={handleSimulateFire}><Flame className="mr-2"/>Simulate Fire</Button>
                 </CardContent>
             </Card>
         </div>
     );
+}
 
     
-}
