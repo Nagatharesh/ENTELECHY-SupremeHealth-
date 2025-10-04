@@ -122,8 +122,8 @@ export function LiveNavigation({ dispatch, onComplete }) {
             </CardHeader>
             <CardContent>
                 <div className="relative h-96 bg-background/50 rounded-lg overflow-hidden border border-primary/20 perspective-1000">
-                    <Image src="https://images.unsplash.com/photo-1588628062512-3213b31524e3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" layout="fill" objectFit="cover" alt="3D map" className="opacity-10" data-ai-hint="night street map" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                    <Image src="https://images.unsplash.com/photo-1588628062512-3213b31524e3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" layout="fill" objectFit="cover" alt="3D map" className="opacity-30" data-ai-hint="night street map" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
 
                     <div className="absolute top-4 left-4 glassmorphism p-2 rounded-lg">
                         <p className="text-sm text-muted-foreground">ETA</p>
@@ -176,5 +176,7 @@ export function LiveNavigation({ dispatch, onComplete }) {
                 </Button>
             </CardFooter>
         </Card>
-    )
+    );
 }
+
+    
