@@ -38,6 +38,7 @@ import { Insurance } from '@/components/patient/insurance';
 import { SmartDevices } from '@/components/patient/smart-devices';
 import { Smartphone } from 'lucide-react';
 import { Prescriptions } from '@/components/patient/prescriptions';
+import { PatientChatbot } from '@/components/patient/chatbot';
 
 
 function DashboardContent() {
@@ -180,6 +181,7 @@ function DashboardContent() {
             {renderContent()}
           </div>
         </main>
+        <PatientChatbot />
       </div>
     
   );
