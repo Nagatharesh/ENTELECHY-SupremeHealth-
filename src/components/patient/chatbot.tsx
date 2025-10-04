@@ -37,6 +37,28 @@ const QUICK_REPLIES = {
         { text: 'View Upcoming', action: 'appt_view_upcoming' },
         { text: 'Back to Main Menu', action: 'main_menu' },
     ],
+    APPOINTMENT_SPECIALTIES: [
+        { text: 'Cardiology', action: 'appt_spec_cardiology' },
+        { text: 'Dermatology', action: 'appt_spec_dermatology' },
+        { text: 'Neurology', action: 'appt_spec_neurology' },
+        { text: 'General Medicine', action: 'appt_spec_general' },
+    ],
+    APPOINTMENT_DOCTORS: {
+        cardiology: [{ text: 'Dr. A Kumar', action: 'appt_doc_kumar' }, { text: 'Dr. Ritu Malhotra', action: 'appt_doc_malhotra' }],
+        dermatology: [{ text: 'Dr. S Mehra', action: 'appt_doc_mehra' }],
+        neurology: [{ text: 'Dr. R Verma', action: 'appt_doc_verma' }],
+        general: [{ text: 'Dr. Amit Verma', action: 'appt_doc_amitverma' }],
+    },
+    APPOINTMENT_TIMES: [
+        { text: '10:00 AM', action: 'appt_time_1000' },
+        { text: '11:00 AM', action: 'appt_time_1100' },
+        { text: '02:00 PM', action: 'appt_time_1400' },
+        { text: '03:00 PM', action: 'appt_time_1500' },
+    ],
+    APPOINTMENT_CONFIRM: [
+        { text: '✅ Yes, confirm it', action: 'appt_confirm_yes' },
+        { text: '❌ No, cancel', action: 'main_menu' },
+    ],
     RECORDS: [
         { text: 'Lab Reports', action: 'rec_labs' },
         { text: 'Prescriptions', action: 'rec_rx' },
@@ -77,6 +99,7 @@ export function PatientChatbot() {
     const [messages, setMessages] = useState<{ author: 'bot' | 'user'; text: string; quickReplies?: any[] }[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [conversationState, setConversationState] = useState('main_menu');
+    const [bookingData, setBookingData] = useState<any>({});
     const scrollAreaRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -109,9 +132,12 @@ export function PatientChatbot() {
         setInputValue('');
 
         setTimeout(() => {
-            const botResponse = getBotResponse(messageText, conversationState);
-            setMessages(prev => [...prev, botResponse]);
+            const botResponse = getBotResponse(messageText, conversationState, bookingData);
+            setMessages(prev => [...prev, botResponse.response]);
             setConversationState(botResponse.nextState || 'main_menu');
+            if (botResponse.bookingData) {
+                setBookingData(botResponse.bookingData);
+            }
         }, 1000);
     };
 
@@ -120,20 +146,28 @@ export function PatientChatbot() {
         setMessages(prev => [...prev, userMessage]);
         
         setTimeout(() => {
-            const botResponse = getBotResponse(action, conversationState);
-            setMessages(prev => [...prev, botResponse]);
+            const botResponse = getBotResponse(action, conversationState, bookingData);
+            setMessages(prev => [...prev, botResponse.response]);
             setConversationState(botResponse.nextState || 'main_menu');
+            if (botResponse.bookingData) {
+                setBookingData(botResponse.bookingData);
+            }
+             if (botResponse.resetBooking) {
+                setBookingData({});
+            }
         }, 1000);
     }
 
-    const getBotResponse = (userInput: string, state: string): { author: 'bot', text: string, quickReplies?: any[], nextState?: string } => {
+    const getBotResponse = (userInput: string, state: string, currentBookingData: any): { response: { author: 'bot', text: string, quickReplies?: any[] }, nextState?: string, bookingData?: any, resetBooking?: boolean } => {
         const lowerInput = userInput.toLowerCase();
         
         if (lowerInput.includes('chest pain') && (lowerInput.includes('9') || lowerInput.includes('10'))) {
             return {
-                author: 'bot',
-                text: `${EMOJIS.EMERGENCY} High-severity symptom detected! I strongly recommend seeking immediate medical attention.`,
-                quickReplies: QUICK_REPLIES.EMERGENCY,
+                response: {
+                    author: 'bot',
+                    text: `${EMOJIS.EMERGENCY} High-severity symptom detected! I strongly recommend seeking immediate medical attention.`,
+                    quickReplies: QUICK_REPLIES.EMERGENCY,
+                },
                 nextState: 'main_menu'
             };
         }
@@ -141,21 +175,20 @@ export function PatientChatbot() {
         const handleFlow = (flow: string) => {
             switch(flow) {
                 case 'flow_appointments':
-                    return { author: 'bot' as const, text: `${EMOJIS.BOOK} I can help with appointments! What would you like to do?`, quickReplies: QUICK_REPLIES.APPOINTMENTS, nextState: 'appointments' };
+                    return { response: { author: 'bot' as const, text: `${EMOJIS.BOOK} I can help with appointments! What would you like to do?`, quickReplies: QUICK_REPLIES.APPOINTMENTS }, nextState: 'appointments' };
                 case 'flow_records':
-                    return { author: 'bot' as const, text: `${EMOJIS.RECORDS} Sure, I can show you your medical records. Which part are you interested in?`, quickReplies: QUICK_REPLIES.RECORDS, nextState: 'records' };
+                    return { response: { author: 'bot' as const, text: `${EMOJIS.RECORDS} Sure, I can show you your medical records. Which part are you interested in?`, quickReplies: QUICK_REPLIES.RECORDS }, nextState: 'records' };
                 case 'flow_reminders':
-                     return { author: 'bot' as const, text: `${EMOJIS.TIME} Let's set a reminder! What is this for?`, quickReplies: QUICK_REPLIES.REMINDERS, nextState: 'reminders' };
+                     return { response: { author: 'bot' as const, text: `${EMOJIS.TIME} Let's set a reminder! What is this for?`, quickReplies: QUICK_REPLIES.REMINDERS }, nextState: 'reminders' };
                 case 'flow_assistance':
-                    return { author: 'bot' as const, text: `${EMOJIS.INSIGHT} How can I assist you with your health today?`, quickReplies: QUICK_REPLIES.ASSISTANCE, nextState: 'assistance' };
+                    return { response: { author: 'bot' as const, text: `${EMOJIS.INSIGHT} How can I assist you with your health today?`, quickReplies: QUICK_REPLIES.ASSISTANCE }, nextState: 'assistance' };
                 case 'flow_profile':
-                    return { author: 'bot' as const, text: `${EMOJIS.PROFILE} This is your Profile Hub. What would you like to do?`, quickReplies: QUICK_REPLIES.PROFILE, nextState: 'profile' };
+                    return { response: { author: 'bot' as const, text: `${EMOJIS.PROFILE} This is your Profile Hub. What would you like to do?`, quickReplies: QUICK_REPLIES.PROFILE }, nextState: 'profile' };
                 default:
-                    return { author: 'bot' as const, text: `${EMOJIS.ERROR} I'm still learning. Please select from the main menu.`, quickReplies: QUICK_REPLIES.MAIN_MENU, nextState: 'main_menu' };
+                    return { response: { author: 'bot' as const, text: `${EMOJIS.ERROR} I'm still learning. Please select from the main menu.`, quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
             }
         };
         
-        // Initial flow detection
         if (state === 'main_menu' || !state) {
             if (lowerInput.startsWith('flow_')) return handleFlow(lowerInput);
             if (lowerInput.includes('appointment')) return handleFlow('flow_appointments');
@@ -165,83 +198,133 @@ export function PatientChatbot() {
             if (lowerInput.includes('profile')) return handleFlow('flow_profile');
         }
 
-        // State-based responses
         switch (state) {
             case 'appointments':
                 if (lowerInput.includes('book_new')) {
-                    return { author: 'bot', text: "To book a new appointment, please navigate to the 'Doctors' or 'Appointments' tab in your dashboard.", quickReplies: QUICK_REPLIES.APPOINTMENTS, nextState: 'appointments' };
+                    return {
+                        response: { author: 'bot', text: "Great! Let's book an appointment. First, please choose a specialty.", quickReplies: QUICK_REPLIES.APPOINTMENT_SPECIALTIES },
+                        nextState: 'booking_specialty',
+                        bookingData: {}
+                    };
                 }
                 if (lowerInput.includes('view_upcoming')) {
-                     return { author: 'bot', text: `${EMOJIS.BOOK} Upcoming:\n- Dr. Kapoor on Oct 20\n- Dr. Malhotra on Oct 25.`, quickReplies: QUICK_REPLIES.APPOINTMENTS, nextState: 'appointments' };
+                     return { response: { author: 'bot', text: `${EMOJIS.BOOK} Upcoming:\n- Dr. Kapoor on Oct 20\n- Dr. Malhotra on Oct 25.`, quickReplies: QUICK_REPLIES.APPOINTMENTS }, nextState: 'appointments' };
                 }
                 break;
             
+            case 'booking_specialty': {
+                const specialty = lowerInput.split('_').pop();
+                const doctors = QUICK_REPLIES.APPOINTMENT_DOCTORS[specialty as keyof typeof QUICK_REPLIES.APPOINTMENT_DOCTORS];
+                if (doctors) {
+                    return {
+                        response: { author: 'bot', text: `You selected ${specialty}. Now, please choose a doctor.`, quickReplies: doctors },
+                        nextState: 'booking_doctor',
+                        bookingData: { ...currentBookingData, specialty }
+                    };
+                }
+                break;
+            }
+
+            case 'booking_doctor': {
+                const docName = userInput.split(', ')[0].replace('Dr. ', '');
+                return {
+                    response: { author: 'bot', text: `You chose Dr. ${docName}. Please select a time slot.`, quickReplies: QUICK_REPLIES.APPOINTMENT_TIMES },
+                    nextState: 'booking_time',
+                    bookingData: { ...currentBookingData, doctor: `Dr. ${docName}` }
+                };
+            }
+
+            case 'booking_time': {
+                const time = userInput.split(' ')[0];
+                const summary = `Confirm appointment with ${currentBookingData.doctor} (${currentBookingData.specialty}) at ${time}?`;
+                return {
+                    response: { author: 'bot', text: summary, quickReplies: QUICK_REPLIES.APPOINTMENT_CONFIRM },
+                    nextState: 'booking_confirm',
+                    bookingData: { ...currentBookingData, time }
+                };
+            }
+
+            case 'booking_confirm':
+                if (lowerInput.includes('yes')) {
+                    return {
+                        response: { author: 'bot', text: `${EMOJIS.SUCCESS} Your appointment with ${currentBookingData.doctor} at ${currentBookingData.time} is confirmed!`, quickReplies: QUICK_REPLIES.MAIN_MENU },
+                        nextState: 'main_menu',
+                        resetBooking: true
+                    };
+                } else {
+                     return {
+                        response: { author: 'bot', text: "Okay, I've cancelled the booking process.", quickReplies: QUICK_REPLIES.MAIN_MENU },
+                        nextState: 'main_menu',
+                        resetBooking: true
+                    };
+                }
+            
             case 'records':
                  if (lowerInput.includes('rec_labs')) {
-                    return { author: 'bot', text: `${EMOJIS.RECORDS} Latest Lab Report:\n- Hemoglobin: 12.5 g/dL (Normal)\n- WBC: 8500 /μL (Normal)`, quickReplies: QUICK_REPLIES.RECORDS, nextState: 'records' };
+                    return { response: { author: 'bot', text: `${EMOJIS.RECORDS} Latest Lab Report:\n- Hemoglobin: 12.5 g/dL (Normal)\n- WBC: 8500 /μL (Normal)`, quickReplies: QUICK_REPLIES.RECORDS }, nextState: 'records' };
                 }
                  if (lowerInput.includes('rec_rx')) {
-                    return { author: 'bot', text: "Your prescriptions are available under the 'Prescriptions' tab.", quickReplies: QUICK_REPLIES.RECORDS, nextState: 'records' };
+                    return { response: { author: 'bot', text: "Your prescriptions are available under the 'Prescriptions' tab.", quickReplies: QUICK_REPLIES.RECORDS }, nextState: 'records' };
                  }
                   if (lowerInput.includes('rec_history')) {
-                    return { author: 'bot', text: "Your visit history is available under the 'Records' tab.", quickReplies: QUICK_REPLIES.RECORDS, nextState: 'records' };
+                    return { response: { author: 'bot', text: "Your visit history is available under the 'Records' tab.", quickReplies: QUICK_REPLIES.RECORDS }, nextState: 'records' };
                  }
                 break;
             
              case 'reminders':
                  if (lowerInput.includes('rem_medication')) {
-                    return { author: 'bot', text: "Okay, a medication reminder. What is the name of the medicine?", nextState: 'reminders_med_name' };
+                    return { response: { author: 'bot', text: "Okay, a medication reminder. What is the name of the medicine?"}, nextState: 'reminders_med_name' };
                 }
                  if (lowerInput.includes('rem_appointment')) {
-                    return { author: 'bot', text: "Which appointment would you like a reminder for? You can see upcoming appointments in the 'Appointments' tab.", quickReplies: QUICK_REPLIES.REMINDERS, nextState: 'reminders' };
+                    return { response: { author: 'bot', text: "Which appointment would you like a reminder for? You can see upcoming appointments in the 'Appointments' tab.", quickReplies: QUICK_REPLIES.REMINDERS }, nextState: 'reminders' };
                  }
                 break;
 
             case 'reminders_med_name':
-                 return { author: 'bot', text: `Great. And at what time should I remind you to take ${userInput}? (e.g., "8 AM" or "9 PM")`, nextState: 'reminders_med_time' };
+                 return { response: { author: 'bot', text: `Great. And at what time should I remind you to take ${userInput}? (e.g., "8 AM" or "9 PM")`}, nextState: 'reminders_med_time' };
             
             case 'reminders_med_time':
-                 return { author: 'bot', text: `${EMOJIS.SUCCESS} All set! I will remind you.`, quickReplies: QUICK_REPLIES.MAIN_MENU, nextState: 'main_menu' };
+                 return { response: { author: 'bot', text: `${EMOJIS.SUCCESS} All set! I will remind you.`, quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
 
             case 'profile':
                 if (lowerInput.includes('prof_view')) {
-                    return { author: 'bot', text: `${EMOJIS.PROFILE} Name: Ananya Sharma\nAge: 29\nAllergies: Pollen\nConditions: Asthma, Migraine.`, quickReplies: QUICK_REPLIES.PROFILE, nextState: 'profile' };
+                    return { response: { author: 'bot', text: `${EMOJIS.PROFILE} Name: Ananya Sharma\nAge: 29\nAllergies: Pollen\nConditions: Asthma, Migraine.`, quickReplies: QUICK_REPLIES.PROFILE }, nextState: 'profile' };
                 }
                 if (lowerInput.includes('prof_edit')) {
-                    return { author: 'bot', text: "Which part of your profile would you like to edit?", quickReplies: QUICK_REPLIES.PROFILE_EDIT, nextState: 'profile_edit' };
+                    return { response: { author: 'bot', text: "Which part of your profile would you like to edit?", quickReplies: QUICK_REPLIES.PROFILE_EDIT }, nextState: 'profile_edit' };
                 }
                 break;
             
             case 'profile_edit':
                 if (lowerInput.includes('prof_edit_basics')) {
-                    return { author: 'bot', text: "This feature is coming soon! For now, please contact support to update your basic information.", quickReplies: QUICK_REPLIES.PROFILE_EDIT, nextState: 'profile_edit' };
+                    return { response: { author: 'bot', text: "This feature is coming soon! For now, please contact support to update your basic information.", quickReplies: QUICK_REPLIES.PROFILE_EDIT }, nextState: 'profile_edit' };
                 }
                  if (lowerInput.includes('prof_edit_contact')) {
-                    return { author: 'bot', text: "This feature is coming soon! For now, please contact support to update your contact details.", quickReplies: QUICK_REPLIES.PROFILE_EDIT, nextState: 'profile_edit' };
+                    return { response: { author: 'bot', text: "This feature is coming soon! For now, please contact support to update your contact details.", quickReplies: QUICK_REPLIES.PROFILE_EDIT }, nextState: 'profile_edit' };
                 }
                 break;
             
             case 'assistance':
                 if (lowerInput.includes('explain_bp')) {
-                     return { author: 'bot', text: `${EMOJIS.INSIGHT} Trend telescope: Your BP is steady! For a detailed graph, check the 'Vitals' tab.`, quickReplies: QUICK_REPLIES.ASSISTANCE, nextState: 'assistance' };
+                     return { response: { author: 'bot', text: `${EMOJIS.INSIGHT} Trend telescope: Your BP is steady! For a detailed graph, check the 'Vitals' tab.`, quickReplies: QUICK_REPLIES.ASSISTANCE }, nextState: 'assistance' };
                 }
                 if (lowerInput.includes('symptom_mild')) {
-                     return { author: 'bot', text: `${EMOJIS.HEALTH} For a mild headache, please rest and stay hydrated. If it worsens, let me know.`, quickReplies: QUICK_REPLIES.ASSISTANCE, nextState: 'assistance' };
+                     return { response: { author: 'bot', text: `${EMOJIS.HEALTH} For a mild headache, please rest and stay hydrated. If it worsens, let me know.`, quickReplies: QUICK_REPLIES.ASSISTANCE }, nextState: 'assistance' };
                 }
                 if (lowerInput.includes('symptom_high')) {
-                     return { author: 'bot', text: `${EMOJIS.EMERGENCY} High-severity symptom detected! I strongly recommend seeking immediate medical attention.`, quickReplies: QUICK_REPLIES.EMERGENCY, nextState: 'main_menu' };
+                     return { response: { author: 'bot', text: `${EMOJIS.EMERGENCY} High-severity symptom detected! I strongly recommend seeking immediate medical attention.`, quickReplies: QUICK_REPLIES.EMERGENCY }, nextState: 'main_menu' };
                 }
                  if (lowerInput.includes('predict_diabetes')) {
-                     return { author: 'bot', text: `${EMOJIS.INSIGHT} Risk rune read: Your simulated diabetes risk is low! To keep it that way, aim for daily walks.`, quickReplies: QUICK_REPLIES.ASSISTANCE, nextState: 'assistance' };
+                     return { response: { author: 'bot', text: `${EMOJIS.INSIGHT} Risk rune read: Your simulated diabetes risk is low! To keep it that way, aim for daily walks.`, quickReplies: QUICK_REPLIES.ASSISTANCE }, nextState: 'assistance' };
                 }
                 break;
         }
 
         if (lowerInput.includes('main_menu')) {
-            return { author: 'bot', text: "Is there anything else I can help with?", quickReplies: QUICK_REPLIES.MAIN_MENU, nextState: 'main_menu' };
+            return { response: { author: 'bot', text: "Is there anything else I can help with?", quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
         }
 
-        return { author: 'bot', text: `${EMOJIS.ERROR} I'm still learning and my capabilities are limited. Please use the main menu for now.`, quickReplies: QUICK_REPLIES.MAIN_MENU, nextState: 'main_menu' };
+        return { response: { author: 'bot', text: `${EMOJIS.ERROR} I'm still learning and my capabilities are limited. Please use the main menu for now.`, quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
     };
 
     return (
@@ -320,4 +403,3 @@ export function PatientChatbot() {
         </>
     );
 }
-
