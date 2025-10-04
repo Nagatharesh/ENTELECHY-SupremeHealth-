@@ -238,32 +238,10 @@ export function SafetyAndAlerts({ hospitalData }) {
                 </CardHeader>
             </Card>
 
-            <OxygenPipelineWidget />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <OxygenPipelineWidget />
 
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 h-[75vh]">
-                {/* Left Column: System Status */}
-                <Card className="xl:col-span-3 glassmorphism flex flex-col">
-                    <CardHeader>
-                        <CardTitle className="text-white flex items-center gap-2"><Building /> System Health</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 flex-grow overflow-y-auto">
-                        <SystemStatusWidget title="Fire Alarms" status={systemStatus.fireAlarms} icon={Flame} />
-                        <SystemStatusWidget title="Sprinklers" status={systemStatus.sprinklers} icon={Shield} />
-                        <SystemStatusWidget title="Electrical Grid" status={systemStatus.electrical} icon={Power} />
-                        <SystemStatusWidget title="Backup Generator" status={systemStatus.backupGenerator} icon={Power} />
-                        <SystemStatusWidget title="Water & Plumbing" status={systemStatus.plumbing} icon={WaterDroplets} />
-                        <SystemStatusWidget title="Air Quality" status={systemStatus.airQuality} icon={AirVent} />
-                        <SystemStatusWidget title="Ambulance Link" status={systemStatus.ambulanceLink} icon={Ambulance} />
-                        <SystemStatusWidget title="Distress Detection" status={systemStatus.distressDetection} icon={UserCog} />
-                        <SystemStatusWidget title="Pipe Scanner" status={systemStatus.pipeScanner} icon={BrainCircuit} />
-                        <SystemStatusWidget title="Equipment Predictor" status={systemStatus.equipmentPredictor} icon={Wrench} />
-                        <SystemStatusWidget title="Cyber Safety AI" status={systemStatus.cyberSafety} icon={ShieldCheck} />
-                        <SystemStatusWidget title="Emergency Drills" status={systemStatus.emergencyDrill} icon={Siren} />
-                    </CardContent>
-                </Card>
-
-                {/* Right Column: Alerts - Spanning the rest of the grid */}
-                 <Card className="xl:col-span-9 glassmorphism flex flex-col">
+                <Card className="glassmorphism glowing-shadow">
                     <CardHeader>
                         <CardTitle className="text-white flex items-center gap-2"><Siren /> Live Alerts</CardTitle>
                         <div className="flex gap-2 pt-2">
@@ -293,7 +271,7 @@ export function SafetyAndAlerts({ hospitalData }) {
                             </Select>
                         </div>
                     </CardHeader>
-                    <CardContent className="flex-grow space-y-3 overflow-y-auto pr-2 -mr-2">
+                    <CardContent className="h-[300px] overflow-y-auto space-y-3">
                         {filteredAlerts.length > 0 ? (
                             filteredAlerts.map(alert => <AlertCard key={alert.id} alert={alert} onAcknowledge={handleAcknowledge} isAcknowledged={acknowledgedAlerts.includes(alert.id)}/>)
                         ) : (
@@ -304,6 +282,27 @@ export function SafetyAndAlerts({ hospitalData }) {
                     </CardContent>
                 </Card>
             </div>
+            
+            <Card className="glassmorphism">
+                <CardHeader>
+                    <CardTitle className="text-white flex items-center gap-2"><Building /> System Health</CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <SystemStatusWidget title="Fire Alarms" status={systemStatus.fireAlarms} icon={Flame} />
+                    <SystemStatusWidget title="Sprinklers" status={systemStatus.sprinklers} icon={Shield} />
+                    <SystemStatusWidget title="Electrical Grid" status={systemStatus.electrical} icon={Power} />
+                    <SystemStatusWidget title="Backup Generator" status={systemStatus.backupGenerator} icon={Power} />
+                    <SystemStatusWidget title="Water & Plumbing" status={systemStatus.plumbing} icon={WaterDroplets} />
+                    <SystemStatusWidget title="Air Quality" status={systemStatus.airQuality} icon={AirVent} />
+                    <SystemStatusWidget title="Ambulance Link" status={systemStatus.ambulanceLink} icon={Ambulance} />
+                    <SystemStatusWidget title="Distress Detection" status={systemStatus.distressDetection} icon={UserCog} />
+                    <SystemStatusWidget title="Pipe Scanner" status={systemStatus.pipeScanner} icon={BrainCircuit} />
+                    <SystemStatusWidget title="Equipment Predictor" status={systemStatus.equipmentPredictor} icon={Wrench} />
+                    <SystemStatusWidget title="Cyber Safety AI" status={systemStatus.cyberSafety} icon={ShieldCheck} />
+                    <SystemStatusWidget title="Emergency Drills" status={systemStatus.emergencyDrill} icon={Siren} />
+                </CardContent>
+            </Card>
+
              <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
                     <CardTitle className="text-white">Emergency Actions &amp; Simulations</CardTitle>
