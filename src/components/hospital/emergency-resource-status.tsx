@@ -31,7 +31,7 @@ import { dummyTriagePatients, TriagePatient } from '@/lib/dummy-data';
 
 // --- Main Component ---
 export function EmergencyResourceStatus({ hospitalData }) {
-    const { facilities } = hospitalData.hospitalInfo;
+    const { facilities, beds: bedData } = hospitalData.hospitalInfo;
     const mountRef = useRef<HTMLDivElement>(null);
     const [infoBox, setInfoBox] = useState<{ visible: boolean, content: string, x: number, y: number }>({ visible: false, content: '', x: 0, y: 0 });
     const [isTriageModalOpen, setIsTriageModalOpen] = useState(false);
@@ -40,7 +40,7 @@ export function EmergencyResourceStatus({ hospitalData }) {
     const [isAiActive, setIsAiActive] = useState(true);
     const [resources, setResources] = useState({
         oxygen: 85,
-        beds: { general: facilities.beds.general, icu: facilities.beds.icu, trauma: { total: 20, occupied: 10 } },
+        beds: bedData,
     });
     const [aiConfidence, setAiConfidence] = useState(95);
     const [isSoundOn, setIsSoundOn] = useState(true);
@@ -67,7 +67,10 @@ export function EmergencyResourceStatus({ hospitalData }) {
         setAlerts(prev => [newAlert, ...prev]);
         addLog(`[AI Alert] ${alert.message}`);
         if(alert.level === 'critical') {
-            speak(`Critical Alert: ${alert.message}`);
+            const spokenMessage = alert.patient ? 
+                `Critical Alert: Patient ${alert.patient} in distress at ${alert.location}.` : 
+                `Critical Alert: ${alert.message}`;
+            speak(spokenMessage);
         }
         setAiConfidence(prev => Math.max(70, prev - 2));
     }, [addLog, isAiActive, speak]);
@@ -82,20 +85,24 @@ export function EmergencyResourceStatus({ hospitalData }) {
 
     const assignBed = (patient: TriagePatient) => {
         let bedType: 'general' | 'icu' | 'trauma' | null = null;
-        if(patient.triageLevel === 'Critical') bedType = 'icu';
+        if (patient.triageLevel === 'Critical') bedType = 'icu';
         else if (patient.triageLevel === 'Moderate') bedType = 'trauma';
         else bedType = 'general';
-
-        if(bedType && resources.beds[bedType].occupied < resources.beds[bedType].total) {
+    
+        const targetWingBeds = resources.beds.filter(b => b.wing.toLowerCase() === bedType);
+        const availableBed = targetWingBeds.find(b => b.status === 'available');
+    
+        if (availableBed) {
             setResources(prev => ({
                 ...prev,
-                beds: {
-                    ...prev.beds,
-                    [bedType!]: { ...prev.beds[bedType!], occupied: prev.beds[bedType!].occupied + 1 }
-                }
+                beds: prev.beds.map(b => 
+                    b.bedId === availableBed.bedId 
+                        ? { ...b, status: 'occupied', patient: patient.name, triage: patient.triageLevel, occupiedSince: new Date().toISOString() }
+                        : b
+                )
             }));
             setTriageList(prev => prev.filter(p => p.patientId !== patient.patientId));
-            addLog(`[Bed Mgmt] Assigned ${patient.name} to ${bedType.toUpperCase()} bed.`);
+            addLog(`[Bed Mgmt] Assigned ${patient.name} to ${bedType.toUpperCase()} bed ${availableBed.bedId}.`);
         } else {
              addLog(`[Bed Mgmt] No ${bedType} beds available for ${patient.name}.`);
         }
@@ -130,7 +137,13 @@ export function EmergencyResourceStatus({ hospitalData }) {
         setIsDemoRunning(true);
         addLog("[Demo] Starting scripted sequence...");
         
-        setTimeout(() => addAlert({ type: 'patient', message: "Patient distress in ICU Bed 01", level: 'critical', icon: User }), 2000);
+        const icuBed = resources.beds.find(b => b.wing === 'ICU' && b.status === 'occupied');
+        const alertMessage = icuBed ? 
+            `Patient ${icuBed.patient} in distress in ${icuBed.wing} Bed ${icuBed.bedId}` :
+            "Patient distress in ICU";
+        
+        setTimeout(() => addAlert({ type: 'patient', message: alertMessage, location: icuBed?.bedId || 'ICU', patient: icuBed?.patient, level: 'critical', icon: User }), 2000);
+
         setTimeout(() => setResources(prev => ({...prev, oxygen: 68})), 5000);
         
         setTimeout(() => {
@@ -244,17 +257,18 @@ const TriagePanel = ({ patients, onAssign }) => (
 
 
 const Facility3DView = ({ resources, infoBox, setInfoBox }) => {
-    const bedLayout = {
-        general: { rows: 5, cols: 10, position: { x: -150, z: -100 } },
-        icu: { rows: 2, cols: 5, position: { x: 50, z: -100 } },
-        trauma: { rows: 2, cols: 5, position: { x: 50, z: 20 } },
+    const wings = {
+        general: { rows: 5, cols: 10, position: { x: -150, z: -100 }, label: 'General Ward' },
+        icu: { rows: 2, cols: 5, position: { x: 50, z: -100 }, label: 'ICU' },
+        trauma: { rows: 2, cols: 5, position: { x: 50, z: 20 }, label: 'Trauma Center' },
+        surgery: { rows: 1, cols: 2, position: { x: -150, z: 20}, label: 'Operating Rooms'}
     };
 
-    const handleBedClick = (wing: string, index: number, isOccupied: boolean) => {
+    const handleBedClick = (bed) => {
         setInfoBox(prev => ({
             ...prev,
             visible: true,
-            content: `${wing.toUpperCase()} Bed ${index + 1} - ${isOccupied ? 'Occupied' : 'Available'}`,
+            content: `${bed.wing} Bed ${bed.bedId} - ${bed.status === 'occupied' ? `Occupied by ${bed.patient}` : 'Available'}`,
         }));
     };
     
@@ -275,29 +289,33 @@ const Facility3DView = ({ resources, infoBox, setInfoBox }) => {
             )}
             <div className="w-full h-full transform-style-3d flex items-center justify-center" style={{ transform: 'rotateX(60deg) scale(1.2)'}}>
                 <div className="w-[400px] h-[300px] relative border-2 border-dashed border-primary/20 bg-background/20 rounded-lg p-4">
-                     {Object.entries(bedLayout).map(([wing, layout]) => (
-                        <div key={wing} className="absolute" style={{ top: `${50 + layout.position.z / 4}%`, left: `${50 + layout.position.x / 4}%` }}>
-                            <p className="text-xs text-muted-foreground absolute -top-4">{wing.toUpperCase()}</p>
-                            <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${layout.cols}, 1fr)` }}>
-                                {Array.from({ length: resources.beds[wing].total }).map((_, i) => {
-                                    const isOccupied = i < resources.beds[wing].occupied;
-                                    let color = 'bg-green-500/50';
-                                    if(isOccupied) {
-                                       if(wing === 'icu') color = 'bg-red-500/50';
-                                       else if(wing === 'trauma') color = 'bg-yellow-500/50';
-                                       else color = 'bg-blue-500/50';
-                                    }
-                                    return (
-                                        <div 
-                                            key={`${wing}-${i}`} 
-                                            className={cn("w-3 h-4 rounded-sm cursor-pointer hover:scale-150 transition-transform", color)}
-                                            onClick={() => handleBedClick(wing, i, isOccupied)}
-                                        />
-                                    );
-                                })}
+                     {Object.entries(wings).map(([wingKey, layout]) => {
+                         const wingBeds = resources.beds.filter(b => b.wing.toLowerCase() === wingKey);
+                         return (
+                            <div key={wingKey} className="absolute" style={{ top: `${50 + layout.position.z / 4}%`, left: `${50 + layout.position.x / 4}%` }}>
+                                <p className="text-xs text-muted-foreground absolute -top-4">{layout.label}</p>
+                                <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${layout.cols}, 1fr)` }}>
+                                    {wingBeds.map((bed, i) => {
+                                        let color = 'bg-green-500/50';
+                                        if (bed.status === 'occupied') {
+                                            if (bed.triage === 'Critical') color = 'bg-red-500/50';
+                                            else if (bed.triage === 'Moderate') color = 'bg-yellow-500/50';
+                                            else color = 'bg-blue-500/50';
+                                        } else if (bed.status === 'in-use') {
+                                            color = 'bg-purple-500/50 animate-pulse';
+                                        }
+                                        return (
+                                            <div 
+                                                key={bed.bedId} 
+                                                className={cn("w-3 h-4 rounded-sm cursor-pointer hover:scale-150 transition-transform", color)}
+                                                onClick={() => handleBedClick(bed)}
+                                            />
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                     })}
                 </div>
             </div>
         </Card>
