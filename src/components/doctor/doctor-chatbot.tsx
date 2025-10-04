@@ -114,12 +114,12 @@ export function DoctorChatbot() {
                 case 'flow_schedule':
                     return {
                         response: { author: 'bot', text: `${EMOJIS.SCHEDULE} You have 8 appointments today. Your next one is with Priya Verma (P-002) at 09:15 AM for a routine diabetes check-up.`, quickReplies: QUICK_REPLIES.SCHEDULE_OPTIONS },
-                        nextState: 'main_menu'
+                        nextState: 'schedule_options'
                     };
                 case 'flow_labs':
                     return {
                         response: { author: 'bot', text: `${EMOJIS.INSIGHT} The latest critical lab result is for Rohan Gupta (LAB-501): Hemoglobin is 9.1 g/dL (Low) and Platelets are 130 (Low).`, quickReplies: QUICK_REPLIES.LABS_OPTIONS },
-                        nextState: 'main_menu'
+                        nextState: 'labs_options'
                     };
                 case 'flow_find_patient':
                     return {
@@ -167,10 +167,28 @@ export function DoctorChatbot() {
 
             case 'patient_summary_options':
                 if (lowerInput.includes('open_chart')) {
-                    return { response: { author: 'bot', text: `Opening full chart for ${currentQueryData.patientName}... (This would navigate to their record in a real app).`, quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
+                    return { response: { author: 'bot', text: `${EMOJIS.SUCCESS} Opening full chart for ${currentQueryData.patientName}... (This would navigate to their record in a real app).`, quickReplies: QUICK_REPLIES.MAIN_MENU }, nextState: 'main_menu' };
                 }
                 if (lowerInput.includes('show_labs')) {
-                    return { response: { author: 'bot', text: `Fetching recent labs for ${currentQueryData.patientName}: HbA1c is 7.2% (High).`, quickReplies: QUICK_REPLIES.PATIENT_SUMMARY_OPTIONS }, nextState: 'patient_summary_options' };
+                    return { response: { author: 'bot', text: `${EMOJIS.INSIGHT} Fetching recent labs for ${currentQueryData.patientName}: HbA1c is 7.2% (High).`, quickReplies: QUICK_REPLIES.PATIENT_SUMMARY_OPTIONS }, nextState: 'patient_summary_options' };
+                }
+                break;
+            
+            case 'schedule_options':
+                if (lowerInput.includes('view_full_schedule')) {
+                    return { response: { author: 'bot', text: `${EMOJIS.SCHEDULE} Full Schedule:\n- 09:15: P. Verma\n- 09:30: R. Kumar\n- 10:00: V. Joshi... (This would be a scrollable list)`, quickReplies: QUICK_REPLIES.SCHEDULE_OPTIONS }, nextState: 'schedule_options' };
+                }
+                if (lowerInput.includes('send_late_note')) {
+                    return { response: { author: 'bot', text: `${EMOJIS.SUCCESS} An automated notification has been sent to the next 3 patients in your queue informing them of a slight delay.`, quickReplies: QUICK_REPLIES.SCHEDULE_OPTIONS }, nextState: 'schedule_options' };
+                }
+                break;
+
+            case 'labs_options':
+                if (lowerInput.includes('view_lab_501')) {
+                    return { response: { author: 'bot', text: `${EMOJIS.INSIGHT} Details for LAB-501 (Rohan Gupta):\n- Hemoglobin: 9.1 g/dL (Critical)\n- WBC: 12.5 (High)\n- Platelets: 130 (Low)\nAI Suggestion: Possible aplastic anemia. Immediate hematology consult advised.`, quickReplies: QUICK_REPLIES.LABS_OPTIONS }, nextState: 'labs_options' };
+                }
+                if (lowerInput.includes('notify_hematologist')) {
+                    return { response: { author: 'bot', text: `${EMOJIS.SUCCESS} Dr. Sharma (Hematology) has been paged with the critical lab results for Rohan Gupta.`, quickReplies: QUICK_REPLIES.LABS_OPTIONS }, nextState: 'labs_options' };
                 }
                 break;
         }
