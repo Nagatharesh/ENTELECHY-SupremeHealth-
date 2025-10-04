@@ -11,63 +11,46 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
 
 const EMOJIS = {
-  WELCOME: '🏥✨',
-  SUCCESS: '✅📊',
-  ERROR: '⚠️💡',
-  INSIGHT: '🧠💡',
-  STATUS: '📊',
+  GREETING: '🏥✨',
+  SUCCESS: '✅',
+  ERROR: '⚠️',
+  CRITICAL: '🔴',
+  WARNING: '🟡',
+  NORMAL: '🟢',
+  BED: '🛏️',
   STAFF: '🧑‍⚕️',
-  ALERTS: '🚨',
-  PREDICT: '🔮',
+  INCIDENT: '🚨',
+  PREDICT: '📈',
+  REPORT: '📋',
+  AI: '🤖',
 };
 
-const QUICK_REPLIES = {
-    MAIN_MENU: [
-        { text: `${EMOJIS.STATUS} Facility Status`, action: 'flow_status' },
-        { text: `${EMOJIS.STAFF} Staff Alerts`, action: 'flow_staff' },
-        { text: `${EMOJIS.ALERTS} Incident Reports`, action: 'flow_incidents' },
-        { text: `${EMOJIS.PREDICT} Predictive Analytics`, action: 'flow_predict' },
-    ],
-    STATUS_OPTIONS: [
-        { text: 'Bed Occupancy', action: 'status_beds' },
-        { text: 'Oxygen Levels', action: 'status_oxygen' },
-        { text: 'Back to menu', action: 'main_menu' },
-    ],
-    STAFF_OPTIONS: [
-        { text: 'High Stress Staff', action: 'staff_stress' },
-        { text: 'Upcoming Shift Changes', action: 'staff_shifts' },
-        { text: 'Back to menu', action: 'main_menu' },
-    ],
-    INCIDENT_OPTIONS: [
-        { text: 'Show Active Alerts', action: 'incidents_active' },
-        { text: 'Log a New Incident', action: 'incidents_log' },
-        { text: 'Back to menu', action: 'main_menu' },
-    ],
-    PREDICT_OPTIONS: [
-        { text: 'Patient Load Forecast', action: 'predict_load' },
-        { text: 'Equipment Failure Risk', action: 'predict_equipment' },
-        { text: 'Back to menu', action: 'main_menu' },
-    ]
-};
+// Simulated real-time hospital status
+const getHospitalContext = () => ({
+  icuCapacity: 92,
+  erStatus: 'stable',
+  staffAlerts: 2,
+  activeIncidents: [{ id: 'cam4', description: 'Camera 4 offline (Ward B)', resolved: false }],
+  surgeRisk: { chance: 68, timeframe: '72h' },
+  bedStatus: { total: 200, occupied: 164, icu: { total: 30, occupied: 28 } },
+  floatNurses: [{ id: 'n-01', name: 'Maria Lopez (RN)' }, { id: 'n-02', name: 'John Doe (RN)' }],
+});
+
 
 export function HospitalChatbot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<{ author: 'bot' | 'user'; text: string; quickReplies?: any[] }[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [conversationState, setConversationState] = useState('main_menu');
+    const [context, setContext] = useState(getHospitalContext());
     const scrollAreaRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (isOpen && messages.length === 0) {
-            setMessages([
-                {
-                    author: 'bot',
-                    text: `${EMOJIS.WELCOME} Hello! This is the Administrative ASI. How can I assist with hospital operations today?`,
-                    quickReplies: QUICK_REPLIES.MAIN_MENU,
-                }
-            ]);
+            const botResponse = getBotResponse('initial_greeting', 'main_menu', context);
+            setMessages([botResponse.response]);
         }
-    }, [isOpen, messages]);
+    }, [isOpen, messages, context]);
 
     useEffect(() => {
         if (scrollAreaRef.current) {
@@ -87,9 +70,12 @@ export function HospitalChatbot() {
         setInputValue('');
 
         setTimeout(() => {
-            const botResponse = getBotResponse(messageText, conversationState);
+            const botResponse = getBotResponse(messageText, conversationState, context);
             setMessages(prev => [...prev, botResponse.response]);
             setConversationState(botResponse.nextState || 'main_menu');
+            if (botResponse.updatedContext) {
+                setContext(botResponse.updatedContext);
+            }
         }, 1000);
     };
 
@@ -98,85 +84,138 @@ export function HospitalChatbot() {
         setMessages(prev => [...prev, userMessage]);
         
         setTimeout(() => {
-            const botResponse = getBotResponse(action, conversationState);
+            const botResponse = getBotResponse(action, conversationState, context);
             setMessages(prev => [...prev, botResponse.response]);
             setConversationState(botResponse.nextState || 'main_menu');
+             if (botResponse.updatedContext) {
+                setContext(botResponse.updatedContext);
+            }
         }, 1000);
     }
+    
+    const getInitialQuickReplies = (ctx: any) => {
+      let replies = [];
+      replies.push({ text: `${EMOJIS.BED} View Bed Dashboard (${ctx.bedStatus.occupied}/${ctx.bedStatus.total} Occupied)`, action: 'flow_beds' });
+      if (ctx.activeIncidents.some(i => !i.resolved)) {
+        const incident = ctx.activeIncidents.find(i => !i.resolved);
+        replies.push({ text: `${EMOJIS.INCIDENT} Resolve ${incident.description}`, action: `resolve_incident_${incident.id}` });
+      }
+      if (ctx.staffAlerts > 0) {
+        replies.push({ text: `${EMOJIS.STAFF} Assign Float Nurse to Ward B`, action: 'flow_assign_nurse' });
+      }
+      if (ctx.surgeRisk.chance > 50) {
+        replies.push({ text: `${EMOJIS.PREDICT} Show Predictive Surge Alert (${ctx.surgeRisk.chance}%)`, action: 'flow_predictive_surge' });
+      }
+      replies.push({ text: `${EMOJIS.REPORT} Generate Daily Ops Report`, action: 'flow_report' });
+      return replies;
+    }
 
-    const getBotResponse = (userInput: string, state: string): { response: { author: 'bot', text: string, quickReplies?: any[] }, nextState?: string } => {
+
+    const getBotResponse = (userInput: string, state: string, currentContext: any): { response: { author: 'bot', text: string, quickReplies?: any[] }, nextState?: string, updatedContext?: any } => {
         const lowerInput = userInput.toLowerCase();
         
-        if (lowerInput.startsWith('flow_')) {
-            switch(lowerInput) {
-                case 'flow_status':
-                    return { response: { author: 'bot', text: `${EMOJIS.STATUS} Which facility metric do you need?`, quickReplies: QUICK_REPLIES.STATUS_OPTIONS }, nextState: 'status' };
-                case 'flow_staff':
-                    return { response: { author: 'bot', text: `${EMOJIS.STAFF} Accessing staff data. What do you need?`, quickReplies: QUICK_REPLIES.STAFF_OPTIONS }, nextState: 'staff' };
-                case 'flow_incidents':
-                    return { response: { author: 'bot', text: `${EMOJIS.ALERTS} Incident command. Choose an option.`, quickReplies: QUICK_REPLIES.INCIDENT_OPTIONS }, nextState: 'incidents' };
-                case 'flow_predict':
-                    return { response: { author: 'bot', text: `${EMOJIS.PREDICT} AI analytics module. What forecast are you interested in?`, quickReplies: QUICK_REPLIES.PREDICT_OPTIONS }, nextState: 'predict' };
-            }
-        }
-        
-        if(lowerInput === 'main_menu') {
+        if (userInput === 'initial_greeting') {
+            const greeting = `${EMOJIS.GREETING} Good morning, Admin!\n`+
+                             `${EMOJIS.CRITICAL} ICU at ${currentContext.icuCapacity}% capacity | ` +
+                             `${EMOJIS.NORMAL} ER stable | ` +
+                             `${EMOJIS.STAFF} ${currentContext.staffAlerts} staff alerts\n` +
+                             `${EMOJIS.WARNING} Incident: ${currentContext.activeIncidents[0].description}\n\n` +
+                             `What would you like to prioritize?`;
+
             return {
-                response: { author: 'bot', text: "Is there anything else I can help with?", quickReplies: QUICK_REPLIES.MAIN_MENU, },
+                response: { author: 'bot', text: greeting, quickReplies: getInitialQuickReplies(currentContext) },
                 nextState: 'main_menu'
             };
         }
-
-
-        switch (state) {
-            case 'status':
-                if (lowerInput.includes('beds')) {
-                    return { response: { author: 'bot', text: `${EMOJIS.STATUS} Bed occupancy is currently at 85%. 45 ICU beds are occupied out of 50.`, quickReplies: QUICK_REPLIES.STATUS_OPTIONS }, nextState: 'status' };
-                }
-                if (lowerInput.includes('oxygen')) {
-                    return { response: { author: 'bot', text: `${EMOJIS.STATUS} Main oxygen supply is at 70%. AI predicts a need for refill in the next 8 hours.`, quickReplies: QUICK_REPLIES.STATUS_OPTIONS }, nextState: 'status' };
-                }
-                break;
-            
-            case 'staff':
-                 if (lowerInput.includes('stress')) {
-                    return { response: { author: 'bot', text: `${EMOJIS.STAFF} Dr. A Kumar and Nurse Rajesh Kumar are showing high stress levels. Recommending immediate rest.`, quickReplies: QUICK_REPLIES.STAFF_OPTIONS }, nextState: 'staff' };
-                }
-                 if (lowerInput.includes('shifts')) {
-                    return { response: { author: 'bot', text: `Shift change in 2 hours. Dr. Carter will replace Dr. Johnson in the ER.`, quickReplies: QUICK_REPLIES.STAFF_OPTIONS }, nextState: 'staff' };
-                 }
-                break;
-            
-            case 'incidents':
-                if (lowerInput.includes('active')) {
-                    return { response: { author: 'bot', text: `${EMOJIS.ALERTS} Critical: Smoke detector in Ward B. Warning: Unauthorized access at Main Entrance.`, quickReplies: QUICK_REPLIES.INCIDENT_OPTIONS }, nextState: 'incidents' };
-                }
-                if (lowerInput.includes('log')) {
-                    return { response: { author: 'bot', text: "To log a new incident, please describe it briefly.", }, nextState: 'logging_incident' };
-                }
-                break;
-            case 'logging_incident':
-                return { response: { author: 'bot', text: `${EMOJIS.SUCCESS} Incident logged: "${userInput}". The relevant department has been notified.`, quickReplies: QUICK_REPLIES.INCIDENT_OPTIONS }, nextState: 'incidents' };
-
-            case 'predict':
-                if (lowerInput.includes('load')) {
-                    return { response: { author: 'bot', text: `${EMOJIS.PREDICT} AI predicts a 15% increase in patient load next week due to seasonal changes.`, quickReplies: QUICK_REPLIES.PREDICT_OPTIONS }, nextState: 'predict' };
-                }
-                 if (lowerInput.includes('equipment')) {
-                    return { response: { author: 'bot', text: `${EMOJIS.PREDICT} MRI coil #3 is at 80% wear and has a 75% chance of failure in the next 60-90 days.`, quickReplies: QUICK_REPLIES.PREDICT_OPTIONS }, nextState: 'predict' };
-                }
-                break;
+        
+        if (lowerInput === 'main_menu') {
+            return {
+                response: { author: 'bot', text: "Is there anything else I can assist with?", quickReplies: getInitialQuickReplies(currentContext) },
+                nextState: 'main_menu'
+            };
         }
-
-        // Default fallback
-        return {
-            response: {
-                author: 'bot',
-                text: `${EMOJIS.ERROR} I'm sorry, I can only provide information on Facility Status, Staff Alerts, Incidents, and Predictions.`,
-                quickReplies: QUICK_REPLIES.MAIN_MENU,
-            },
-            nextState: 'main_menu'
-        };
+        
+        if (lowerInput.startsWith('resolve_incident_')) {
+            const incidentId = lowerInput.replace('resolve_incident_', '');
+            const updatedContext = {
+                ...currentContext,
+                activeIncidents: currentContext.activeIncidents.map(inc => 
+                    inc.id === incidentId ? { ...inc, resolved: true } : inc
+                )
+            };
+            return {
+                response: { 
+                    author: 'bot', 
+                    text: `${EMOJIS.SUCCESS} Reboot command sent to Camera 4. Status: Reconnecting... This action has been logged.`,
+                    quickReplies: [{text: 'Notify Security', action: 'notify_security'}, {text: 'Back to Menu', action: 'main_menu'}]
+                },
+                nextState: 'main_menu',
+                updatedContext
+            };
+        }
+        
+        switch (lowerInput) {
+            case 'flow_beds':
+                return {
+                    response: {
+                        author: 'bot',
+                        text: `${EMOJIS.BED} Bed Status: Total: ${currentContext.bedStatus.total} | Occupied: ${currentContext.bedStatus.occupied} (${Math.round(currentContext.bedStatus.occupied / currentContext.bedStatus.total * 100)}%)\n` +
+                              `ICU: ${currentContext.bedStatus.icu.occupied}/${currentContext.bedStatus.icu.total} Occupied.\n\n` +
+                              `2 beds are free in Cardiology.`,
+                        quickReplies: [{ text: 'Reserve Bed for ER', action: 'reserve_bed_er' }, {text: 'Back to Menu', action: 'main_menu'}]
+                    },
+                    nextState: 'main_menu'
+                };
+            case 'flow_assign_nurse':
+                 return {
+                    response: {
+                        author: 'bot',
+                        text: `${EMOJIS.STAFF} Available Float Nurses:\n` +
+                              currentContext.floatNurses.map(n => `- ${n.name}`).join('\n'),
+                        quickReplies: [
+                            ...currentContext.floatNurses.map(n => ({text: `Assign ${n.name}`, action: `assign_nurse_${n.id}`})),
+                            {text: 'Back to Menu', action: 'main_menu'}
+                        ]
+                    },
+                    nextState: 'main_menu'
+                };
+            case 'flow_predictive_surge':
+                return {
+                    response: {
+                        author: 'bot',
+                        text: `${EMOJIS.AI} ML Model: ${currentContext.surgeRisk.chance}% chance of 15+ admissions in ${currentContext.surgeRisk.timeframe} due to flu trend. Recommend: Prep 5 extra beds.`,
+                        quickReplies: [{text: 'Acknowledge & Prep Beds', action: 'prep_beds'}, {text: 'Back to Menu', action: 'main_menu'}]
+                    },
+                    nextState: 'main_menu'
+                };
+            case 'flow_report':
+                 return {
+                    response: {
+                        author: 'bot',
+                        text: `${EMOJIS.REPORT} Daily Ops Report ready! Includes: census, incidents, staffing, resource use.`,
+                        quickReplies: [{text: '[Download Report]', action: 'download_report'}, {text: 'Back to Menu', action: 'main_menu'}]
+                    },
+                    nextState: 'main_menu'
+                };
+            case 'notify_security':
+                return {
+                    response: { text: `${EMOJIS.SUCCESS} Security team has been notified about the camera issue.`, quickReplies: getInitialQuickReplies(currentContext) },
+                    nextState: 'main_menu'
+                };
+            default:
+                 if (lowerInput.startsWith('assign_nurse_')) {
+                    const nurseId = lowerInput.replace('assign_nurse_', '');
+                    const nurse = currentContext.floatNurses.find(n => n.id === nurseId);
+                    return {
+                        response: { text: `${EMOJIS.SUCCESS} ${nurse.name} assigned to Ward B. This has been logged.`, quickReplies: getInitialQuickReplies(currentContext) },
+                        nextState: 'main_menu'
+                    };
+                }
+                return {
+                    response: { author: 'bot', text: `I'm sorry, I can only provide information on Facility Status, Staff, Incidents, and Predictions.`, quickReplies: getInitialQuickReplies(currentContext) },
+                    nextState: 'main_menu'
+                };
+        }
     };
 
     return (
@@ -224,7 +263,7 @@ export function HospitalChatbot() {
                             <div className="p-3 border-t border-border/50">
                                 <div className="relative">
                                     <Input
-                                        placeholder="Ask ASI..."
+                                        placeholder="Ask ASI or use quick replies..."
                                         value={inputValue}
                                         onChange={(e) => setInputValue(e.target.value)}
                                         onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(inputValue)}
@@ -255,3 +294,5 @@ export function HospitalChatbot() {
         </>
     );
 }
+
+    
