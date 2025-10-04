@@ -4,6 +4,7 @@
 
 
 
+
 export interface TriagePatient {
     patientId: string;
     name: string;
@@ -1561,9 +1562,9 @@ export const dummyCommunication = [
 ];
 
 export const dummyDispatchRequests = [
-    { id: 'DIS-001', ambulanceId: 'AMB-001', patientName: 'Rohan Mehra', patientAge: 45, patientGender: 'Male', pickupLocation: '123, MG Road, Mumbai', destination: 'City Hospital', etaToPatient: 8, notes: 'Patient reports severe chest pain and shortness of breath. History of hypertension.', status: 'pending' },
-    { id: 'DIS-002', ambulanceId: 'AMB-002', patientName: 'Priya Sharma', patientAge: 28, patientGender: 'Female', pickupLocation: '45, Park Street, Delhi', destination: 'Green Hospital', etaToPatient: 12, notes: 'Minor road accident. Patient is conscious but has a deep laceration on the arm.', status: 'pending' },
-    { id: 'DIS-003', ambulanceId: 'AMB-005', patientName: 'Vikram Singh', patientAge: 71, patientGender: 'Male', pickupLocation: '78, Jubilee Hills, Hyderabad', destination: 'Blue Hospital', etaToPatient: 5, notes: 'Suspected stroke. Patient is showing signs of facial drooping and slurred speech. Critical.', status: 'pending' },
+    { id: 'DIS-001', ambulanceId: 'AMB-001', patientName: 'Rohan Mehra', patientAge: 45, patientGender: 'Male', pickupLocation: '123, MG Road, Mumbai', destination: 'City Hospital', etaToPatient: 8, notes: 'Patient reports severe chest pain and shortness of breath. History of hypertension.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-001')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-001')?.facilities },
+    { id: 'DIS-002', ambulanceId: 'AMB-002', patientName: 'Priya Sharma', patientAge: 28, patientGender: 'Female', pickupLocation: '45, Park Street, Delhi', destination: 'Green Hospital', etaToPatient: 12, notes: 'Minor road accident. Patient is conscious but has a deep laceration on the arm.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-002')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-002')?.facilities },
+    { id: 'DIS-003', ambulanceId: 'AMB-005', patientName: 'Vikram Singh', patientAge: 71, patientGender: 'Male', pickupLocation: '78, Jubilee Hills, Hyderabad', destination: 'Blue Hospital', etaToPatient: 5, notes: 'Suspected stroke. Patient is showing signs of facial drooping and slurred speech. Critical.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-005')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-005')?.facilities },
 ];
 
 export const dummyTripLogs = [
