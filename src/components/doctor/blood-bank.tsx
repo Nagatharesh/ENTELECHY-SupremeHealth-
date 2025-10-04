@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Droplets, HospitalIcon, TrendingUp, Search, User, Phone, MapPin, Calendar, PlusCircle, History } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from '../ui/badge';
-import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Line, LineChart, Pie, PieChart, Cell } from 'recharts';
 import { Input } from '../ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
@@ -114,7 +114,16 @@ const DashboardTab = () => {
         const monthOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         return monthOrder.map(month => ({ name: month, Donations: counts[month] || 0 }));
     }, []);
-    
+
+    const chartConfig = {
+      value: {
+        label: "Donors",
+      },
+       Donations: {
+        label: "Donations",
+      }
+    } satisfies ChartConfig
+
     return (
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
@@ -125,30 +134,34 @@ const DashboardTab = () => {
             </Card>
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <ChartCard title="Donors by Blood Group">
-                    <ResponsiveContainer width="100%" height={250}>
-                        <BarChart data={donorsByGroup}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
-                            <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
-                            <YAxis tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
-                            <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--primary)/0.1)' }} />
-                            <Bar dataKey="value" name="Donors">
-                                {donorsByGroup.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
+                    <ChartContainer config={chartConfig} className="w-full h-[250px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={donorsByGroup}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
+                                <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
+                                <YAxis tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
+                                <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--primary)/0.1)' }} />
+                                <Bar dataKey="value" name="Donors">
+                                    {donorsByGroup.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
                 </ChartCard>
                  <ChartCard title="Monthly Donations Trend">
-                    <ResponsiveContainer width="100%" height={250}>
-                        <LineChart data={monthlyDonations}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
-                            <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
-                            <YAxis tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
-                            <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--primary)/0.1)' }} />
-                            <Line type="monotone" dataKey="Donations" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} />
-                        </LineChart>
-                    </ResponsiveContainer>
+                    <ChartContainer config={chartConfig} className="w-full h-[250px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={monthlyDonations}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
+                                <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
+                                <YAxis tickLine={false} axisLine={false} stroke="hsl(var(--foreground))" fontSize={12} />
+                                <Tooltip content={<ChartTooltipContent />} cursor={{ fill: 'hsl(var(--primary)/0.1)' }} />
+                                <Line type="monotone" dataKey="Donations" stroke="hsl(var(--primary))" strokeWidth={2} activeDot={{ r: 8 }} />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
                 </ChartCard>
             </div>
         </div>
