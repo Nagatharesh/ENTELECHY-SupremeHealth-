@@ -202,6 +202,21 @@ export function HospitalChatbot() {
                     response: { text: `${EMOJIS.SUCCESS} Security team has been notified about the camera issue.`, quickReplies: getInitialQuickReplies(currentContext) },
                     nextState: 'main_menu'
                 };
+            case 'reserve_bed_er':
+                return {
+                    response: { text: `${EMOJIS.SUCCESS} Cardiology Bed C-201 has been reserved for ER incoming. This action is logged.`, quickReplies: getInitialQuickReplies(currentContext) },
+                    nextState: 'main_menu'
+                };
+            case 'prep_beds':
+                 return {
+                    response: { text: `${EMOJIS.SUCCESS} Confirmed. Ward D is being prepared for a potential patient surge. Staffing has been notified.`, quickReplies: getInitialQuickReplies(currentContext) },
+                    nextState: 'main_menu'
+                };
+            case 'download_report':
+                 return {
+                    response: { text: `${EMOJIS.SUCCESS} Report downloaded. (Simulation)`, quickReplies: getInitialQuickReplies(currentContext) },
+                    nextState: 'main_menu'
+                };
             default:
                  if (lowerInput.startsWith('assign_nurse_')) {
                     const nurseId = lowerInput.replace('assign_nurse_', '');
@@ -294,5 +309,3 @@ export function HospitalChatbot() {
         </>
     );
 }
-
-    
