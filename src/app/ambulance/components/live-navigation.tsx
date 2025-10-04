@@ -9,25 +9,8 @@ import { Map, Bot, Route, AlertCircle, CheckCircle, User, Star, TrendingUp, Help
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-
-const DriverInfoCard = ({ driver }) => {
-    if (!driver) return null;
-    return (
-        <Card className="glassmorphism p-4">
-            <CardHeader className="p-0 mb-4 flex-row items-center justify-between">
-                <CardTitle className="text-white text-lg">Driver Profile</CardTitle>
-                <Button size="sm" variant="outline" asChild><a href={`tel:${driver.contact}`}><Phone/></a></Button>
-            </CardHeader>
-            <CardContent className="p-0 space-y-3">
-                <StatBar icon={User} label="Name" value={driver.name} />
-                <StatBar icon={TrendingUp} label="Experience" value={`${driver.experience} years`} />
-                <StatBar icon={Car} label="Completed Rides" value={driver.completedRides} />
-                <StatBar icon={Star} label="Rating" value={`${driver.rating}/5`} isRating />
-            </CardContent>
-        </Card>
-    );
-};
 
 const PatientVitalsCard = ({ vitals }) => {
     return (
@@ -64,6 +47,8 @@ const StatBar = ({ icon: Icon, label, value, isRating=false }) => (
 export function LiveNavigation({ dispatch, onComplete }) {
     const [eta, setEta] = useState(dispatch.etaToPatient);
     const [progress, setProgress] = useState(0);
+    const mapImage = PlaceHolderImages.find(p => p.id === `map_${dispatch.patientId || 'P3001'}`);
+
 
     useEffect(() => {
         const totalDuration = dispatch.etaToPatient * 60; // in seconds
@@ -97,9 +82,9 @@ export function LiveNavigation({ dispatch, onComplete }) {
                 <CardDescription>Navigating to: <span className="text-white font-bold">{dispatch.destination}</span> for patient <span className="text-white font-bold">{dispatch.patientName}</span></CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="relative h-96 bg-background/50 rounded-lg overflow-hidden border border-primary/20 perspective-1000">
-                     <div className="absolute inset-0 bg-grid-primary/[0.1]"/>
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                 <div className="relative h-96 bg-background/50 rounded-lg overflow-hidden border border-primary/20">
+                    {mapImage && <Image src={mapImage.imageUrl} alt={`Map for ${dispatch.patientName}`} layout="fill" objectFit="cover" className="opacity-40" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
                     <div className="absolute top-4 left-4 glassmorphism p-2 rounded-lg z-10">
                         <p className="text-sm text-muted-foreground">ETA</p>
@@ -111,50 +96,26 @@ export function LiveNavigation({ dispatch, onComplete }) {
                         <p className="text-md font-bold text-primary">Traffic moderate, stay on route</p>
                     </div>
 
-
                     <div className="absolute bottom-4 left-4 right-4 z-10">
                         <Progress value={progress} />
-                    </div>
-
-                    <div 
-                        className="absolute inset-0 flex items-center justify-center transform-style-3d"
-                        style={{ transform: 'rotateX(75deg) scale(1.5)'}}
-                    >
-                       <div className="relative w-96 h-96">
-                            {/* Road lines */}
-                            {[...Array(5)].map((_, i) => (
-                                <div
-                                    key={i}
-                                    className="absolute h-16 w-1 bg-primary/30 rounded-full"
-                                    style={{
-                                        left: '50%',
-                                        top: '50%',
-                                        transformOrigin: 'top center',
-                                        animation: `road-line-anim ${2 - i * 0.3}s linear infinite`,
-                                    }}
-                                />
-                            ))}
-
-                            {/* Destination */}
-                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-dashed border-destructive flex items-center justify-center">
-                                 <div className="w-3 h-3 bg-destructive rounded-full animate-ping"/>
-                            </div>
-
-                             {/* Ambulance */}
-                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                                <Ambulance className="w-8 h-8 text-primary" style={{filter: 'drop-shadow(0 0 10px hsl(var(--primary)))'}}/>
-                            </div>
-                       </div>
-                    </div>
-
-
-                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-primary font-bold bg-background/50 px-4 py-1 rounded-full text-sm z-10">
-                        Live 3D Tracking Simulation
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-                    <DriverInfoCard driver={dispatch.driver} />
+                    {dispatch.driver && (
+                        <Card className="glassmorphism p-4">
+                            <CardHeader className="p-0 mb-4 flex-row items-center justify-between">
+                                <CardTitle className="text-white text-lg">Driver Profile</CardTitle>
+                                <Button size="sm" variant="outline" asChild><a href={`tel:${dispatch.driver.contact}`}><Phone/></a></Button>
+                            </CardHeader>
+                            <CardContent className="p-0 space-y-3">
+                                <StatBar icon={User} label="Name" value={dispatch.driver.name} />
+                                <StatBar icon={TrendingUp} label="Experience" value={`${dispatch.driver.experience} years`} />
+                                <StatBar icon={Car} label="Completed Rides" value={dispatch.driver.completedRides} />
+                                <StatBar icon={Star} label="Rating" value={`${dispatch.driver.rating}/5`} isRating />
+                            </CardContent>
+                        </Card>
+                    )}
                     <PatientVitalsCard vitals={dispatch.patientVitals} />
                 </div>
             </CardContent>
@@ -163,18 +124,6 @@ export function LiveNavigation({ dispatch, onComplete }) {
                     <CheckCircle className="mr-2" /> Mark Trip as Complete
                 </Button>
             </CardFooter>
-            <style jsx>{`
-                @keyframes road-line-anim {
-                    from {
-                        transform: translateX(-50%) translateY(-50%) scaleY(0) scaleX(0.5);
-                        opacity: 1;
-                    }
-                    to {
-                        transform: translateX(-50%) translateY(-50%) scaleY(15) scaleX(1);
-                        opacity: 0;
-                    }
-                }
-            `}</style>
         </Card>
     );
 }

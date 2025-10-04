@@ -6,6 +6,7 @@
 
 
 
+
 export interface TriagePatient {
     patientId: string;
     name: string;
@@ -1563,9 +1564,9 @@ export const dummyCommunication = [
 ];
 
 export const dummyDispatchRequests = [
-    { id: 'DIS-001', ambulanceId: 'AMB-001', patientName: 'Rohan Mehra', patientAge: 45, patientGender: 'Male', pickupLocation: '123, MG Road, Mumbai', destination: 'City Hospital', etaToPatient: 8, condition: "Severe Chest Pain", notes: 'Patient reports severe chest pain and shortness of breath. History of hypertension.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-001')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-001')?.facilities, patientVitals: { hr: 120, bp: '160/100', spo2: 91 } },
-    { id: 'DIS-002', ambulanceId: 'AMB-002', patientName: 'Priya Sharma', patientAge: 28, patientGender: 'Female', pickupLocation: '45, Park Street, Delhi', destination: 'Green Hospital', etaToPatient: 12, condition: "Trauma Injury", notes: 'Minor road accident. Patient is conscious but has a deep laceration on the arm.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-002')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-002')?.facilities, patientVitals: { hr: 95, bp: '130/85', spo2: 97 } },
-    { id: 'DIS-003', ambulanceId: 'AMB-005', patientName: 'Vikram Singh', patientAge: 71, patientGender: 'Male', pickupLocation: '78, Jubilee Hills, Hyderabad', destination: 'Blue Hospital', etaToPatient: 5, condition: "Suspected Stroke", notes: 'Suspected stroke. Patient is showing signs of facial drooping and slurred speech. Critical.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-005')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-005')?.facilities, patientVitals: { hr: 88, bp: '170/95', spo2: 93 } },
+    { id: 'DIS-001', ambulanceId: 'AMB-001', patientId: 'P3001', patientName: 'Rohan Mehra', patientAge: 45, patientGender: 'Male', pickupLocation: '123, MG Road, Mumbai', destination: 'City Hospital', etaToPatient: 8, condition: "Severe Chest Pain", notes: 'Patient reports severe chest pain and shortness of breath. History of hypertension.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-001')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-001')?.facilities, patientVitals: { hr: 120, bp: '160/100', spo2: 91 } },
+    { id: 'DIS-002', ambulanceId: 'AMB-002', patientId: 'P3002', patientName: 'Priya Sharma', patientAge: 28, patientGender: 'Female', pickupLocation: '45, Park Street, Delhi', destination: 'Green Hospital', etaToPatient: 12, condition: "Trauma Injury", notes: 'Minor road accident. Patient is conscious but has a deep laceration on the arm.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-002')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-002')?.facilities, patientVitals: { hr: 95, bp: '130/85', spo2: 97 } },
+    { id: 'DIS-003', ambulanceId: 'AMB-005', patientId: 'P3003', patientName: 'Vikram Singh', patientAge: 71, patientGender: 'Male', pickupLocation: '78, Jubilee Hills, Hyderabad', destination: 'Blue Hospital', etaToPatient: 5, condition: "Suspected Stroke", notes: 'Suspected stroke. Patient is showing signs of facial drooping and slurred speech. Critical.', status: 'pending', driver: dummyAmbulances.find(a => a.id === 'AMB-005')?.driver, facilities: dummyAmbulances.find(a => a.id === 'AMB-005')?.facilities, patientVitals: { hr: 88, bp: '170/95', spo2: 93 } },
 ];
 
 export const dummyTripLogs = [
