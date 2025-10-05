@@ -195,5 +195,3 @@ export function LiveNavigation({ dispatch, onComplete }) {
         </Card>
     );
 }
-
-    

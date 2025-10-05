@@ -32,6 +32,12 @@
       "imageHint": "lvad schematic"
     },
     {
+      "id": "ambulance-map-view",
+      "description": "An OpenStreetMap style view of a city with a route highlighted for an ambulance.",
+      "imageUrl": "https://images.unsplash.com/photo-1599566211634-689f9e5730d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "city map route"
+    },
+    {
       "id": "map_P3001",
       "description": "Map for patient P3001",
       "imageUrl": "https://via.placeholder.com/400x300.png?text=Map+P3001",
