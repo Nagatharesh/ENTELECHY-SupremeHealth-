@@ -18,7 +18,7 @@ export function NeuraView({ hospitalData, onNavigate }) {
                     <p className="mb-6 text-muted-foreground">Click the button below to open the full-screen interactive 3D view of the hospital facilities.</p>
                     <Button size="lg" className="glowing-shadow-interactive" onClick={() => onNavigate('facilities')}>
                         <Expand className="mr-2 h-5 w-5"/>
-                        Launch 3D Campus View
+                        Launch NeuraView
                     </Button>
                 </CardContent>
             </Card>
