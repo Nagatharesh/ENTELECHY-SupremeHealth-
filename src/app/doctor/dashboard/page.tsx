@@ -38,6 +38,7 @@ import { OnlinePrescriptionHub } from '@/components/doctor/online-prescription-h
 import { MedicalCertificateHub } from '@/components/doctor/medical-certificate-hub';
 import { DoctorChatbot } from '@/components/doctor/doctor-chatbot';
 import { BioNanitesHub } from '@/components/doctor/bio-nanites-hub';
+import { GeneticsHub } from '@/components/doctor/genetics-hub';
 
 
 function DashboardContent() {
@@ -83,6 +84,8 @@ function DashboardContent() {
         return <MedicalCertificateHub />;
       case 'bio-nanites':
         return <BioNanitesHub />;
+      case 'genetics':
+        return <GeneticsHub />;
       default:
         return <DoctorProfile />;
     }
@@ -100,6 +103,7 @@ function DashboardContent() {
     { id: 'prescription', icon: Pencil, label: 'Online Prescription' },
     { id: 'medical-certificate', icon: FileText, label: 'Medical Certificate' },
     { id: 'bio-nanites', icon: Dna, label: 'Bio-nanites' },
+    { id: 'genetics', icon: Dna, label: 'Genetics' },
   ];
 
   const NavMenu = () => (
