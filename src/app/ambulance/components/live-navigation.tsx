@@ -140,7 +140,7 @@ export function LiveNavigation({ dispatch, onComplete }) {
                 <div className="flex justify-between items-center">
                     <CardTitle className="text-gradient-glow text-2xl">Live Navigation & Patient Monitoring</CardTitle>
                     <Button variant="outline" asChild>
-                        <a href="https://www.google.com/maps/@13.0637518,80.0869764,14z?entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+                        <a href="https://class-honey-37794972.figma.site/" target="_blank" rel="noopener noreferrer">
                             <Map className="mr-2"/> View Full Map
                         </a>
                     </Button>
