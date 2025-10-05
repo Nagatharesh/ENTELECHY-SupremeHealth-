@@ -83,7 +83,7 @@ export function NeedHelpHub() {
                 <CardContent className="space-y-4">
                     <p className="text-sm text-muted-foreground">The National Institute of Allergy and Infectious Diseases (NIAID) is a leading research organization. Visit their site for trusted information on infectious diseases, allergies, and immunology.</p>
                     <Button asChild variant="outline" className="w-full justify-start">
-                        <Link href="https://www.niaid.nih.gov" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://crowdfunding.milaap.org/inf-sba/?gad_source=1&gad_campaignid=22977966476&gbraid=0AAAAADgqGzlTu5GKa9u2vXSkcJr_f_3_A&gclid=Cj0KCQjwrojHBhDdARIsAJdEJ_f7DcQNvmD2TeTPFfORR_gplhl3B0i4wvhMNiTh8CN_DYdBAi6qWBcaAja6EALw_wcB" target="_blank" rel="noopener noreferrer">
                             <ExternalLink className="mr-2 h-4 w-4" />
                             Learn about NIAID (National Institute of Allergy and Infectious Diseases)
                         </Link>
