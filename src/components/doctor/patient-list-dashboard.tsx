@@ -79,7 +79,7 @@ export function PatientListDashboard() {
                             </TableHeader>
                             <TableBody>
                                 {patients.map(patient => (
-                                    <TableRow key={patient.patientId} className={cn(uiHints.highlightNextAppointment && patient.tokenNumber === 2 ? 'bg-primary/20 animate-pulse' : '')}>
+                                    <TableRow key={patient.patientId} className={cn(uiHints.highlightNextAppointment && patient.tokenNumber === 2 ? 'bg-primary/20' : '')}>
                                         {uiHints.showTokenOrder && <TableCell className="font-bold text-2xl text-primary">#{patient.tokenNumber}</TableCell>}
                                         <TableCell>
                                             <div className="flex items-center gap-3">
