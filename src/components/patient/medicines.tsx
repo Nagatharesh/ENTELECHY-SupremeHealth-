@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Patient, dummyMedicines, Medicine, dummyDoctors } from '@/lib/dummy-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -75,6 +75,9 @@ export function Medicines({ patient }: { patient: Patient }) {
             title: "Medicine Booked!",
             description: `${selectedMedicine.name} (${quantity}) will be delivered in ~${eta} minutes.`,
         });
+        
+        // Open the external links dialog after booking
+        setShowExternalLinksDialog(true);
     };
 
     const openPrivateLinks = () => {
@@ -91,10 +94,6 @@ export function Medicines({ patient }: { patient: Patient }) {
                             <CardTitle className="text-gradient-glow text-2xl">Medicine Hub</CardTitle>
                             <CardDescription>Search for medicines, compare prices, and book for delivery.</CardDescription>
                         </div>
-                        <Button variant="outline" onClick={() => setShowExternalLinksDialog(true)}>
-                            <LinkIcon className="mr-2 h-4 w-4" />
-                            Show External Links
-                        </Button>
                     </div>
                 </CardHeader>
                 <CardContent>
@@ -287,5 +286,3 @@ const InfoRow = ({ icon: Icon, label, value, isPrimary=false }) => (
         <p className={cn("font-semibold font-mono", isPrimary ? "text-primary text-base" : "text-white")}>{value}</p>
     </div>
 )
-
-    
