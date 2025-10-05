@@ -11,7 +11,7 @@ import { TripLogger } from './trip-logger';
 import { CommunicationHub } from './communication-hub';
 import { PreTripChecklist } from './pre-trip-checklist';
 import { Button } from '@/components/ui/button';
-import { LogOut, Siren } from 'lucide-react';
+import { LogOut, Siren, Map } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
@@ -34,6 +34,12 @@ export function AmbulanceDashboard() {
         if (!ambulanceId) return null;
         return dummyDispatchRequests.find(d => d.ambulanceId === ambulanceId && d.status === 'pending');
     }, [ambulanceId]);
+
+    useEffect(() => {
+        toast({
+            title: "Ambulance booked!",
+        });
+    }, [toast]);
 
     useEffect(() => {
         const foundAmbulance = dummyAmbulances.find(a => a.id === ambulanceId);
@@ -153,6 +159,11 @@ export function AmbulanceDashboard() {
                 </div>
                  <div className="flex items-center gap-4">
                     {currentDispatch && <Badge variant="secondary" className="text-lg">ETA: {Math.ceil(eta)} min</Badge>}
+                    <Button asChild variant="outline">
+                        <Link href="https://read-metal-09717837.figma.site" target="_blank" rel="noopener noreferrer">
+                            <Map className="mr-2"/> Map View
+                        </Link>
+                    </Button>
                     <Button variant="destructive" className="glowing-shadow-interactive" onClick={handlePanic}><Siren className="mr-2"/>PANIC</Button>
                     <Button variant="outline" onClick={() => router.push('/login?role=ambulance')}><LogOut className="mr-2"/>Logout</Button>
                 </div>
