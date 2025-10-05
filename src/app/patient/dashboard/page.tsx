@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, Ambulance, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield, ClipboardList } from 'lucide-react';
+import { User, Bell, PanelLeft, Ambulance, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield, ClipboardList, BrainCircuit } from 'lucide-react';
 import { dummyPatients, Patient } from '@/lib/dummy-data';
 import { PatientProfile } from '@/components/patient/patient-profile';
 import { MedicalRecords } from '@/components/patient/medical-records';
@@ -39,6 +39,7 @@ import { SmartDevices } from '@/components/patient/smart-devices';
 import { Smartphone } from 'lucide-react';
 import { Prescriptions } from '@/components/patient/prescriptions';
 import { PatientChatbot } from '@/components/patient/chatbot';
+import { HologramTrainer } from '@/components/patient/hologram-trainer';
 
 
 function DashboardContent() {
@@ -95,6 +96,8 @@ function DashboardContent() {
         return <Insurance patient={patient} />;
       case 'smart-devices':
         return <SmartDevices />;
+      case 'hologram-trainer':
+        return <HologramTrainer />;
       default:
         return <PatientProfile patient={patient} />;
     }
@@ -112,6 +115,7 @@ function DashboardContent() {
     { id: 'meds', icon: Pill, label: 'Medicines' },
     { id: 'insurance', icon: Shield, label: 'Insurance' },
     { id: 'smart-devices', icon: Smartphone, label: 'Smart Devices' },
+    { id: 'hologram-trainer', icon: BrainCircuit, label: 'Hologram Trainer' },
   ];
 
   const NavMenu = ({isSheet = false}: {isSheet?: boolean}) => (
