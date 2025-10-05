@@ -255,8 +255,10 @@ const AppointmentCard = ({ appointment, isPast = false, onInteraction }) => {
             </div>
             <Progress value={appointment.patientsAhead / (appointment.patientsAhead + appointment.token) * 100} className="h-2" />
             <div className="flex gap-2">
-                <Button size="sm" variant="outline" className="w-full relative overflow-hidden aura-breathing" onClick={() => onInteraction('chat', appointment)}>
+                <Button size="sm" variant="outline" className="w-full relative overflow-hidden aura-breathing" asChild>
+                  <Link href="https://web.whatsapp.com/" target="_blank" rel="noopener noreferrer">
                     <MessageSquare className="w-4 h-4 mr-2"/>Chat
+                  </Link>
                 </Button>
                 <Button size="sm" variant="outline" className="w-full relative overflow-hidden animate-ripple" onClick={() => onInteraction('video', appointment)}>
                     <Video className="w-4 h-4 mr-2"/>Video Call
