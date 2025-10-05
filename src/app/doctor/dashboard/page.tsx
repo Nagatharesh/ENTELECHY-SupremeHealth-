@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse, List, Pencil, FileText } from 'lucide-react';
+import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse, List, Pencil, FileText, DollarSign } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -39,6 +39,7 @@ import { MedicalCertificateHub } from '@/components/doctor/medical-certificate-h
 import { DoctorChatbot } from '@/components/doctor/doctor-chatbot';
 import { BioNanitesHub } from '@/components/doctor/bio-nanites-hub';
 import { GeneticsHub } from '@/components/doctor/genetics-hub';
+import { FundingHub } from '@/components/doctor/funding-hub';
 
 
 function DashboardContent() {
@@ -86,6 +87,8 @@ function DashboardContent() {
         return <BioNanitesHub />;
       case 'genetics':
         return <GeneticsHub />;
+      case 'funding':
+        return <FundingHub />;
       default:
         return <DoctorProfile />;
     }
@@ -104,6 +107,7 @@ function DashboardContent() {
     { id: 'medical-certificate', icon: FileText, label: 'Medical Certificate' },
     { id: 'bio-nanites', icon: Dna, label: 'Bio-nanites' },
     { id: 'genetics', icon: Dna, label: 'Genetics' },
+    { id: 'funding', icon: DollarSign, label: 'Funding' },
   ];
 
   const NavMenu = () => (
