@@ -5,13 +5,14 @@ import { useState, useEffect, useMemo } from 'react';
 import { dummyAmbulances, Patient, dummyHospitals } from '@/lib/dummy-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Ambulance, Phone, Car, Clock, MapPin, XCircle, Bot, ShieldPlus, HeartPulse, Brain, ArrowRight, User, Star, TrendingUp, HelpCircle } from 'lucide-react';
+import { Ambulance, Phone, Car, Clock, MapPin, XCircle, Bot, ShieldPlus, HeartPulse, Brain, ArrowRight, User, Star, TrendingUp, HelpCircle, Map } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { Progress } from '@/components/ui/progress';
+import Link from 'next/link';
 
 const AmbulanceCard = ({ ambulance, onSelect, patientCoords }) => {
     const distance = useMemo(() => {
@@ -171,10 +172,16 @@ const TrackingView = ({ booking, onCancel }) => {
                     <FacilityStatusCard ambulance={booking.ambulance} oxygenLevel={oxygenLevel} />
                 </div>
                 
-                <div className="mt-6 flex justify-center">
-                    <Button variant="destructive" onClick={onCancel} className="w-full max-w-xs">
+                <div className="mt-6 flex justify-center gap-4">
+                    <Button variant="destructive" onClick={onCancel} className="flex-1 max-w-xs">
                         <XCircle className="mr-2"/>
                         Cancel Booking
+                    </Button>
+                    <Button asChild variant="secondary" className="flex-1 max-w-xs glowing-shadow-interactive">
+                        <Link href="https://stone-flight-68945608.figma.site" target="_blank" rel="noopener noreferrer">
+                            <Map className="mr-2"/>
+                            View Map
+                        </Link>
                     </Button>
                 </div>
             </CardContent>
@@ -424,3 +431,5 @@ const AmbulanceTypeCard = ({ icon: Icon, type, selected, onSelect }) => {
         </Card>
     )
 }
+
+    
