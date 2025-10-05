@@ -9,9 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { dummyStrokePatients, StrokePatient } from '@/lib/dummy-data';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Zap, Activity, Heart, Brain, Shield, Info, X, Search, Bot, FileText, User, BarChart, GitBranch, Pill, Hospital, BrainCircuit, Siren, Droplet, Wind, Thermometer } from 'lucide-react';
+import { Zap, Activity, Heart, Brain, Shield, Info, X, Search, Bot, FileText, User, BarChart, GitBranch, Pill, Hospital, BrainCircuit, Siren, Droplet, Wind, Thermometer, ExternalLink } from 'lucide-react';
 import { LineChart, ResponsiveContainer, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Alert, AlertTitle } from '@/components/ui/alert';
+import Link from 'next/link';
 
 const ChartTooltipContent = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -63,19 +64,27 @@ export function StrokePredictionHub() {
                             <CardTitle className="text-gradient-glow text-2xl flex items-center gap-2"><BrainCircuit/>ASI Stroke Prediction Hub</CardTitle>
                             <CardDescription>Real-time stroke prediction up to 6 hours in advance.</CardDescription>
                         </div>
-                        <div className="w-1/3">
-                             <Select value={selectedPatientId} onValueChange={setSelectedPatientId}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select Patient..." />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {dummyStrokePatients.map(p => (
-                                        <SelectItem key={p.id} value={p.id}>
-                                            {p.name} ({p.id}) - {p.surgery}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
+                        <div className="flex items-center gap-4">
+                            <Button asChild>
+                               <Link href="https://stick-luxury-44942713.figma.site" target="_blank" rel="noopener noreferrer">
+                                    <ExternalLink className="mr-2 h-4 w-4" />
+                                    Stroke View
+                                </Link>
+                            </Button>
+                            <div className="w-64">
+                                 <Select value={selectedPatientId} onValueChange={setSelectedPatientId}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select Patient..." />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {dummyStrokePatients.map(p => (
+                                            <SelectItem key={p.id} value={p.id}>
+                                                {p.name} ({p.id}) - {p.surgery}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
                         </div>
                     </div>
                 </CardHeader>
