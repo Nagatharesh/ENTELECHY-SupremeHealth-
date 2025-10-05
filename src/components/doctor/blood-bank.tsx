@@ -5,7 +5,7 @@ import { useState, useMemo } from 'react';
 import { dummyDonors, Donor, dummyHospitals, Hospital, dummyDonations } from '@/lib/dummy-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Droplets, HospitalIcon, TrendingUp, Search, User, Phone, MapPin, Calendar, PlusCircle, History } from 'lucide-react';
+import { Droplets, HospitalIcon, TrendingUp, Search, User, Phone, MapPin, Calendar, PlusCircle, History, ExternalLink } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from '../ui/badge';
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
@@ -16,6 +16,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { format, formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
 
 const BLOOD_TYPES = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const COLORS = ["hsl(var(--chart-1))", "hsl(var(--chart-2))", "hsl(var(--chart-3))", "hsl(var(--chart-4))", "hsl(var(--chart-5))", "hsl(var(--primary))", "hsl(var(--secondary))", "hsl(var(--accent))"];
@@ -128,8 +129,18 @@ const DashboardTab = () => {
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow">
                 <CardHeader>
-                    <CardTitle className="text-gradient-glow text-2xl">Blood Bank Dashboard</CardTitle>
-                    <CardDescription>Analytics on donors, donations, and inventory.</CardDescription>
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <CardTitle className="text-gradient-glow text-2xl">Blood Bank Dashboard</CardTitle>
+                            <CardDescription>Analytics on donors, donations, and inventory.</CardDescription>
+                        </div>
+                        <Button asChild>
+                           <Link href="https://eraktkosh.mohfw.gov.in/eraktkoshPortal/#/" target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="mr-2 h-4 w-4" />
+                                Emergency Blood Donor Details
+                            </Link>
+                        </Button>
+                    </div>
                 </CardHeader>
             </Card>
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
