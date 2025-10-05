@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { MapPin, Phone, Users, UserCheck, Clock, Star, MessageSquare, Video, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Appointments, BookingWizard } from './appointments'; 
+import Link from 'next/link';
 
 const center = { lat: 12.9141, lng: 74.8560 }; // St. Joseph Engineering College
 
@@ -67,8 +68,17 @@ export function DoctorsHub({ patient }: { patient: Patient }) {
         <div className="space-y-6">
             <Card className="glassmorphism glowing-shadow relative h-[70vh] overflow-hidden perspective-1000">
                 <CardHeader>
-                    <CardTitle className="text-gradient-glow">Find a Doctor</CardTitle>
-                    <CardDescription>Nearby hospitals and doctors at your fingertips.</CardDescription>
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <CardTitle className="text-gradient-glow">Find a Doctor</CardTitle>
+                            <CardDescription>Nearby hospitals and doctors at your fingertips.</CardDescription>
+                        </div>
+                        <Button asChild className="glowing-shadow-interactive">
+                            <Link href="https://www.practo.com/chennai/doctors" target="_blank" rel="noopener noreferrer">
+                                Book Your Favourite Doctor
+                            </Link>
+                        </Button>
+                    </div>
                 </CardHeader>
                 <CardContent className="relative flex items-center justify-center h-full transform-style-3d">
                     {/* Map Background */}
@@ -205,3 +215,5 @@ const DoctorCard = ({ doctor, onBookClick }) => {
         </Card>
     );
 }
+
+    
