@@ -62,7 +62,7 @@ function DashboardContent() {
       case 'facilities':
         return <FacilitiesManagement hospitalData={hospitalData} />;
       case 'neuraview':
-        return <NeuraView hospitalData={hospitalData} />;
+        return <NeuraView hospitalData={hospitalData} onNavigate={setActiveView} />;
       case 'staff':
         return <StaffManagement hospitalData={hospitalData} />;
        case 'scheduling':
@@ -120,6 +120,15 @@ function DashboardContent() {
         </Sidebar>
     </SidebarProvider>
   )
+  
+  if (activeView === 'facilities') {
+    return (
+       <div className="w-full h-screen">
+          <FacilitiesManagement hospitalData={hospitalData} />
+          <Button onClick={() => setActiveView('overview')} className="absolute top-4 left-4 z-20">Back to Dashboard</Button>
+       </div>
+    );
+  }
 
   return (
     
