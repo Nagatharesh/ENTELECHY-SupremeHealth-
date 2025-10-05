@@ -15,6 +15,7 @@ import { addDays, format, isSameDay } from 'date-fns';
 import { useToast } from "@/hooks/use-toast";
 import Image from 'next/image';
 import { Progress } from "../ui/progress";
+import Link from 'next/link';
 
 
 const getDoctorById = (doctorId: string) => dummyDoctors.find(d => d.doctorId === doctorId);
@@ -49,7 +50,10 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
     <div className="space-y-6">
         <div className="flex justify-between items-center">
             <h2 className="text-3xl font-bold text-gradient-glow">Appointments</h2>
-            {showBookingButton && <BookingDialog onBook={handleNewAppointment} patientId={patient.patientId} />}
+            <div className="flex gap-2">
+              {showBookingButton && <BookingDialog onBook={handleNewAppointment} patientId={patient.patientId} />}
+              <VisitedHospitalDialog />
+            </div>
         </div>
         
         <Card className="glassmorphism glowing-shadow">
@@ -104,6 +108,31 @@ export function Appointments({ patient, showBookingButton = true }: { patient: P
     </div>
   );
 }
+
+const VisitedHospitalDialog = () => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button variant="outline">Visited Hospital</Button>
+    </DialogTrigger>
+    <DialogContent className="glassmorphism">
+      <DialogHeader>
+        <DialogTitle className="text-gradient-glow">Select a Hospital</DialogTitle>
+      </DialogHeader>
+      <div className="flex flex-col gap-4 py-4">
+        <Button asChild variant="outline" className="justify-start">
+          <Link href="https://www.practo.com/chennai/hospital/sims-hospital-vadapalani-4/doctors?utm_source=google&utm_medium=reserve_with_google&utm_campaign=establishment_feed&hl=en-IN&gei=fkniaNOfOZaG4-EPvtvMiAI&rwg_token=ACgRB3c0FKrI5QEW8iz9KrWQshQoIkL58ryQyY7uI389ZoM0QKN6blX4hK4WtfnMDorH9TaadWdkZno2Lbum9FRnVhy_yAp4NQ%3D%3D" target="_blank" rel="noopener noreferrer">
+            Sims Hospital
+          </Link>
+        </Button>
+        <Button asChild variant="outline" className="justify-start">
+          <Link href="https://www.apollohospitals.com/campaigns/chennai/consultleads-v2/?utm_source=paid_sitelink&utm_medium=cpc&utm_campaign=20761217977&utm_adgroup=157733109486&utm_match_type=e&network=g&ad=691394364139&utm_device=c&utm_keyword=apollo&utm_gclid=Cj0KCQjwrojHBhDdARIsAJdEJ_ehmpucYWaLT9ZbHQuPkYwpTXOrRFHQVsr1f1EsiaYcaEUd8PNkJCYaAiBzEALw_wcB&gad_source=1&gad_campaignid=20761217977&gbraid=0AAAAACp3XpK25BZsqFprxYspeLE82uKaH&gclid=Cj0KCQjwrojHBhDdARIsAJdEJ_ehmpucYWaLT9ZbHQuPkYwpTXOrRFHQVsr1f1EsiaYcaEUd8PNkJCYaAiBzEALw_wcB" target="_blank" rel="noopener noreferrer">
+            Apollo Hospital
+          </Link>
+        </Button>
+      </div>
+    </DialogContent>
+  </Dialog>
+);
 
 const InteractionDialog = ({ activeInteraction, onClose }) => {
     if (!activeInteraction) return null;
