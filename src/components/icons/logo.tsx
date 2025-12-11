@@ -71,3 +71,5 @@ export function Logo({ className, animated = false, ...props }: LogoProps) {
     </div>
   );
 }
+
+    
