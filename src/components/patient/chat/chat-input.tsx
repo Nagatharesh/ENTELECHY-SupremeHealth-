@@ -26,10 +26,11 @@ export function ChatInput({ onSendMessage, isTyping }: { onSendMessage: (text: s
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                    suppressHydrationWarning
                 />
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
                     <Button variant="ghost" size="icon" disabled><Paperclip /></Button>
-                    <Button size="sm" className="glowing-shadow-interactive" onClick={handleSend}><Send /></Button>
+                    <Button size="sm" className="glowing-shadow-interactive" onClick={handleSend} suppressHydrationWarning><Send /></Button>
                 </div>
             </div>
         </div>

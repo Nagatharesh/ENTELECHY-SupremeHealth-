@@ -67,7 +67,7 @@ export function ChatDetails({ chat }: { chat: Chat }) {
                         ))}
                     </div>
                     <Textarea placeholder="Optional: Add a comment..." value={ratingComment} onChange={(e) => setRatingComment(e.target.value)} />
-                    <Button className="w-full" onClick={handleRatingSubmit}>Submit Rating</Button>
+                    <Button className="w-full" onClick={handleRatingSubmit} suppressHydrationWarning>Submit Rating</Button>
                 </CardContent>
             </Card>
 
@@ -78,13 +78,13 @@ export function ChatDetails({ chat }: { chat: Chat }) {
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <Select value={complaintCategory} onValueChange={setComplaintCategory}>
-                        <SelectTrigger><SelectValue placeholder="Select complaint category..." /></SelectTrigger>
+                        <SelectTrigger suppressHydrationWarning><SelectValue placeholder="Select complaint category..." /></SelectTrigger>
                         <SelectContent>
                             {complaintCategories.map(cat => <SelectItem key={cat} value={cat}>{cat}</SelectItem>)}
                         </SelectContent>
                     </Select>
                     <Textarea placeholder="Please describe the issue in detail..." value={complaintText} onChange={(e) => setComplaintText(e.target.value)} />
-                    <Button variant="destructive" className="w-full" onClick={handleComplaintSubmit}>Submit Complaint</Button>
+                    <Button variant="destructive" className="w-full" onClick={handleComplaintSubmit} suppressHydrationWarning>Submit Complaint</Button>
                 </CardContent>
             </Card>
         </div>

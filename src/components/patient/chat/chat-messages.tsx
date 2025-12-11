@@ -82,8 +82,8 @@ export function ChatMessages({ chat, patientId, messages: initialMessages }: { c
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon" className="glowing-shadow-interactive"><Phone /></Button>
-                    <Button variant="ghost" size="icon" className="glowing-shadow-interactive animate-ripple"><Video /></Button>
+                    <Button variant="ghost" size="icon" className="glowing-shadow-interactive" suppressHydrationWarning><Phone /></Button>
+                    <Button variant="ghost" size="icon" className="glowing-shadow-interactive animate-ripple" suppressHydrationWarning><Video /></Button>
                 </div>
             </div>
 
