@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { Suspense, useState, useEffect } from 'react';
@@ -8,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, Ambulance, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield, ClipboardList, BrainCircuit, HelpCircle } from 'lucide-react';
+import { User, Bell, PanelLeft, Ambulance, HeartPulse, FileText, Calendar, Stethoscope, Microscope, Pill, Shield, ClipboardList, BrainCircuit, HelpCircle, MessageCircle } from 'lucide-react';
 import { dummyPatients, Patient } from '@/lib/dummy-data';
 import { PatientProfile } from '@/components/patient/patient-profile';
 import { MedicalRecords } from '@/components/patient/medical-records';
@@ -83,6 +82,10 @@ function DashboardContent() {
         return <Appointments patient={patient} />;
       case 'vitals':
         return <VitalsAndPredictions patient={patient} />;
+      case 'chat':
+        // Navigate to the chat page
+        window.location.href = `/patient/dashboard/chat?id=${patient.patientId}`;
+        return null;
       case 'ambulance':
         return <AmbulanceBooking patient={patient} />;
       case 'doctors':
@@ -111,6 +114,7 @@ function DashboardContent() {
     { id: 'records', icon: FileText, label: 'Records' },
     { id: 'appointments', icon: Calendar, label: 'Appointments' },
     { id: 'vitals', icon: HeartPulse, label: 'Vitals' },
+    { id: 'chat', icon: MessageCircle, label: 'Chat' },
     { id: 'ambulance', icon: Ambulance, label: 'Ambulance' },
     { id: 'doctors', icon: Stethoscope, label: 'Doctors' },
     { id: 'diagnostics', icon: Microscope, label: 'Diagnostics' },
