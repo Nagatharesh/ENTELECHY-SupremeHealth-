@@ -107,6 +107,13 @@ const HospitalTracker = () => {
     )
 };
 
+const ConnectivityIndicator = ({ title, value, Icon }) => (
+    <div className="flex items-center justify-between text-sm glassmorphism p-2 rounded-lg">
+        <span className="text-muted-foreground flex items-center gap-2"><Icon className="w-4 h-4 text-primary" />{title}</span>
+        <span className="font-semibold text-white">{value}</span>
+    </div>
+);
+
 
 export function AmbulanceDashboard() {
     const searchParams = useSearchParams();
