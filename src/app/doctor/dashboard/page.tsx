@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse, List, Pencil, FileText, DollarSign } from 'lucide-react';
+import { User, Bell, PanelLeft, MessageSquare, Droplets, Dna, Search, BrainCircuit, HeartPulse, List, Pencil, FileText, DollarSign, FlaskConical } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -40,6 +40,7 @@ import { DoctorChatbot } from '@/components/doctor/doctor-chatbot';
 import { BioNanitesHub } from '@/components/doctor/bio-nanites-hub';
 import { GeneticsHub } from '@/components/doctor/genetics-hub';
 import { FundingHub } from '@/components/doctor/funding-hub';
+import { DrugTestsHub } from '@/components/doctor/drug-tests-hub';
 
 
 function DashboardContent() {
@@ -89,6 +90,8 @@ function DashboardContent() {
         return <GeneticsHub />;
       case 'funding':
         return <FundingHub />;
+      case 'drug-tests':
+        return <DrugTestsHub />;
       default:
         return <DoctorProfile />;
     }
@@ -108,6 +111,7 @@ function DashboardContent() {
     { id: 'bio-nanites', icon: Dna, label: 'Bio-nanites' },
     { id: 'genetics', icon: Dna, label: 'Genetics' },
     { id: 'funding', icon: DollarSign, label: 'Funding' },
+    { id: 'drug-tests', icon: FlaskConical, label: 'Drug Tests' },
   ];
 
   const NavMenu = () => (
