@@ -47,14 +47,6 @@ const ReadinessIndicator = ({ title, value, Icon }) => (
     </div>
 );
 
-const ConnectivityIndicator = ({ title, value, Icon }) => (
-     <div className="glassmorphism p-3 rounded-lg text-center">
-        <Icon className="w-6 h-6 text-primary mx-auto mb-2" />
-        <p className="text-sm font-semibold text-white">{value}</p>
-        <p className="text-xs text-muted-foreground">{title}</p>
-    </div>
-);
-
 const BookingTypeSelector = () => (
     <Card className="glassmorphism glowing-shadow">
         <CardHeader>
@@ -211,10 +203,11 @@ export function AmbulanceDashboard() {
                         <CardHeader>
                             <CardTitle className="text-white">Crew & Response</CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-3">
+                        <CardContent className="grid grid-cols-2 gap-4">
                             <ConnectivityIndicator title="Driver" value="Available" Icon={UserCheck} />
                             <ConnectivityIndicator title="Paramedic" value="Available" Icon={UserCheck} />
                              <ConnectivityIndicator title="Emergency Mode" value="Standby" Icon={Shield} />
+                             <ConnectivityIndicator title="Network" value="Strong" Icon={Wifi} />
                         </CardContent>
                     </Card>
                 </div>
@@ -250,5 +243,7 @@ export function AmbulanceDashboard() {
         </div>
     );
 }
+
+    
 
     
