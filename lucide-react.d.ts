@@ -4,7 +4,7 @@ import React from 'react';
 
 // Assuming you have a way to get the list of icon names.
 // This could be from a file, a script that generates this file, etc.
-type IconName = "User" | "Bell" | "PanelLeft" | "MessageSquare" | "Droplets" | "X" | "Search" | "BrainCircuit" | "HeartPulse" | "Map" | "Dna" | "Award" | "Briefcase" | "Star" | "TrendingUp" | "UserCheck" | "Users" | "CheckCircle" | "Bot" | "Paperclip" | "Send" | "Video" | "Phone" | "List" | "Pencil" | "Loader2" | "Building" | "FlaskConical" | "BarChart3" | "AlertTriangle" | "BedDouble" | "DollarSign" | "Calendar" | "ExternalLink" | "HelpCircle" | "Siren" | "LogOut" | "MessageCircle" | "Activity";
+type IconName = "User" | "Bell" | "PanelLeft" | "MessageSquare" | "Droplets" | "X" | "Search" | "BrainCircuit" | "HeartPulse" | "Map" | "Dna" | "Award" | "Briefcase" | "Star" | "TrendingUp" | "UserCheck" | "Users" | "CheckCircle" | "Bot" | "Paperclip" | "Send" | "Video" | "Phone" | "List" | "Pencil" | "Loader2" | "Building" | "FlaskConical" | "BarChart3" | "AlertTriangle" | "BedDouble" | "DollarSign" | "Calendar" | "ExternalLink" | "HelpCircle" | "Siren" | "LogOut" | "MessageCircle" | "Activity" | "Cpu";
 
 // This creates a type for the dynamic component.
 type Icon = React.FC<LucideProps>;
@@ -50,6 +50,7 @@ declare module "lucide-react" {
   export const LogOut: Icon;
   export const MessageCircle: Icon;
   export const Activity: Icon;
+  export const Cpu: Icon;
 
   // Add all other icons you use here...
   // You can script this part to avoid manual work.

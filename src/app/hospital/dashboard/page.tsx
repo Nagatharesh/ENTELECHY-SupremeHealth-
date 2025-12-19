@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Logo } from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
-import { User, Bell, PanelLeft, Building, Users, FlaskConical, AlertTriangle, BarChart3, BedDouble, DollarSign, Calendar, BrainCircuit } from 'lucide-react';
+import { User, Bell, PanelLeft, Building, Users, FlaskConical, AlertTriangle, BarChart3, BedDouble, DollarSign, Calendar, BrainCircuit, Cpu } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -35,6 +35,7 @@ import { NeuraView } from '@/components/hospital/neuraview';
 import { ReportsAndAnalytics } from '@/components/hospital/reports-and-analytics';
 import { StaffScheduling } from '@/components/hospital/staff-scheduling';
 import { HospitalChatbot } from '@/components/hospital/hospital-chatbot';
+import { AICommandCenter } from '@/components/hospital/ai-command-center';
 
 function DashboardContent() {
   const searchParams = useSearchParams();
@@ -59,6 +60,8 @@ function DashboardContent() {
     switch(activeView) {
       case 'overview':
         return <HospitalOverview hospitalData={hospitalData} />;
+      case 'ai-command-center':
+        return <AICommandCenter />;
       case 'facilities':
         return <FacilitiesManagement hospitalData={hospitalData} />;
       case 'neuraview':
@@ -80,6 +83,7 @@ function DashboardContent() {
 
   const navItems = [
     { id: 'overview', icon: BarChart3, label: 'Overview' },
+    { id: 'ai-command-center', icon: Cpu, label: 'AI Command Center' },
     { id: 'facilities', icon: Building, label: 'Facilities' },
     { id: 'neuraview', icon: BrainCircuit, label: 'NeuraView' },
     { id: 'staff', icon: Users, label: 'Staff Management' },
