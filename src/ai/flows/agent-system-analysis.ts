@@ -48,7 +48,13 @@ export async function analyzeSystem(input: SystemAnalysisInput): Promise<SystemA
 // Define the prompt for the AI model
 const prompt = ai.definePrompt({
   name: 'systemAnalysisPrompt',
-  input: { schema: z.object({ analysisData: z.any() }) },
+  input: { schema: z.object({ 
+    livePatientCount: z.number(),
+    bedOccupancyRate: z.number(),
+    activeAlerts: z.number(),
+    staffMembers: z.string(),
+    facilities: z.string(),
+  }) },
   output: { schema: SystemAnalysisOutputSchema },
   prompt: `You are an AI Operating System's core analysis agent for SupremeHealth.
   Analyze the provided real-time hospital data snapshot.
@@ -57,11 +63,11 @@ const prompt = ai.definePrompt({
   Simulate system resource usage based on the current workload.
 
   Hospital Data:
-  - Live Patient Count: {{{analysisData.analytics.livePatientCount}}}
-  - Bed Occupancy: {{{analysisData.analytics.bedOccupancyRate}}}%
-  - Active Alerts: {{{analysisData.analytics.activeAlerts}}}
-  - Staff Stress Levels: {{{JSON.stringify analysisData.staff.members}}}
-  - Facility Status: {{{JSON.stringify analysisData.hospitalInfo.facilities}}}
+  - Live Patient Count: {{{livePatientCount}}}
+  - Bed Occupancy: {{{bedOccupancyRate}}}%
+  - Active Alerts: {{{activeAlerts}}}
+  - Staff Stress Levels: {{{staffMembers}}}
+  - Facility Status: {{{facilities}}}
 
   Generate a response that includes agent statuses, simulated resource usage, a task queue, and actionable recommendations.
   For example, if staff stress is high, recommend re-allocating resources. If bed occupancy is high, prioritize patient discharge workflows.
@@ -81,7 +87,13 @@ const systemAnalysisFlow = ai.defineFlow(
     const analysisData = dummyHospitalData;
 
     // Call the AI model with the data
-    const { output } = await prompt({ analysisData });
+    const { output } = await prompt({ 
+        livePatientCount: analysisData.analytics.livePatientCount,
+        bedOccupancyRate: analysisData.analytics.bedOccupancyRate,
+        activeAlerts: analysisData.analytics.activeAlerts,
+        staffMembers: JSON.stringify(analysisData.staff.members),
+        facilities: JSON.stringify(analysisData.hospitalInfo.facilities),
+     });
     return output!;
   }
 );
